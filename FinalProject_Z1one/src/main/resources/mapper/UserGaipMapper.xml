@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="boot.data.mapper.UserGaipMapperInter">
+     <select id="getTotalCount" resultType="ugaipdto">
+        select count(*) from usergaip
+     </select>
+     <insert id="insertUserMember" parameterType="ugaipdto">
+        insert into usergaip (user_email,user_pass,user_gaipday) values(#{user_email},#{user_pass},now())
+     </insert>
+     <select id="getSearchUserId" parameterType="String" resultType="int">
+        select count(*) from usergaip where user_email=#{user_email}
+     </select>
+     <select id="getDataById" parameterType="String" resultType="ugaipdto">
+          select * from usergaip where user_email=#{user_email}
+    </select>
+     <select id="loginPassCheck" parameterType="Map" resultType="int">
+        select count(*) from usergaip where user_email=#{user_email} and user_pass=#{user_pass}
+     </select>
+  </mapper>

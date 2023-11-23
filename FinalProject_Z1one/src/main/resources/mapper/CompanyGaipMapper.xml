@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="boot.data.mapper.CompanyGaipMapperInter">
+     <select id="getTotalCount" resultType="CompanyGaipDto">
+        select count(*) from companygaip
+     </select>
+     <insert id="insertCompanyMember" parameterType="CompanyGaipDto">
+        insert into companygaip (company_Email,company_Pass,company_Name,company_Primary,company_Secondary,company_Reginum,company_Manager,company_Hp,company_Logo,company_Type,company_Gaipday) 
+        values(#{company_Email},#{company_Pass},#{company_Name},#{company_Primary},#{company_Secondary},#{company_Reginum},#{company_Manager},#{company_Hp},#{company_Logo},#{company_Type},now())
+     </insert>
+     <select id="getSearchCompanyId" parameterType="String" resultType="int">
+        select count(*) from companygaip where company_Email=#{company_Email}
+     </select>
+     <select id="getDataById" parameterType="String" resultType="CompanyGaipDto">
+          select * from companygaip where company_Email=#{company_Email}
+    </select>    
+     <select id="loginPassCheck" parameterType="Map" resultType="int">
+        select count(*) from companygaip where company_email=#{company_email} and company_pass=#{company_pass}
+     </select>
+  </mapper>

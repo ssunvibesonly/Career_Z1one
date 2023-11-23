@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boot.data.mapper.RecruitMapperInter">
+	<select id="getAllRecruitCourse" resultType="recruitdto" parameterType="Map">
+		select * from recruit where c_code=#{c_code} and r_title=#{r_title} order by r_step
+	</select>
+	<select id="getAllApplier" resultType="applydto">
+		select * from apply order by a_idx desc
+	</select>
+	<insert id="insertRecruitCourse" parameterType="recruitdto">
+		insert into recruit values(null,#{c_code},#{r_title},#{r_level},#{r_step})
+	</insert>
+	<select id="getCompanyNameByCode" resultType="String" parameterType="int">
+		select company_name from companygaip where company_num=#{c_code}
+	</select>
+	<select id="getMaxStepOfCourse" resultType="int" parameterType="Map">
+		select ifnull(max(r_step),0) from recruit where c_code=#{c_code} and r_title=#{r_title}
+	</select>
+	<update id="updateRecruitCourse" parameterType="recruitdto">
+		update recruit set r_level=#{r_level} where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
+	</update>
+	<delete id="deleteRecruitCourse" parameterType="recruitdto">
+		delete from recruit where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
+	</delete>
+	<select id="getNumByIdx" resultType="int" parameterType="int">
+		select r_num from apply where a_idx=#{a_idx}
+	</select>
+	<select id="getStepCourseByNum" resultType="recruitdto" parameterType="int">
+		select * from recruit where r_num=#{r_num}
+	</select>
+	<select id="getNumOfStep" resultType="int" parameterType="recruitdto">
+		select r_num from recruit where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
+	</select>
+	<update id="passThisStep" parameterType="Map">
+		update apply set 
+		<if test="r_num!=-1">r_num=#{r_num} </if>
+		<if test="r_num==-1">finalpass=50 </if>
+		where a_idx=#{a_idx}
+	</update>
+	<delete id="failCourse" parameterType="int">
+		delete from apply where a_idx=#{a_idx}
+	</delete>
+	<update id="failRecord" parameterType="int">
+		update apply set finalpass=20 where a_idx=#{a_idx}
+	</update>
+	<select id="getCompanyPass" resultType="String" parameterType="int">
+		select company_pass from companygaip where company_num=#{c_code}
+	</select>
+	<select id="getAllFinalPass" resultType="applydto" parameterType="int">
+		select * from apply where finalpass=50 and r_num=#{r_num}
+	</select>
+	<!-- 상세정보용 -->
+	<select id="getEmail" resultType="String" parameterType="int">
+		select user_email from usergaip where user_num=#{user_num}
+	</select>
+	<select id="getEducation" resultType="User_EducationDto" parameterType="int">
+		select * from user_education where user_num=#{user_num}
+	</select>
+	<select id="getCareer" resultType="User_CareerDto" parameterType="int">
+		select * from user_career where user_num=#{user_num}
+	</select>
+	<select id="getApplyInfo" resultType="User_ApplyDto" parameterType="int">
+		select * from user_apply where user_num=#{user_num}
+	</select>
+	<!-- 리스트 -->
+	<select id="getAllTitles" resultType="titledto" parameterType="int">
+		select r_num,r_title,deadlineday,
+		abs(timestampdiff(day,deadlineday,now())) as dday,
+		(select count(*) from apply where r_num in
+			(select r_num from recruit where c_code=#{c_code} and r_title=r.r_title)
+		) as 'count' 
+		from recruit r where c_code=#{c_code} and r_step=1 order by r_num desc
+	</select>
+	<select id="getOutline" resultType="int" parameterType="Map">
+		select count(*) from apply where r_num in
+			(select r_num from recruit where c_code=#{c_code} and r_title=#{r_title} order by r_step)
+			and finalpass is null
+ 		group by r_num order by r_num
+	</select>
+</mapper>
