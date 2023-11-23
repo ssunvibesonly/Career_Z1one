@@ -1,5 +1,6 @@
 package boot.data.controller;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +47,8 @@ public class RecruitController {
 	
 	@GetMapping("/levelinsertform")
 	public String levelform(Model model,@RequestParam(defaultValue = "none") String r_title,
-			HttpSession session) {
-		int c_code=session.getAttribute("로그인한 회사의 시퀀스")==null?0:(int)session.getAttribute("로그인한 회사의 시퀀스");
+			@RequestParam(defaultValue = "0") int c_code,HttpSession session) {
+		//c_code=session.getAttribute("로그인한 회사의 시퀀스")==null?0:(int)session.getAttribute("로그인한 회사의 시퀀스");
 		
 		if(c_code==0&&r_title.equals("none")) {
 			model.addAttribute("maxstep", 0);
@@ -215,6 +216,18 @@ public class RecruitController {
 		map.put("levellist", levellist);
 		map.put("outlinelist", outlinelist);
 		map.put("finalpass", finallist.size());
+		
+		return map;
+	}
+	
+	@GetMapping("/search")
+	@ResponseBody
+	public Map<String, Object> search(@RequestParam(required = false) int rno,
+			@RequestParam(required = false) String rname,
+			@RequestParam(required = false) Timestamp rdead,
+			@RequestParam(required = false) int rdday) {
+		Map<String, Object> map=new HashMap<>();
+		
 		
 		return map;
 	}

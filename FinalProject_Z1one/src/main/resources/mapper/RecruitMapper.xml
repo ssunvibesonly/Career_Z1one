@@ -79,4 +79,7 @@
 			and finalpass is null
  		group by r_num order by r_num
 	</select>
+	<!-- <select id="getSearchResult" resultType="titledto" parameterType="Map">
+		검색어,컬럼명 두개 넣어줘야함
+	</select> -->
 </mapper>

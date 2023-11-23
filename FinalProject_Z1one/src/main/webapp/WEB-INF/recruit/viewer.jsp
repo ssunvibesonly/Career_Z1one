@@ -356,16 +356,16 @@
 	}
 	
 	const Toast = Swal.mixin({
-					toast: true,
-					position: 'center-center',
-					showConfirmButton: false,
-					timer: 3000,
-					timerProgressBar: true,
-					didOpen: (toast) => {
-						toast.addEventListener('mouseenter', Swal.stopTimer)
-						toast.addEventListener('mouseleave', Swal.resumeTimer)
-					}
-				});
+		toast: true,
+		position: 'center-center',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer)
+			toast.addEventListener('mouseleave', Swal.resumeTimer)
+		}
+	});
 	
 	function deliberate(proc,name,c_pass){
 		return new Promise(async (resolve, reject) => {

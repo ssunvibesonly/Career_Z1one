@@ -10,6 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 <title>Insert title here</title>
 <style>
 	table.table{
@@ -29,6 +31,10 @@
 		left: 69px;
 		color: gray;
 		font-size: 1.25em;
+	}
+	#seemore:hover{
+		background: #a0a0a0;
+		color: white;
 	}
 	#add{
 		float: right;
@@ -50,8 +56,13 @@
 		float: right;
 		cursor: pointer;
 	}
-	#bar-chart{
-		position: absolute;
+	.outline:hover{
+		border: 0px;
+		color: white;
+		background: green;
+	}
+	.modal-body{
+		overflow: auto;
 	}
 	.dday{
 		border: 1px solid red;
@@ -62,6 +73,43 @@
 	.blink-color {
         background-color: rgb(178, 34, 34) !important;
     }
+    a.button {
+		display: block;
+		position: relative;
+		width: 80px;
+		padding: 0;
+		margin: 2px 0 2px 0;
+		font-weight: 600;
+		text-align: center;
+		line-height: 33px;
+		color: #FFF;
+		border-radius: 5px;
+		transition: all 0.2s ;
+		text-decoration: none;
+	}
+	.btnPush:hover {
+		margin-top: 4px;
+		margin-bottom: 0;
+	}
+	.btnBlueGreen {
+		background: #00AE68;
+	}
+	.btnBlueGreen.btnPush {
+		box-shadow: 0px 2px 0px 0px #007144;
+	}
+	.btnBlueGreen.btnPush:hover {
+		box-shadow: 0px 0px 0px 0px #007144;
+	}
+	.btnLightBlue {
+		background: #5DC8CD;
+	}
+	.btnLightBlue.btnPush {
+		box-shadow: 0px 2px 0px 0px #1E8185;
+		line-height: 25px;
+	}
+	.btnLightBlue.btnPush:hover {
+		box-shadow: 0px 0px 0px 0px #1E8185;
+	}
 </style>
 </head>
 <script>
@@ -69,7 +117,8 @@
 		setInterval(() => countdown(),1000);
 		
 		$(document).on("click","div.outline",function(){
-			$("#bar-chart").remove();
+			$("div.modal-dialog").attr("class","modal-dialog modal-lg");
+			$("div.modal-body").empty();
 			$("div.modal-body").html("<canvas id='bar-chart' width='300' height='230'></canvas>")
 			
 			var c_code=$(this).attr("code");
@@ -109,7 +158,7 @@
 									ticks:{
 										display:true,
 										min:0,
-										max:on_count,
+										max:Math.max(on_count/2,Math.max.apply(null,outlinelist)),
 										stepSize:1
 									}
 								}]
@@ -120,6 +169,65 @@
 					$("#chart").trigger("click");
 				}
 			});
+		});
+		
+		$(document).on("click","th.rno",function(){
+			$("div.modal-dialog").attr("class","modal-dialog");
+			$("h4.modal-title").text("순번으로 검색");
+			$("div.modal-body").empty();
+			$("div.modal-body").html("<input type='text' name='rno' id='searchtext' placeholder='순번 검색' class='form-control' onkeyup='checkNum(this);'>");
+			$("#chart").trigger("click");
+		});
+		$(document).on("click","th.rname",function(){
+			$("div.modal-dialog").attr("class","modal-dialog");
+			$("h4.modal-title").text("채용과정명으로 검색");
+			$("div.modal-body").empty();
+			$("div.modal-body").html("<input type='text' name='rname' id='searchtext' placeholder='채용과정명 검색' class='form-control'>");
+			$("#chart").trigger("click");
+		});
+		$(document).on("click","th.rdead",function(){
+			$("div.modal-dialog").attr("class","modal-dialog");
+			$("h4.modal-title").text("마감일로 검색");
+			$("div.modal-body").empty();
+			$("div.modal-body").html(
+					"마감일<input type='date' name='rdead' id='searchsel' class='form-control'><br>D&nbsp;-&nbsp;Day<input type='text' name='rdday' id='searchtext' placeholder='0 입력시 종료 검색' class='form-control' onkeyup='checkNum(this);'>"
+			);
+			$("#chart").trigger("click");
+		});
+		
+		$(document).on("keyup","#searchtext",function(){
+			var col=$(this).attr("name");
+			var input=$(this).val();
+			var eleall;
+			
+			if(col=="rno"){
+				eleall=document.querySelectorAll("td.rno");
+			}else if(col=="rname"){
+				eleall=document.querySelectorAll("a.tit");
+			}else if(col=="rdday"){
+				eleall=document.querySelectorAll("div.dday");
+			}
+			
+			eleall.forEach(ele => {
+				if(ele.textContent.includes(input)){
+					alert(ele.textContent)
+				}
+			});
+		});
+		$(document).on("change","#searchsel",function(){
+			var col=$(this).attr("name");
+			var input=$(this).val();
+			var eleall=document.querySelectorAll("span.time");
+			
+			eleall.forEach(ele => {
+				alert(ele.textContent)
+			});
+		});
+		$(document).on("change","#searchsel",function(){
+			$("#searchtext").val("");
+		});
+		$(document).on("keyup","#searchtext",function(){
+			$("#searchsel").val("");
 		});
 	});
 	
@@ -169,25 +277,48 @@
 		return arr;
 	}
 	
-	function gclear(){
-		
+	function checkNum(input){
+		var numPattern = /([^0-9])/;
+		var v = input.value;
+		numPattern = v.match(numPattern);
+		if(numPattern != null){
+			Toast.fire({
+				icon: "warning",
+				title: "숫자만 입력해주세요."
+			});
+			objEv.value="";
+			objEv.focus();
+			return false;
+		}
 	}
+	
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'center-center',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer)
+			toast.addEventListener('mouseleave', Swal.resumeTimer)
+		}
+	});
 </script>
 <body>
 	<table class="table table-bordered">
 		<caption align="top">
 			총 ${titlecount }개의 채용과정이 등록되었습니다
-			<button class="btn btn-outline-success" id="add">추가</button>
+			<a href="/recruit/levelinsertform?c_code=${c_code}" title="Button push blue/green" class="button btnPush btnBlueGreen" id="add">추가</a>
 		</caption>
 		<tr>
-			<th width="68" style="text-align:center">순서</th>
-			<th width="310" style="text-align:center">채용과정</th>
-			<th width="170" style="text-align:center">마감일</th>
+			<th width="68" style="text-align:center" class="rno">순서</th>
+			<th width="310" style="text-align:center" class="rname">채용과정</th>
+			<th width="170" style="text-align:center" class="rdead">마감일</th>
 			<th width="152" style="text-align:center">편집</th>
 		</tr>
 		<c:forEach var="tdto" items="${titlelist }" varStatus="i">
 			<tr>
-				<td align="center">${titlecount-i.count+1 }</td>
+				<td align="center" class="rno">${titlecount-i.count+1 }</td>
 				<td>
 					<a href="/recruit/eachlist?c_code=${c_code}&r_title=${tdto.r_title}" class="tit">${tdto.r_title } </a>[<a href="#">${tdto.count }</a>]
 					<div class="outline" code="${c_code }" ttl="${tdto.r_title }">개요</div>
@@ -196,13 +327,11 @@
 					<c:set var="dd" value="${tdto.dday }"/>
 					<div class="d-inline-flex rtime">
 						<span class="time" dead="${tdto.deadlineday }"><fmt:formatDate value="${tdto.deadlineday }" pattern="yyyy-MM-dd"/></span>&nbsp;&nbsp;
-						<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">
-							D-${dd!=1?dd:'Day' }
-						</div>
+						<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd!=1?dd:'Day'}</div>
 					</div>
 				</td>
 				<td align="center">
-					<button class="btn btn-outline-info btn-sm">수정/삭제</button>
+					<a href="/recruit/levelinsertform?c_code=${c_code}&r_title=${tdto.r_title}" title="Button push lightblue" class="button btnPush btnLightBlue">수정/삭제</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -214,23 +343,23 @@
 	
 	<!-- The Modal -->
 	<div class="modal" id="myChart">
-		<div class="modal-dialog">
-		<div class="modal-content">
-			<!-- Modal Header -->
-			<div class="modal-header">
-				<h4 class="modal-title">Modal Heading</h4>
-				<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Heading</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<canvas id="bar-chart" width="300" height="230"></canvas>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+				</div>
+			
 			</div>
-			<!-- Modal body -->
-			<div class="modal-body">
-				<canvas id="bar-chart" width="300" height="230"></canvas>
-			</div>
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-			</div>
-		
-		</div>
 		</div>
 	</div>
 </body>

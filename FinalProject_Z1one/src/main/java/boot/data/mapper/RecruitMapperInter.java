@@ -39,4 +39,5 @@ public interface RecruitMapperInter {
 	public List<TitleDto> getAllTitles(int c_code);
 	public int getApplierCount(Map<String, String> map);
 	public List<Integer> getOutline(Map<String, String> map);
+	//public List<TitleDto> getSearchResult(Map<String, String> map);
 }

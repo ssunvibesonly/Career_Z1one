@@ -35,4 +35,5 @@ public interface RecruitServiceInter {
 	public List<TitleDto> getAllTitles(int c_code);
 	public int getApplierCount(int c_code,String r_title);
 	public List<Integer> getOutline(int c_code,String r_title);
+	//public List<TitleDto> getSearchResult(String input,int col);
 }
