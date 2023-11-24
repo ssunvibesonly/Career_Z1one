@@ -350,7 +350,7 @@
 			        }
 			    }
 			}else{
-				div.innerHTML="<div class='dday' style='background-color: #aaaaaa;color: #aaaaaa'>종료</div>";
+				div.innerHTML="<div class='dday' style='background-color: #aaaaaa;color: white'>종료</div>";
 				div.closest("td").nextSibling.querySelector("a.btnmod").style.backgroundColor="#c8c8c8";
 				div.closest("td").nextSibling.querySelector("a.btnmod").classList.remove("btnmod");
 			}
