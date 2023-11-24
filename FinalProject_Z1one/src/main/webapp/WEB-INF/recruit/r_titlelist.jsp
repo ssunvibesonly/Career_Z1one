@@ -110,6 +110,11 @@
 	.btnLightBlue.btnPush:hover {
 		box-shadow: 0px 0px 0px 0px #1E8185;
 	}
+	#search{
+		position: absolute;
+		background: white;
+		opacity: 0.8;
+	}
 </style>
 </head>
 <script>
@@ -165,35 +170,55 @@
 							}
 						}
 					});
-					//$("#bar-chart").show();
 					$("#chart").trigger("click");
 				}
 			});
 		});
 		
 		$(document).on("click","th.rno",function(){
-			$("div.modal-dialog").attr("class","modal-dialog");
-			$("h4.modal-title").text("순번으로 검색");
-			$("div.modal-body").empty();
-			$("div.modal-body").html("<input type='text' name='rno' id='searchtext' placeholder='순번 검색' class='form-control' onkeyup='checkNum(this);'>");
-			$("#chart").trigger("click");
+			//alert($("th:eq(0)").offset().top)
+			var width=$(this).attr("width");
+			$("#search").html("순번으로 검색<input type='text' name='rno' id='searchtext' placeholder='순번' class='form-control' onkeyup='checkNum(this);'>");
+			$("#search").css({
+				"width":width+"px",
+				"top":$("th:eq(0)").offset().top-91,
+				"left":$("th:eq(0)").offset().left
+			});
+			$("#searchtext").focus();
 		});
 		$(document).on("click","th.rname",function(){
-			$("div.modal-dialog").attr("class","modal-dialog");
-			$("h4.modal-title").text("채용과정명으로 검색");
-			$("div.modal-body").empty();
-			$("div.modal-body").html("<input type='text' name='rname' id='searchtext' placeholder='채용과정명 검색' class='form-control'>");
-			$("#chart").trigger("click");
+			var width=$(this).attr("width");
+			$("#search").html("채용과정명으로 검색<input type='text' name='rname' id='searchtext' placeholder='채용과정명' class='form-control'>");
+			$("#search").css({
+				"width":width+"px",
+				"top":$("th:eq(1)").offset().top-66,
+				"left":$("th:eq(1)").offset().left
+			});
+			$("#searchtext").focus();
 		});
 		$(document).on("click","th.rdead",function(){
-			$("div.modal-dialog").attr("class","modal-dialog");
-			$("h4.modal-title").text("마감일로 검색");
-			$("div.modal-body").empty();
-			$("div.modal-body").html(
-					"마감일<input type='date' name='rdead' id='searchsel' class='form-control'><br>D&nbsp;-&nbsp;Day<input type='text' name='rdday' id='searchtext' placeholder='0 입력시 종료 검색' class='form-control' onkeyup='checkNum(this);'>"
+			var width=$(this).attr("width");
+			$("#search").html(
+				"마감일<input type='date' name='rdead' id='searchsel' class='form-control'>D&nbsp;-&nbsp;Day<input type='text' name='rdday' id='searchtext' placeholder='0 입력시 종료 검색' class='form-control' onkeyup='checkNum(this);'>"
 			);
-			$("#chart").trigger("click");
+			$("#search").css({
+				"width":width+"px",
+				"top":$("th:eq(2)").offset().top-128,
+				"left":$("th:eq(2)").offset().left
+			});
+			$("#searchtext").focus();
 		});
+		
+		$(document).on("focusout","#searchtext",function(){
+			if($("#searchsel").length==0 || $("#searchsel:hover").length==0){
+				$("#search").html("");
+			}
+		});
+		$(document).on("focusout","#searchsel",function(){
+			if($("#searchtext:hover").length==0){
+				$("#search").html("");
+			}
+		})
 		
 		$(document).on("keyup","#searchtext",function(){
 			var col=$(this).attr("name");
@@ -201,27 +226,31 @@
 			var eleall;
 			
 			if(col=="rno"){
-				eleall=document.querySelectorAll("td.rno");
+				eleall=$("td.rno");
 			}else if(col=="rname"){
-				eleall=document.querySelectorAll("a.tit");
+				eleall=$("a.tit");
 			}else if(col=="rdday"){
-				eleall=document.querySelectorAll("div.dday");
+				eleall=$("div.dday");
 			}
 			
-			eleall.forEach(ele => {
-				if(ele.textContent.includes(input)){
-					alert(ele.textContent)
+			$(eleall).each(function(i){
+				if($(this).text().toUpperCase().includes(input.toUpperCase())){
+					$(this).closest("tr.tr").attr("class","tr show");
 				}
 			});
+			showtr();
 		});
 		$(document).on("change","#searchsel",function(){
 			var col=$(this).attr("name");
 			var input=$(this).val();
 			var eleall=document.querySelectorAll("span.time");
 			
-			eleall.forEach(ele => {
-				alert(ele.textContent)
+			$(eleall).each(function(i){
+				if($(this).text().toUpperCase().includes(input.toUpperCase())){
+					$(this).closest("tr.tr").attr("class","tr show");
+				}
 			});
+			showtr();
 		});
 		$(document).on("change","#searchsel",function(){
 			$("#searchtext").val("");
@@ -303,8 +332,15 @@
 			toast.addEventListener('mouseleave', Swal.resumeTimer)
 		}
 	});
+	
+	function showtr(){
+		$("tr.tr").hide();
+		$("tr.show").show();
+		$("tr.show").attr("class","tr");
+	}
 </script>
 <body>
+	<div id="search"></div>
 	<table class="table table-bordered">
 		<caption align="top">
 			총 ${titlecount }개의 채용과정이 등록되었습니다
@@ -317,7 +353,7 @@
 			<th width="152" style="text-align:center">편집</th>
 		</tr>
 		<c:forEach var="tdto" items="${titlelist }" varStatus="i">
-			<tr>
+			<tr class="tr">
 				<td align="center" class="rno">${titlecount-i.count+1 }</td>
 				<td>
 					<a href="/recruit/eachlist?c_code=${c_code}&r_title=${tdto.r_title}" class="tit">${tdto.r_title } </a>[<a href="#">${tdto.count }</a>]
