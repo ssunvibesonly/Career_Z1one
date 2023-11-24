@@ -17,25 +17,6 @@
 	table.table{
 		width: 690px;
 	}
-	#seemore{
-		position: relative;
-		border: 1px solid #aaaaaa;
-		border-radius: 30px;
-		width: 200px;
-		height: 40px;
-		cursor: pointer;
-	}
-	#seemore>span{
-		position: absolute;
-		top: 4.5px;;
-		left: 69px;
-		color: gray;
-		font-size: 1.25em;
-	}
-	#seemore:hover{
-		background: #a0a0a0;
-		color: white;
-	}
 	#add{
 		float: right;
 	}
@@ -109,6 +90,36 @@
 	}
 	.btnLightBlue.btnPush:hover {
 		box-shadow: 0px 0px 0px 0px #1E8185;
+	}
+	.btnSlide.btnGray {
+		background: 0;
+	}
+	.btnSlide .top {
+		position: absolute;
+		top: 0px;
+		left: 0;
+		width: 120px;
+		height: 50px;
+		background: #00AE68;
+		z-index: 10;
+		transition: all 0.2s ;
+		border-radius: 5px;
+	}
+	.btnSlide.btnGray .top {
+		background: gray;
+	}
+	.btnSlide .bottom {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 120px;
+		height: 50px;
+		color: #000;
+		z-index: 5;
+		border-radius: 5px;
+	}
+	.btnSlide:hover .top {
+		top: 40px;
 	}
 	#search{
 		position: absolute;
@@ -226,10 +237,12 @@
 			var eleall;
 			
 			if(col=="rno"){
+				//checkNum(input);
 				eleall=$("td.rno");
 			}else if(col=="rname"){
 				eleall=$("a.tit");
 			}else if(col=="rdday"){
+				//checkNum(input);
 				eleall=$("div.dday");
 			}
 			
@@ -257,6 +270,30 @@
 		});
 		$(document).on("keyup","#searchtext",function(){
 			$("#searchsel").val("");
+		});
+		
+		$(document).on("mouseleave","span.top",function(){			
+			$("input.bottom").blur();
+			$("input.bottom").val("");
+			$(this).text("더보기");
+		});
+		$(document).on("mouseenter","input.bottom",function(){
+			$(this).focus();
+		});
+		$(document).on("keyup","input.bottom",function(){
+			var input=$(this).val();
+			$("span.top").text("변경");
+		});
+		$(document).on("mouseleave","input.bottom",function(){
+			var input=$("input.bottom").val();
+			
+			if(input!=null){
+				$("tr.tr").hide();
+				
+				for(var i=0;i<input;i++){
+					$("tr.tr:eq("+i+")").show();
+				}
+			}
 		});
 	});
 	
@@ -315,8 +352,10 @@
 				icon: "warning",
 				title: "숫자만 입력해주세요."
 			});
-			objEv.value="";
-			objEv.focus();
+			$("#searchtext").val(null);
+			//$("input.bottom").val(null);
+			input.value="";
+			//input.focus();
 			return false;
 		}
 	}
@@ -344,7 +383,7 @@
 	<table class="table table-bordered">
 		<caption align="top">
 			총 ${titlecount }개의 채용과정이 등록되었습니다
-			<a href="/recruit/levelinsertform?c_code=${c_code}" title="Button push blue/green" class="button btnPush btnBlueGreen" id="add">추가</a>
+			<a href="/recruit/levelinsertform?c_code=${c_code}" class="button btnPush btnBlueGreen" id="add">추가</a>
 		</caption>
 		<tr>
 			<th width="68" style="text-align:center" class="rno">순서</th>
@@ -367,11 +406,20 @@
 					</div>
 				</td>
 				<td align="center">
-					<a href="/recruit/levelinsertform?c_code=${c_code}&r_title=${tdto.r_title}" title="Button push lightblue" class="button btnPush btnLightBlue">수정/삭제</a>
+					<a href="/recruit/levelinsertform?c_code=${c_code}&r_title=${tdto.r_title}" class="button btnPush btnLightBlue">수정/삭제</a>
 				</td>
 			</tr>
 		</c:forEach>
-		<tr><td colspan="4" align="center"><div id="seemore"><span>더보기</span></div></td></tr>
+		<tr>
+			<td colspan="4" align="center">
+				<div id="seemore">
+					<a href="#" class="button btnSlide btnGray">
+				      <span class="top" style="font-size: 1.2em;line-height: 50px">더보기</span>
+				      <input type="text" class="bottom form-control" placeholder="개수 입력" name="seemore" onkeyup="checkNum(this);">
+				    </a>
+				</div>
+			</td>
+		</tr>
 	</table>
 	
 	<!-- Button to Open the Modal -->
