@@ -275,14 +275,14 @@
 		$(document).on("mouseleave","span.top",function(){			
 			$("input.bottom").blur();
 			$("input.bottom").val("");
-			$(this).text("더보기");
+			$(this).text("더보기").css("background","gray");
 		});
 		$(document).on("mouseenter","input.bottom",function(){
 			$(this).focus();
 		});
 		$(document).on("keyup","input.bottom",function(){
 			var input=$(this).val();
-			$("span.top").text("변경");
+			$("span.top").text("변경").css("background","#B4C3FF");
 		});
 		$(document).on("mouseleave","input.bottom",function(){
 			var input=$("input.bottom").val();
