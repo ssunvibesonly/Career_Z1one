@@ -130,6 +130,7 @@
 </head>
 <script>
 	$(function(){
+		var c_pass="${c_pass}";
 		setInterval(() => countdown(),1000);
 		
 		$(document).on("click","div.outline",function(){
@@ -244,7 +245,7 @@
 				eleall=$("div.dday");
 				if(input=="0"){input="종료";}
 			}
-			alert(input)
+			
 			$(eleall).each(function(i){
 				if($(this).text().toUpperCase().replace(/ /g,"").includes(input)){
 					$(this).closest("tr.tr").attr("class","tr show");
@@ -292,6 +293,27 @@
 					$("tr.tr:eq("+i+")").show();
 				}
 			}
+		});
+		
+		$(document).on("click","a.btnmod",function(){
+			var c_code=$(this).attr("code");
+			var r_title=$(this).attr("tit");
+			
+			Swal.fire({
+				title: "진행 중인 채용과정",
+				text: "각 채용단계는 그 명칭과 무관하게 순서에 따라 결정됩니다. 또한 채용단계가 삭제될 시 해당 단계에 속한 모든 지원자 정보는 삭제됩니다.",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "진행",
+				cancelButtonText: "취소",
+			 
+			}).then((result) => {
+				if (result.isConfirmed) {
+					deliberate("채용단계 변경",c_pass,c_code,r_title);
+				}
+			})
 		});
 	});
 	
@@ -375,6 +397,27 @@
 		$("tr.show").show();
 		$("tr.show").attr("class","tr");
 	}
+	
+	function deliberate(proc,c_pass,c_code,r_title){
+		(async () => {
+	        const { value: getPass } = await Swal.fire({
+	            title: "권한 확인 ("+proc+")",
+	            text: proc+"(을)를 위해 기업 비밀번호를 입력해주세요.",
+	            input: "password",
+	            inputPlaceholder: "기업로그인 비밀번호 입력"
+	        });
+
+	        if(getPass==c_pass) {
+	            location.href="/recruit/levelinsertform?c_code="+c_code+"&r_title="+r_title;
+	        }else{
+	        	Swal.fire({
+		        	icon: "error",
+		        	title: "권한 확인 실패",
+		        	text: "기업 비밀번호가 일치하지 않습니다."
+	        	});
+	        }
+	    })()
+	}
 </script>
 <body>
 	<div id="search"></div>
@@ -404,7 +447,7 @@
 					</div>
 				</td>
 				<td align="center">
-					<a href="/recruit/levelinsertform?c_code=${c_code}&r_title=${tdto.r_title}" class="button btnPush btnLightBlue">수정/삭제</a>
+					<a href="#" code="${c_code}" tit="${tdto.r_title}" class="button btnPush btnLightBlue btnmod">수정/삭제</a>
 				</td>
 			</tr>
 		</c:forEach>
