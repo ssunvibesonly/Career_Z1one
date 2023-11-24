@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +19,6 @@
 a {
 	text-decoration: none;
 	color: #191919;
-}
-
-.searchbox {
-	width: 28%;
-	height: 70px;
-	border: 1px solid lightgray;
-	border-radius: 20px;
-	padding-bottom: 1%;
-	padding-top: 1%;
-	margin-left: 33%;
-	margin-top: 2%;
 }
 
 .mySlides {
@@ -106,7 +96,7 @@ a {
 }
 
 .cate_subject {
-	width: 90%;
+	border: 1px solid blue;
 	margin-left: 3%;
 	margin-top: 5%;
 }
@@ -141,12 +131,12 @@ form {
   outline: none;
   background: white;
   color: #9E9C9C;
-  margin-left: -5%;
+  margin-left: -10%;
 }
 .cmlistsearch button {
   position: absolute; 
   top: 0;
-  right: 0px;
+  right: 30px;
   width: 42px;
   height: 42px;
   border: none;
@@ -195,34 +185,13 @@ form {
 	background-color: black;
 }
 </style>
-<script>
-    let slideIndex = 0;
-    function showSlides() {
-        let i;
-        const slides = document.getElementsByClassName("mySlides");
-
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 2000); // Change slide every 2 seconds
-    }
-    showSlides();
-</script>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <body>
 	<div>
 		<%--상단 --%>
-
-		<button type="button" class="btn btn-info"
-			onclick="location.href='email/sendemail?user_num=${dto.user_num}'">채용
-			공고 받기</button>
+		<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
+		<button type="button" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
+		</button>
 		<%--user_num은 로그인이 된다면 세션으로해서 user_num가져오기--%>
 
 		<form action="search">
@@ -232,8 +201,7 @@ form {
 				<button type="submit"></button>
 			</div>
 		</form>
-		<br>
-		<br>
+		<br><br><br>
 		<div class="additionalDiv">
 			<div class="mySlides">
 				<img src="${root}/image/adver1.JPG">
@@ -264,8 +232,8 @@ form {
         <div class="mid1-1"><br>
             <c:forEach items="${oneTitle}" var="dto" varStatus="loop">
             <div class="d-inline-flex list">
-                    <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 70%;">&nbsp;
-                        <div style="width: 20%;">
+                    <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 75%;">&nbsp;
+                        <div style="width: 25%;">
                             <b>
                         <a href="제목클릭시 그 글로 넘어가게" style="text-decoration-line: none; color: black;">
                                 ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -273,12 +241,19 @@ form {
                         </a>
                             </b>
                         </div>
+						<%--아직 컨트롤러에 no 안넘김.--%>
                         <c:if test="${no!=null}">
                             <i class="bi bi-card-image"></i>
                         </c:if>
-                        <div style="width: 30%; margin-left: 8%">
-                        &nbsp;${dto.board_title}
+
+						<c:set var="limitedTitle" value="${dto.board_title}" />
+						<c:if test="${fn:length(limitedTitle) > 15}">
+							<c:set var="limitedTitle" value="${fn:substring(limitedTitle, 0, 15)}..." />
+						</c:if>
+                        <div style="width: 60%; margin-left: 8%">
+                        &nbsp;${limitedTitle}
                         </div>
+
                     </div>
                 <div style="margin-top:1%; margin-left: 40%; width: 28%; cursor: pointer;" onclick="location.href='#'">
                     <p style="color: black; font-size: 14px;"><fmt:formatDate value="${dto.board_writeday}" pattern="YYYY-MM-DD"/>
@@ -290,13 +265,12 @@ form {
          </div>
 
 			<div class="mid1-2">
-				<br> <b style="font-size: 18px; margin-left: 10%;">실시간 인기
-					공고</b>
+				<br> <b style="font-size: 18px; margin-left: 10%;">실시간 인기 공고</b>
 				<div class="ingi"
 					style="color: darkslategray; width: 85%; height: 300px; margin-left: 12%; margin-top: 2%;">
 					<br>
 					<c:forEach items="${list1}" var="item" varStatus="loop">
-						<div style="border: 1px solid blue; width: 100%;">
+						<div style="width: 100%;">
 							<p class="rank">
 								<em>${loop.index + 1}</em>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"
 									class style="text-decoration-line: none; color: black;">${item}&nbsp;&nbsp;&nbsp;D
@@ -330,7 +304,7 @@ form {
 					<div style="flex: 1;">
 						<img src="${root}/image/${dto.board_num}.png"
 							class="categoryimage">&nbsp;&nbsp; <b class="boardcategory">${dto.board_category}</b>
-						<a href="/community/list?" style="float: right; font-size: 13px;">더보기&nbsp;></a>
+						<a href="/community/list" style="float: right; font-size: 13px;">더보기&nbsp;></a>
 					</div>
 				</div>
 				<hr style="border: 2px solid darkgray;">
@@ -338,8 +312,12 @@ form {
 					<c:if test="${dto.board_category eq dto0.board_category}">
 						<div class="cate_subject">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto0.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto0.board_readcnt}</b>
+								<c:set var="limitedTitle1" value="${dto0.board_title}" />
+								<c:if test="${fn:length(limitedTitle1) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle1, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle1}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto0.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -351,8 +329,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto1.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto1.board_readcnt}</b>
+								<c:set var="limitedTitle2" value="${dto1.board_title}" />
+								<c:if test="${fn:length(limitedTitle2) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle2, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle2}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto1.board_readcnt}</b>
 							</div>
 
 						</div>
@@ -364,8 +346,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto2.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto2.board_readcnt}</b>
+								<c:set var="limitedTitle3" value="${dto2.board_title}" />
+								<c:if test="${fn:length(limitedTitle3) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle3, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle3}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto2.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -376,8 +362,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto3.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto3.board_readcnt}</b>
+								<c:set var="limitedTitle4" value="${dto3.board_title}" />
+								<c:if test="${fn:length(limitedTitle4) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle4, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle4}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto3.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -388,8 +378,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto4.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto4.board_readcnt}</b>
+								<c:set var="limitedTitle5" value="${dto4.board_title}" />
+								<c:if test="${fn:length(limitedTitle5) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle5, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle5}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto4.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -400,8 +394,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto5.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto5.board_readcnt}</b>
+								<c:set var="limitedTitle6" value="${dto5.board_title}" />
+								<c:if test="${fn:length(limitedTitle6) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle6, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle6}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto5.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -412,8 +410,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto6.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto6.board_readcnt}</b>
+								<c:set var="limitedTitle7" value="${dto6.board_title}" />
+								<c:if test="${fn:length(limitedTitle7) > 10}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle7, 0, 10)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle7}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto6.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -424,8 +426,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto7.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto7.board_readcnt}</b>
+								<c:set var="limitedTitle8" value="${dto7.board_title}" />
+								<c:if test="${fn:length(limitedTitle8) > 5}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle8, 0, 5)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle8}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto7.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -436,8 +442,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto8.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto8.board_readcnt}</b>
+								<c:set var="limitedTitle9" value="${dto8.board_title}" />
+								<c:if test="${fn:length(limitedTitle9) > 5}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle9, 0, 5)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle9}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto8.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -448,8 +458,12 @@ form {
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
 							<div style="margin-top: 4%">
-								<a href="글로들어가기">${dto9.board_title}</a> <b style="float: right"><a
-									href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto9.board_readcnt}</b>
+								<c:set var="limitedTitle10" value="${dto9.board_title}" />
+								<c:if test="${fn:length(limitedTitle10) > 5}">
+									<c:set var="limitedTitle" value="${fn:substring(limitedTitle10, 0, 5)}..." />
+								</c:if>
+								<a href="글로들어가기">${limitedTitle10}</a> <b style="float: right">
+								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto9.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -476,6 +490,26 @@ form {
 	<div class="bottom-right fixed box">
 		<p>질문 GO</p>
 	</div>
+	<script>
+		let slideIndex = 0;
+		function showSlides() {
+			let i;
+			const slides = document.getElementsByClassName("mySlides");
+
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+
+			slideIndex++;
+			if (slideIndex > slides.length) {
+				slideIndex = 1;
+			}
+
+			slides[slideIndex - 1].style.display = "block";
+			setTimeout(showSlides, 2000); // Change slide every 2 seconds
+		}
+		showSlides();
+	</script>
 </body>
 
 </html>

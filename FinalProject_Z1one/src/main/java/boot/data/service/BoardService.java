@@ -37,4 +37,9 @@ public class BoardService implements BoardInter {
       return CompletableFuture.completedFuture(boardMapperInter.getTopOneTitle());
    }
 
+   @Override
+   public List<User_BoardDto> getAllData() {
+      return boardMapperInter.getAllData();
+   }
+
 }
