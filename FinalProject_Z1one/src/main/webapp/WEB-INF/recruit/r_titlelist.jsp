@@ -233,21 +233,20 @@
 		
 		$(document).on("keyup","#searchtext",function(){
 			var col=$(this).attr("name");
-			var input=$(this).val();
+			var input=$(this).val().toUpperCase().replace(/ /g,"");
 			var eleall;
 			
 			if(col=="rno"){
-				//checkNum(input);
 				eleall=$("td.rno");
 			}else if(col=="rname"){
 				eleall=$("a.tit");
 			}else if(col=="rdday"){
-				//checkNum(input);
 				eleall=$("div.dday");
+				if(input=="0"){input="종료";}
 			}
-			
+			alert(input)
 			$(eleall).each(function(i){
-				if($(this).text().toUpperCase().includes(input.toUpperCase())){
+				if($(this).text().toUpperCase().replace(/ /g,"").includes(input)){
 					$(this).closest("tr.tr").attr("class","tr show");
 				}
 			});
