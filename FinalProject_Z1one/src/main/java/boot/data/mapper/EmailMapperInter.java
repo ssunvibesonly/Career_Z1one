@@ -16,6 +16,6 @@ public interface EmailMapperInter {
    //회사 전체 List가져오기
    public List<CnoticeDto> getCompanyNotice();
    //회사랑 회원이랑 조건 비교한 메소드
-   public List<CnoticeDto> getMatchUserwithNotice();
+   public void getMatchUserwithNotice();
 
 }

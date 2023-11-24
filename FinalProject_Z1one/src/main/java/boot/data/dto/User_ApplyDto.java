@@ -10,7 +10,7 @@ import lombok.Data;
 @Alias("User_ApplyDto")
 public class User_ApplyDto {
    private int apply_Num;
-   private int user_Num;
+   private String user_Num;
    private String apply_Name;
    private String apply_Photo;
    private String apply_Hp;

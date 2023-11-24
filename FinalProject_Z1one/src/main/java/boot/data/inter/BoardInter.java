@@ -11,5 +11,6 @@ public interface BoardInter {
    public List<String> getNameNotice();
    public List<Integer> getRemainDate();
    public CompletableFuture<List<User_BoardDto>> getTopOneTitle();
+   public List<User_BoardDto> getAllData();
 
 }

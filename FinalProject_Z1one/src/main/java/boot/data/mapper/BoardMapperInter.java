@@ -16,5 +16,6 @@ public interface BoardMapperInter {
    public List<String> getNameNotice();
    public List<Integer> getRemainDate();
    public List<User_BoardDto> getTopOneTitle();
+   public List<User_BoardDto> getAllData();
 
 }

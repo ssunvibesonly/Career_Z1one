@@ -1,7 +1,10 @@
 package boot.data.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,32 +33,21 @@ public class EmailController {
    JavaMailSender javaMailSender;
    @Autowired
    private EmailService emailService;
-   @Autowired
-   CnoticeMapperInter cnoticeMapperInter;
-   @Autowired
-   ApplyMapperInter applyMapperInter;
-   @Autowired
-   EmailMapperInter emailMapperInter;
-   UserGaipDto userGaipDto;
-   HttpSession httpSession;
-
-   private final String subject = "🎁 안녕하세요 Z1one 채용공고가 도착했습니다 🎁 ";
-   private final String content = "아 이거 기업 리스트를 어케띄우냐 하.";
+   private final String subject = "🎁안녕하세요 Z1one 채용공고가 도착했습니다🎁";
+   private final String content = "ㅎㅇ?";
 
    @GetMapping("/sendEmail")
-   @ResponseBody
-   public String sendEmail(@RequestParam(required = false) int user_num) {
-      final String TOEMAIL = (String)httpSession.getAttribute("myid");
-      //로그인된 사람이 버튼을 클릭하면 작동하게 로직 작성
+   public String sendEmail(@RequestParam String user_email) {
+      final String TOEMAIL = user_email;
+      System.out.println(user_email);
 
-
-      //이메일 비교한 쿼리 로직
       emailService.getMatchUserwithNotice();
-      // 이메일 보내는 로직
-	  emailService.sendEmail(subject, content, TOEMAIL);
+      //emailService.sendEmail(subject, content, TOEMAIL);
+      emailService.sendEmailLeaf(TOEMAIL,subject, content);
       return "/email/emailSuccess";
    }
 }
+
 
 
 

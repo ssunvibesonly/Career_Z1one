@@ -185,32 +185,12 @@ form {
 	background-color: black;
 }
 </style>
-<script>
-    let slideIndex = 0;
-    function showSlides() {
-        let i;
-        const slides = document.getElementsByClassName("mySlides");
-
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-
-        slideIndex++;
-        if (slideIndex > slides.length) {
-            slideIndex = 1;
-        }
-
-        slides[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 2000); // Change slide every 2 seconds
-    }
-    showSlides();
-</script>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <body>
 	<div>
 		<%--상단 --%>
 		<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
-		<button type="button" class="btn btn-info" onclick="location.href='/email/sendemail'">채용 공고 받기
+		<button type="button" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
 		</button>
 		<%--user_num은 로그인이 된다면 세션으로해서 user_num가져오기--%>
 
@@ -253,7 +233,7 @@ form {
             <c:forEach items="${oneTitle}" var="dto" varStatus="loop">
             <div class="d-inline-flex list">
                     <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 75%;">&nbsp;
-                        <div style="width: 20%;">
+                        <div style="width: 25%;">
                             <b>
                         <a href="제목클릭시 그 글로 넘어가게" style="text-decoration-line: none; color: black;">
                                 ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -285,8 +265,7 @@ form {
          </div>
 
 			<div class="mid1-2">
-				<br> <b style="font-size: 18px; margin-left: 10%;">실시간 인기
-					공고</b>
+				<br> <b style="font-size: 18px; margin-left: 10%;">실시간 인기 공고</b>
 				<div class="ingi"
 					style="color: darkslategray; width: 85%; height: 300px; margin-left: 12%; margin-top: 2%;">
 					<br>
@@ -511,6 +490,26 @@ form {
 	<div class="bottom-right fixed box">
 		<p>질문 GO</p>
 	</div>
+	<script>
+		let slideIndex = 0;
+		function showSlides() {
+			let i;
+			const slides = document.getElementsByClassName("mySlides");
+
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+
+			slideIndex++;
+			if (slideIndex > slides.length) {
+				slideIndex = 1;
+			}
+
+			slides[slideIndex - 1].style.display = "block";
+			setTimeout(showSlides, 2000); // Change slide every 2 seconds
+		}
+		showSlides();
+	</script>
 </body>
 
 </html>
