@@ -287,9 +287,8 @@
 		$(document).on("mouseleave","input.bottom",function(){
 			var input=$("input.bottom").val();
 			
-			if(input!=null){
+			if(input!=""){
 				$("tr.tr").hide();
-				
 				for(var i=0;i<input;i++){
 					$("tr.tr:eq("+i+")").show();
 				}
