@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.data.mapper.BoardMapperInter">
+    <select id="getNameNotice" resultType="String">
+        SELECT cnotice_name, ABS(DATEDIFF(cnotice_deadline, CURDATE())) AS days_remaining
+        FROM cnotice
+        WHERE cnotice_deadline > CURDATE()
+        ORDER BY cnotice_readcount DESC
+        LIMIT 10;
+    </select>
+    <select id="getRemainDate" resultType="int">
+        SELECT ABS(DATEDIFF(cnotice_deadline, CURDATE())) AS days_remaining
+        FROM cnotice
+        WHERE cnotice_deadline > CURDATE()
+        ORDER BY cnotice_readcount DESC
+        LIMIT 10;
+    </select>
+
+    <select id="getTopOneTitle" resultType="User_BoardDto">
+        SELECT board_category, board_title, board_readcnt, board_like, board_num, board_writeday
+        FROM user_board
+        WHERE (board_category, board_readcnt) IN (
+        SELECT board_category, MAX(board_readcnt)
+        FROM user_board
+        GROUP BY board_category
+        )
+    </select>
+    <select id="selectFiveByCategory" resultType="User_BoardDto">
+        SELECT * FROM user_board
+        WHERE board_category = #{board_category}
+        ORDER BY board_writeday DESC
+        LIMIT 5
+    </select>
+
+</mapper>

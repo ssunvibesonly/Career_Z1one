@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="layout1" template="/WEB-INF/layout/layout1.jsp"> <!-- 레이아웃 구성 -->
+		<put-attribute name="title" value="/WEB-INF/layout/title.jsp"></put-attribute>
+		<put-attribute name="header" value="/WEB-INF/layout/header.jsp"></put-attribute>
+		<put-attribute name="notice" value="/WEB-INF/layout/notice.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/layout/content.jsp"></put-attribute>
+		<put-attribute name="info" value="/WEB-INF/layout/info.jsp"></put-attribute>
+		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"></put-attribute>
+	</definition>
+	
+	<!-- wild card -->
+	<definition name="/*/*" extends="layout1"> <!-- ex) 첫번째 * input 두번째 * tiles -->
+		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp"/>
+	</definition>
+	
+	<!-- 레이아웃 구성2 //로그인,회원가입-->
+	<definition name="layout2" template="/WEB-INF/layout/layout2.jsp"> <!-- 레이아웃 구성 -->
+		<put-attribute name="title2" value="/WEB-INF/layout/title2.jsp"></put-attribute>
+		<put-attribute name="menu2" value="/WEB-INF/layout/menu2.jsp"></put-attribute>
+		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"></put-attribute>
+	</definition>
+	<!-- wild card /레이아웃 구성2 -->
+	<definition name="/2/*/*" extends="layout2"> <!-- ex) 첫번째 * input 두번째 * tiles -->
+		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp"/>
+	</definition>
+	
+	<!-- 레이아웃 구성3 //window.open(채팅방)-->
+	<definition name="layoutChat" template="/WEB-INF/layout/layoutChat.jsp"> <!-- 레이아웃 구성 -->
+		<put-attribute name="chatTitle" value="/WEB-INF/layout/chatTitle.jsp"></put-attribute>
+		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"></put-attribute>
+	</definition>
+	<!-- wild card /레이아웃 구성2 -->
+	<definition name="/3/*/*" extends="layoutChat"> <!-- ex) 첫번째 * input 두번째 * tiles -->
+		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp"/>
+	</definition>
+	
+</tiles-definitions>
+

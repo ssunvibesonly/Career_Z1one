@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boot.data.mapper.ApplyMapperInter">
+
+    <select id="getUserApplyList" resultType="User_ApplyDto">
+        select * from apply
+    </select>
+
+    <select id="getSingleDto" resultType="User_ApplyDto" parameterType="int">
+        select * from apply where apply_num=#{apply_}
+    </select>
+</mapper>

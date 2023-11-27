@@ -31,12 +31,11 @@
   border-radius: 20px;
   text-transform: uppercase;
   font-size: 1.1em;
-  letter-spacing: 0.2em;
   overflow: hidden;
   box-shadow: 0 4px 12px 0 rgba(152, 160, 180, 10);
-  z-index: -2;
   font-weight: bold;
   color: white;
+  z-index:100;
 }
 
 
@@ -117,11 +116,12 @@ font-size: 10pt;
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
+<c:if test="${sessionScope.loginok==null }">
 <div class="loginbox">
 	<div style="margin-top: 10%;">
 <h6 class="logincontext">Z1one에서 더 많은 정보를 받아가세요!</h6>
 	<!-- 로그인 버튼 -->
-    <div class="two" id="btnbox">
+    <div class="two" id="btnbox" style="margin-top: 30px;">
       <button type="button" id="btn" class="madebtn" onclick="location.href='/login/form'">
         Login
         <div class="fill-two"></div>
@@ -141,6 +141,34 @@ font-size: 10pt;
     </div>
     </div>
     </div>
+</c:if>
+
+<c:if test="${sessionScope.loginok!=null }">
+<div class="loginbox">
+	<div style="margin-top: 10%;">
+	<img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
+	<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
+	<h3 style="margin-left: 120px; margin-top: -70px;"><b>김선범</b></h3>
+	
+	<h6 style="margin-left: 121px; color: #A4A4A4; "><b>웹개발</b></h6>
+	
+	<!-- 이력서 작성하기 버튼 -->
+    <div class="two" id="btnbox">
+      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform'">
+        내 이력서 작성하기
+        <div class="fill-two"></div>
+        <script type="text/javascript">
+        $("#btnbox").click(function(e){
+        	$("#btn").trigger("click");	
+        })
+        
+        </script>
+      </button>
+    </div>
     
+
+    </div>
+    </div>
+</c:if>
 </body>
 </html>
