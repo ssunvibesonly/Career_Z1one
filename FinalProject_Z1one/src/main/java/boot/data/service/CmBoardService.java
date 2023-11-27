@@ -47,21 +47,27 @@ public class CmBoardService implements CmBoardServiceInter {
 	}
 
 	@Override
-	public User_BoardDto getData(String num) {
+	public User_BoardDto getData(String board_num) {
 		// TODO Auto-generated method stub
-		return mapper.getData(num);
+		return mapper.getData(board_num);
 	}
 
 	@Override
-	public void updateReadCount(String num) {
+	public void updateReadCount(String board_num) {
 		// TODO Auto-generated method stub
-		mapper.updateReadCount(num);
+		mapper.updateReadCount(board_num);
 	}
 
 	@Override
-	public String getEmail(String num) {
+	public String getEmail(String user_num) {
 		// TODO Auto-generated method stub
-		return mapper.getEmail(num);
+		return mapper.getEmail(user_num);
+	}
+
+	@Override
+	public void updateLikes(String board_num) {
+		// TODO Auto-generated method stub
+		 mapper.updateLikes(board_num);
 	}
 
 }

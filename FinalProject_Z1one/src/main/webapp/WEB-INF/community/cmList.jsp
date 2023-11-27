@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
@@ -50,8 +51,9 @@ form {
 }
 .row{
 	text-align: center;
-	margin-left: 6%;
+	/* margin-left: 6%; */
 	margin-right: 6%;
+	margin-left: 12.5%;
 	/* border: 1px solid green; */
 }
 
@@ -83,9 +85,9 @@ form {
 	background-color: black;
 }
 
-.m1{
+/* .m1{
 	margin-left: 5px;
-}
+} */
 
 .mdetail{
 	left:15px;
@@ -99,22 +101,44 @@ form {
 	right: 50px;
 }
 
-.cmbody{
+/* .cmbody{
 	border: 1px solid gray;
 	left: 100px;
 	margin-top:30px;
 	
 }
+ */
+ 
+.mid1 {
+        width: 80%;
+        height: 1800px;
+        margin-left: 12.5%;
+    }
+.cmbody {
+        display: flex;
+        flex-wrap: wrap; /* 자식 요소들을 한 줄에 정렬하되, 넘칠 경우 다음 줄로 넘어가게 설정 */
+    }
+
+.cmbody-each {
+        width: 50%; /* 한 줄에 두 개의 요소만 나타나도록 설정 */
+        height: 250px;
+    }
 </style>
+<script type="text/javascript">
+ function goContent(boardnum){
+	 location.href="/community/content?board_num="+boardnum;
+ }
+</script>
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
-	<div class="cmlistsearch">
-		<form>
-			<input type="text" placeholder="기업명, 공고명 검색">
+	<form action="search">
+		<div class="cmlistsearch">
+		
+			<input type="text" placeholder="관심 내용을 검색해보세요!">
 			<button type="submit"></button>
-		</form>
-	</div>
+		</div>
+	</form>
 	<br>
 	
 	
@@ -195,24 +219,44 @@ form {
       </div>
     </div>  
 
-	<!-- 게시판입력버튼 -->
-	<div>
-	 	<button type="button" class="btn btn-secondary" style="float: right;" onclick="location.href='cmform'">글작성</button>
-	</div>
 	
-	
-	<!-- 본문 -->
-	<div class="cmbody">
-	${totalCount }
-		<div class="topic">토픽주제 ${user_BoardDto.board_title}</div>
-		<div class="subject">제목</div>
-		<div class="content">내용</div>
-		<div class="nickname">닉네임</div>
-		<div class="view">조회수</div>
-		<div class="likes">좋아요</div>
-		<div class="talk">댓글수</div>
-		<div class="date">날짜</div>
-		<div class="save">스크랩</div>
+	<div class="mid1"><!-- mid1 시작-->
+	<!-- 본문시작 -->
+	<hr style="border: 2px solid black; margin-top: 15px;">
+		<!-- 게시판입력버튼 -->
+		<div>
+			총 게시글 : ${totalCount }
+		 	<button type="button" class="btn btn-secondary btn-sm" style="float: right;" onclick="location.href='cmform'">글작성</button>
+		</div>
+	<div class="cmbody" style="width: 100%;">
+	<c:forEach items="${list }" var="userboardDto">
+	<div class="cmbody-each" style="border: 1.5px solid lightslategray; cursor: pointer;" onclick="goContent(${userboardDto.board_num})">
+		<!-- cmbody 상단 -->
+		<div class="cmbody-top" style="height: 70px;">
+			<div class="topic"><b style="color: gray">${userboardDto.board_category}</b></div>
+			<span class="subject">제목 ${userboardDto.board_title}</span>
+			<span class="save">스크랩</span>
+		</div>
+		<!-- cmbody 중간 -->
+		<div class="cmbody-middle" style="height: 100px;">
+			<span class="content">내용 ${userboardDto.board_title}</span>
+			<span><img alt="" src="../savefile/${userboardDto.board_photo}" style="width: 20%;"></span>
+		</div>
+		<!-- cmbody 하단 -->
+		<div class="cmbody-bottom" style="height: 70px;">
+			<span class="nickname"><i class="bi bi-person-circle"></i>${userboardDto.user_email}</span>
+			<span class="view"><i class="bi bi-eye"></i> ${userboardDto.board_readcnt}</span>
+			<span class="like"><i class="bi bi-hand-thumbs-up"></i> ${userboardDto.board_like}</span>
+			<span class="dislike"><i class="bi bi-hand-thumbs-down"></i> ${userboardDto.board_dislike}</span>
+			<span class="talk"><i class="bi bi-chat-left"></i> </span>
+			<span class="date"><fmt:formatDate value="${userboardDto.board_writeday}" pattern="yyyy-MM-dd"/>
+			</span>
+		</div>
 	</div>
+	</c:forEach>
+	${sessionScope.myid }
+	</div>
+	<!-- 본문끝 -->
+	</div><!-- mid1 종료 -->
 </body>
 </html>

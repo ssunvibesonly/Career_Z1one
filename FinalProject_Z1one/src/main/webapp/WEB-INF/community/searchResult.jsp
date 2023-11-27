@@ -1,7 +1,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,10 +53,10 @@
         right: 10px;
     }
     form {
-  position: relative;
-  width: 50%;
-  margin: 0 auto;
-}
+	  position: relative;
+	  width: 50%;
+	  margin: 0 auto;
+	}
 .cmlistsearch input {
   width: 100%;
   height: 42px;
@@ -194,7 +194,8 @@
                         <%--하단--%>
                         <div class="story-footer" style="height: 70px;">
                             <b>{본인회사}
-                            <a href="#">{세션아이디적기}</a><a href="#" style="margin-left: 28%"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${dto.board_writeday}
+                            <a href="#">{세션아이디적기}</a><a href="#" style="margin-left: 28%"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <fmt:formatDate value=" ${dto.board_writeday}" pattern="yyyy-MM-dd"/>
                             </b>
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;

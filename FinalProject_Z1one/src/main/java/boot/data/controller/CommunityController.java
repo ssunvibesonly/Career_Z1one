@@ -26,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_BoardDto;
 import boot.data.mapper.CmBoardMapperInter;
+import boot.data.service.BoardSearchService;
 import boot.data.service.CmBoardService;
+import boot.data.service.UserGaipService;
 
 
 @Controller
@@ -35,6 +37,9 @@ public class CommunityController {
 
 	@Autowired
 	CmBoardService service;
+	
+	@Autowired
+	UserGaipService uservice; 
 	
 	
 	/*
@@ -45,10 +50,10 @@ public class CommunityController {
 	 *}
 	 */
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage)
+	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage, HttpSession httpSession)
 	{
 		ModelAndView model = new ModelAndView();
-
+		
 		//int totalCount=service.getTotalCount();
 		
 		// 페이징 처리에 필요한 변수 선언
@@ -85,9 +90,27 @@ public class CommunityController {
 	      // 출력시 1씩 감소하며 출력
 	      int no = totalCount - (currentPage - 1) * perPage;
 
+	    //이메일
+	    String id =(String)httpSession.getAttribute("myid"); //session 설정하면 get으로 
+	    System.out.println(id);
+		
+		 String displayedEmail = id.substring(0, Math.min(id.length(), 3));
+		 displayedEmail += "*".repeat(Math.max(0, id.length() - 3));
+		
 		
 		//select
 		List<User_BoardDto> list = service.getBoards(startNum, perPage);
+		
+		//게시글 list의 작성자가 글 쓴 작성자의 이메일을 가져온다.
+		/*for(int i=0; i<list.size(); i++) {
+			String user_num =list.get(i).getUser_num();
+			String user_email = service.getEmail(user_num);
+			list.get(i).setUser_email(user_email);
+		}*/
+		
+		for(User_BoardDto dto:list) {
+			dto.setUser_email(service.getEmail(dto.getUser_num()));
+		}
 		
 		model.addObject("totalCount", totalCount);
 		model.addObject("list", list);
@@ -99,6 +122,11 @@ public class CommunityController {
 		model.addObject("currentPage", currentPage);
 
 		
+		//이메일 model
+		model.addObject("id", id); 
+		model.addObject("displayedEmail", displayedEmail);
+		
+
 		model.setViewName("/2/community/cmList");
 		
 		return model;
@@ -163,15 +191,20 @@ public class CommunityController {
 	{
 		
 		ModelAndView model=new ModelAndView();
-		//게시판 작성자: 이메일 마스킹 처리
-		String email=service.getEmail(board_num);
-		String displayedEmail = email.substring(0, Math.min(email.length(), 3));
-		displayedEmail += "*".repeat(Math.max(0, email.length() - 3));
+		
 		
 		//조회수 증가
 		service.updateReadCount(board_num);
 		
 		User_BoardDto dto=service.getData(board_num);
+		
+		
+		//게시판 작성자: 이메일 마스킹 처리
+		String email=service.getEmail(dto.getUser_num());
+		String displayedEmail = email.substring(0, Math.min(email.length(), 3));
+		displayedEmail += "*".repeat(Math.max(0, email.length() - 3));
+				
+				
 		model.addObject("dto", dto);	
 		model.addObject("email", email);
 		model.addObject("displayedEmail", displayedEmail);
@@ -193,4 +226,15 @@ public class CommunityController {
 		
 		return model;
 	}
+
+	//좋아요 증가
+	@GetMapping("/likes")
+	@ResponseBody
+	public int likes(@RequestParam String board_num)
+	{
+		service.updateLikes(board_num);
+		int likes=service.getData(board_num).getBoard_like();
+		return likes;
+	}
+
 }
