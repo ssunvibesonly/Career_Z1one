@@ -192,6 +192,7 @@ public class RecruitController {
 		ModelAndView model=new ModelAndView();
 		model.setViewName("/2/recruit/r_titlelist");
 		model.addObject("c_code", c_code);
+		model.addObject("c_pass", service.getCompanyPass(c_code));
 		
 		List<TitleDto> titlelist=service.getAllTitles(c_code);
 		model.addObject("titlelist", titlelist);
@@ -220,15 +221,9 @@ public class RecruitController {
 		return map;
 	}
 	
-	@GetMapping("/search")
+	@PostMapping("/dragupdate")
 	@ResponseBody
-	public Map<String, Object> search(@RequestParam(required = false) int rno,
-			@RequestParam(required = false) String rname,
-			@RequestParam(required = false) Timestamp rdead,
-			@RequestParam(required = false) int rdday) {
-		Map<String, Object> map=new HashMap<>();
-		
-		
-		return map;
+	public void dragupdate(@RequestParam int r_num,int a_idx,int isFinal) {
+		service.updateDrag(r_num, a_idx,isFinal);
 	}
 }
