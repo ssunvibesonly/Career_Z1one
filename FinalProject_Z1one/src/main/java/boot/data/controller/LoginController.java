@@ -76,7 +76,7 @@ public class LoginController {
          
          CompanyGaipDto cdto=cservice.getDataById(email);
          
-         return "/login/loginsuccess";
+         return "redirect:/";
       }else      
       return "/login/passfail";
    }

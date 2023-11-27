@@ -1,0 +1,31 @@
+server:
+  port: 9000
+#jsp
+spring:
+  devtools:
+    livereload:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: jinhyeonkyu@gmail.com
+    password: wtswruwtbyojxmwz
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  #mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://z1one.cxitgdhw1snc.us-east-1.rds.amazonaws.com:3306/Z1one?serverTimezone=Asia/Seoul
+    username: Z1one
+    password: fhfgkrhtlvek
+
+#mybatis
+mybatis:
+  type-aliases-package: boot.data.* //(DB랑 연결되는 부분)
+  mapper-locations:
+    - /mapper/**/*.xml
