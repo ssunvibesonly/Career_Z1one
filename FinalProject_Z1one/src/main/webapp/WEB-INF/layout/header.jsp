@@ -17,7 +17,7 @@
 </head>
 <style type="text/css">
 .searchbox{
-width: 30%;
+width: 40%;
 height:70px;
 border: 1px solid lightgray;
 border-radius: 20px;

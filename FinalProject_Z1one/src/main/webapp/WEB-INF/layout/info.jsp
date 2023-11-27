@@ -23,7 +23,7 @@
  
 }
 
-button {
+.madebtn {
   position: relative;
   height: 50px;
   width: 280px;
@@ -122,7 +122,7 @@ font-size: 10pt;
 <h6 class="logincontext">Z1one에서 더 많은 정보를 받아가세요!</h6>
 	<!-- 로그인 버튼 -->
     <div class="two" id="btnbox">
-      <button type="button" id="btn" onclick="location.href='/login/form'">
+      <button type="button" id="btn" class="madebtn" onclick="location.href='/login/form'">
         Login
         <div class="fill-two"></div>
         <script type="text/javascript">
