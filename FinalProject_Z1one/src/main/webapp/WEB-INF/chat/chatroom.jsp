@@ -74,7 +74,7 @@
     </div>
     <div class="chat-container">
         <div class="chat-header">
-            <h2>[[${room.roomName}]]</h2>
+            <h2><b>[${room.roomName}]</b></h2>
         </div>
         <div class="connecting">
             Connecting...

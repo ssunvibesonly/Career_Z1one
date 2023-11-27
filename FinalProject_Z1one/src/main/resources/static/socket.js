@@ -23,6 +23,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+
 // roomId 파라미터 가져오기
 const url = new URL(location.href).searchParams;
 const roomId = url.get('roomId');
@@ -137,6 +138,16 @@ function sendMessage(event) {
     event.preventDefault();
 }
 
+function getAvatarColor(messageSender) {
+    var hash = 0;
+    for (var i = 0; i < messageSender.length; i++) {
+        hash = 31 * hash + messageSender.charCodeAt(i);
+    }
+
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+}
+
 // 메시지를 받을 때도 마찬가지로 JSON 타입으로 받으며,
 // 넘어온 JSON 형식의 메시지를 parse 해서 사용한다.
 function onMessageReceived(payload) {
@@ -159,9 +170,15 @@ function onMessageReceived(payload) {
     }
     if(chat.type==='CHAT')
     { // chatType 이 CHAT 라면 아래 내용
-        messageElement.classList.add('chat-message');
+    	
+    	var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(chat.sender[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(chat.sender);
 
-       
+        messageElement.appendChild(avatarElement);
+    
+        messageElement.classList.add('chat-message');
 
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(chat.sender);

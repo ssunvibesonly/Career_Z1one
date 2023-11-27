@@ -105,8 +105,6 @@ function delRoom(){
       <div class="modal-body">
      	 <label for="roomName" class="col-form-label">회사명</label>
         <input type="text" class="form-control" id="roomName" name="roomName" required="required">
-        <label for="roomlogo" class="col-form-label">회사 로고</label>
-        <input type="file" class="form-control" id="roomlogo" name="roomlogo" required="required">
       </div>
 
       <!-- Modal footer -->
