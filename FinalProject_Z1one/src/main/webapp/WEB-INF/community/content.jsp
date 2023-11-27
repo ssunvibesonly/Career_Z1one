@@ -62,11 +62,11 @@ $(function(){
 			var thumb=$(this).find("i").attr("class");
 			//alert(thumb);
 			
-			if(thumb=='bi bi-hand-thumbs-up'){
-				$(this).find("i").attr("class","bi bi-hand-thumbs-up-fill").css("color","black");
+			if(thumb=='bi bi-heart'){
+				$(this).find("i").attr("class","bi bi-heart-fill").css("color","red");
 				
 			}else{
-				$(this).find("i").attr("class","bi bi-hand-thumbs-up").css("color","black");
+				$(this).find("i").attr("class","bi bi-heart").css("color","black");
 			}
 			
 			
@@ -83,16 +83,59 @@ $(function(){
 				}
 			}); 
 		});
+	
+    //댓글 수정 ajax1_getnum
+	$(document).on("click","#commentupdate",function(){
+		
+		idx=$(this).attr("idx");
+		//alert(idx);
+		
+		$.ajax({  //$.는 jquery임!
+			
+			type:"get",
+			dataType:"json",
+			url:"/boardanswer/bdata",
+			data:{"idx":idx},
+			success:function(res){
+				//alert(res.content);
+				$("#updatecmt").val(res.content);
+			}
+			
+		});
+	});
     
+	 //댓글 수정 ajax2_update
+	$(document).on("click","#btnupdate",function(){
+		
+		var content=$("#updatecmt").val();
+		alert(idx+","+content);
+		
+ 		$.ajax({
+			
+			type:"post",
+			dataType:"html",
+			url:"/boardanswer/bupdate",
+			data:{"idx":idx,"content":content},
+			success: function(){  //void라 res로 넘어올 거 없으니깐 빈칸
+				list();
+				//$("#close").trigger("click");
+				$("#updatecmt").val(res.content);
+			}
+		});
+	});   
+    
+	 
+	 
 });
-
 
 
     // 사용자 함수 정의하기 (댓글 목록)
     function list(){
 
         boardnum = $("#boardnum").val();
-		alert(boardnum);
+		//alert(boardnum);
+		
+		user_email=
         
         // 댓글 작성 숫자 표현 방법
          $.ajax({
@@ -110,9 +153,12 @@ $(function(){
 
                 $.each(res, function(i, dto){
 
-                    s += "<b>익명</b>: " + dto.content;
-                    s += "<span style='font-size: 14pt; color: gray; float: right;'>";
-					s += dto.sdf_writeday+"</span><br>";
+                    s += "<b>익명</b>: <input type='text' id='updatecmt' value='" + dto.content+"'>"
+                    s += "<span id='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
+                    s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
+                    s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
+					s += " <i class='bi bi-eraser' id='commentupdate' idx='"+dto.content_num+"'></i><i class='bi bi-x-lg'></i></span><br>"
+					s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+"</div><hr>";
 						
                 });
 
@@ -139,22 +185,41 @@ $(function(){
     	justify-content: flex-start;
    		align-items: center;
 	}
+	
+	.bi-eraser{
+		cursor: pointer;
+	}
+	.bi-x-lg{
+		cursor: pointer;
+	}
+
+    /* 마우스를 올렸을 때 색상 변경 */
+    .bi-eraser:hover {
+      color: blue;
+      cursor: pointer;
+    }
+    .bi-x-lg:hover {
+      color: red;
+      cursor: pointer;
+    }
 </style>
 </head>
 <body>
 	<div style="margin: 50px 150px;">
-		<table class="table table-bordered" style="width: 600px;">
+		<table class="table table-bordered" style="width: 900px;">
 			<tr>
 				<td>
 					<h4>
-						<b>${dto.board_story }</b>
-						<span style="font-size: 14pt; color: gray; float: right;">
-							<fmt:formatDate value="${dto.board_writeday }" pattern="yyyy-MM-dd HH:mm"/>
-						</span>
+						<b style="font-size: 25px;">${dto.board_title }</b>
+						<span style="font-size: 8pt; color: gray; float: right;">
+							<i class="bi bi-calendar"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday }" pattern="yyyy-MM-dd HH:mm"/>
+							<%-- <span style="font-size: 8pt; color: gray; float: right;"><i class="bi bi-eye"></i> ${dto.board_readcnt }</span> --%>
+						</span>	
+						
 					</h4>
 					
-                        <span>작성자: ${displayedEmail}</span>
-					
+                        <span class="fw-bolder" style="font-size:12px; color:#6f42c1;">작성자 │ </span><span style="font-size:12px;">${displayedEmail}</span>
+						<span style="font-size: 8pt; color: gray;"><i class="bi bi-eye"></i> ${dto.board_readcnt }</span>
 					<c:if test="${dto.board_story!='no' }">
 						<span style="float: right;">
 							<a href="download?clip=${dto.board_photo }">
@@ -177,24 +242,24 @@ $(function(){
 						${dto.board_story }
 					</pre>
 					<br>
-					<b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp;
+					<%-- <b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp; --%>
 					<!-- <b>댓글: <span class="acount"></span></b>  댓글 개수를 표현  -->
 					<div>
+						<!-- 좋아요 -->
 						<div class="likes">
-							<i class="bi bi-hand-thumbs-up" style="cursor: pointer;"></i><b>${dto.board_like }</b>
+							<span><i class="bi bi-heart" style="cursor: pointer;"></i><b style="font-size: 12px;"> ${dto.board_like }</b></span>
+							&nbsp;<span><b><i class="bi bi-chat-left">&nbsp;</i><span style="font-size: 12px;" class="acount"></span></b></span><!-- 댓글개수 -->
 						</div>
-						<%-- <span class="dislike" style="cursor: pointer;"><i class="bi bi-hand-thumbs-down"></i>${dto.board_dislike }</span> --%>
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<th>
-					<b>댓글: <span class="acount"></span></b><!-- 댓글개수 -->
-					<div class="commentresult">댓글보이는창</div>
+				<th>					
+					<div class="commentresult"></div><!-- 댓글 보이는 창 -->
 					<input type="hidden" id="boardnum" value="${dto.board_num }">
 					<div class="comment">
 						<span><img alt="" src="../../image/user.png" id="userimg"></span>
-						<span><textarea id="content" rows="" cols="" style="width: 450px; height: 80px; margin-right: 10px;"></textarea></span>
+						<span><textarea id="content" rows="" cols="" style="width: 750px; height: 80px; margin-right: 10px;"></textarea></span>
 						<span><button type="button" class="btn btn-success" id="btncommentadd">등록</button></span>
 					</div>
 				</th>

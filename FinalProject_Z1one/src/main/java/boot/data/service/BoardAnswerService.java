@@ -39,4 +39,17 @@ public class BoardAnswerService implements BoardAnswerServiceInter {
 		return mapperInter.getAllBAnswer(board_num);
 	}
 
+	@Override
+	public Board_ContentDto getAnswer(String board_num) {
+		// TODO Auto-generated method stub
+		return mapperInter.getAnswer(board_num);
+	}
+
+	@Override
+	public void updateBanswer(Board_ContentDto dto) {
+		// TODO Auto-generated method stub
+		mapperInter.updateBanswer(dto);
+	}
+
+
 }

@@ -4,10 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="boot.data.mapper.BoardAnswerMapperInter">
   
-  <insert id="insertBanswer" parameterType="Board_ContentDto">
+  	<insert id="insertBanswer" parameterType="Board_ContentDto">
   	insert into board_content values(#{content_num},#{board_num},#{content},0,#{regroup},#{relevel},#{restep},now())
-  </insert>
-  <select id="getAllBAnswer" resultType="Board_ContentDto" parameterType="String">
+  	</insert>
+	<select id="getAllBAnswer" resultType="Board_ContentDto" parameterType="String">
  		select * from board_content where board_num=#{board_num} order by content_num desc  
  		<!-- board_num : 게시판 번호, content_num : 댓글 번호 -->
  	</select>

@@ -41,7 +41,7 @@ public class BoardAnswerController {
 		
 		list=mapper.getAllBAnswer(board_num);
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		
 		for(Board_ContentDto dto: list) {
 			String writeday = sdf.format(dto.getWriteday());
@@ -50,4 +50,21 @@ public class BoardAnswerController {
 		
 		return list;  //실제 경로 쓰지 않아도 된다_왜? ajax를 사용하기 때문
 	}
+	
+	//댓글수정 getnum
+	@GetMapping("/bdata")
+	public Board_ContentDto getData(String board_num)
+	{
+		return mapper.getAnswer(board_num);
+	}
+	
+	
+	//댓글수정 update
+	@PostMapping("/bupdate")
+	public void aupdate(@ModelAttribute Board_ContentDto dto)
+	{
+			mapper.updateBanswer(dto);
+	}
+	
+	
 }
