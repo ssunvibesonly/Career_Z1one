@@ -358,6 +358,10 @@
 				deliberate("직권합격",a_name,c_pass).then(result => {
 					if(result==1){
 						dragAjax("1");
+					}else{
+						$("div.dragging").css("opacity","1");
+						$(this).attr("style","outline:0");
+						$("div.button-container").attr("style","border:0");
 					}
 				});
 			}
