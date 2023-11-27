@@ -220,4 +220,10 @@ public class RecruitController {
 		
 		return map;
 	}
+	
+	@PostMapping("/dragupdate")
+	@ResponseBody
+	public void dragupdate(@RequestParam int r_num,int a_idx,int isFinal) {
+		service.updateDrag(r_num, a_idx,isFinal);
+	}
 }

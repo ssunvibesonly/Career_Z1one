@@ -157,4 +157,14 @@ public class RecruitService implements RecruitServiceInter {
 		
 		return mapper.getOutline(map);
 	}
+
+	@Override
+	public void updateDrag(int r_num, int a_idx,int isFinal) {
+		Map<String, Integer> map=new HashMap<>();
+		map.put("r_num", r_num);
+		map.put("a_idx", a_idx);
+		map.put("isFinal", isFinal);
+		
+		mapper.updateDrag(map);
+	}
 }

@@ -308,26 +308,59 @@
 			$("button.modalbtn").trigger("click");
 		});
 		
-		$(document).on("dragstart","div.button-container",function(){
-			$(this).css("opacity","0.7");
-		});
 		$(document).on("drag","div.button-container",function(){
-			$(this).attr("class","button-container dragging");
+			$(this).attr("class","button-container dragging").css("opacity","0.7");
 		});
-		$(document).on("dragenter","div.button-container[class!=dragging]",function(e){
-			var clone=$("div.dragging").clone().after()
-			var topset=$(this).offset().top;
-			var middleset=topset+46;
-			var bottomset=topset+92;
-			if(topset-10<=e.pageY && e.pageY<middleset){
-				$(this).before(clone);
-			}else if(middleset<=e.pageY && e.pageY<bottomset+10){
-				$(this).after(clone);
+		$(document).on("dragover","div.button-container",function(e){
+			var middleset=$(this).offset().top+46;
+			
+			if(e.pageY<middleset){
+				$(this).attr("style","border-top:solid 3px red");
+				$(this).prev().attr("style","border-bottom:solid 3px red");
+			}else if(middleset<=e.pageY){
+				$(this).attr("style","border-bottom:solid 3px red");
+				$(this).next().attr("style","border-top:solid 3px red");
 			}
 		});
-		
-		$(document).on("dragend","div.button-container",function(){
-			$(this).attr("class","button-container");
+		$(document).on("dragover","div.course",function(e){
+			e.preventDefault();
+			$(this).attr("style","outline:2px solid red");
+		});
+		$(document).on("dragleave","div.button-container",function(){
+			$(this).attr("style","border:0");
+		});
+		$(document).on("dragleave","div.course",function(){
+			$(this).attr("style","outline:0");
+		});
+		$(document).on("drop","div.course",function(e){
+			e.preventDefault();
+			//db조작하는 기능
+			var idx=$("div.dragging").attr("idx");
+			var r_num=$(this).find("div.levelbox").attr("seq");
+			var r_title=$(this).find("div.levelbox").text();
+			var a_name=$("div.dragging").find("span.namebox").text();
+			
+			var dragAjax=function(input){
+				$.ajax({
+					data:{"r_num":r_num,"a_idx":idx,"isFinal":input},
+					type:"post",
+					dataType:"html",
+					url:"/recruit/dragupdate",
+					success:function(){
+						list();
+					}
+				});
+			}
+			
+			if($(this).find("div.fin").length==0){
+				dragAjax("0");
+			}else{
+				deliberate("직권합격",a_name,c_pass).then(result => {
+					if(result==1){
+						dragAjax("1");
+					}
+				});
+			}
 		});
 	});
 	

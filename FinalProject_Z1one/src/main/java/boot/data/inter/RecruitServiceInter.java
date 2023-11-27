@@ -36,4 +36,5 @@ public interface RecruitServiceInter {
 	public int getApplierCount(int c_code,String r_title);
 	public List<Integer> getOutline(int c_code,String r_title);
 	//public List<TitleDto> getSearchResult(String input,int col);
+	public void updateDrag(int r_num,int a_idx,int isFinal);
 }

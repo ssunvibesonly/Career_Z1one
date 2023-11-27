@@ -40,4 +40,5 @@ public interface RecruitMapperInter {
 	public int getApplierCount(Map<String, String> map);
 	public List<Integer> getOutline(Map<String, String> map);
 	//public List<TitleDto> getSearchResult(Map<String, String> map);
+	public void updateDrag(Map<String, Integer> map);
 }
