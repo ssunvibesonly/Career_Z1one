@@ -46,7 +46,7 @@
     .box {
         width: 90px;
         height: 90px;
-        background: lightslategray;
+        background: gray;
         margin: 4px;
         border-radius: 10px;
     }
@@ -58,72 +58,73 @@
         right: 10px;
     }
     form {
-  position: relative;
-  width: 50%;
-  margin: 0 auto;
-}
-.cmlistsearch input {
-  width: 100%;
-  height: 42px;
-  padding-left: 10px;
-  border: 2px solid #8f7cc4;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-  color: #9E9C9C;
-  margin-left: -5%;
-}
-.cmlistsearch button {
-  position: absolute; 
-  top: 0;
-  right: 0px;
-  width: 42px;
-  height: 42px;
-  border: none;
-  background: #8f7cc4;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-.cmlistsearch button:before {
-  content: "\f002";
-  font-family: FontAwesome;
-  font-size: 16px;
-  color: white;
-}
-.row{
-	text-align: center;
-	margin-left: 6%;
-	margin-right: 6%;
-	/* border: 1px solid green; */
-}
-
-.text-secondary{
-	font-size: 13px;
-	font-weight: bold;
-	text-decoration: none;
-	position: relative;
-	margin-bottom: 2px;
-	/* border: 1px solid red; */
-}
-
-.text-secondary::before{
-	content: "";
-	height: 3px;
-	width: 0;
-	background-color: black;
-	border-radius: 10px;
-	transition: 0.3s;
-	position: absolute;
-	bottom: -10px;
-	left: 0;
-}
-
-.text-secondary:hover::before{
-	width: 125%;
-	left:-12.5%;
-	bottom:-10px;
-	background-color: black;
-}
+        position: relative;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .cmlistsearch input {
+        width: 90%;
+        height: 52px;
+        padding-left: 10px;
+        border: 2px solid #8f7cc4;
+        border-radius: 5px;
+        outline: none;
+        background: white;
+        color: #9E9C9C;
+        margin-left: -1%;
+    }
+    .cmlistsearch button {
+        position: absolute;
+        top: 0;
+        right: 65px;
+        width: 42px;
+        height: 52px;
+        border: none;
+        background: #8f7cc4;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+    .cmlistsearch button:before {
+        content: "\f002";
+        font-family: FontAwesome;
+        font-size: 16px;
+        color: white;
+    }
+    .row{
+        text-align: center;
+        margin-left: 6%;
+        margin-right: 6%;
+        /* border: 1px solid green; */
+    }
+    .text-secondary{
+        font-size: 13px;
+        font-weight: bold;
+        text-decoration: none;
+        position: relative;
+        margin-bottom: 2px;
+        /* border: 1px solid red; */
+    }
+    .text-secondary::before{
+        content: "";
+        height: 3px;
+        width: 0;
+        background-color: black;
+        border-radius: 10px;
+        transition: 0.3s;
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+    }
+    .text-secondary:hover::before{
+        width: 125%;
+        left:-12.5%;
+        bottom:-10px;
+        background-color: black;
+    }
+    select {
+        border:none;
+        cursor: pointer;
+    }
 </style>
 <script>
     $(function(){
@@ -131,11 +132,12 @@
         $('#orderby').change(function() {
             // 선택된 옵션의 클래스를 가져옴
             var selectedClass = $('option:selected', this).attr('class');
-            alert(selectedClass);
+            //alert(selectedClass);
             var orderby;
 
+            //값을 대입할때는 = 값이 같을때는 ==
             if(selectedClass=='recent') {
-                orderby='recent'; //값을 대입할때는 = 값이 같을때는 ==
+                orderby='recent';
                 list(orderby);
             }
             if (selectedClass=='likes') {
@@ -143,7 +145,7 @@
                 list(orderby);
             }
             if (selectedClass=='readcnt') {
-                orderby = 'contents';
+                orderby = 'readcnt';
                 list(orderby);
             }
 
@@ -151,7 +153,7 @@
         })
 
     function list(orderby) {
-        alert(orderby);
+        //alert(orderby);
         $.ajax({
             type: "get",
             dataType: "json",
@@ -159,32 +161,35 @@
             traditional: true, // 중간에 &를 ,로 변경하는 옵션
             data: {"orderby":orderby },
             success: function (res) {
-                var noticeContainer = $(".mid1");
+                var noticeContainer = $(".story");
                 var html = "";
 
                 $.each(res, function (index, dto) {
 
-                    html +="<a href='detail?board_num="+dto.board_num+"' style='text-decoration: none; color:black;'></a>";
-                    html += "  </div>";
-                    // 날짜 포맷 변경
-                    var deadlineDate = new Date(dto.cnotice_Deadline);
-                    var formattedDeadline = formatDate(deadlineDate,"YYYY-MM-dd");
+                    html += "<div style='border:2px solid gray; width: 50%; height: 250px;'>"
+                    html += "</div>"
 
-                    if ((index + 1) % 4 === 0) {
-                        s += "<br>";
-                    }
+                  /*  if ((index + 1) % 2 === 0) {
+                        html += "<br>";
+                        }
+                  */
+
+
+
                 });
-
                 noticeContainer.html(html); // 생성된 HTML로 교체
-
             }
         });
     }
+
 </script>
 <body>
 <div class="bottom-right fixed box">
-    <p>질문 GO</p>
+    <div style="margin-left: 8.5%; margin-top:4%; cursor:pointer;">
+        <img src="../community/chatgpt.png" style="width:90%; height:81px;" onclick="location.href='https://chat.openai.com/'">
+    </div>
 </div>
+
 <div class="mid1"> <%--가운데 전체 감싸는 div--%>
 
 		<form action="search">
@@ -212,15 +217,14 @@
                 <option>Z1마켓 ()</option>
              </select>
         </div>
-        <div class="sort-2" style="margin-left: 81%">
+        <div class="sort-2" style="margin-left: 85%">
             <select id="orderby" size="1" class="sorted">
-                <option selected="selected">전체</option>
+                <option selected="selected">선택하세요</option>
                 <option class="recent">최신순</option>
                 <option class="likes">좋아요순</option>
                 <option class="readcnt">댓글순</option>
             </select>
         </div>
-
     </div>
 
     <hr style="border: 2px solid black; margin-top: 15px;">
@@ -241,11 +245,11 @@
     <c:if test="${searchword!=null}">
         <div class="story" style="width:100%;">
         <c:forEach items="${searchResults}" var="dto">
-            <div class="story-1" style="border: 1.5px solid lightslategray;">
+            <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none;">
                 <%--상단--%>
                 <div class="story-top" style="height: 70px;">
                     &nbsp;<span style="color:dimgray; font-size:14px;"><b>${dto.board_category}</b></span><br>
-                    <h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5>
+                    <b><h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5></b>
                 </div>
                      <%--중간--%>
                     <div class="story-bottom" style="height: 100px;">
@@ -260,13 +264,14 @@
                                 <a href="#">${maskedEmail}</a>--%>
                                 <a href="#" style="margin-left: 28%"></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <fmt:formatDate value="${dto.board_writeday}" pattern="YYYY-MM-DD"/>
                             </b>
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
                             <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
-                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>&nbsp;&nbsp;
-                            <i class="bi bi-chat-square" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">{댓글수 띄우기}</a>
+                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>
+                            <div style="margin-left: 80%">
+                            <i class="bi bi-calendar" style="color:gray; font-size: 16px;"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
+                            </div>
                         </div>
 
             </div>
