@@ -307,6 +307,28 @@
 			
 			$("button.modalbtn").trigger("click");
 		});
+		
+		$(document).on("dragstart","div.button-container",function(){
+			$(this).css("opacity","0.7");
+		});
+		$(document).on("drag","div.button-container",function(){
+			$(this).attr("class","button-container dragging");
+		});
+		$(document).on("dragenter","div.button-container[class!=dragging]",function(e){
+			var clone=$("div.dragging").clone().after()
+			var topset=$(this).offset().top;
+			var middleset=topset+46;
+			var bottomset=topset+92;
+			if(topset-10<=e.pageY && e.pageY<middleset){
+				$(this).before(clone);
+			}else if(middleset<=e.pageY && e.pageY<bottomset+10){
+				$(this).after(clone);
+			}
+		});
+		
+		$(document).on("dragend","div.button-container",function(){
+			$(this).attr("class","button-container");
+		});
 	});
 	
 	function list(){
@@ -322,11 +344,11 @@
 			success:function(res){
 				$.each(res.levellist,function(i,ele){
 					s+="<div class='course'>";
-					s+="<div class='levelbox' title='전원 선택' step='"+(i+1)+"'>"+ele.r_level+"</div><br>";
+					s+="<div class='levelbox' title='전원 선택' step='"+(i+1)+"' seq='"+ele.r_num+"'>"+ele.r_level+"</div><br>";
 					
 					$.each(res.applylist,function(i,sube){
 						if(ele.r_num==sube.r_num&&sube.finalpass!=50){
-							s+="<div class='button-container' idx='"+sube.a_idx+"' user='"+sube.user_num+"' record='off'>";
+							s+="<div class='button-container' idx='"+sube.a_idx+"' user='"+sube.user_num+"' record='off' draggable='true'>";
 							s+="<span class='namebox'>"+sube.a_name+"</span>";
 							s+="<i class='bi bi-three-dots-vertical'></i>";
 							s+="<div class='buttons'>";
@@ -399,11 +421,11 @@
 	<div class="d-inline-flex" id="main" code="${c_code }">
 		<c:forEach var="ldto" items="${levellist }" varStatus="i">
 			<div class="course">
-				<div class="levelbox" title="전원 선택" step="${i.count }">${ldto.r_level }</div><br>
+				<div class="levelbox" title="전원 선택" step="${i.count }" seq="${ldto.r_num }">${ldto.r_level }</div><br>
 				<c:forEach var="adto" items="${applylist }">
 					<c:if test="${ldto.r_num==adto.r_num && adto.finalpass!=50 && adto.finalpass!=20}">
 						
-						<div class="button-container" idx="${adto.a_idx }" user="${adto.user_num }" record="off">
+						<div class="button-container" idx="${adto.a_idx }" user="${adto.user_num }" record="off" draggable="true">
 							<span class="namebox">${adto.a_name }</span>
 							<i class="bi bi-three-dots-vertical"></i>
 							<div class="buttons">
