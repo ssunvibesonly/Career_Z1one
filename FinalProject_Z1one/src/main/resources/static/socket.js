@@ -52,6 +52,7 @@ function connect(event) {
 
 function onConnected() {
 
+	
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
     stompClient.subscribe('/sub/chat/room/' + roomId, onMessageReceived);
 
@@ -103,11 +104,12 @@ function getUserList() {
         success: function (data) {
             var users = "";
             for (let i = 0; i < data.length; i++) {
-                //console.log("data[i] : "+data[i]);
-                users += "<li class='dropdown-item'>" + data[i] + "</li>"
+                console.log("data[i] : "+data[i]);
+                users += "<li><a class='dropdown-item'>" + data[i] + "</a></li>"
             }
             list.html(users);
         }
+        
     })
 }
 
@@ -166,6 +168,7 @@ function onMessageReceived(payload) {
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
+	
 
     var contentElement = document.createElement('p');
 
@@ -178,11 +181,8 @@ function onMessageReceived(payload) {
         imgElement.setAttribute("height", "300");
 
         var downBtnElement = document.createElement('button');
-        downBtnElement.setAttribute("class", "btn fa fa-download");
         downBtnElement.setAttribute("id", "downBtn");
         downBtnElement.setAttribute("name", chat.fileName);
-        downBtnElement.setAttribute("onclick", `downloadFile('${chat.fileName}', '${chat.fileDir}')`);
-
 
         contentElement.appendChild(imgElement);
         contentElement.appendChild(downBtnElement);
@@ -199,7 +199,6 @@ function onMessageReceived(payload) {
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
-
 
 
 usernameForm.addEventListener('submit', connect, true)

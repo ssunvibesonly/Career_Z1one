@@ -13,6 +13,7 @@ import lombok.Data;
 public class ChatRoomDto {
 	private String roomId; //채팅방 아이디
 	private String roomName; //채팅방 이름
+	private String roomlogo;
 	private String userCount; //채팅방 인원수
 	private String maxusercnt; //채팅방 최대 인원수
 	private HashMap<String, String> userlist;

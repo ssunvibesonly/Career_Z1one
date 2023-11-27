@@ -49,7 +49,7 @@
 
 <div id="username-page">
     <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
+        <h6 class="title">채팅에서 사용할 닉네임을 정해주세요!</h6>
         <form id="usernameForm" name="usernameForm">
         	<!-- 여기가 안됨 -->
                 <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control"/>
@@ -63,13 +63,14 @@
 
 <div id="chat-page" class="hidden">
     <div class="btn-group dropend">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="showUserListButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
             참가한 유저
         </button>
-        <div id="list" class="dropdown-menu" aria-labelledby="showUserListButton">
-
-        </div>
+       
+		<ul class="dropdown-menu" id="list" style="height: 100px;">
+		
+		</ul>
+    
     </div>
     <div class="chat-container">
         <div class="chat-header">
@@ -78,7 +79,7 @@
         <div class="connecting">
             Connecting...
         </div>
-        <ul id="messageArea">
+        <ul id="messageArea" style="overflowY: scroll;maxHeight: 100px;">
 
         </ul>
         <form id="messageForm" name="messageForm" nameForm="messageForm">

@@ -10,8 +10,10 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import boot.data.dto.ChatRoomDto;
 import lombok.extern.slf4j.Slf4j;
