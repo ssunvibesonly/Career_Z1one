@@ -24,4 +24,9 @@ public class BoardSearchService implements BoardSearchInter {
 
       return boardSearchMapperInter.getAllSearch();
    }
+
+   @Override
+   public List<User_BoardDto> getSort(String orderby) {
+      return boardSearchMapperInter.getSort(orderby);
+   }
 }

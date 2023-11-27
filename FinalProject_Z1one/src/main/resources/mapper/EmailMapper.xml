@@ -12,6 +12,7 @@
     <select id="getCompanyNotice" resultType="CnoticeDto">
         select * from cnotice
     </select>
+
     <!--user_num에 해당하는 데이터랑 전체 회사 공고 중에서 맞는 조건을 비교하는 쿼리-->
     <select id="getMatchUserwithNotice" resultType="CnoticeDto">
         SELECT *

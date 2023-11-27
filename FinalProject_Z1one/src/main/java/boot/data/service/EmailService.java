@@ -1,6 +1,8 @@
 package boot.data.service;
 
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-
+import boot.data.dto.CnoticeDto;
 import boot.data.inter.EmailInter;
 import boot.data.mapper.EmailMapperInter;
 
@@ -39,6 +41,12 @@ public class EmailService implements EmailInter {
       javaMailSender.send(simpleMailMessage);
       System.out.println("메일 보내기 성공");
    }
+
+   @Override
+   public List<CnoticeDto> getCompanyNotice() {
+      return emailMapperInter.getCompanyNotice();
+   }
+
    @Override
    public void getMatchUserwithNotice() {
       emailMapperInter.getMatchUserwithNotice();
@@ -55,7 +63,7 @@ public class EmailService implements EmailInter {
 
          // Create a Thymeleaf context
          Context thymeleafContext = new Context();
-         //thymeleafContext.setVariable("title", subject);
+         //thymeleafContext.setVariable("title", subject); timeleaf에 title을 쓰면 title이 들어감.
          //thymeleafContext.setVariable("content", content);
 
          // Process the Thymeleaf template
@@ -66,10 +74,8 @@ public class EmailService implements EmailInter {
          System.out.println("메일 보내기 성공");
       } catch (MessagingException e) {
          e.printStackTrace();
-         // Handle exception appropriately
       } catch (Exception e) {
          e.printStackTrace();
-         // Handle exception appropriately
       }
    }
 

@@ -12,4 +12,20 @@
     <select id="getAllSearch" resultType="User_BoardDto">
         select * from user_board order by board_writeday desc
     </select>
+    <select id="getSort" resultType="User_BoardDto" parameterType="String">
+        select * from user_board
+        <if test='orderby!=null'>
+            <choose>
+                <when test="orderby == 'recent'">
+                    order by board_writeday desc
+                </when>
+                <when test="orderby == 'likes'">
+                    order by board_like desc
+                </when>
+                <when test="orderby == 'readcnt'">
+                    order by board_readcnt desc
+                </when>
+            </choose>
+        </if>
+    </select>
 </mapper>

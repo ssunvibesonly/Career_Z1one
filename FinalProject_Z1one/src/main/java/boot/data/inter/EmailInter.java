@@ -8,8 +8,9 @@ import javax.mail.MessagingException;
 import boot.data.dto.CnoticeDto;
 
 public interface EmailInter {
-   public void sendEmail(String toEmail, String subject, String content);
+   public List<CnoticeDto> getCompanyNotice();
    public void getMatchUserwithNotice();
+   public void sendEmail(String toEmail, String subject, String content);
    public void sendEmailLeaf(String toEmail, String subject, String content);
 
 }

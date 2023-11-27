@@ -46,30 +46,18 @@ public class EmailController {
       emailService.sendEmailLeaf(TOEMAIL,subject, content);
       return "/email/emailSuccess";
    }
+
+   @GetMapping("/matchNotice")
+   public String matchNotice(Model model) {
+
+      //이메일 리스트 로직 보내기.
+      List<CnoticeDto> list = emailService.getCompanyNotice();
+      System.out.println(list.size() + "개");
+      System.out.println(list.toString());
+
+      model.addAttribute("list",list);
+
+      return "/email/matchNotice";
+   }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-	   for(CnoticeDto cnoticeDto : cnoticeDtos) { if
-		   (cnoticeDto.getCnotice_Salary().equalsIgnoreCase(userApplyDto.getApply_Salary
-		   ()) &&
-		   cnoticeDto.getCnotice_Place().equalsIgnoreCase(userApplyDto.getApply_region()
-		   ) &&
-		   cnoticeDto.getCnotice_Team().equalsIgnoreCase(userApplyDto.getApply_primary()
-		   )) { String subject = "안녕하세요! 기업 맞춤공고 이메일 입니다."; String content =
-		   "이거 어떻게 보낼꺼임 list로 띄우나?? ㅈㄴ어려운데"; String toEmail =
-		   userGaipDto.getUser_email(); //이렇게하면 지금 로그인된 사람의 user_email을 가져올 수 있나?*/

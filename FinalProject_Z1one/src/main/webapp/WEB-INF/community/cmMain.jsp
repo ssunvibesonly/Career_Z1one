@@ -96,7 +96,6 @@ a {
 }
 
 .cate_subject {
-	border: 1px solid blue;
 	margin-left: 3%;
 	margin-top: 5%;
 }
@@ -189,9 +188,11 @@ form {
 <body>
 	<div>
 		<%--상단 --%>
+        <c:if test="${sessionScope.myid !=null}">
 		<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
 		<button type="button" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
 		</button>
+        </c:if>
 		<%--user_num은 로그인이 된다면 세션으로해서 user_num가져오기--%>
 
 		<form action="search">
@@ -201,6 +202,7 @@ form {
 				<button type="submit"></button>
 			</div>
 		</form>
+
 		<br><br><br>
 		<div class="additionalDiv">
 			<div class="mySlides">
@@ -250,7 +252,7 @@ form {
 						<c:if test="${fn:length(limitedTitle) > 15}">
 							<c:set var="limitedTitle" value="${fn:substring(limitedTitle, 0, 15)}..." />
 						</c:if>
-                        <div style="width: 60%; margin-left: 8%">
+                        <div style="width: 60%; margin-left: 8%" onclick="location.href='#'">
                         &nbsp;${limitedTitle}
                         </div>
 
@@ -482,7 +484,7 @@ form {
 	<%--하단--%>
 	<div class="adverti"
 		style="margin-top: 6%; cursor: pointer; margin-left: 26%; width: 50%; height: 85px;">
-		<img src="${root}/image/Gwango1.JPG"
+		<img src="${root}/community/Gwango1.JPG"
 			style="width: 100%; height: 75px;"
 			onclick="location.href='https://www.blindhire.co.kr/events/reward200?utm_source=site&utm_medium=blindweb&utm_campaign=resume23_1'">
 	</div>

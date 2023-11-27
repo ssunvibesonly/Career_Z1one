@@ -52,9 +52,7 @@ margin: 31vh -6.6vh;
 <script type="text/javascript">
 
 $(function() {
-   
 
-   
    //디폴트리스트호출
    passmoneylist();
    
@@ -557,7 +555,7 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
     <option class="readcount">조회수 높은 순</option>
     <option class="writeday">최신순</option>
     <option class="deadline">마감임박순</option>
-  </select>
+</select>
 </div>
 <br>
 <br>

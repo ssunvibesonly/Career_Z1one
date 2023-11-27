@@ -1,6 +1,11 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -120,7 +125,62 @@
 	background-color: black;
 }
 </style>
+<script>
+    $(function(){
+        //select의 option을 선택했을때 정렬
+        $('#orderby').change(function() {
+            // 선택된 옵션의 클래스를 가져옴
+            var selectedClass = $('option:selected', this).attr('class');
+            alert(selectedClass);
+            var orderby;
 
+            if(selectedClass=='recent') {
+                orderby='recent'; //값을 대입할때는 = 값이 같을때는 ==
+                list(orderby);
+            }
+            if (selectedClass=='likes') {
+                orderby='likes';
+                list(orderby);
+            }
+            if (selectedClass=='readcnt') {
+                orderby = 'contents';
+                list(orderby);
+            }
+
+            });
+        })
+
+    function list(orderby) {
+        alert(orderby);
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "/board/sort",
+            traditional: true, // 중간에 &를 ,로 변경하는 옵션
+            data: {"orderby":orderby },
+            success: function (res) {
+                var noticeContainer = $(".mid1");
+                var html = "";
+
+                $.each(res, function (index, dto) {
+
+                    html +="<a href='detail?board_num="+dto.board_num+"' style='text-decoration: none; color:black;'></a>";
+                    html += "  </div>";
+                    // 날짜 포맷 변경
+                    var deadlineDate = new Date(dto.cnotice_Deadline);
+                    var formattedDeadline = formatDate(deadlineDate,"YYYY-MM-dd");
+
+                    if ((index + 1) % 4 === 0) {
+                        s += "<br>";
+                    }
+                });
+
+                noticeContainer.html(html); // 생성된 HTML로 교체
+
+            }
+        });
+    }
+</script>
 <body>
 <div class="bottom-right fixed box">
     <p>질문 GO</p>
@@ -135,28 +195,29 @@
 			</div>
 		</form>
 
-    <h3>${searchword} 검색 결과</h3><br>
+    <h3><b style="color:red;">${searchword}</b> 검색 결과</h3><br>
     <div class="d-inline-flex sort" style="width:100%">
         <div class="sort-1">
              <select size="1" class="category">
                 <option>전체 (${resultCount})</option>
-                <option>면접 (${resultCount})</option>
-                <option>portfolio (${resultCount})</option>
-                <option>자소서 (${resultCount})</option>
-                <option>인적성 (${resultCount})</option>
-                <option>이직STORY (${resultCount})</option>
-                <option>신입꿀팁 (${resultCount})</option>
-                <option>회사생활 (${resultCount})</option>
-                <option>퇴사꿀팁 (${resultCount})</option>
-                <option>Z1맘대로 (${resultCount})</option>
-                <option>Z1마켓 (${resultCount})</option>
+                <option>면접 ()</option>
+                <option>portfolio ()</option>
+                <option>자소서 ()</option>
+                <option>인적성 ()</option>
+                <option>이직STORY ()</option>
+                <option>신입꿀팁 ()</option>
+                <option>회사생활 ()</option>
+                <option>퇴사꿀팁 ()</option>
+                <option>Z1맘대로 (})</option>
+                <option>Z1마켓 ()</option>
              </select>
         </div>
         <div class="sort-2" style="margin-left: 81%">
-            <select size="1" class="sorted">
-                <option>최신순</option>
-                <option>좋아요순</option>
-                <option>댓글순</option>
+            <select id="orderby" size="1" class="sorted">
+                <option selected="selected">전체</option>
+                <option class="recent">최신순</option>
+                <option class="likes">좋아요순</option>
+                <option class="readcnt">댓글순</option>
             </select>
         </div>
 
@@ -193,8 +254,13 @@
                     </div>
                         <%--하단--%>
                         <div class="story-footer" style="height: 70px;">
-                            <b>{본인회사}
-                            <a href="#">{세션아이디적기}</a><a href="#" style="margin-left: 28%"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${dto.board_writeday}
+                            <b>
+                                <c:set var="email" value="${sessionScope.myid}" />
+                              <%--  <c:set var="maskedEmail" value="${fn:substring(email, 0, 5)}${fn:replace(fn:substring(email, 5), '.', '*')}" />
+                                <a href="#">${maskedEmail}</a>--%>
+                                <a href="#" style="margin-left: 28%"></a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <fmt:formatDate value="${dto.board_writeday}" pattern="YYYY-MM-DD"/>
                             </b>
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
