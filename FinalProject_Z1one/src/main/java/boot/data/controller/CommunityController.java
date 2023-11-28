@@ -93,9 +93,16 @@ public class CommunityController {
 	    //이메일
 	    String id =(String)httpSession.getAttribute("myid"); //session 설정하면 get으로 
 	    System.out.println(id);
+	    
+	    //id가 null이어도 그대로 페이지 이동하도록 설정
+	    if(id != null) {
+	    	//나머지 코드 생략
+	    	
+	    	String displayedEmail = id.substring(0, Math.min(id.length(), 3)) + "*".repeat(Math.max(0, id.length() - 3));
+	    	model.addObject("displayedEmail", displayedEmail);
+	    	model.setViewName("/2/community/cmList");
+	    }
 		
-		 String displayedEmail = id.substring(0, Math.min(id.length(), 3));
-		 displayedEmail += "*".repeat(Math.max(0, id.length() - 3));
 		
 		
 		//select
@@ -124,7 +131,7 @@ public class CommunityController {
 		
 		//이메일 model
 		model.addObject("id", id); 
-		model.addObject("displayedEmail", displayedEmail);
+		
 		
 
 		model.setViewName("/2/community/cmList");

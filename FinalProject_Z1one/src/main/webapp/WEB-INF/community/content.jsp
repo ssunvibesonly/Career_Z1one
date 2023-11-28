@@ -208,7 +208,8 @@ $(function(){
                 var s = "";
 
                 $.each(res, function(i, dto){
-                    s += "<b>"+dto.user_email+"</b>: <span>" +dto.content+"</span>"
+                    s += "<b class='emailfont'>"+dto.user_email.substring(0, Math.min(dto.user_email.length, 3)) + "*".repeat(Math.max(0, dto.user_email.length - 3))+"</b><br>"
+                    s += "&nbsp;&nbsp;<span class='fw-light contentfont'>" +dto.content+"</span>"
                     //s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
                     //s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
                     s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
@@ -226,38 +227,48 @@ $(function(){
 
 </script>
 <style type="text/css">
-	#userimg{
-		width: 30px;
-		height: 30px;
-		border: 2px solid black;
-		border-radius: 100%;
-		margin-right: 10px;
-		margin-left: 10px;
-		
-	}
-	
-	.comment{
-		display: flex;
-    	justify-content: flex-start;
-   		align-items: center;
-	}
-	
-	.bi-eraser{
-		cursor: pointer;
-	}
-	.bi-x-lg{
-		cursor: pointer;
-	}
+#userimg {
+	width: 30px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 100%;
+	margin-right: 10px;
+	margin-left: 10px;
+}
 
-    /* 마우스를 올렸을 때 색상 변경 */
-    .bi-eraser:hover {
-      color: blue;
-      cursor: pointer;
-    }
-    .bi-x-lg:hover {
-      color: red;
-      cursor: pointer;
-    }
+.comment {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.bi-eraser {
+	cursor: pointer;
+}
+
+.bi-x-lg {
+	cursor: pointer;
+}
+
+/* 마우스를 올렸을 때 색상 변경 */
+.bi-eraser:hover {
+	color: blue;
+	cursor: pointer;
+}
+
+.bi-x-lg:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.emailfont {
+	font-size: 13px;
+	color: gray;
+}
+
+.contentfont{
+	font-size: 13px;
+}
 </style>
 </head>
 <body>
