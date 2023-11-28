@@ -27,6 +27,8 @@ public class EmailService implements EmailInter {
    private TemplateEngine templateEngine;
    @Autowired
    EmailMapperInter emailMapperInter;
+   @Autowired
+   HttpSession httpSession;
    private final String FROM_EMAIL = "jinhyeonkyu@gmail.com";
 
    @Override
@@ -61,13 +63,17 @@ public class EmailService implements EmailInter {
          mimeMessageHelper.setTo(toEmail);
          mimeMessageHelper.setSubject(subject);
 
+         String a = "바보";
+
+
          // Create a Thymeleaf context
          Context thymeleafContext = new Context();
-         //thymeleafContext.setVariable("title", subject); timeleaf에 title을 쓰면 title이 들어감.
-         //thymeleafContext.setVariable("content", content);
+         thymeleafContext.setVariable("title", subject);
+         thymeleafContext.setVariable("content", content);
 
          // Process the Thymeleaf template
          String emailBody = templateEngine.process("email-template", thymeleafContext);
+
          mimeMessageHelper.setText(emailBody, true);
          javaMailSender.send(mimeMessage);
 
@@ -77,6 +83,11 @@ public class EmailService implements EmailInter {
       } catch (Exception e) {
          e.printStackTrace();
       }
+   }
+
+   @Override
+   public String getNameByEmailId(String user_email) {
+      return emailMapperInter.getNameByEmailId(user_email);
    }
 
 }

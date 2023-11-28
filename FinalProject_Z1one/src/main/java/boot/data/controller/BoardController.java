@@ -18,22 +18,24 @@ import org.springframework.web.servlet.ModelAndView;
 import boot.data.dto.Board_ContentDto;
 import boot.data.dto.User_BoardDto;
 import boot.data.service.BoardService;
+import boot.data.service.EmailService;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
    @Autowired
    BoardService boardService;
+   @Autowired
+   EmailService emailService;
 
    // 게시판 인기 공고 글 띄우기.
    @GetMapping("/community")
-   public ModelAndView boardmain() {
+   public ModelAndView boardmain(HttpSession httpSession) {
 
       ModelAndView modelAndView = new ModelAndView();
 
       List<String> list1 = boardService.getNameNotice();
       //List<Integer> date1 = boardService.getRemainDate();
-
 
       CompletableFuture<List<User_BoardDto>> oneTitle = boardService.getTopOneTitle(); //비동기 처리.
       List<User_BoardDto> onetitle1 = oneTitle.join();

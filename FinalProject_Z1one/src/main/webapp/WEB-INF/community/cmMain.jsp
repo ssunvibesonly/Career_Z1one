@@ -101,8 +101,8 @@ a {
 }
 
 .box {
-	width: 90px;
-	height: 90px;
+	width: 70px;
+	height: 70px;
 	background: lightgray;
 	margin: 4px;
 	border-radius: 10px;
@@ -470,29 +470,28 @@ form {
 	<br>
 	<br>
 	<br>
-	<br>
 	<c:if test="${sessionScope.myid !=null}">
 		<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
-		<button type="button" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
+		<button type="button" id="btn" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
 		</button>
 	</c:if>
 
 	<%--하단--%>
-	<div class="adverti" style="margin-top: 6%; cursor: pointer; margin-left: 26%; width: 50%; height: 85px;">
+	<div class="adverti" style="margin-top: 6%; cursor: pointer; margin-left: 26%; width: 50%; height: 110px;">
 		<div class="footSlides">
-		<img src="${root}/community/Gwango1.JPG" style="width: 100%; height: 100px;" onclick="location.href='https://www.blindhire.co.kr/events/reward200?utm_source=site&utm_medium=blindweb&utm_campaign=resume23_1'">
+		<img src="${root}/community/Gwango1.JPG" style="width: 100%; height: 110px;" onclick="location.href='https://www.blindhire.co.kr/events/reward200?utm_source=site&utm_medium=blindweb&utm_campaign=resume23_1'">
 		</div>
 		<div class="footSlides">
-			<img src="${root}/community/Gwango2.JPG" style="width:100%; height: 100px;" onclick="location.href='#'">
+			<img src="${root}/community/Gwango2.JPG" style="width:100%; height: 110px;" onclick="location.href='#'">
 		</div>
 		<div class="footSlides">
-			<img src="${root}/community/Gwango3.JPG" style="width:100%; height: 100px;" onclick="location.href='#'">
+			<img src="${root}/community/Gwango3.JPG" style="width:100%; height: 110px;" onclick="location.href='#'">
 		</div>
 	</div>
 
 	<div class="bottom-right fixed box">
 		<div style="margin-left: 8.5%; margin-top:4%; cursor:pointer;">
-		<img src="../community/chatgpt.png" style="width:90%; height:81px;" onclick="location.href='https://chat.openai.com/'">
+		<img src="../community/chatgpt.png" style="width:90%; height:61px;" onclick="location.href='https://chat.openai.com/'">
 		</div>
 	</div>
 	<script>

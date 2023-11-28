@@ -34,7 +34,7 @@ public class EmailController {
    @Autowired
    private EmailService emailService;
    private final String subject = "🎁안녕하세요 Z1one 채용공고가 도착했습니다🎁";
-   private final String content = "ㅎㅇ?";
+   private final String content = "";
 
    @GetMapping("/sendEmail")
    public String sendEmail(@RequestParam String user_email) {
@@ -48,16 +48,23 @@ public class EmailController {
    }
 
    @GetMapping("/matchNotice")
-   public String matchNotice(Model model) {
+   public String matchNotice(Model model,HttpSession httpSession) {
+
+      String email = (String)httpSession.getAttribute("myid");
+      String name =  emailService.getNameByEmailId(email);
+      System.out.println(email);
+      System.out.println(name);
 
       //이메일 리스트 로직 보내기.
       List<CnoticeDto> list = emailService.getCompanyNotice();
       System.out.println(list.size() + "개");
-      System.out.println(list.toString());
+
+      //이메일 비교결과 추출
 
       model.addAttribute("list",list);
+      model.addAttribute("name",name);
 
-      return "/email/matchNotice";
+      return "/2/email/matchNotice?user_email="+email;
    }
 
 }

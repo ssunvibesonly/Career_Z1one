@@ -4,6 +4,12 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.data.mapper.EmailMapperInter">
+    <!--현재 로그인된 사람의 이름 가져오기-->
+    <select id="getNameByEmailId">
+        select user_name from usergaip where user_email=#{user_email}
+
+
+    </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
     <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int">
         select * from user_apply where user_num = #{user_num}
@@ -13,7 +19,7 @@
         select * from cnotice
     </select>
 
-    <!--user_num에 해당하는 데이터랑 전체 회사 공고 중에서 맞는 조건을 비교하는 쿼리-->
+    <!--user_email에 해당하는 데이터랑 전체 회사 공고 중에서 맞는 조건을 비교하는 쿼리-->
     <select id="getMatchUserwithNotice" resultType="CnoticeDto">
         SELECT *
         FROM cnotice cn
@@ -24,7 +30,7 @@
         AND ua.apply_newcomer = cn.cnotice_career
         AND ua.apply_region = cn.cnotice_area
         AND ua.apply_salary &lt;= cn.cnotice_pay
-        );
+        )
     </select>
 
 </mapper>

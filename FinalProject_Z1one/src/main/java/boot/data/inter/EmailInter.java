@@ -12,5 +12,6 @@ public interface EmailInter {
    public void getMatchUserwithNotice();
    public void sendEmail(String toEmail, String subject, String content);
    public void sendEmailLeaf(String toEmail, String subject, String content);
+   public String getNameByEmailId(String user_email);
 
 }

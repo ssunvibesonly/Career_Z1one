@@ -7,12 +7,12 @@ import lombok.Data;
 @Data
 @Alias("User_EducationDto")
 public class User_EducationDto {
-	private int education_Num;
-	private int user_Num;
-	private String education_Name;
-	private String education_Duration;
-	private String education_Check;
-	private String education_Grade;
-	private String education_Degree;
-	private String education_Score;
+	private int education_num;
+	private int user_num;
+	private String education_name;
+	private String education_duration;
+	private String education_check;
+	private String education_grade;
+	private String education_degree;
+	private String education_score;
 }
