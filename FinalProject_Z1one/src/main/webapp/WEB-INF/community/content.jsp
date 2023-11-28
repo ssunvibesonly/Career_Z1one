@@ -27,32 +27,42 @@ $(function(){
 
     // insert하기
     $("#btncommentadd").click(function(){
+    	var boardnum="${boardnum}";
+    	alert(boardnum)
+    	var loginok="${sessionScope.loginok}";
+		var myid="${sessionScope.myid}";
+		alert(loginok+","+myid)
+		if(loginok==""){
+			location.href='/login/form?community=yes&boardnum='+boardnum;
+		}else{
+			var content = $("#content").val();
+	        //alert(content);
 
-        var content = $("#content").val();
-        //alert(content);
+	        if(content.length == 0){
+	            alert("댓글을 입력해 주세요");
+	            return;
+	        }
 
-        if(content.length == 0){
-            alert("댓글을 입력해 주세요");
-            return;
-        }
+	        // 게시판에서 댓글 입력했을 때 ajax로 실행하기
+	        $.ajax({
 
-        // 게시판에서 댓글 입력했을 때 ajax로 실행하기
-        $.ajax({
+	            type: "post",  
+	            dataType: "html",  
+	            url: "/boardanswer/binsert", 
+	            data: {"board_num": boardnum, "content": content},
+	            success: function(){
 
-            type: "post",  
-            dataType: "html",  
-            url: "/boardanswer/binsert", 
-            data: {"board_num": boardnum, "content": content},
-            success: function(){
+	                // alert("insert 성공!");
 
-                // alert("insert 성공!");
+	                list();
 
-                list();
+	                // 입력값 초기화
+	                $("#content").val("");
+	            }
+	        }); 
+		}
 
-                // 입력값 초기화
-                $("#content").val("");
-            }
-        }); 
+        
     });
     
     
@@ -85,12 +95,25 @@ $(function(){
 		});
 	
     //댓글 수정 ajax1_getnum
-	$(document).on("click","#commentupdate",function(){
+	$(document).on("click",".commentupdate",function(){
+	
 		
-		idx=$(this).attr("idx");
-		//alert(idx);
 		
-		$.ajax({  //$.는 jquery임!
+		idx = $(this).attr("idx");
+	    content = $(this).parent().prev().text();
+	    alert("hoihoho"+content)
+		$(this).parent().prev().remove();
+		
+		//alert(idx+","+content);
+		$(this).parent().before("<input type='text' name='content' class='form-control' value='"+content+"'>");
+		$(this).parent().before("<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>");
+		$(this).parent().before("<span class='close' style='font-size:10px; color:gray; cursor:pointer;' content='"+content+"'>닫기</span>");
+		$(this).parent().next().next().hide();
+		$(this).parent().hide();
+		
+		
+		
+		/* $.ajax({  //$.는 jquery임!
 			
 			type:"get",
 			dataType:"json",
@@ -101,15 +124,28 @@ $(function(){
 				$("#updatecmt").val(res.content);
 			}
 			
-		});
+		}); */
 	});
     
+    $(document).on("click",".close",function(){
+    	var content=$(this).attr("content");
+    	alert(content)
+    	$(this).prev().prev().remove();
+    	$(this).prev().before("<span>"+content+"</span>");
+    	$(this).next().next().next().show();
+    	$(this).next().show();
+    	$(this).prev().hide();
+    	$(this).hide();
+    	
+    });
+    
 	 //댓글 수정 ajax2_update
-	$(document).on("click","#btnupdate",function(){
+	$(document).on("click",".btnupdate",function(){
 		
-		var content=$("#updatecmt").val();
-		alert(idx+","+content);
-		
+		var content=$(this).prev().val();
+		var idx=$(this).next().next().find(".commentupdate").attr("idx");
+		$(this).prev
+
  		$.ajax({
 			
 			type:"post",
@@ -117,14 +153,36 @@ $(function(){
 			url:"/boardanswer/bupdate",
 			data:{"idx":idx,"content":content},
 			success: function(){  //void라 res로 넘어올 거 없으니깐 빈칸
+				//alert("성공")
 				list();
 				//$("#close").trigger("click");
-				$("#updatecmt").val(res.content);
+				//$(".updatecmt").val(res.content);
 			}
 		});
 	});   
     
-	 
+	//댓글 삭제
+	$(document).on("click",".commentdelete",function(){
+		
+		var idx=$(this).attr("idx");
+		alert(idx);
+		
+		var a=confirm("해당 댓글을 삭제하시겠습니까?");
+		
+		if(a){
+			$.ajax({
+				
+				type:"get",
+				dataType:"html",
+				url:"/boardanswer/bdelete", 
+				data:{"idx":idx},
+				success:function(){  //controller에서 return값 없어서 여기서는 res로 받아오지 않음
+					list();
+				}
+			});
+		}
+		
+	});
 	 
 });
 
@@ -134,8 +192,6 @@ $(function(){
 
         boardnum = $("#boardnum").val();
 		//alert(boardnum);
-		
-		user_email=
         
         // 댓글 작성 숫자 표현 방법
          $.ajax({
@@ -152,12 +208,12 @@ $(function(){
                 var s = "";
 
                 $.each(res, function(i, dto){
-
-                    s += "<b>익명</b>: <input type='text' id='updatecmt' value='" + dto.content+"'>"
-                    s += "<span id='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
-                    s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
+                    s += "<b>"+dto.user_email+"</b>: <span>" +dto.content+"</span>"
+                    //s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
+                    //s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
                     s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
-					s += " <i class='bi bi-eraser' id='commentupdate' idx='"+dto.content_num+"'></i><i class='bi bi-x-lg'></i></span><br>"
+					s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
+					s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
 					s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+"</div><hr>";
 						
                 });
@@ -246,9 +302,13 @@ $(function(){
 					<!-- <b>댓글: <span class="acount"></span></b>  댓글 개수를 표현  -->
 					<div>
 						<!-- 좋아요 -->
-						<div class="likes">
-							<span><i class="bi bi-heart" style="cursor: pointer;"></i><b style="font-size: 12px;"> ${dto.board_like }</b></span>
-							&nbsp;<span><b><i class="bi bi-chat-left">&nbsp;</i><span style="font-size: 12px;" class="acount"></span></b></span><!-- 댓글개수 -->
+						<div class="d-inline-flex">
+							<div class="likes">
+								<span><i class="bi bi-heart" style="cursor: pointer;"></i><b style="font-size: 12px;"> ${dto.board_like }</b></span>
+							</div>
+							<div>
+								&nbsp;<span><b><i class="bi bi-chat-left">&nbsp;</i><span style="font-size: 12px;" class="acount"></span></b></span><!-- 댓글개수 -->
+							</div>
 						</div>
 					</div>
 				</td>

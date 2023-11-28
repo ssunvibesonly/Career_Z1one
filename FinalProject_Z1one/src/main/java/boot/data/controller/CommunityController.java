@@ -197,7 +197,7 @@ public class CommunityController {
 		service.updateReadCount(board_num);
 		
 		User_BoardDto dto=service.getData(board_num);
-		
+		model.addObject("boardnum", board_num);
 		
 		//게시판 작성자: 이메일 마스킹 처리
 		String email=service.getEmail(dto.getUser_num());

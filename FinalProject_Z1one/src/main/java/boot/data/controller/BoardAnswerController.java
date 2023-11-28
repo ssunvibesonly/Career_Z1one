@@ -3,7 +3,9 @@ package boot.data.controller;
 import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import boot.data.dto.Board_ContentDto;
@@ -30,6 +33,11 @@ public class BoardAnswerController {
 	{
 			//System.out.println(dto.getContent());
 			//System.out.println(dto.getBoard_num());
+			String id = (String)session.getAttribute("myid");
+			System.out.println(id);
+			
+			dto.setUser_email(id);
+			
 			mapper.insertBanswer(dto);
 	}
 	
@@ -52,19 +60,33 @@ public class BoardAnswerController {
 	}
 	
 	//댓글수정 getnum
+	@ResponseBody
 	@GetMapping("/bdata")
-	public Board_ContentDto getData(String board_num)
+	public Board_ContentDto getData(String content_num)
 	{
-		return mapper.getAnswer(board_num);
+		
+		return mapper.getAnswer(content_num);
 	}
 	
 	
 	//댓글수정 update
+	@ResponseBody
 	@PostMapping("/bupdate")
-	public void aupdate(@ModelAttribute Board_ContentDto dto)
+	public void aupdate(@RequestParam int idx,String content)
 	{
-			mapper.updateBanswer(dto);
+		Map<String, String> map=new HashMap<>();
+		map.put("content_num", Integer.toString(idx));
+		map.put("content", content);
+			mapper.updateBanswer(map);
 	}
 	
+	//댓글 삭제 delete
+	@ResponseBody
+	@GetMapping("/bdelete")
+	public void delete(String idx)
+	{
+		mapper.deleteAnswer(idx);
+		
+	}
 	
 }

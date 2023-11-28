@@ -5,10 +5,22 @@
   <mapper namespace="boot.data.mapper.BoardAnswerMapperInter">
   
   	<insert id="insertBanswer" parameterType="Board_ContentDto">
-  	insert into board_content values(#{content_num},#{board_num},#{content},0,#{regroup},#{relevel},#{restep},now())
+  	insert into board_content values(#{content_num},#{board_num},#{user_email},#{content},0,#{regroup},#{relevel},#{restep},now())
   	</insert>
 	<select id="getAllBAnswer" resultType="Board_ContentDto" parameterType="String">
  		select * from board_content where board_num=#{board_num} order by content_num desc  
  		<!-- board_num : 게시판 번호, content_num : 댓글 번호 -->
  	</select>
+ 	<!-- 삭제 -->
+ 	<delete id="deleteAnswer" parameterType="String">
+		delete from board_content where content_num=#{idx}
+	</delete>
+	<!-- 수정 -->
+	<select id="getAnswer" resultType="Board_ContentDto" parameterType="String">
+ 		select * from board_content where content_num=#{content_num}
+ 	</select>
+ 	
+ 	<update id="updateBanswer" parameterType="Map">
+ 		update board_content set content=#{content} where content_num=#{content_num}
+ 	</update>
   </mapper>

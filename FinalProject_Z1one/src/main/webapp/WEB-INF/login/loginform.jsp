@@ -136,6 +136,8 @@ font-size: 10pt;
       <input type="password" class="form-control" name="pass"
       style="width: 250px;height: 47px;" placeholder="비밀번호" required="required">
        <div class="two" id="btnbox">
+       <input type="hidden" name="boardnum" value="${boardnum }">
+       <input type="hidden" name="community" value="${community }">
       <button type="submit" id="btn">
         Login
         <div class="fill-two"></div>

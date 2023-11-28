@@ -1,6 +1,8 @@
 package boot.data.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,15 +42,24 @@ public class BoardAnswerService implements BoardAnswerServiceInter {
 	}
 
 	@Override
-	public Board_ContentDto getAnswer(String board_num) {
+	public Board_ContentDto getAnswer(String content_num) {
 		// TODO Auto-generated method stub
-		return mapperInter.getAnswer(board_num);
+		return mapperInter.getAnswer(content_num);
 	}
 
 	@Override
-	public void updateBanswer(Board_ContentDto dto) {
+	public void updateBanswer(int idx,String content) {
 		// TODO Auto-generated method stub
-		mapperInter.updateBanswer(dto);
+		Map<String, String> map=new HashMap<>();
+		map.put("content_num", Integer.toString(idx));
+		map.put("content", content);
+		mapperInter.updateBanswer(map);
+	}
+
+	@Override
+	public void deleteAnswer(String content_num) {
+		// TODO Auto-generated method stub
+		mapperInter.deleteAnswer(content_num);
 	}
 
 
