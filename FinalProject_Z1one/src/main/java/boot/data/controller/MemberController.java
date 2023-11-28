@@ -84,7 +84,7 @@ public class MemberController {
             e.printStackTrace();
          }
       }
-      dto.setCompany_Logo(photoName);
+      dto.setCompany_logo(photoName);
       cservice.insertCompanyMember(dto);
       
       return "redirect:/login/form";
@@ -108,12 +108,12 @@ public class MemberController {
    //기업회원 아이디 중복체크
    @GetMapping("/companyidcheck")
    @ResponseBody
-   public Map<String, Integer> companyidcheck(@RequestParam String company_Email){
+   public Map<String, Integer> companyidcheck(@RequestParam String company_email){
          
       Map<String, Integer> map=new HashMap<>();
       
-      int n1=cservice.getSearchCompanyId(company_Email);
-      int n2=uservice.getSearchUserId(company_Email);
+      int n1=cservice.getSearchCompanyId(company_email);
+      int n2=uservice.getSearchUserId(company_email);
          
       map.put("count", ((n1+n2)==0)?0:1);
          
