@@ -147,14 +147,19 @@ font-size: 10pt;
 <div class="loginbox">
 	<div style="margin-top: 10%;">
 	<img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
-	<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
-	<h3 style="margin-left: 120px; margin-top: -70px;"><b>김선범</b></h3>
 	
-	<h6 style="margin-left: 121px; color: #A4A4A4; "><b>웹개발</b></h6>
+	<h3 style="margin-left: 120px; margin-top: -70px;"><b>${user_name }</b></h3>
 	
+	<c:if test="${apply_secondary!=null }">
+	<h6 style="margin-left: 121px; color: #A4A4A4; "><b>${apply_secondary }</b></h6>
+	</c:if>
+	<c:if test="${apply_secondary==null }">
+	<br>
+	</c:if>
+	 </div>
 	<!-- 이력서 작성하기 버튼 -->
     <div class="two" id="btnbox">
-      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform'">
+      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform?user_num=${user_num}'">
         내 이력서 작성하기
         <div class="fill-two"></div>
         <script type="text/javascript">
@@ -164,11 +169,14 @@ font-size: 10pt;
         
         </script>
       </button>
+      <br>
+      <br>
     </div>
-    
+    <button type="button" class="btn btn-info" onclick="location.href='/member/userapplypage?user_num=${user_num}'">마이페이지</button>
 
     </div>
-    </div>
+<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px; z-index: 100;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
 </c:if>
+
 </body>
 </html>

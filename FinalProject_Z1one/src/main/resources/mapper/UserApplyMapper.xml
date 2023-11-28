@@ -2,13 +2,34 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="boot.data.mapper.ApplyMapperInter">
-
-    <select id="getUserApplyList" resultType="User_ApplyDto">
-        select * from apply
+<mapper namespace="boot.data.mapper.UserMyPageMapperInter">
+    <insert id="insertUserApply" parameterType="User_ApplyDto">
+        insert into user_apply (user_num,apply_name,apply_photo,apply_hp,apply_gender,apply_addr,
+        apply_birth,apply_primary,apply_secondary,apply_newcomer,apply_region,apply_salary,apply_writeday)
+         values(#{user_num},#{apply_name},#{apply_photo},#{apply_hp},#{apply_gender},#{apply_addr},
+         #{apply_birth},#{apply_primary},#{apply_secondary},#{apply_newcomer},#{apply_region},#{apply_salary},now())
+    </insert>
+    <select id="getDataByNum" parameterType="String" resultType="User_ApplyDto">
+		select * from user_apply where user_num=#{user_num}
     </select>
-
-    <select id="getSingleDto" resultType="User_ApplyDto" parameterType="int">
-        select * from apply where apply_num=#{apply_}
+    <select id="UserApplyCheck" parameterType="String" resultType="int">
+        select count(*) from user_apply where user_num=#{user_num}
     </select>
+    <select id="UsergetName" parameterType="String" resultType="String">
+        select apply_name from user_apply where user_num=#{user_num}
+    </select>
+    <select id="UsergetWriteday" parameterType="String" resultType="String">
+        select apply_writeday from user_apply where user_num=#{user_num}
+    </select>
+    
+     
+    <!-- <insert id="insertUserApply" parameterType="User_ActiveDto">
+        select * from user_active where apply_num=#{apply_num}
+    </insert>
+    <insert id="insertUserApply" parameterType="User_CareerDto">
+        select * from user_career where apply_num=#{apply_num}
+    </insert>
+    <insert id="insertUserApply" parameterType="User_EducationDto">
+        select * from user_education where apply_num=#{apply_num}
+    </insert> -->
 </mapper>

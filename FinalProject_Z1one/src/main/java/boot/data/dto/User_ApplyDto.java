@@ -9,18 +9,18 @@ import lombok.Data;
 @Data
 @Alias("User_ApplyDto")
 public class User_ApplyDto {
-   private int apply_Num;
-   private String user_Num;
-   private String apply_Name;
-   private String apply_Photo;
-   private String apply_Hp;
-   private String apply_Gender;
-   private String apply_Addr;
-   private String apply_Birth;
-   private String apply_Salary;
+   private int apply_num;
+   private String user_num;
+   private String apply_name;
+   private String apply_photo;
+   private String apply_hp;
+   private String apply_gender;
+   private String apply_addr;
+   private String apply_birth;
+   private String apply_salary;
    private String apply_region;
    private String apply_primary;
    private String apply_secondary;
    private String apply_newcomer;
-   private Timestamp apply_Writeday;
+   private Timestamp apply_writeday;
 }

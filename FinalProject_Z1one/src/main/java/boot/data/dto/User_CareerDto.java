@@ -7,14 +7,14 @@ import lombok.Data;
 @Data
 @Alias("User_CareerDto")
 public class User_CareerDto {
-	private int careerNum;
-	private int userNum;
-	private String career_Companyname;
-	private String career_Duration;
-	private String career_Check;
-	private String career_Team;
-	private String career_Position;
-	private String career_Job;
-	private String career_Salary;
-	private String career_Story;
+	private int career_num;
+	private int user_num;
+	private String career_companyname;
+	private String career_duration;
+	private String career_check;
+	private String career_team;
+	private String career_position;
+	private String career_job;
+	private String career_salary;
+	private String career_story;
 }
