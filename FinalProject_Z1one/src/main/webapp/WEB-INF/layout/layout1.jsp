@@ -80,9 +80,6 @@ margin-right: 20%;
 	<div class="main" align="center">
 		<tiles:insertAttribute name="main"/>
 	</div>
-	<div class="notice" align="center">
-		<tiles:insertAttribute name="notice"/>
-	</div>
 	<div class="d-inline-flex" style="margin-left: 4%;">
 	<div class="content">
 		<tiles:insertAttribute name="content"/>
