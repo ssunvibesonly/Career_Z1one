@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 @Alias("User_ActiveDto")
 public class User_ActiveDto {
-	private int active_Num;
-	private int user_Num;
-	private String active_Name;
-	private String active_Duration;
-	private String active_Awards;
-	private String active_Story;
+	private int active_num;
+	private int user_num;
+	private String active_name;
+	private String active_duration;
+	private String active_awards;
+	private String active_story;
 }

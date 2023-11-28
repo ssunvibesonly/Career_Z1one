@@ -44,9 +44,9 @@ public class CompanyController {
 	@GetMapping("/passmoney")
 	public List<CnoticeDto> passlist()
 	{
-		
 		return nservice.getPassMoneyNotices();
 	}
+
 	
 	
 	//조회수 높은순

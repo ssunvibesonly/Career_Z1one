@@ -170,7 +170,7 @@
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:9px 30px 40px 31px;font-family:arial,helvetica,sans-serif;" align="left">
 
                       <!--[if mso]><table width="100%"><tr><td><![endif]-->
-                      <h1 class="v-text-align v-font-size" style="margin: 0px; color: #023047; line-height: 170%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 26px; font-weight: 400;"><p><span><span><strong>안녕하세요 ${dto.name} 님</strong></span></span></p>
+                      <h1 class="v-text-align v-font-size" style="margin: 0px; color: #023047; line-height: 170%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 26px; font-weight: 400;"><p><span><span><strong>안녕하세요</strong></span></span></p>
                         <p><span><span><strong>Z1one에서 맞춤 공고를 보내 드립니다</strong></span></span></p></h1>
                       <!--[if mso]></td></tr></table><![endif]-->
 
@@ -208,16 +208,7 @@
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:35px 55px 10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                       <div class="v-text-align v-font-size" style="font-size: 14px; color: #333333; line-height: 180%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 180%;"><span style="font-size: 18px; line-height: 32.4px; font-family: Lato, sans-serif;"><strong><span style="line-height: 32.4px; font-size: 18px;">Hi [Candidate’s Name], </span></strong></span></p>
-                        <p style="font-size: 14px; line-height: 180%;"> </p>
-                        <p style="font-size: 14px; line-height: 180%;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;">Received your mail and hope this mail reads you well. Talent acquisition often requires a huge investment of time and resources, so it is always safe and secure to do your due diligence before onboarding a new hire. </span></p>
-                        <p style="font-size: 14px; line-height: 180%;"> </p>
-                        <p style="font-size: 14px; line-height: 180%;"><span style="font-size: 16px; line-height: 28.8px; font-family: Lato, sans-serif;"><strong><span style="line-height: 28.8px; font-size: 16px;">To go ahead with your data verification, we would require these documents from you:</span></strong></span></p>
-                        <ul style="list-style-type: square;">
-                          <li style="font-size: 14px; line-height: 28.8px;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>Lorem ipsum dolor sit amet, consectetur </strong></span></li>
-                          <li style="font-size: 14px; line-height: 28.8px;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing </strong></span></li>
-                          <li style="font-size: 14px; line-height: 28.8px;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit</strong></span></li>
-                        </ul>
+                        <p style="font-size: 14px; line-height: 180%; margin-left: 20%"><span style="font-size: 18px; line-height: 32.4px; font-family: Lato, sans-serif;"><strong><span style="line-height: 32.4px; font-size: 18px;">✔ 아래 버튼을 눌러서 확인해보세요 </span></strong></span></p>
                       </div>
 
                     </td>
@@ -230,33 +221,39 @@
                   <tr>
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 30px;font-family:arial,helvetica,sans-serif;" align="left">
 
-                      <!--[if mso]><style>.v-button {background: transparent !important;}</style><![endif]-->
+                      <style>.v-button {background: transparent !important;}</style>
                       <div class="v-text-align" align="center">
+
                         <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://unlayer.com" style="height:57px; v-text-anchor:middle; width:260px;" arcsize="77%"  stroke="f" fillcolor="#33428d"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-                        <a href="/company/ban" target="_blank" class="v-button v-font-size" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #33428d; border-radius: 44px;-webkit-border-radius: 44px; -moz-border-radius: 44px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
-                          <span style="display:block;padding:20px 70px;line-height:120%;"><strong><span style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 16.8px;">Let's go confirm&nbsp; &nbsp;N O W</span></strong></span>
-                        </a>
-                        <!--[if mso]></center></v:roundrect><![endif]-->
+                        <button type="button" style="width: 40%; height: 75px; border: none;" id="btn">
+                          Click to here
+                        </button>
+
+                        </center></v:roundrect>
+                      </div>
+                      <br>
+                      <div class="notice" style="border: 1px solid gray; width: 50%; height: 200px; margin-left: 25%">
+                        <div class="top" style="border: 1px solid blue; width: 50%; height: 40px; margin-left: 25%;">
+                          <p th:text="${a}">안녕</p>
+                        </div>
                       </div>
 
                     </td>
                   </tr>
                   </tbody>
                 </table>
+                <script>
+                  $(document).ready(function(){
+                    $("#btn").click(function(){
+                      $(".notice").toggle(); // toggle() 메서드를 사용하여 숨기기/보이기 토글
+                    });
+                  });
+                </script>
 
                 <table id="u_content_text_3" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                   <tbody>
                   <tr>
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:10px 55px 40px;font-family:arial,helvetica,sans-serif;" align="left">
-
-                      <div class="v-text-align v-font-size" style="font-size: 14px; line-height: 170%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">This will ensure the authenticity of your data and information with the verification process is pretty simple and short. The information you provide is confidential and safe with us. </span></p>
-                        <p style="font-size: 14px; line-height: 170%;"> </p>
-                        <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">If you have any questions/issues regarding the process, feel free to contact us. </span></p>
-                        <p style="font-size: 14px; line-height: 170%;"> </p>
-                        <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">With Regards,</span></p>
-                        <p style="font-size: 14px; line-height: 170%;"><span style="font-family: Lato, sans-serif; font-size: 14px; line-height: 23.8px;"><strong><span style="font-size: 16px; line-height: 27.2px;">[Your name]</span></strong></span></p>
-                      </div>
 
                     </td>
                   </tr>
@@ -290,11 +287,9 @@
                   <tbody>
                   <tr>
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 40px;font-family:arial,helvetica,sans-serif;" align="left">
-
                       <!--[if mso]><table width="100%"><tr><td><![endif]-->
                       <h1 class="v-text-align v-font-size" style="margin: 0px; color: #000000; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Lato',sans-serif; font-size: 26px; font-weight: 400;"><span><span>Call: <strong>02-1234-5678</strong></span></span></h1>
                       <!--[if mso]></td></tr></table><![endif]-->
-
                     </td>
                   </tr>
                   </tbody>
@@ -331,44 +326,6 @@
                       <div align="center">
                         <div style="display: table; max-width:179px;">
                           <!--[if (mso)|(IE)]><table width="179" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-collapse:collapse;" align="center"><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; mso-table-lspace: 0pt;mso-table-rspace: 0pt; width:179px;"><tr><![endif]-->
-
-
-                          <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 13px;" valign="top"><![endif]-->
-                          <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 13px">
-                            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                              <a href="https://linkedin.com/" title="LinkedIn" target="_blank">
-                              </a>
-                            </td></tr>
-                            </tbody></table>
-                          <!--[if (mso)|(IE)]></td><![endif]-->
-
-                          <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 13px;" valign="top"><![endif]-->
-                          <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 13px">
-                            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                              <a href="https://instagram.com/" title="Instagram" target="_blank">
-                              </a>
-                            </td></tr>
-                            </tbody></table>
-                          <!--[if (mso)|(IE)]></td><![endif]-->
-
-                          <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 13px;" valign="top"><![endif]-->
-                          <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 13px">
-                            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                              <a href="https://twitter.com/" title="Twitter" target="_blank">
-                              </a>
-                            </td></tr>
-                            </tbody></table>
-                          <!--[if (mso)|(IE)]></td><![endif]-->
-
-                          <!--[if (mso)|(IE)]><td width="32" style="width:32px; padding-right: 0px;" valign="top"><![endif]-->
-                          <table align="left" border="0" cellspacing="0" cellpadding="0" width="32" height="32" style="width: 32px !important;height: 32px !important;display: inline-block;border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;margin-right: 0px">
-                            <tbody><tr style="vertical-align: top"><td align="left" valign="middle" style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
-                              <a href="https://pinterest.com/" title="Pinterest" target="_blank">
-                              </a>
-                            </td></tr>
-                            </tbody></table>
-                          <!--[if (mso)|(IE)]></td><![endif]-->
-
 
                           <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
                         </div>

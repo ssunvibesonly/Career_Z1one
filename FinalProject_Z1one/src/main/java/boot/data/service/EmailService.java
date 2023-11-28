@@ -1,6 +1,8 @@
 package boot.data.service;
 
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-
+import boot.data.dto.CnoticeDto;
 import boot.data.inter.EmailInter;
 import boot.data.mapper.EmailMapperInter;
 
@@ -25,6 +27,8 @@ public class EmailService implements EmailInter {
    private TemplateEngine templateEngine;
    @Autowired
    EmailMapperInter emailMapperInter;
+   @Autowired
+   HttpSession httpSession;
    private final String FROM_EMAIL = "jinhyeonkyu@gmail.com";
 
    @Override
@@ -39,6 +43,12 @@ public class EmailService implements EmailInter {
       javaMailSender.send(simpleMailMessage);
       System.out.println("메일 보내기 성공");
    }
+
+   @Override
+   public List<CnoticeDto> getCompanyNotice() {
+      return emailMapperInter.getCompanyNotice();
+   }
+
    @Override
    public void getMatchUserwithNotice() {
       emailMapperInter.getMatchUserwithNotice();
@@ -53,24 +63,31 @@ public class EmailService implements EmailInter {
          mimeMessageHelper.setTo(toEmail);
          mimeMessageHelper.setSubject(subject);
 
+         String a = "바보";
+
+
          // Create a Thymeleaf context
          Context thymeleafContext = new Context();
-         //thymeleafContext.setVariable("title", subject);
-         //thymeleafContext.setVariable("content", content);
+         thymeleafContext.setVariable("title", subject);
+         thymeleafContext.setVariable("content", content);
 
          // Process the Thymeleaf template
          String emailBody = templateEngine.process("email-template", thymeleafContext);
+
          mimeMessageHelper.setText(emailBody, true);
          javaMailSender.send(mimeMessage);
 
          System.out.println("메일 보내기 성공");
       } catch (MessagingException e) {
          e.printStackTrace();
-         // Handle exception appropriately
       } catch (Exception e) {
          e.printStackTrace();
-         // Handle exception appropriately
       }
+   }
+
+   @Override
+   public String getNameByEmailId(String user_email) {
+      return emailMapperInter.getNameByEmailId(user_email);
    }
 
 }

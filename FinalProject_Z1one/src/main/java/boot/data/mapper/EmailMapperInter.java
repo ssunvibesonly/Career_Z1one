@@ -17,5 +17,6 @@ public interface EmailMapperInter {
    public List<CnoticeDto> getCompanyNotice();
    //회사랑 회원이랑 조건 비교한 메소드
    public void getMatchUserwithNotice();
+   public String getNameByEmailId(String user_email);
 
 }
