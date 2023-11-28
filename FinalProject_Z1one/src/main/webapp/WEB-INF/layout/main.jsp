@@ -36,43 +36,6 @@ border-radius: 20px;
 cursor: pointer;
 }
 
-.scrolling-text-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    background-color: none;
-    height: 5vh;
-    font-size: 2.3vh;
-    font-family: "Noto Serif KR";
-    border-radius: 10px;
-    
-}
-
-.scrolling-text ul {
-	width: 20%;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    animation: scroll 30s linear infinite;
-    color: black;
-
-    margin-left: 17%;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateY(0%);
-    }
-    100% {
-        transform: translateY(-100%);
-    }
-}
-
-.time_new{
-	margin-right: 25%;
-	font-family: "Noto Serif KR";
-	font-size: 2.3vh;
-}
 </style>
 <script>
 $(function(){
@@ -132,21 +95,7 @@ function loadRandomImage(){
 				<div class="notice_box" id="box1"></div>
 				<div class="notice_box" id="box2"></div>
 				<div class="notice_box" id="box3"></div>
-</div>	
-<div class="scrolling-text-container scrolling-text">
-    <div class="scrolling-text">
-    <div class="time_new"><b style="color: red;">[실시간 인기 게시글]</b></div>
-        <!-- 글을 띄우는 리스트 -->
-        	<ul>
-            <c:forEach items="${resultlist }" var="dto" varStatus="i">
-            	<li style="margin-bottom: 3%;">
-            	<span>${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
-            	</li>
-            </c:forEach>
-        	</ul>
-    </div>
 </div>
-
 </div>
 </body>
 </html>
