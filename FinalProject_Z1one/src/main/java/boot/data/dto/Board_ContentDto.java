@@ -17,6 +17,13 @@ public class Board_ContentDto {
    private int relevel;
    private int restep;
    private Timestamp writeday;
+   
+   //list출력용 writeday
+   private String sdf_writeday;
+   
+   //사용자 email
+   private String user_email;
+   
    @Override
    public String toString() {
       return "Board_ContentDto [content_num=" + content_num + ", board_num=" + board_num + ", content=" + content + "]";

@@ -25,4 +25,7 @@
  	<select id="getEmail" parameterType="String" resultType="String">
  		select user_email from usergaip where user_num=#{user_num}
  	</select>
+ 	<update id="updateLikes" parameterType="String">
+  		update user_board set board_like=board_like+1 where board_num=#{board_num}
+  	</update>
   </mapper>

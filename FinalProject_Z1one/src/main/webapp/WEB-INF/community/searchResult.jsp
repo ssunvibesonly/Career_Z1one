@@ -1,12 +1,16 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
 
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+>>>>>>> jooyoung
 <!DOCTYPE html>
 <html>
 <head>
@@ -281,6 +285,9 @@
                                 <a href="#">${maskedEmail}</a>--%>
                                 <a href="#" style="margin-left: 28%"></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>{본인회사}
+                            <a href="#">{세션아이디적기}</a><a href="#" style="margin-left: 28%"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <fmt:formatDate value=" ${dto.board_writeday}" pattern="yyyy-MM-dd"/>
                             </b>
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
