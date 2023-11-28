@@ -23,6 +23,7 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+
 // roomId 파라미터 가져오기
 const url = new URL(location.href).searchParams;
 const roomId = url.get('roomId');
@@ -52,6 +53,7 @@ function connect(event) {
 
 function onConnected() {
 
+	
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
     stompClient.subscribe('/sub/chat/room/' + roomId, onMessageReceived);
 
@@ -103,11 +105,12 @@ function getUserList() {
         success: function (data) {
             var users = "";
             for (let i = 0; i < data.length; i++) {
-                //console.log("data[i] : "+data[i]);
-                users += "<li class='dropdown-item'>" + data[i] + "</li>"
+                console.log("data[i] : "+data[i]);
+                users += "<li><a class='dropdown-item'>" + data[i] + "</a></li>"
             }
             list.html(users);
         }
+        
     })
 }
 
@@ -135,6 +138,16 @@ function sendMessage(event) {
     event.preventDefault();
 }
 
+function getAvatarColor(messageSender) {
+    var hash = 0;
+    for (var i = 0; i < messageSender.length; i++) {
+        hash = 31 * hash + messageSender.charCodeAt(i);
+    }
+
+    var index = Math.abs(hash % colors.length);
+    return colors[index];
+}
+
 // 메시지를 받을 때도 마찬가지로 JSON 타입으로 받으며,
 // 넘어온 JSON 형식의 메시지를 parse 해서 사용한다.
 function onMessageReceived(payload) {
@@ -157,15 +170,22 @@ function onMessageReceived(payload) {
     }
     if(chat.type==='CHAT')
     { // chatType 이 CHAT 라면 아래 내용
-        messageElement.classList.add('chat-message');
+    	
+    	var avatarElement = document.createElement('i');
+        var avatarText = document.createTextNode(chat.sender[0]);
+        avatarElement.appendChild(avatarText);
+        avatarElement.style['background-color'] = getAvatarColor(chat.sender);
 
-       
+        messageElement.appendChild(avatarElement);
+    
+        messageElement.classList.add('chat-message');
 
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(chat.sender);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
     }
+	
 
     var contentElement = document.createElement('p');
 
@@ -178,11 +198,8 @@ function onMessageReceived(payload) {
         imgElement.setAttribute("height", "300");
 
         var downBtnElement = document.createElement('button');
-        downBtnElement.setAttribute("class", "btn fa fa-download");
         downBtnElement.setAttribute("id", "downBtn");
         downBtnElement.setAttribute("name", chat.fileName);
-        downBtnElement.setAttribute("onclick", `downloadFile('${chat.fileName}', '${chat.fileDir}')`);
-
 
         contentElement.appendChild(imgElement);
         contentElement.appendChild(downBtnElement);
@@ -199,7 +216,6 @@ function onMessageReceived(payload) {
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
 }
-
 
 
 usernameForm.addEventListener('submit', connect, true)

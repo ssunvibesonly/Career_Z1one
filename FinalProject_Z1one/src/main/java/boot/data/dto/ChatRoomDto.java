@@ -2,6 +2,8 @@ package boot.data.dto;
 
 import java.util.HashMap;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Builder;
 import lombok.Data;
 
