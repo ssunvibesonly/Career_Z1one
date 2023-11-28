@@ -225,11 +225,14 @@ $(function(){
 });
 });
    $("#company_Email").focusout(function(e){
+	   
+		var company_email=$(this).val();
+		
         $.ajax({
          type:"get",
          dataType:"json",
          url:"companyidcheck",
-         data:{"company_Email":$("#company_Email").val()},
+         data:{"company_email":company_email},
          success:function(res){
             
             if(res.count==0){
@@ -445,22 +448,22 @@ $(function(){
 <form action="companyinsert" method="post" enctype="multipart/form-data" onsubmit="return companycheck()">
    <div align="left" 
    style="margin-left: 5%; margin-top: 5%;font-weight: bold;">회원가입</div><br>
-      <input type="text" class="form-control" name="company_Email" id="company_Email"
+      <input type="text" class="form-control" name="company_email" id="company_Email"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="이메일 주소" required="required">
       <span class="companyidsuccess" style="color: red; font-size: 7pt; font-weight: bold; position: relative; top: -10px; left: -65px;"></span>
-      <input type="password" class="form-control" name="company_Pass" id="company_Pass"
+      <input type="password" class="form-control" name="company_pass" id="company_Pass"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="비밀번호(10자리 이상)" required="required">
       <input type="password" class="form-control" id="company_Pass2"
       style="width: 250px;height: 47px;" placeholder="비밀번호 확인" required="required">
       <span class="companypasscheck" style="color: red; font-size: 7pt; font-weight: bold; position: relative; top: -4px; left: -45px;"></span><br>
       <a href="/login/form" style="font-size:10px; margin-left: 33%; color: #424242; padding-bottom: 4%;"><b>이미 사용중인 계정 이용하기</b></a>
-      <input type="text" class="form-control" name="company_Name"
+      <input type="text" class="form-control" name="company_name"
       style="width: 250px;height: 47px; margin-bottom: 2%; margin-top: 6%;" placeholder="기업명" required="required">
       <!-- <input type="text" class="form-control" name="user_email"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="1차 산업군" required="required"> -->
       
       
-      <select name="company_Primary" id="company_Primary" class="pl" style="margin-bottom: 2%;" onchange="optionChange();">
+      <select name="company_primary" id="company_Primary" class="pl" style="margin-bottom: 2%;" onchange="optionChange();">
             <option value="0" selected>1차 산업군</option>
             <option value="IT/웹/통신">IT/웹/통신</option>
             <option value="서비스업">서비스업</option>
@@ -469,7 +472,7 @@ $(function(){
             <option value="미디어/디자인">미디어/디자인</option>  
       </select>
       
-      <select name="company_Secondary" id="company_Secondary" class="pl" style="margin-bottom: 2%;">
+      <select name="company_secondary" id="company_Secondary" class="pl" style="margin-bottom: 2%;">
             <option>2차 산업군</option>         
            <!-- <option value="game">게임</option>
            <option value="healing">보안/백신</option>
@@ -519,12 +522,12 @@ $(function(){
       
       <!-- <input type="text" class="form-control" name="user_email"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="2차 산업군" required="required"> -->
-      <input type="text" class="form-control" name="company_Reginum"
+      <input type="text" class="form-control" name="company_reginum"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="사업자등록번호('-' 제외)" required="required">
       <br>
-      <input type="text" class="form-control" name="company_Manager"
+      <input type="text" class="form-control" name="company_manager"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="담당자 이름" required="required">
-      <input type="text" class="form-control" name="company_Hp"
+      <input type="text" class="form-control" name="company_hp"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="연락처('-' 제외)" required="required">
      
      <div class="filebox">
@@ -541,7 +544,7 @@ $(function(){
           });
       </script>
       
-      <select name="company_Type" id="" class="pl" style="margin-bottom: 2%;">
+      <select name="company_type" id="" class="pl" style="margin-bottom: 2%;">
             <option value="0" selected>기업 형태</option>
             <option value="대기업">대기업</option>
             <option value="중견기업">중견기업</option>

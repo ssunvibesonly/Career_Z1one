@@ -29,25 +29,25 @@ public class CompanyGaipService implements CompanyGaipServiceInter {
    }
 
    @Override
-   public int getSearchCompanyId(String Company_Email) {
+   public int getSearchCompanyId(String company_email) {
       // TODO Auto-generated method stub
-      return cgaipinter.getSearchCompanyId(Company_Email);
+      return cgaipinter.getSearchCompanyId(company_email);
    }
 
    @Override
-   public int loginPassCheck(String Company_Email, String Company_Pass) {
+   public int loginPassCheck(String company_email, String company_pass) {
       // TODO Auto-generated method stub
       Map<String, String> map=new HashMap<>();
-      map.put("Company_Email", Company_Email);
-      map.put("Company_Pass", Company_Pass);
+      map.put("company_email", company_email);
+      map.put("company_pass", company_pass);
       
       return cgaipinter.loginPassCheck(map);
    }
 
    @Override
-   public CompanyGaipDto getDataById(String Company_Email) {
+   public CompanyGaipDto getDataById(String company_email) {
       // TODO Auto-generated method stub
-      return cgaipinter.getDataById(Company_Email);
+      return cgaipinter.getDataById(company_email);
    }
 
 }
