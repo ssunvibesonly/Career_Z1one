@@ -245,8 +245,11 @@ $(function(){
                     if(dto.user_email=='${sessionScope.myid}'){
 						s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
 						s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
-                    }
-					s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+"</div><hr>";
+                    }else {
+                    	s +="</span><br>";
+					}
+                    
+                    s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+"</div><hr>";
 						
                 });
 
@@ -300,6 +303,19 @@ $(function(){
 .contentfont{
 	font-size: 13px;
 }
+
+
+.ataglist:link{
+	text-decoration-line : none;
+	width:900px;
+	justify-content: center; 
+	align-items: center; 
+	display: flex;
+}
+.ataglist:hover {
+  color : green;
+}
+
 </style>
 </head>
 <body>
@@ -333,12 +349,14 @@ $(function(){
 			<tr>
 				<td>
 					<c:if test="${bupload==true }">  <!-- 컨트롤러 content부분에 bupload생성한 이후 -->
-						<img alt="" src="../savefile/${dto.board_photo }" style="width: 200px;">
+						<span>
+							<img alt="" src="../savefile/${dto.board_photo }" style="width:200px;">
+						</span>
 					</c:if>
-					<br><br>
-					<pre><!-- 엔터 먹는 pre 태그 -->
+					<br>
+					<span style="width: 600px; border: 1px solid red;"><div><pre><!-- 엔터 먹는 pre 태그 -->
 						${dto.board_story }
-					</pre>
+					</pre></div></span>
 					<br>
 					<%-- <b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp; --%>
 					<!-- <b>댓글: <span class="acount"></span></b>  댓글 개수를 표현  -->
@@ -367,6 +385,7 @@ $(function(){
 				</th>
 			</tr>
 		</table>
+		<div><a class="ataglist" href="list">목록</a></div>
 	</div>
 </body>
 </html>
