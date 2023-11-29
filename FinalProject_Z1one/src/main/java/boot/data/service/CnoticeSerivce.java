@@ -54,4 +54,10 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		cnoticeInter.updateNotice(dto);
 	}
 
+	@Override
+	public List<CnoticeDto> readCountList() {
+		// TODO Auto-generated method stub
+		return cnoticeInter.readCountList();
+	}
+
 }

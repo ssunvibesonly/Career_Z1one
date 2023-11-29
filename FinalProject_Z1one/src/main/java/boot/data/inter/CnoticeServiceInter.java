@@ -11,4 +11,5 @@ public interface CnoticeServiceInter {
 	public void insertNotice(CnoticeDto dto); //공고 추가
 	public void deleteNotice(String cnotice_Num); //공고 삭제
 	public void updateNotice(CnoticeDto dto); //공고 수정
+	public List<CnoticeDto> readCountList(); //조회수순리스트
 }
