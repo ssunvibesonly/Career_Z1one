@@ -71,27 +71,55 @@ $(function(){
 			//좋아요 엄지 누르면 색상 변경되게 하는 기능 작업
 			var thumb=$(this).find("i").attr("class");
 			//alert(thumb);
+			var loginok="${sessionScope.loginok}";
+			var myid="${sessionScope.myid}";
+			//alert(loginok+","+myid);
+			var boardnum = $("#boardnum").val(); //게시글 번호
+			//var isLiked = thumb === 'bi bi-heart-fill';	
+			//alert(isLiked); //false
 			
-			if(thumb=='bi bi-heart'){
-				$(this).find("i").attr("class","bi bi-heart-fill").css("color","red");
+			if(loginok !=""){ //로그인 성공하면
+			
+				if(thumb=='bi bi-heart'){
+					$(this).find("i").attr("class","bi bi-heart-fill").css("color","red");
+					//좋아요 증가 기능
+					 $.ajax({
+						
+						type:"get",
+						url:"/community/likes",
+						dataType:"json",
+						data:{"board_num":boardnum},
+						success:function(res){
+							//alert(res);
+							
+							
+							
+							$("div.likes").find("b").text(res);  //b태그 찾아서 res로 넘겨받은 likes를 출력하면 좋아요 누르면 증가됨
+						}
+					}); 
+				}else{  //하트 취소할 때
+					
+					$(this).find("i").attr("class","bi bi-heart").css("color","black");
+					//좋아요 숫자 감소 기능
+					$.ajax({
+						
+						type:"get",
+						url:"/community/unlikes",
+						dataType:"json",
+						data:{"board_num":boardnum},
+						success:function(res){
+							
+							$("div.likes").find("b").text(res); 
+						}
+					});
+					
+				}
+			
+			} else{
 				
-			}else{
-				$(this).find("i").attr("class","bi bi-heart").css("color","black");
+				location.href = '/login/form?community=yes&boardnum=' + boardnum;
 			}
 			
-			
-			//좋아요 증가 기능
-			 $.ajax({
-				
-				type:"get",
-				url:"/community/likes",
-				dataType:"json",
-				data:{"board_num":boardnum},
-				success:function(res){
-					//alert(res);
-					$("div.likes").find("b").text(res);  //b태그 찾아서 res로 넘겨받은 likes를 출력하면 좋아요 누르면 증가됨
-				}
-			}); 
 		});
 	
     //댓글 수정 ajax1_getnum
@@ -208,12 +236,16 @@ $(function(){
                 var s = "";
 
                 $.each(res, function(i, dto){
-                    s += "<b>"+dto.user_email+"</b>: <span>" +dto.content+"</span>"
+                	//alert('${sessionScope.myid}');
+                    s += "<b class='emailfont'>"+dto.user_email.substring(0, Math.min(dto.user_email.length, 3)) + "*".repeat(Math.max(0, dto.user_email.length - 3))+"</b><br>"
+                    s += "&nbsp;&nbsp;<span class='fw-light contentfont'>" +dto.content+"</span>"
                     //s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
                     //s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
                     s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
-					s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
-					s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
+                    if(dto.user_email=='${sessionScope.myid}'){
+						s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
+						s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
+                    }
 					s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+"</div><hr>";
 						
                 });
@@ -226,38 +258,48 @@ $(function(){
 
 </script>
 <style type="text/css">
-	#userimg{
-		width: 30px;
-		height: 30px;
-		border: 2px solid black;
-		border-radius: 100%;
-		margin-right: 10px;
-		margin-left: 10px;
-		
-	}
-	
-	.comment{
-		display: flex;
-    	justify-content: flex-start;
-   		align-items: center;
-	}
-	
-	.bi-eraser{
-		cursor: pointer;
-	}
-	.bi-x-lg{
-		cursor: pointer;
-	}
+#userimg {
+	width: 30px;
+	height: 30px;
+	border: 2px solid black;
+	border-radius: 100%;
+	margin-right: 10px;
+	margin-left: 10px;
+}
 
-    /* 마우스를 올렸을 때 색상 변경 */
-    .bi-eraser:hover {
-      color: blue;
-      cursor: pointer;
-    }
-    .bi-x-lg:hover {
-      color: red;
-      cursor: pointer;
-    }
+.comment {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.bi-eraser {
+	cursor: pointer;
+}
+
+.bi-x-lg {
+	cursor: pointer;
+}
+
+/* 마우스를 올렸을 때 색상 변경 */
+.bi-eraser:hover {
+	color: blue;
+	cursor: pointer;
+}
+
+.bi-x-lg:hover {
+	color: red;
+	cursor: pointer;
+}
+
+.emailfont {
+	font-size: 13px;
+	color: gray;
+}
+
+.contentfont{
+	font-size: 13px;
+}
 </style>
 </head>
 <body>

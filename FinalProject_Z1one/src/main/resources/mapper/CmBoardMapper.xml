@@ -28,4 +28,7 @@
  	<update id="updateLikes" parameterType="String">
   		update user_board set board_like=board_like+1 where board_num=#{board_num}
   	</update>
+  	<update id="updateunLikes" parameterType="String">
+  		update user_board set board_like=board_like-1 where board_num=#{board_num}
+  	</update>
   </mapper>

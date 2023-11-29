@@ -14,6 +14,6 @@ public interface CmBoardServiceInter {
 	public User_BoardDto getData(String board_num); //게시판 글쓰기 후 내가 쓴 글 보이게 하기 위함.
 	public void updateReadCount(String board_num); 
 	public String getEmail(String user_num);  //content의 작성자를 회원가입 email로 넣기
-	public void updateLikes(String board_num); //content에서 좋아요 버튼 클릭시 board_like의 숫자증가
-
+	public void updateLikes(String board_num); //content에서 좋아요 버튼 클릭시 board_like 숫자 증가
+	public void updateunLikes(String board_num); //content에서 좋아요 버튼 2번 클릭하면 board_like 숫자 -1 감소 
 }
