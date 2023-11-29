@@ -119,7 +119,7 @@ font-size: 10pt;
 
 	<c:if test="${sessionScope.loginok==null && sessionScope.companyloginok==null}">
 
-		<div class="container" align="right">
+		<div align="right">
 
 			<div class="loginbox">
 				<div style="margin-top: 10%;">
@@ -151,11 +151,11 @@ font-size: 10pt;
 	</c:if>
 
 	<c:if test="${sessionScope.loginok!=null && sessionScope.companyloginok==null}">
-	<div class="container" align="right">
+	<div >
 		<div class="loginbox">
 			<div style="margin-top: 10%;">
 				<img src="${root}/image/userphotonull.png"
-					style="width: 70px; margin: 2px 20px;">
+					style="width: 70px; ">
 
 				<h3 style="margin-left: 120px; margin-top: -70px;">
 					<b>${user_name }</b>
@@ -196,7 +196,7 @@ font-size: 10pt;
 	</c:if>
 
 	<c:if test="${sessionScope.companyloginok!=null && sessionScope.loginok==null}">
-	<div class="container" align="right">
+	<div  align="right">
 		<div class="loginbox">
 			<div style="margin-top: 10%;">
 				<img src="${root}/image/userphotonull.png"
