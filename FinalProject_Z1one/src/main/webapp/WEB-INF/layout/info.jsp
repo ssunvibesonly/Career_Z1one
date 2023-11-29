@@ -116,6 +116,7 @@ font-size: 10pt;
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
+<div class="container" align="right">
 <c:if test="${sessionScope.loginok==null }">
 <div class="loginbox">
 	<div style="margin-top: 10%;">
@@ -135,7 +136,7 @@ font-size: 10pt;
     </div>
     <br>
     <div style="margin-left: 18%;">
-    <a href="#" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
+    <a href="/member/test" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">아이디 찾기&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">비밀번호 찾기&nbsp;&nbsp;</a>
     </div>
@@ -170,5 +171,6 @@ font-size: 10pt;
     </div>
     </div>
 </c:if>
+</div>
 </body>
 </html>

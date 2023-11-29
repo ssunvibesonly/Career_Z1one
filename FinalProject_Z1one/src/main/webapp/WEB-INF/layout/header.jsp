@@ -47,7 +47,7 @@ cursor: pointer;
     list-style: none;
     animation: scroll 30s linear infinite;
     color: black;
-
+	cursor: pointer;
     margin-left: 17%;
 }
 
@@ -66,6 +66,23 @@ cursor: pointer;
 	font-size: 2.3vh;
 }
 </style>
+<script>
+$(function(){
+	
+	  // 마우스를 올렸을 때 이벤트 추가
+    $('#targetObject').on('mouseover', function() {
+      // 상세 설명을 보여줍니다.
+      $('#detailDescription').css('display', 'block');
+    });
+
+    // 마우스가 객체를 벗어났을 때 이벤트 추가
+    $('#targetObject').on('mouseout', function() {
+      // 상세 설명을 숨깁니다.
+      $('#detailDescription').css('display', 'none');
+    });
+
+
+</script>
 <body>
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
@@ -87,13 +104,21 @@ cursor: pointer;
         	<ul>
             <c:forEach items="${resultlist }" var="dto" varStatus="i">
             	<li style="margin-bottom: 3%;">
-            	<span style="margin-left: 20%;">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
+            	<span style="margin-left: 20%;" id="targetobject">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
             	</li>
             </c:forEach>
         	</ul>
     </div>
 </div>
 </div>
-
+<div style="border: 1px solid gray;border-radius: 10px;width: 200px;height: 300px; display:none; " id="detaildescription">
+	<ul style="list-style: none;">
+		<c:forEach items="${resultlist }" var="dto" varStatus="i">
+            	<li style="margin-bottom: 3%;">
+            	<span style="margin-left: 20%;text-align: left;">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
+            	</li>
+    	</c:forEach>
+    </ul>
+</div>
 </body>
 </html>

@@ -128,6 +128,12 @@ public class MemberController {
       return "/2/member/userapplyaddform";
    }
       
+   //기업마이페이지 연결 테스트
+   @GetMapping("/test")
+   public String companyMyPage() {
+	   
+	   return "/2/member/companypage";
+   }
 }
 
 
