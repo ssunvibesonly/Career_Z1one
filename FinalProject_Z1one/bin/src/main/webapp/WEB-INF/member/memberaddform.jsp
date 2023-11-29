@@ -413,6 +413,8 @@ $(function(){
       <input type="text" class="form-control email" name="user_email" id="user_email"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="이메일 주소" required="required">
       <span class="useridsuccess" style="color: red; font-size: 7pt; font-weight: bold; position: relative; top: -10px; left: -65px;"></span>
+      <input type="text" class="form-control" name="user_name" id="user_name"
+      style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="이름" required="required">
       <input type="password" class="form-control" name="user_pass" id="user_pass"
       style="width: 250px;height: 47px; margin-bottom: 2%;" placeholder="비밀번호(10자리 이상)" required="required">
       <input type="password" class="form-control" id="user_pass2"

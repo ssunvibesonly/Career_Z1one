@@ -1,6 +1,5 @@
 package boot.data.dto;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
@@ -19,9 +18,10 @@ public class CnoticeDto {
 	   private String cnotice_Area;
 	   private String cnotice_Career;
 	   private String cnotice_Academic;
+	   private int cnotice_Pay;
 	   private String cnotice_Info;
 	   private int cnotice_Passmoney;
 	   private Timestamp cnotice_Writeday;
 	   private int cnotice_Readcount;
-	   private Timestamp cnotice_Deadline;
+	   private String cnotice_Deadline;
 }

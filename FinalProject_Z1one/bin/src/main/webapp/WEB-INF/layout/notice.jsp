@@ -16,6 +16,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style="border: 1px solid blue; height: 50px;"></div>
+
 </body>
 </html>
