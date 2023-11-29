@@ -30,7 +30,7 @@ public class MainController {
 	public String mainStart(Model model) {
 		
 		//지금 뜨는 공채(조회수순)
-		List<CnoticeDto> popularList=cnotice_service.getReadCountNotices();
+		/* List<CnoticeDto> popularList=cnotice_service.getReadCountNotices(); */
 		
 		//CompletableFuture 클래스는 비동기 작업의 결과를 다루는 데 사용
 		CompletableFuture<List<User_BoardDto>> mlist=board_service.getTopOneTitle();
@@ -52,7 +52,7 @@ public class MainController {
 			}
 		
 		model.addAttribute("resultlist", resultlist);
-		model.addAttribute("popularList", popularList);
+		/* model.addAttribute("popularList", popularList); */
 		
 		
 		return "/layout/main";

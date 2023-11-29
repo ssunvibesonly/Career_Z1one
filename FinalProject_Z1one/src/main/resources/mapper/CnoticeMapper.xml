@@ -21,6 +21,8 @@
 	<select id="getNoticeData" parameterType="String" resultType="CnoticeDto">
 		select * from cnotice where cnotice_Num=#{cnotice_Num}
 	</select>	
+	
+	
   	<!-- 리스트 세부 분류 -->
 	<select id="allList" resultType="CnoticeDto">
 		select * from cnotice
