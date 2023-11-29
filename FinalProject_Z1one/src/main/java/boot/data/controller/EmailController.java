@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,23 +49,20 @@ public class EmailController {
    }
 
    @GetMapping("/matchNotice")
-   public String matchNotice(Model model) {
+   public String matchNotice(@ModelAttribute User_ApplyDto userApplyDto, Model model) {
 
-      //세션으러 이메일 가져오기
       String email = (String)httpSession.getAttribute("myid");
-      System.out.println(email);
-      //이메일에 따른 유저 이름 가져오기
       String name =  emailService.getNameByEmailId(email);
-      System.out.println(name);
-
-      //***에 따른 리스트를 뽑기
-      //
+      String num = userApplyDto.getUser_num();
+      System.out.println(num);
 
       //이메일 리스트 로직 보내기.
-      //List<CnoticeDto> list = emailService.getCompanyNotice();
+      //공고 다 뽑기
+      List<CnoticeDto> list = emailService.getCompanyNotice();
+
+      // 조건에 맞는 것만 뽑기
+      // 조건을 뽑을 때 -> user_apply테이블에서 user_num에 해당하는 컬럼의 값들만 뽑아서 비교를 해야한다.
       List<CnoticeDto> list1 = emailService.getMatchUserwithNotice();
-      System.out.println(list1.size() + "개");
-      //System.out.println(list.size() + "개");
 
       //이메일 비교결과 추출
 
