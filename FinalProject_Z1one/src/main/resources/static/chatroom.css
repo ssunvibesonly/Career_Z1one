@@ -154,7 +154,7 @@ button.accent {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
-    overflow: auto;
+    /*overflow: auto;*/
     overflow-y: scroll;
     padding: 0 20px 0px 20px;
     height: calc(100% - 150px);
@@ -163,7 +163,7 @@ button.accent {
     list-style-type: none;
     background-color: #FFF;
     margin: 0;
-    overflow: auto;
+    /*overflow: auto;*/
     overflow-y: scroll;
     padding: 0 20px 0px 20px;
     height: calc(100% - 150px);
