@@ -123,6 +123,48 @@ form {
         width: 50%; /* 한 줄에 두 개의 요소만 나타나도록 설정 */
         height: 250px;
     }
+
+.cmbody-bottom{
+	margin-left: 10px;
+}
+
+.topic{
+	font-size: 12px;
+	width:70px;
+	border: 1px solid #6f42c1;
+	border-radius:10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: #6f42c1;
+	text-align: center;
+}
+.subject{
+	margin-left: 10px;
+	font-size: 22px;
+	font-size: bold;
+}
+
+.content{
+	margin-left: 10px;
+	font-size: 13px;
+	display: inline-block;
+	width: 400px;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	
+}
+
+.date{
+	float: right;
+	margin-right: 35px;
+}
+
+.photo{
+	width: 120px;
+	height: 120px;
+	margin-left: 33px;
+}
 </style>
 <script type="text/javascript">
  function goContent(boardnum){
@@ -226,29 +268,34 @@ form {
 		<!-- 게시판입력버튼 -->
 		<div>
 			총 게시글 : ${totalCount }
-		 	<button type="button" class="btn btn-secondary btn-sm" style="float: right;" onclick="location.href='cmform'">글작성</button>
+		 	<button type="button" class="btn btn-outline-secondary btn-sm" style="float: right; margin-bottom: 8px;" onclick="location.href='cmform'">글작성</button>
 		</div>
 	<div class="cmbody" style="width: 100%;">
-	<c:forEach items="${list }" var="userboardDto">
-	<div class="cmbody-each" style="border: 1.5px solid lightslategray; cursor: pointer;" onclick="goContent(${userboardDto.board_num})">
+	<c:forEach items="${list }" var="userboardDto" varStatus="i">
+	<div class="cmbody-each" style="border: 1.5px solid #EAEAEA;; cursor: pointer;" onclick="goContent(${userboardDto.board_num})">
 		<!-- cmbody 상단 -->
 		<div class="cmbody-top" style="height: 70px;">
-			<div class="topic"><b style="color: gray">${userboardDto.board_category}</b></div>
-			<span class="subject">제목 ${userboardDto.board_title}</span>
-			<span class="save">스크랩</span>
+			<div class="topic"><b style="color: white;">${userboardDto.board_category}</b></div>
+			<span class="subject"><b>${userboardDto.board_title}</b></span>
+			<!-- <span class="save">스크랩</span> -->
 		</div>
 		<!-- cmbody 중간 -->
 		<div class="cmbody-middle" style="height: 100px;">
-			<span class="content">내용 ${userboardDto.board_title}</span>
-			<span><img alt="" src="../savefile/${userboardDto.board_photo}" style="width: 20%;"></span>
+			<span class="content">${userboardDto.board_story}</span>
+			<span><img class="photo" alt="" src="../savefile/${userboardDto.board_photo}"></span>
 		</div>
 		<!-- cmbody 하단 -->
 		<div class="cmbody-bottom" style="height: 70px;">
-			<span class="nickname"><i class="bi bi-person-circle"></i>${userboardDto.user_email}</span>
+			<span class="nickname"><i class="bi bi-person-circle"></i>${userboardDto.user_email}</span><br>
+			<span class="like"><i class="bi bi-heart"></i> ${userboardDto.board_like}</span>
+			<span class="talk"><i class="bi bi-chat-left"></i>
+			<c:forEach items="${contentList}" var="contentListDto" varStatus="j">
+				<c:if test="${i.count==j.count }">
+					${contentListDto.count}
+				</c:if>
+			</c:forEach>
+			</span>
 			<span class="view"><i class="bi bi-eye"></i> ${userboardDto.board_readcnt}</span>
-			<span class="like"><i class="bi bi-hand-thumbs-up"></i> ${userboardDto.board_like}</span>
-			<span class="dislike"><i class="bi bi-hand-thumbs-down"></i> ${userboardDto.board_dislike}</span>
-			<span class="talk"><i class="bi bi-chat-left"></i> </span>
 			<span class="date"><fmt:formatDate value="${userboardDto.board_writeday}" pattern="yyyy-MM-dd"/>
 			</span>
 		</div>

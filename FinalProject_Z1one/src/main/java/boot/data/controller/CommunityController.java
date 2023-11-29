@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import boot.data.dto.Board_ContentDto;
 import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_BoardDto;
 import boot.data.mapper.CmBoardMapperInter;
+import boot.data.service.BoardAnswerService;
 import boot.data.service.BoardSearchService;
 import boot.data.service.CmBoardService;
 import boot.data.service.UserGaipService;
@@ -39,7 +42,11 @@ public class CommunityController {
 	CmBoardService service;
 	
 	@Autowired
-	UserGaipService uservice; 
+	UserGaipService uservice;
+	
+	
+	@Autowired
+	BoardAnswerService bservice;
 	
 	
 	/*
@@ -95,7 +102,7 @@ public class CommunityController {
 	    System.out.println(id);
 	    
 	    //id가 null이어도 그대로 페이지 이동하도록 설정
-	    if(id != null) {
+	    if(id != null) {  //로그인 했을 경우
 	    	//나머지 코드 생략
 	    	
 	    	String displayedEmail = id.substring(0, Math.min(id.length(), 3)) + "*".repeat(Math.max(0, id.length() - 3));
@@ -115,10 +122,20 @@ public class CommunityController {
 			list.get(i).setUser_email(user_email);
 		}*/
 		
+		
+		//성신 게시판 list 댓글 수
+		List<Board_ContentDto>contentList = new ArrayList<>();
+		for(int i =0 ;i<list.size();i++) {
+			contentList.add(bservice.getAnswerCount(list.get(i).getBoard_num()));
+			System.out.println("보드넘 : "+list.get(i).getBoard_num()+",댓글수 : "+contentList.get(i).getCount());
+		}
+		System.out.println(contentList.size());
+		System.out.println(list.size());
+		
 		for(User_BoardDto dto:list) {
 			dto.setUser_email(service.getEmail(dto.getUser_num()));
 		}
-		
+		model.addObject("contentList",contentList);
 		model.addObject("totalCount", totalCount);
 		model.addObject("list", list);
 		model.addObject("totalCount", totalCount);
@@ -131,8 +148,7 @@ public class CommunityController {
 		
 		//이메일 model
 		model.addObject("id", id); 
-		
-		
+
 
 		model.setViewName("/2/community/cmList");
 		
@@ -242,6 +258,17 @@ public class CommunityController {
 		service.updateLikes(board_num);
 		int likes=service.getData(board_num).getBoard_like();
 		return likes;
+	}
+	
+	//좋아요 감소
+	@GetMapping("/unlikes")
+	@ResponseBody
+	public int unlikes(@RequestParam String board_num)
+	{
+		service.updateunLikes(board_num);
+		int unlikes=service.getData(board_num).getBoard_like();
+		
+		return unlikes;
 	}
 
 }
