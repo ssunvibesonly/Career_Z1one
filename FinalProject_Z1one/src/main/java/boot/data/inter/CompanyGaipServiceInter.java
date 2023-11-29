@@ -7,7 +7,7 @@ public interface CompanyGaipServiceInter {
    
    public int getTotalCount();
    public void insertCompanyMember(CompanyGaipDto dto);
-   public int getSearchCompanyId(String Company_Email);
-   public int loginPassCheck(String Company_Email, String Company_Pass);
-   public CompanyGaipDto getDataById(String Company_Email);
+   public int getSearchCompanyId(String company_email);
+   public int loginPassCheck(String company_email, String company_pass);
+   public CompanyGaipDto getDataById(String company_email);
 }

@@ -63,8 +63,8 @@ $(function() {
 					<option class="form-control start" required="required" value="신입꿀팁">신입꿀팁</option>
 					<option class="form-control change" required="required" value="이직story">이직story</option>
 					<option class="form-control change" required="required" value="퇴사꿀팁">퇴사꿀팁</option>
-					<option class="form-control free" required="required" value="Zl맘대로">Zl맘대로</option>
-					<option class="form-control free" required="required" value="Zl마켓">Zl마켓</option>
+					<option class="form-control free" required="required" value="Z1맘대로">Z1맘대로</option>
+					<option class="form-control free" required="required" value="Z1마켓">Z1마켓</option>
 				</select>
 			</td>
 		</tr>

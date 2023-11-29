@@ -160,12 +160,13 @@ input[data-placeholder]::before{
 </head>
 <body>
 <br><br>
-<form action="/">
+<form action="applyinsert" method="post">
+<input type="hidden" name="user_num" value="${user_num}">
 <div class="container">
    <h5><b>인적사항</b></h5>
    <div class="info">
       <div class="d-inline-flex">
-      <input type="text" name="apply_name" placeholder="이름" style="width: 150px; height: 60px; margin: 10px 10px" class="form-control">
+      <input type="text" name="apply_name" value="${user_name}" placeholder="이름" style="width: 150px; height: 60px; margin: 10px 10px" class="form-control">
       <input type="date" name="apply_birth" data-placeholder="생년월일" required style="width: 150px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)"> 
       <select name="apply_gender" placeholder="성별" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
          <option value="남자">남자</option>

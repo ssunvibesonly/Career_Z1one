@@ -79,4 +79,11 @@
 			and finalpass is null
  		group by r_num order by r_num
 	</select>
+	<update id="updateDrag" parameterType="Map">
+		update apply set r_num=#{r_num} 
+		<if test="isFinal==1">
+			finalpass=50
+		</if>
+		where a_idx=#{a_idx}
+	</update>
 </mapper>

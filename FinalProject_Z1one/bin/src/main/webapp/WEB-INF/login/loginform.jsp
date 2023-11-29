@@ -28,7 +28,7 @@ height: 500px;
  
 }
 
-button {
+.madebtn {
   position: relative;
   height: 50px;
   width: 280px;
@@ -136,7 +136,7 @@ font-size: 10pt;
       <input type="password" class="form-control" name="pass"
       style="width: 250px;height: 47px;" placeholder="비밀번호" required="required">
        <div class="two" id="btnbox">
-      <button type="submit" id="btn">
+      <button type="submit" id="btn" class="madebtn">
         Login
         <div class="fill-two"></div>
         <script type="text/javascript">

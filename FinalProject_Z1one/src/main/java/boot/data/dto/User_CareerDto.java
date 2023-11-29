@@ -8,7 +8,7 @@ import lombok.Data;
 @Alias("User_CareerDto")
 public class User_CareerDto {
 	private int career_num;
-	private int userN_num;
+	private int user_num;
 	private String career_companyname;
 	private String career_duration;
 	private String career_check;

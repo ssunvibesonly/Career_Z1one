@@ -1,12 +1,16 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 
 
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+>>>>>>> jooyoung
 <!DOCTYPE html>
 <html>
 <head>
@@ -275,19 +279,22 @@
                         <img src="../${dto.board_photo}" style="widht:40px; height:40px; margin-left: 75%">
                     </div>
                         <%--하단--%>
-                    <div class="story-footer" style="height: 70px;">
-                        <b>
-                            <c:set var="email" value="${sessionScope.myid}" />
-                                <%--  <c:set var="maskedEmail" value="${fn:substring(email, 0, 5)}${fn:replace(fn:substring(email, 5), '.', '*')}" />
-                                  <a href="#">${maskedEmail}</a>--%>
-                            <a href="#" style="margin-left: 28%"></a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </b>
-                        <br>
-                        <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
-                        <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
-                        <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>
-                        <div style="margin-left: 77%">
+                        <div class="story-footer" style="height: 70px;">
+                            <b>
+                                <c:set var="email" value="${sessionScope.myid}" />
+                              <%--  <c:set var="maskedEmail" value="${fn:substring(email, 0, 5)}${fn:replace(fn:substring(email, 5), '.', '*')}" />
+                                <a href="#">${maskedEmail}</a>--%>
+                                <a href="#" style="margin-left: 28%"></a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <b>{본인회사}
+                            <a href="#">{세션아이디적기}</a><a href="#" style="margin-left: 28%"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <fmt:formatDate value=" ${dto.board_writeday}" pattern="yyyy-MM-dd"/>
+                            </b>
+                            <br>
+                            <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
+                            <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
+                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>
+                            <div style="margin-left: 77%">
                             <i class="bi bi-calendar" style="color:gray; font-size: 16px;"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
                         </div>
                     </div>

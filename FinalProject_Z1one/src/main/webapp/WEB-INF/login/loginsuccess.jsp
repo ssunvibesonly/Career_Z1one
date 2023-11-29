@@ -20,7 +20,7 @@ ${cname }님 환영합니다.
       style="width: 100px;" onclick="location.href='logoutaction'">로그아웃</button>
 <br><br>
 <button type="button" class="btn btn-info"
-      style="width: 200px;" onclick="location.href='/member/userapplypage'">마이페이지</button>
+      style="width: 200px;" onclick="location.href='/member/userapplypage?user_num=${user_num}'">마이페이지</button>
    
 </body>
 </html>

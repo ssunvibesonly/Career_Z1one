@@ -10,7 +10,7 @@ import boot.data.dto.CompanyGaipDto;
 public interface CompanyGaipMapperInter {
    public int getTotalCount();
    public void insertCompanyMember(CompanyGaipDto dto);
-   public int getSearchCompanyId(String company_Email);
+   public int getSearchCompanyId(String company_email);
    public int loginPassCheck(Map<String, String> map);
-   public CompanyGaipDto getDataById(String Company_Email);
+   public CompanyGaipDto getDataById(String company_email);
 }

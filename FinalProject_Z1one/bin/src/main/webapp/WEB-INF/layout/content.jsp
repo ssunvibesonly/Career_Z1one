@@ -16,8 +16,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div style="border: 1px solid black;width: 1000px; height: 1000px;">
-아니 메인 존나 빡세잖아 !!!!</div>
+<div style="border: 1px solid black;width: 1000px; height: 1000px; ">
+!!!!</div>
 
 </body>
 </html>

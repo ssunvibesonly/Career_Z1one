@@ -68,7 +68,6 @@ background-color:#FAFAFA;
 width: 85%;
 height: 25vh;
 margin-top: 1.7%;
-cursor: pointer;
 }
 
 </style>
@@ -92,6 +91,7 @@ cursor: pointer;
    <h4 style="font-weight: 900;">이력서</h4>
    
    <c:if test="${apply_name!=null }">
+   <input type="hidden" name="user_num" value="${user_num}"> 
    <div class="apply" onclick="#">
       <div style="background-color:#9F81F7; width: 4.5%; height: 2.5vh; border: 1px solid #9F81F7; 
       border-radius: 3px;  text-align: center; position: absolute; margin: 20px 20px;">
@@ -103,9 +103,12 @@ cursor: pointer;
    </c:if>
    
    <c:if test="${apply_name==null }">      
-   <div class="apply" onclick="location.href='applyaddform'">   
-      <img src="${root }/image/applyinserticon.png" style="width: 5%; margin: 65px 500px;">
+   <form action="applyaddform" method="get">
+   <input type="hidden" name="user_num" value="${user_num}">
+   <div class="apply">   
+      <input type="image" src="${root }/image/applyinserticon.png" style="width: 5%; margin: 65px 500px; cursor: pointer;">
    </div>   
+   </form>
    </c:if>
    
 </div>
