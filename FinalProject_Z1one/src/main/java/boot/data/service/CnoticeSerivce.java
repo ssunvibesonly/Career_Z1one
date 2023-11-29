@@ -1,6 +1,8 @@
 package boot.data.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,55 +24,34 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 	}
 
 	@Override
-	public List<CnoticeDto> getPassMoneyNotices() {
+	public List<CnoticeDto> allList(String[] cnotice_Job_List, String[] cnotice_Area_List, String[] cnotice_Career_List,
+			String[] cnotice_Academic_List, String orderBy) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getPassMoneyNotices();
+		return cnoticeInter.allList(cnotice_Job_List, cnotice_Area_List, cnotice_Career_List, cnotice_Academic_List, orderBy);
 	}
 
 	@Override
-	public List<CnoticeDto> getReadCountNotices() {
+	public CnoticeDto getNoticeData(String cnotice_Num) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getReadCountNotices();
+		return cnoticeInter.getNoticeData(cnotice_Num);
 	}
 
 	@Override
-	public List<CnoticeDto> getWriteDayNotices() {
+	public void insertNotice(CnoticeDto dto) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getWriteDayNotices();
+		cnoticeInter.insertNotice(dto);
 	}
 
 	@Override
-	public List<CnoticeDto> getDeadLineNotices() {
+	public void deleteNotice(String cnotice_Num) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getDeadLineNotices();
-	}
-
-
-	@Override
-	public List<CnoticeDto> areaList(String cnotice_Area) {
-		// TODO Auto-generated method stub
-		return cnoticeInter.areaList(cnotice_Area);
+		cnoticeInter.deleteNotice(cnotice_Num);
 	}
 
 	@Override
-	public List<CnoticeDto> careerList(String cnotice_Career) {
+	public void updateNotice(CnoticeDto dto) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.careerList(cnotice_Career);
+		cnoticeInter.updateNotice(dto);
 	}
-
-	@Override
-	public List<CnoticeDto> academicList(String cnotice_Academic) {
-		// TODO Auto-generated method stub
-		return cnoticeInter.academicList(cnotice_Academic);
-	}
-
-	@Override
-	public List<CnoticeDto> jobList(String[] cnotice_Job) {
-		// TODO Auto-generated method stub
-		return cnoticeInter.jobList(cnotice_Job);
-	}
-
-
-
 
 }

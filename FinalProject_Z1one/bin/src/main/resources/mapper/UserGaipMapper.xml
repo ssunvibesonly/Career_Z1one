@@ -7,7 +7,7 @@
         select count(*) from usergaip
      </select>
      <insert id="insertUserMember" parameterType="ugaipdto">
-        insert into usergaip (user_email,user_pass,user_gaipday) values(#{user_email},#{user_pass},now())
+        insert into usergaip (user_email,user_name,user_pass,user_gaipday) values(#{user_email},#{user_name},#{user_pass},now())
      </insert>
      <select id="getSearchUserId" parameterType="String" resultType="int">
         select count(*) from usergaip where user_email=#{user_email}

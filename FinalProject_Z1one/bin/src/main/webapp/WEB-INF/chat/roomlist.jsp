@@ -74,9 +74,8 @@ function delRoom(){
 </head>
 <body>
 <div class="container">
-	<div class="container">
-	<h3>채팅방 리스트</h3>
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">채팅방 생성</button><br>
+	<div class="container" align="center">
+	<button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#myModal"">채팅방 생성</button>
 	<c:forEach var="room" items="${list }">
 		<span class="hidden" id="${room.roomName }"></span>
 		<div style="border: 1px solid gray; border-radius: 10px;" align="center">
@@ -104,8 +103,8 @@ function delRoom(){
       <!-- Modal body -->
       <form method="post" action="/chat/createroom" onsubmit="return createRoom()">
       <div class="modal-body">
-     	 <label for="roomName" class="col-form-label">방 이름</label>
-        <input type="text" class="form-control" id="roomName" name="roomName">
+     	 <label for="roomName" class="col-form-label">회사명</label>
+        <input type="text" class="form-control" id="roomName" name="roomName" required="required">
       </div>
 
       <!-- Modal footer -->

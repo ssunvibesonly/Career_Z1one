@@ -1,6 +1,7 @@
 package boot.data.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -8,13 +9,11 @@ import boot.data.dto.CnoticeDto;
 
 @Mapper
 public interface CnoticeMapperInter {
-	public List<CnoticeDto> getPassMoneyNotices(); //합격축하금 높은순
-	public List<CnoticeDto> getReadCountNotices(); //조회수 높은순
-	public List<CnoticeDto> getWriteDayNotices(); //등록순
-	public List<CnoticeDto> getDeadLineNotices(); //마감순
 	public int getTotalCount();
-	public List<CnoticeDto> jobList(String [] cnotice_Job); //직종선택데이타
-	public List<CnoticeDto> areaList(String cnotice_Area); //지역선택데이타
-	public List<CnoticeDto> careerList(String cnotice_Career); //경력선택데이타
-	public List<CnoticeDto> academicList(String cnotice_Academic); //학력선택데이타
+	public List<CnoticeDto> allList(String[] cnotice_Job_List,String[] cnotice_Area_List,
+			String[] cnotice_Career_List,String[] cnotice_Academic_List,String orderBy); //세부분류 리스트
+	public CnoticeDto getNoticeData(String cnotice_Num); //디테일페이지
+	public void insertNotice(CnoticeDto dto); //공고 추가
+	public void deleteNotice(String cnotice_Num); //공고 삭제
+	public void updateNotice(CnoticeDto dto); //공고 수정
 }

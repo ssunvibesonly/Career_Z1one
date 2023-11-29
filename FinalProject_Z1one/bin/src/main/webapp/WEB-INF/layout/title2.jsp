@@ -42,9 +42,6 @@
       <a class="nav-link" href="/board/community">커뮤니티</a> <!-- 게시판 -->
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/career/chat">취업톡톡</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link" href="javascript:(0)" onclick="chat()"><img src="../image/chat.png" style="width:30px;"></a>
       <script type="text/javascript">
       function chat(){

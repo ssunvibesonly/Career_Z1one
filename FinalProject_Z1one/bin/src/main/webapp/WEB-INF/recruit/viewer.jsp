@@ -307,6 +307,65 @@
 			
 			$("button.modalbtn").trigger("click");
 		});
+		
+		$(document).on("drag","div.button-container",function(){
+			$(this).attr("class","button-container dragging").css("opacity","0.7");
+		});
+		$(document).on("dragover","div.button-container",function(e){
+			var middleset=$(this).offset().top+46;
+			
+			if(e.pageY<middleset){
+				$(this).attr("style","border-top:solid 3px red");
+				$(this).prev().attr("style","border-bottom:solid 3px red");
+			}else if(middleset<=e.pageY){
+				$(this).attr("style","border-bottom:solid 3px red");
+				$(this).next().attr("style","border-top:solid 3px red");
+			}
+		});
+		$(document).on("dragover","div.course",function(e){
+			e.preventDefault();
+			$(this).attr("style","outline:2px solid red");
+		});
+		$(document).on("dragleave","div.button-container",function(){
+			$(this).attr("style","border:0");
+		});
+		$(document).on("dragleave","div.course",function(){
+			$(this).attr("style","outline:0");
+		});
+		$(document).on("drop","div.course",function(e){
+			e.preventDefault();
+			//db조작하는 기능
+			var idx=$("div.dragging").attr("idx");
+			var r_num=$(this).find("div.levelbox").attr("seq");
+			var r_title=$(this).find("div.levelbox").text();
+			var a_name=$("div.dragging").find("span.namebox").text();
+			
+			var dragAjax=function(input){
+				$.ajax({
+					data:{"r_num":r_num,"a_idx":idx,"isFinal":input},
+					type:"post",
+					dataType:"html",
+					url:"/recruit/dragupdate",
+					success:function(){
+						list();
+					}
+				});
+			}
+			
+			if($(this).find("div.fin").length==0){
+				dragAjax("0");
+			}else{
+				deliberate("직권합격",a_name,c_pass).then(result => {
+					if(result==1){
+						dragAjax("1");
+					}else{
+						$("div.dragging").css("opacity","1");
+						$(this).attr("style","outline:0");
+						$("div.button-container").attr("style","border:0");
+					}
+				});
+			}
+		});
 	});
 	
 	function list(){
@@ -322,11 +381,11 @@
 			success:function(res){
 				$.each(res.levellist,function(i,ele){
 					s+="<div class='course'>";
-					s+="<div class='levelbox' title='전원 선택' step='"+(i+1)+"'>"+ele.r_level+"</div><br>";
+					s+="<div class='levelbox' title='전원 선택' step='"+(i+1)+"' seq='"+ele.r_num+"'>"+ele.r_level+"</div><br>";
 					
 					$.each(res.applylist,function(i,sube){
 						if(ele.r_num==sube.r_num&&sube.finalpass!=50){
-							s+="<div class='button-container' idx='"+sube.a_idx+"' user='"+sube.user_num+"' record='off'>";
+							s+="<div class='button-container' idx='"+sube.a_idx+"' user='"+sube.user_num+"' record='off' draggable='true'>";
 							s+="<span class='namebox'>"+sube.a_name+"</span>";
 							s+="<i class='bi bi-three-dots-vertical'></i>";
 							s+="<div class='buttons'>";
@@ -356,16 +415,16 @@
 	}
 	
 	const Toast = Swal.mixin({
-					toast: true,
-					position: 'center-center',
-					showConfirmButton: false,
-					timer: 3000,
-					timerProgressBar: true,
-					didOpen: (toast) => {
-						toast.addEventListener('mouseenter', Swal.stopTimer)
-						toast.addEventListener('mouseleave', Swal.resumeTimer)
-					}
-				});
+		toast: true,
+		position: 'center-center',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer)
+			toast.addEventListener('mouseleave', Swal.resumeTimer)
+		}
+	});
 	
 	function deliberate(proc,name,c_pass){
 		return new Promise(async (resolve, reject) => {
@@ -399,11 +458,11 @@
 	<div class="d-inline-flex" id="main" code="${c_code }">
 		<c:forEach var="ldto" items="${levellist }" varStatus="i">
 			<div class="course">
-				<div class="levelbox" title="전원 선택" step="${i.count }">${ldto.r_level }</div><br>
+				<div class="levelbox" title="전원 선택" step="${i.count }" seq="${ldto.r_num }">${ldto.r_level }</div><br>
 				<c:forEach var="adto" items="${applylist }">
 					<c:if test="${ldto.r_num==adto.r_num && adto.finalpass!=50 && adto.finalpass!=20}">
 						
-						<div class="button-container" idx="${adto.a_idx }" user="${adto.user_num }" record="off">
+						<div class="button-container" idx="${adto.a_idx }" user="${adto.user_num }" record="off" draggable="true">
 							<span class="namebox">${adto.a_name }</span>
 							<i class="bi bi-three-dots-vertical"></i>
 							<div class="buttons">

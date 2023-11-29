@@ -12,4 +12,25 @@
     <select id="getAllSearch" resultType="User_BoardDto">
         select * from user_board order by board_writeday desc
     </select>
+    <select id="getSort" resultType="User_BoardDto" parameterType="map">
+        select * from user_board
+        <where>
+            <if test="searchword != null and searchword != ''">
+                AND (
+                board_title like '%' || #{searchword} || '%' or
+                board_story like '%' || #{searchword} || '%'
+                )
+            </if>
+        </where>
+        <if test="orderby != null">
+            order by
+            <choose>
+                <when test="orderby == 'recent'">board_writeday desc</when>
+                <when test="orderby == 'likes'">board_like desc</when>
+                <when test="orderby == 'readcnt'">board_readcnt desc</when>
+            </choose>
+        </if>
+    </select>
+
+
 </mapper>
