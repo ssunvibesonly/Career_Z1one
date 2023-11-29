@@ -21,6 +21,10 @@
 	<select id="getNoticeData" parameterType="String" resultType="CnoticeDto">
 		select * from cnotice where cnotice_Num=#{cnotice_Num}
 	</select>	
+	<!-- 조회수순리스트정렬 -->
+	<select id="readCountList" resultType="CnoticeDto">
+		select * from cnotice order by cnotice_Readcount desc
+	</select>
   	<!-- 리스트 세부 분류 -->
 	<select id="allList" resultType="CnoticeDto">
 		select * from cnotice
