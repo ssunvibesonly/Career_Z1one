@@ -50,8 +50,8 @@ public class EmailService implements EmailInter {
    }
 
    @Override
-   public void getMatchUserwithNotice() {
-      emailMapperInter.getMatchUserwithNotice();
+   public List<CnoticeDto> getMatchUserwithNotice() {
+      return emailMapperInter.getMatchUserwithNotice();
    }
 
    @Override
@@ -63,13 +63,13 @@ public class EmailService implements EmailInter {
          mimeMessageHelper.setTo(toEmail);
          mimeMessageHelper.setSubject(subject);
 
-         String a = "바보";
-
+         //String id = (String)httpSession.getAttribute("myid");
 
          // Create a Thymeleaf context
          Context thymeleafContext = new Context();
-         thymeleafContext.setVariable("title", subject);
-         thymeleafContext.setVariable("content", content);
+         //thymeleafContext.setVariable("myid",id);
+         //thymeleafContext.setVariable("title", subject);
+         //thymeleafContext.setVariable("content", content);
 
          // Process the Thymeleaf template
          String emailBody = templateEngine.process("email-template", thymeleafContext);

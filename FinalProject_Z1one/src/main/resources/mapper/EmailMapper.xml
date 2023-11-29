@@ -8,7 +8,6 @@
     <select id="getNameByEmailId">
         select user_name from usergaip where user_email=#{user_email}
 
-
     </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
     <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int">

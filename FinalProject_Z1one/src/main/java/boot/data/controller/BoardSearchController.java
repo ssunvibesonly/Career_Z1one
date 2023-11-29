@@ -36,6 +36,10 @@ public class BoardSearchController {
    @ResponseBody
    public List<User_BoardDto> list(@RequestParam(required = false) String searchword, @RequestParam(required = false) String orderby) {
 
-      return boardSearchService.getSort(searchword,orderby);
+      if(searchword == null && orderby==null) {
+         return boardSearchService.getAllSearch();
+      } else {
+         return boardSearchService.getSort(searchword,orderby);
+      }
    }
 }

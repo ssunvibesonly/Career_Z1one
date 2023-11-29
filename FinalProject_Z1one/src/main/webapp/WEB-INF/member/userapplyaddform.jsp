@@ -289,6 +289,13 @@ input[data-placeholder]::before{
         작성완료
         <div class="fill-two"></div></button></div><br>
 </form>
+<c:if test="${sessionScope.myid !=null}">
+	<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
+	<button type="button" id="btn" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
+	</button>
+	<a href="/email/matchNotice">맞춤공고</a>
+	<a href="/email/match">맞춤공고2</a>
+</c:if>
 </body>
 
 

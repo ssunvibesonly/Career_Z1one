@@ -470,11 +470,6 @@ form {
 	<br>
 	<br>
 	<br>
-	<c:if test="${sessionScope.myid !=null}">
-		<b style="font-size:14px;">✔${sessionScope.myid} 로그인중 </b>
-		<button type="button" id="btn" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}'">채용 공고 받기
-		</button>
-	</c:if>
 
 	<%--하단--%>
 	<div class="adverti" style="margin-top: 6%; cursor: pointer; margin-left: 26%; width: 50%; height: 110px;">

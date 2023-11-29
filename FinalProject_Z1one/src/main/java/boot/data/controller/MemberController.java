@@ -77,7 +77,7 @@ public class MemberController {
             e.printStackTrace();
          }
       }
-      dto.setCompany_Logo(photoName);
+      dto.setCompany_logo(photoName);
       cservice.insertCompanyMember(dto);
       
       return "redirect:/login/form";

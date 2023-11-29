@@ -12,9 +12,7 @@
     <title>Insert title here</title>
 </head>
 <body>
-<h4>${sessionScope.myid}님 을 위한 맞춤공고 입니다.</h4>
-<h4>${name} 님의 맞춤공고 입니다.</h4>
-<h2>${list.size()} 개의 공고가 있습니다.</h2>
+<h3 style="margin-left:25%; margin-top: 3%;">${name} 님 맞춤 공고 입니다</h3>
 
 </body>
 </html>

@@ -7,21 +7,13 @@
     <!-- 검색 기능을 추가한 쿼리 -->
     <select id="searchTitle" parameterType="string" resultType="User_BoardDto">
         SELECT * FROM user_board
-        WHERE board_title LIKE CONCAT('%', #{searchword}, '%')
+        WHERE board_title LIKE CONCAT('%', #{searchword}, '%') or board_story LIKE CONCAT('%', #{searchword}, '%')
     </select>
     <select id="getAllSearch" resultType="User_BoardDto">
         select * from user_board order by board_writeday desc
     </select>
-    <select id="getSort" resultType="User_BoardDto" parameterType="map">
-        select * from user_board
-        <where>
-            <if test="searchword != null and searchword != ''">
-                AND (
-                board_title like '%' || #{searchword} || '%' or
-                board_story like '%' || #{searchword} || '%'
-                )
-            </if>
-        </where>
+    <select id="getSort" resultType="User_BoardDto" parameterType="Map">
+        select * from user_board WHERE board_title LIKE CONCAT('%', #{searchword}, '%') and board_story LIKE CONCAT('%', #{searchword}, '%')
         <if test="orderby != null">
             order by
             <choose>
@@ -31,6 +23,4 @@
             </choose>
         </if>
     </select>
-
-
 </mapper>

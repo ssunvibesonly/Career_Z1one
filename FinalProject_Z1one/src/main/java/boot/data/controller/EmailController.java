@@ -33,6 +33,8 @@ public class EmailController {
    JavaMailSender javaMailSender;
    @Autowired
    private EmailService emailService;
+   @Autowired
+   HttpSession httpSession;
    private final String subject = "🎁안녕하세요 Z1one 채용공고가 도착했습니다🎁";
    private final String content = "";
 
@@ -41,30 +43,35 @@ public class EmailController {
       final String TOEMAIL = user_email;
       System.out.println(user_email);
 
-      emailService.getMatchUserwithNotice();
-      //emailService.sendEmail(subject, content, TOEMAIL);
       emailService.sendEmailLeaf(TOEMAIL,subject, content);
       return "/email/emailSuccess";
    }
 
    @GetMapping("/matchNotice")
-   public String matchNotice(Model model,HttpSession httpSession) {
+   public String matchNotice(Model model) {
 
+      //세션으러 이메일 가져오기
       String email = (String)httpSession.getAttribute("myid");
-      String name =  emailService.getNameByEmailId(email);
       System.out.println(email);
+      //이메일에 따른 유저 이름 가져오기
+      String name =  emailService.getNameByEmailId(email);
       System.out.println(name);
 
+      //***에 따른 리스트를 뽑기
+      //
+
       //이메일 리스트 로직 보내기.
-      List<CnoticeDto> list = emailService.getCompanyNotice();
-      System.out.println(list.size() + "개");
+      //List<CnoticeDto> list = emailService.getCompanyNotice();
+      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice();
+      System.out.println(list1.size() + "개");
+      //System.out.println(list.size() + "개");
 
       //이메일 비교결과 추출
 
-      model.addAttribute("list",list);
+      model.addAttribute("list",list1);
       model.addAttribute("name",name);
 
-      return "/2/email/matchNotice?user_email="+email;
+      return "/2/email/matchNotice";
    }
 
 }
