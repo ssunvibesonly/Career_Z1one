@@ -225,9 +225,11 @@
                       <style>.v-button {background: transparent !important;}</style>
                       <div class="v-text-align" align="center">
                         <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://unlayer.com" style="height:57px; v-text-anchor:middle; width:260px;" arcsize="77%"  stroke="f" fillcolor="#33428d"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-                        <button type="button" style="width: 40%; height: 75px; border: none; background-color: whitesmoke" id="btn" onclick="location.href='#'">
-                          <a th:href="'http://localhost:9000/email/matchNotice'" style="font-size:20px;"><b>Click to here</b></a>
-                                                   </button>
+
+                        <button type="button" style="width: 40%; height: 75px; border: none; background-color: whitesmoke" id="btn">
+                          <!--<a th:href="'http://localhost:9000/email/matchNotice'" style="font-size:20px;"><b>Click to here</b></a>-->
+                          <a th:href="'http://localhost:9000/email/matchNotice?myid=' + ${myid} + '&user_num=' + ${user_num}" style="font-size:20px;"><b>Click  to here</b></a>
+                        </button>
 
                         </center></v:roundrect>
                       </div>

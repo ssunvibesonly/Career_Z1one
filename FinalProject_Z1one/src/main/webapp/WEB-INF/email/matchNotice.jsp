@@ -11,10 +11,22 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <title>Insert title here</title>
 </head>
+<style>
+    .Top {
+        margin-left: 10%;
+        border: 1px solid black;
+        width: 80%;
+        height : 2000px;
+    }
+</style>
 <body>
-<h3 style="margin-left:25%; margin-top: 3%;">${name} 님 맞춤 공고 입니다</h3>
+<h3 style="margin-left:10%; margin-top: 3%;"><b style="color:darkslateblue">${name}</b> 님 맞춤 공고 입니다</h3>
+<h6 style="margin-left: 10%;">총 <b>${Total}</b> 개의 공고가 있습니다.</h6>
+<br>
+<div class="Top">
 <c:forEach items="${list1}" var="dto">
-</c:forEach>
 
+</c:forEach>
+</div>
 </body>
 </html>

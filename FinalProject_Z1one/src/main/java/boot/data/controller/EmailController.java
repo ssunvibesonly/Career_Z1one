@@ -1,6 +1,7 @@
 package boot.data.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import boot.data.dto.Board_ContentDto;
 import boot.data.dto.CnoticeDto;
 import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_ApplyDto;
+import boot.data.dto.User_BoardDto;
 import boot.data.mapper.ApplyMapperInter;
 import boot.data.mapper.CnoticeMapperInter;
 import boot.data.mapper.EmailMapperInter;
@@ -40,32 +43,42 @@ public class EmailController {
    private final String content = "";
 
    @GetMapping("/sendEmail")
-   public String sendEmail(@RequestParam String user_email) {
+   public String sendEmail(@RequestParam String user_email, @RequestParam String user_num) {
       final String TOEMAIL = user_email;
-      System.out.println(user_email);
+
+      System.out.println("넘기는 num :" + user_num);
 
       emailService.sendEmailLeaf(TOEMAIL,subject, content);
       return "/email/emailSuccess";
    }
 
    @GetMapping("/matchNotice")
-   public String matchNotice(@ModelAttribute User_ApplyDto userApplyDto, Model model) {
+   public String matchNotice(@RequestParam(defaultValue = "0") String user_num, Model model) {
 
       String email = (String)httpSession.getAttribute("myid");
       String name =  emailService.getNameByEmailId(email);
-      int num = Integer.parseInt(userApplyDto.getUser_num());
-      System.out.println(num);
+      System.out.println(email + "-" + name + "-" + user_num);
 
-      //이메일 리스트 로직 보내기.
-      //공고 다 뽑기
-      List<CnoticeDto> list = emailService.getCompanyNotice();
+/*      //notice list
+      List<CnoticeDto> list = emailService.getCompanyNotice(); //회사 공고 리스트
+      //user list
+      List<User_ApplyDto> userList = emailService.getAllUser();
+      List<User_ApplyDto> UserNumList = new ArrayList<User_ApplyDto>();
+      for (int i = 0; i <userList.size() ; i++) {
+         UserNumList.add(emailService.getUserByNum(UserNumList.get(i).getUser_num()));
+         System.out.println("user_num : "+userList.get(i).getUser_num());
+      }
+      System.out.println("ToString : " + UserNumList.toString());
+      System.out.println("기본" + UserNumList);
+      model.addAttribute("contentList",UserNumList);*/
 
-      // 조건에 맞는 것만 뽑기
-      // 조건을 뽑을 때 -> user_apply테이블에서 user_num에 해당하는 컬럼의 값들만 뽑아서 비교를 해야한다.
-      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice(num);
+      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice(user_num);
+      System.out.println("맞춤 공고 개수 : " + list1.size());
+      System.out.println("뭐 있냐? " + list1.toString());
 
       //이메일 비교결과 추출
-
+      //model.addAttribute("UserNumList",UserNumList);
+      model.addAttribute("Total",list1.size());
       model.addAttribute("list",list1);
       model.addAttribute("name",name);
 
