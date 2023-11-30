@@ -9,8 +9,33 @@
          values(#{user_num},#{apply_name},#{apply_photo},#{apply_hp},#{apply_gender},#{apply_addr},
          #{apply_birth},#{apply_primary},#{apply_secondary},#{apply_newcomer},#{apply_region},#{apply_salary},now())
     </insert>
+    <insert id="insertUserCareer" parameterType="User_CareerDto">
+        insert into user_career (user_num,career_companyname,career_duration,career_check,career_team,career_position,
+        career_job,career_salary,career_story)
+         values(#{user_num},#{career_companyname},#{career_duration},#{career_check},#{career_team},#{career_position},
+         #{career_job},#{career_salary},#{career_story})
+    </insert>
+    <insert id="insertUserSchool" parameterType="User_EducationDto">
+        insert into user_education (user_num,education_name,education_duration,education_check,education_major,education_degree,
+        education_score)
+         values(#{user_num},#{education_name},#{education_duration},#{education_check},#{education_major},#{education_degree},
+         #{education_score})
+    </insert>
+    <insert id="insertUserActive" parameterType="User_ActiveDto">
+        insert into user_active (user_num,active_name,active_duration,active_awards,active_story)
+         values(#{user_num},#{active_name},#{active_duration},#{active_awards},#{active_story})
+    </insert>
     <select id="getDataByNum" parameterType="String" resultType="User_ApplyDto">
 		select * from user_apply where user_num=#{user_num}
+    </select>
+    <select id="getCareerDataByNum" parameterType="String" resultType="User_CareerDto">
+		select * from user_career where user_num=#{user_num}
+    </select>
+    <select id="getEducationDataByNum" parameterType="String" resultType="User_EducationDto">
+		select * from user_education where user_num=#{user_num}
+    </select>
+    <select id="getActiveDataByNum" parameterType="String" resultType="User_ActiveDto">
+		select * from user_active where user_num=#{user_num}
     </select>
     <select id="UserApplyCheck" parameterType="String" resultType="int">
         select count(*) from user_apply where user_num=#{user_num}
@@ -21,15 +46,34 @@
     <select id="UsergetWriteday" parameterType="String" resultType="String">
         select apply_writeday from user_apply where user_num=#{user_num}
     </select>
-    
+    <update id="UpdateUserApply" parameterType="User_ApplyDto">
+    	update user_apply set apply_name=#{apply_name},apply_photo=#{apply_photo},apply_hp=#{apply_hp},apply_gender=#{apply_gender},apply_addr=#{apply_addr},
+    	apply_birth=#{apply_birth},apply_primary=#{apply_primary},apply_secondary=#{apply_secondary},apply_newcomer=#{apply_newcomer},apply_region=#{apply_region},
+    	apply_salary=#{apply_salary},apply_writeday=now() where user_num=#{user_num}
+    </update>
+    <update id="UpdateUserCareer" parameterType="User_CareerDto">
+    	update user_career set career_companyname=#{career_companyname},career_duration=#{career_duration},career_check=#{career_check},career_team=#{career_team},career_position=#{career_position},
+    	career_job=#{career_job},career_salary=#{career_salary},career_story=#{career_story} where user_num=#{user_num}
+    </update>
+    <update id="UpdateUserSchool" parameterType="User_EducationDto">
+    	update user_education set education_name=#{education_name},education_duration=#{education_duration},education_check=#{education_check},education_major=#{education_major},
+    	education_degree=#{education_degree},education_score=#{education_score} where user_num=#{user_num}
+    </update>
+    <update id="UpdateUserActive" parameterType="User_ActiveDto">
+    	update user_active set active_name=#{active_name},active_duration=#{active_duration},active_awards=#{active_awards},active_story=#{active_story} where user_num=#{user_num}
+    </update>
+    <delete id="DeleteUserApply" parameterType="String">
+    	delete from user_apply where user_num=#{user_num}
+    </delete>
+    <delete id="DeleteUserCareer" parameterType="String">
+    	delete from user_career where user_num=#{user_num}
+    </delete>
+    <delete id="DeleteUserSchool" parameterType="String">
+    	delete from user_education where user_num=#{user_num}
+    </delete>
+    <delete id="DeleteUserActive" parameterType="String">
+    	delete from user_active where user_num=#{user_num}
+    </delete>
      
-    <!-- <insert id="insertUserApply" parameterType="User_ActiveDto">
-        select * from user_active where apply_num=#{apply_num}
-    </insert>
-    <insert id="insertUserApply" parameterType="User_CareerDto">
-        select * from user_career where apply_num=#{apply_num}
-    </insert>
-    <insert id="insertUserApply" parameterType="User_EducationDto">
-        select * from user_education where apply_num=#{apply_num}
-    </insert> -->
+    
 </mapper>

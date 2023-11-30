@@ -168,33 +168,33 @@ input[data-placeholder]::before{
 </head>
 <body>
 <br><br>
-<form action="applyinsert" method="post" enctype="multipart/form-data">
+<form action="applyupdate" method="post" enctype="multipart/form-data">
 <input type="hidden" name="user_num" value="${user_num}">
 <div class="container">
    <h5><b>인적사항</b></h5>
    <div class="info">
       <div class="d-inline-flex">
-      <input type="text" required="required" name="apply_name" value="${user_name}" placeholder="이름" style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
-      <input type="date" required="required" name="apply_birth" data-placeholder="생년월일" required style="width: 190px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)"> 
-      <select name="apply_gender" required="required" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
-         <option value="" selected disabled>성별</option>
+      <input type="text" name="apply_name" value="${applydto.apply_name}" placeholder="이름" style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
+      <input type="date" name="apply_birth" value="${applydto.apply_birth}" data-placeholder="생년월일" required style="width: 190px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)"> 
+      <select name="apply_gender" value="${applydto.apply_gender}" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
+         <option value="${applydto.apply_gender}" selected>${applydto.apply_gender}</option>
          <option value="남자">남자</option>
          <option value="여자">여자</option>
       </select> 
-      <select name="apply_newcomer" required="required" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
-         <option value="" selected disabled>경력여부</option>
+      <select name="apply_newcomer" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
+         <option value="${applydto.apply_newcomer}" selected>${applydto.apply_newcomer}</option>
          <option value="신입">신입</option>
          <option value="경력">경력</option>
       </select> 
-      <input type="file" name="userphoto" id="userphoto" style="display: none;">
-        <img id="showimg">  	 
+      <input type="file" name="userphoto" value="${applydto.apply_photo}" id="userphoto" style="display: none;">
+        <img id="showimg" src="../applyphoto/${applydto.apply_photo}">  	 
    	  </div>
-   	  <button type="button" id="btnphoto" required="required" class="btn btn-secondary" style="width: 60px; height: 30px; padding: 1px 3px; margin: -20px 683px;"><b style="font-size: 0.6em">사진선택</b></button> 
+   	  <button type="button" id="btnphoto" class="btn btn-secondary" style="width: 60px; height: 30px; padding: 1px 3px; margin: -20px 683px;"><b style="font-size: 0.6em">사진선택</b></button> 
    	  <br>
    	  <div class="d-inline-flex" style="position: absolute; top: 270px;">
-   	  <input type="text" name="apply_hp"  required="required" placeholder="휴대폰번호" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
-   	  <input type="text" name="apply_addr1" required="required" placeholder="주소" id="sample6_address" onclick="sample6_execDaumPostcode()"  style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
-      <input type="text" name="apply_addr2" required="required" placeholder="상세주소" id="sample6_detailAddress" style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
+   	  <input type="text" name="apply_hp" value="${applydto.apply_hp}" placeholder="휴대폰번호" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
+   	  <input type="text" name="apply_addr1" value="${apply_addr1}" placeholder="주소" id="sample6_address" onclick="sample6_execDaumPostcode()"  style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
+      <input type="text" name="apply_addr2" value="${apply_addr2}" placeholder="상세주소" id="sample6_detailAddress" style="width: 170px; height: 60px; margin: 10px 10px" class="form-control">
    	  </div>
    </div>
 </div>
@@ -220,23 +220,25 @@ input[data-placeholder]::before{
 	<h5><b>희망근무조건</b></h5>
 	<div class="job">
 		<div class="d-inline-flex">
-			<select name="apply_primary" required="required" id="apply_primary" placeholder="1차 직종" style="width: 225px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" onchange="optionChange();">
-			    <option selected disabled>1차 직종</option>
+			<select name="apply_primary" id="apply_primary" placeholder="1차 직종" style="width: 225px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" onchange="optionChange();">
+			    <!-- <option disabled>1차 직종</option> -->
+			    <option value="${applydto.apply_primary}" selected>${applydto.apply_primary}</option>
 	            <option value="IT/웹/통신">IT/웹/통신</option>
 	            <option value="서비스업">서비스업</option>
 	            <option value="제조/화학">제조/화학</option>
 	            <option value="교육">교육</option>
 	            <option value="미디어/디자인">미디어/디자인</option>  
 		    </select>
-		    <select name="apply_secondary" required="required" id="apply_secondary" placeholder="2차 직종" style="width: 225px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
-		        <option selected disabled>2차 직종</option>
+		    <select name="apply_secondary" id="apply_secondary" placeholder="2차 직종" style="width: 225px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
+		        <option value="${applydto.apply_secondary}" selected>${applydto.apply_secondary}</option>
+		        <!-- <option>2차 직종</option> -->
 		    </select>  
 		</div>
 		
 		<div class="d-inline-flex">
-			<input type="text" name="apply_salary" required="required" placeholder="희망연봉" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="apply_salary" value="${applydto.apply_salary}" placeholder="희망연봉" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
 			<label for="career_salary" style="margin: 45px -5px; font-size: 0.7em"><b>만원</b></label>
-			<input type="text" name="apply_region" required="required" placeholder="희망근무지" style="width: 330px; height: 60px; margin: 10px 20px" class="form-control">
+			<input type="text" name="apply_region" value="${applydto.apply_region}" placeholder="희망근무지" style="width: 330px; height: 60px; margin: 10px 20px" class="form-control">
 		</div>
 	</div>
 </div>
@@ -245,13 +247,13 @@ input[data-placeholder]::before{
 	<h5><b>경력</b></h5>
 	<div class="career">
 		<div class="d-inline-flex">
-			<input type="text" name="career_companyname" required="required" placeholder="기업명" style="width: 230px; height: 60px; margin: 10px 10px" class="form-control">
-			<input type="text" name="career_team" required="required" placeholder="부서" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
-			<input type="text" name="career_job" required="required" id="career_job" placeholder="직무" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="career_companyname" value="${careerdto.career_companyname}" placeholder="기업명" style="width: 230px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="career_team" value="${careerdto.career_team}" placeholder="부서" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="career_job" value="${careerdto.career_job}" id="career_job" placeholder="직무" style="width: 200px; height: 60px; margin: 10px 10px" class="form-control">
 		</div>
 		<div class="d-inline-flex">
-			<select name="career_position" required="required" style="width: 100px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
-				<option selected disabled>직급</option>
+			<select name="career_position" style="width: 100px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
+				<option value="${careerdto.career_position}" selected>${careerdto.career_position}</option>
 		        <option value="주임/계장">주임/계장</option>
 		        <option value="대리">대리</option>
 		        <option value="과장">과장</option>
@@ -259,15 +261,15 @@ input[data-placeholder]::before{
 		        <option value="부장">부장</option>
 		        <option value="임원">임원</option>
 			</select>
-			<input type="text" name="career_salary" required="required" id="career_salary" placeholder="연봉" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="career_salary" value="${careerdto.career_salary}" id="career_salary" placeholder="연봉" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
 			<label for="career_salary" style="margin: 45px -5px; font-size: 0.7em"><b>만원</b></label>
-			<input type="date" name="career_duration1" required="required" data-placeholder="입사일" required style="width: 130px; height: 60px; margin:10px 50px" class="form-control" oninput="updateInput(this)">
+			<input type="date" name="career_duration1" value="${career_duration1 }" data-placeholder="입사일" required style="width: 130px; height: 60px; margin:10px 50px" class="form-control" oninput="updateInput(this)">
 			<b style="margin: 25px -38px;">~</b>
-			<input type="date" name="career_duration2" required="required" data-placeholder="퇴사일" required style="width: 130px; height: 60px; margin:10px 45px" class="form-control" oninput="updateInput(this)" disabled>
-			<input type="checkbox" name="career_check" id="career_check" value="재직중" style=" margin:-100px -15px" onchange="toggleCareerDuration()">
+			<input type="date" name="career_duration2" value="${career_duration2 }" data-placeholder="퇴사일" required style="width: 130px; height: 60px; margin:10px 45px" class="form-control" oninput="updateInput(this)" disabled >
+			<input type="checkbox" name="career_check" id="career_check" value="재직중" style=" margin:-100px -15px" onchange="toggleCareerDuration()" ${careerdto.career_check=='재직중'?'checked':''}>
 			<label for="career_check" style="margin: 40px 20px;">재직중</label>
 		</div>
-		<textarea name="career_story" required="required" class="story" placeholder="담당하신 업무와 성과에 대해 간단명료하게 적어주세요."></textarea>
+		<textarea name="career_story" class="story" placeholder="담당하신 업무와 성과에 대해 간단명료하게 적어주세요.">${careerdto.career_story}</textarea>
 	</div>
 </div>
 <br>
@@ -275,25 +277,25 @@ input[data-placeholder]::before{
 	<h5><b>최종학력</b></h5>
 	<div class="education">
 		<div class="d-inline-flex">
-			<select name="education_degree" required="required" style="width: 100px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
-				<option value="0" selected disabled>학교구분</option>
+			<select name="education_degree" style="width: 100px; height: 60px; margin: 10px 10px; border: 1px solid lightgray; border-radius: 6px" >
+				<option value="${edudto.education_degree}" selected>${edudto.education_degree}</option>
 		        <option value="중학교">중학교</option>
 		        <option value="고등학교">고등학교</option>
 		        <option value="대학교">대학교</option>
 		        <option value="대학원">대학원</option>
 			</select>
-			<input type="text" name="education_name" required="required" placeholder="학교명" style="width: 200px; height: 60px; margin: 10px 0px" class="form-control">
-			<input type="date" name="education_duration1" required="required" data-placeholder="입학날짜" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)">
+			<input type="text" name="education_name" value="${edudto.education_name}" placeholder="학교명" style="width: 200px; height: 60px; margin: 10px 0px" class="form-control">
+			<input type="date" name="education_duration1" value="${education_duration1}" data-placeholder="입학날짜" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)">
 			<b style="margin: 25px -5px;">~</b>
-			<input type="date" name="education_duration2" required="required" data-placeholder="졸업날짜" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)" disabled>
-			<input type="checkbox" name="education_check" id="education_check" value="재학중" style=" margin:10px 5px" onchange="toggleEducationDuration()">
+			<input type="date" name="education_duration2" value="${education_duration2}" data-placeholder="졸업날짜" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)" disabled>
+			<input type="checkbox" name="education_check" id="education_check" value="재학중" style=" margin:10px 5px" onchange="toggleEducationDuration()" ${edudto.education_check=='재학중'?'checked':''}>
 			<label for="education_check" style="margin: 30px 0px;">재학중</label>
 		</div>
 		<div class="d-inline-flex">
-			<input type="text" name="education_major" required="required" placeholder="전공명" style="width: 313px; height: 60px; margin: 10px 10px" class="form-control">
-			<input type="text" name="education_score" required="required" placeholder="학점" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
-			<select name="education_scoreMax" required="required" style="width: 100px; height: 60px; margin: 10px -10px; border: 1px solid lightgray; border-radius: 6px">
-				<option value="0" selected disabled>총점</option>
+			<input type="text" name="education_major" value="${edudto.education_major}" placeholder="전공명" style="width: 313px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="text" name="education_score" value="${education_score1}" placeholder="학점" style="width: 100px; height: 60px; margin: 10px 10px" class="form-control">
+			<select name="education_scoreMax" style="width: 100px; height: 60px; margin: 10px -10px; border: 1px solid lightgray; border-radius: 6px">
+				<option value="${education_score2}" selected>${education_score2}</option>
 				<option value="4.5">4.5</option>
 				<option value="100">100</option>				
 			</select>
@@ -305,12 +307,12 @@ input[data-placeholder]::before{
 	<h5><b>활동/수상</b></h5>
 	<div class="active">
 		<div class="d-inline-flex">
-			<input type="text" name="active_name" required="required" placeholder="활동명" style="width: 313px; height: 60px; margin: 10px 10px" class="form-control">
-			<input type="date" name="active_duration" required="required" data-placeholder="활동일" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)">
+			<input type="text" name="active_name" value="${actdto.active_name}" placeholder="활동명" style="width: 313px; height: 60px; margin: 10px 10px" class="form-control">
+			<input type="date" name="active_duration" value="${actdto.active_duration}" data-placeholder="활동일" required style="width: 130px; height: 60px; margin:10px 10px" class="form-control" oninput="updateInput(this)">
 			<input type="checkbox" name="active_awards" id="active_awards" value="수상" style=" margin:10px 5px">
 			<label for="active_awards" style="margin: 30px 0px;">수상여부</label>
 		</div>
-		<textarea name="active_story" required="required" class="story" placeholder="담당하신 업무와 성과에 대해 간단명료하게 적어주세요."></textarea>
+		<textarea name="active_story" class="story" placeholder="담당하신 업무와 성과에 대해 간단명료하게 적어주세요.">${actdto.active_name}</textarea>
 	</div>
 </div>
 <div class="two" id="btnbox">
