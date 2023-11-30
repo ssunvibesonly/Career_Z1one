@@ -132,7 +132,7 @@ font-size: 10pt;
    
    <!-- 로그인 버튼 -->
       <input type="text" class="form-control" name="email"
-      style="width: 250px;height: 47px;margin-bottom: 1%;" placeholder="이메일 주소" required="required">
+      style="width: 250px;height: 47px;margin-bottom: 1%;" value="${sessionScope.saveok==null?"":sessionScope.myid}" placeholder="이메일 주소" required="required">
       <input type="password" class="form-control" name="pass"
       style="width: 250px;height: 47px;" placeholder="비밀번호" required="required">
        <div class="two" id="btnbox">
@@ -147,7 +147,7 @@ font-size: 10pt;
         })    
         </script>
       </button></div><br><br>
-      <input type="checkbox">이메일 주소 저장하기 
+      <input type="checkbox" name="cbsave" ${sessionScope.saveok==null?"":"checked"}>이메일 주소 저장하기 
       <hr style="margin-left: 5%;margin-right: 5%;">
       <img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;"><br>
      <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px;">
