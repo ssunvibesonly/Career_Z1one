@@ -1,6 +1,7 @@
 package boot.data.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,6 @@ public class User_BoardDto {
    private String board_title;
    private String board_story;
    private String board_photo; 
-   private MultipartFile save;  //cmForm에 name과 일치해야 함
    private String board_readcnt;
    private int board_like;
    private int board_dislike;

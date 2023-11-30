@@ -77,7 +77,7 @@ $(function() {
 		<tr>
 			<th width="80">파일업로드</th>
 			<td colspan="3">
-				<input type="file" name="save" class="form-control"> <!-- dto에서 올릴 이름 정한 것 대로 넣어줘야 함, 그래서 name이 save가 됨  -->
+				<input type="file" name="upload" class="form-control" multiple="multiple"> <!-- dto에서 올릴 이름 정한 것 대로 넣어줘야 함, 그래서 name이 save가 됨  -->
 			</td>	
 		</tr>
 

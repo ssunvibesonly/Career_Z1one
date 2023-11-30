@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -57,19 +58,19 @@ public class CommunityController {
 	 *}
 	 */
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage, HttpSession httpSession)
+	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "") String board_category, HttpSession httpSession)
 	{
 		ModelAndView model = new ModelAndView();
 		
 		//int totalCount=service.getTotalCount();
 		
 		// 페이징 처리에 필요한 변수 선언
-	      int totalCount = service.getTotalCount(); // 글의 전체 개수
+	      int totalCount = service.getTotalCount(board_category); // 글의 전체 개수
 	      int totalPage; // 총 페이지수
 	      int startPage; // 각블럭에서 보여질 시작페이지
 	      int endPage; // 각블럭에서 보여질 끝페이지
 	      int startNum; // db에서 가져올 글의 시작번호(mysql은 첫글이 0,오라클은 1)
-	      int perPage = 3; // 한페이지당 보여질 글의 갯수
+	      int perPage = 6; // 한페이지당 보여질 글의 갯수
 	      int perBlock = 5; // 한블럭당 보여질 페이지 개수
 		
 	      // 총페이지수 구하기
@@ -112,41 +113,44 @@ public class CommunityController {
 
 		
 		//select
-		List<User_BoardDto> list = service.getBoards(startNum, perPage);
+	      List<User_BoardDto> list;
 		
-		//게시글 list의 작성자가 글 쓴 작성자의 이메일을 가져온다.
-		/*for(int i=0; i<list.size(); i++) {
-			String user_num =list.get(i).getUser_num();
-			String user_email = service.getEmail(user_num);
-			list.get(i).setUser_email(user_email);
-		}*/
+		if(!board_category.equals("")) {
+			list = service.getBoardsByCategory(startNum, perPage,board_category);
+		}else {
+			list = service.getBoards(startNum, perPage);
+		}
+		
+		for(User_BoardDto user:list) {
+			//1.user_num을 통해서 user_email을 찾아옴
+			String userEmail = service.getEmail(user.getUser_num());
+			//2.userEmail에 마스킹처리
+			String displayedEmail = userEmail.substring(0, Math.min(userEmail.length(), 3)) + "*".repeat(Math.max(0, userEmail.length() - 3));
+			System.out.println(displayedEmail);
+			//3.User_BoarDto에 user_email에 값으로 설정해준다.
+			user.setUser_email(displayedEmail);
+		}
 		
 		
 		//성신 게시판 list 댓글 수
-		List<Board_ContentDto>contentList = new ArrayList<>();
+		List<Board_ContentDto> contentList = new ArrayList<>();
 		for(int i =0 ;i<list.size();i++) {
 			contentList.add(bservice.getAnswerCount(list.get(i).getBoard_num()));
 			System.out.println("보드넘 : "+list.get(i).getBoard_num()+",댓글수 : "+contentList.get(i).getCount());
 		}
-		System.out.println(contentList.size());
-		System.out.println(list.size());
+		//System.out.println(contentList.size());
+		//System.out.println(list.size());
 		
-		for(User_BoardDto dto:list) {
-			dto.setUser_email(service.getEmail(dto.getUser_num()));
-		}
+
 		model.addObject("contentList",contentList);
 		model.addObject("totalCount", totalCount);
 		model.addObject("list", list);
-		model.addObject("totalCount", totalCount);
 		model.addObject("startPage", startPage);
 		model.addObject("endPage", endPage);
 		model.addObject("totalPage", totalPage);
 		model.addObject("no", no);
 		model.addObject("currentPage", currentPage);
-
-		
-		//이메일 model
-		model.addObject("id", id); 
+		model.addObject("board_category", board_category);
 
 
 		model.setViewName("/2/community/cmList");
@@ -171,34 +175,47 @@ public class CommunityController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute User_BoardDto dto,HttpSession session)
+	public String insert(@ModelAttribute User_BoardDto dto,List<MultipartFile> upload,HttpSession session)
 	{
 		String path=session.getServletContext().getRealPath("/savefile");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 		
+		
+		String photo="";
+		
 		//사진 업로드 할 때 이름만 바꿔주기
 		//업로드 안 한경우 no
-		if(dto.getSave().getOriginalFilename().equals(""))
-			dto.setBoard_photo("no");//no라고 저장하겠다
+		if(upload.get(0).getOriginalFilename().equals(""))
+			photo="no";//no라고 저장하겠다
 		else { //업로드 한 경우
-			String board_Photo=sdf.format(new Date())+dto.getSave().getOriginalFilename();
-			dto.setBoard_photo(board_Photo);
 			
-			//실제 업로드 하기
-			try {
-				dto.getSave().transferTo(new File(path+"\\"+board_Photo));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			for(MultipartFile f:upload) {
+				String fileName=sdf.format(new Date())+"_"+f.getOriginalFilename();
+				photo+=fileName+",";
+				
+				try {
+					f.transferTo(new File(path+"\\"+fileName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
+			photo=photo.substring(0,photo.length()-1);
+
 		}
+		dto.setBoard_photo(photo);
 		
-		//세션에서 user_Num 얻기 위해 dto에 저장
-		//String user_Num=(String)session.getAttribute("user_Num");
-		//dto.setUser_Num(user_Num);
+		//세션에서 user_Num 얻기 위해 dto에 저장 (CmBoardMapper.xml에서 insert부분에 user_num값을 가져오기 위해 하는 작업)
+		//1.session을 통해서 myid, 즉 사용자 이메일을 받아옴
+		String user_email=(String)session.getAttribute("myid");
+		//2.이메일(이게 즉 id때문에 겹칠일이 없죠)을 통해서 사용자의 user_num
+		String userNum=uservice.getDataById(user_email).getUser_num();
+		dto.setUser_num(userNum);
 		
 		
 		//insert 시키기
@@ -227,7 +244,7 @@ public class CommunityController {
 		displayedEmail += "*".repeat(Math.max(0, email.length() - 3));
 				
 				
-		model.addObject("dto", dto);	
+		model.addObject("dto", dto);
 		model.addObject("email", email);
 		model.addObject("displayedEmail", displayedEmail);
 		
