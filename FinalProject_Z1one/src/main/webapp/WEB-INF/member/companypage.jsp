@@ -20,7 +20,7 @@
 	border: 1px solid black;
 	border-radius:10px;
 	width: 100%;
-	height: 400px;
+	height: 450px;
 }
 #plusInfo{
 	width: 50%;
@@ -150,12 +150,14 @@
 		<span><img alt="" src="../image/kindness.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 1차 산업군</b></span>
 		<span style="height: 10px;border: 1px solid lightgray; margin-left: 2%;margin-right: 2%;"></span> <!-- 선 -->
 		<span><b style="font-size: 15pt;"> 2차 산업군</b></span><br><br>
+		<span><img alt="" src="../image/core-value.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 주요사업 : </b></span><br><br>
 		<span><img alt="" src="../image/company.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 기업 유형 : </b></span>
 
 	</div>
 	<div id="plusInfo">
 		<span><img alt="" src="../image/pin.png" style="width: 3%;height: 20px;"><b style="font-size: 15pt;"> 본사 주소 : </b></span><br><br>
 		<span><img alt="" src="../image/employee.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 직원수 : </b></span><br><br>
+		<span><img alt="" src="../image/homepage.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 홈페이지 : </b></span><br><br>
 	</div>
 	<div id="logobox">
 		

@@ -166,11 +166,18 @@ public class MemberController {
       return "redirect:userapplypage?user_num="+user_num;
    }
    //기업마이페이지 연결 테스트
-   @GetMapping("/test")
+   @GetMapping("/companymypage")
    public String companyMyPage() {
 	   
-	   return "/2/member/companypage";
+	   return "/2/member/companyinsert";
 
+   }
+   @PostMapping("/plusinsert")
+   public ModelAndView companyPlusInsert() {
+	   
+	   ModelAndView model=new ModelAndView();
+	   
+	   return model;
    }
 }
 
