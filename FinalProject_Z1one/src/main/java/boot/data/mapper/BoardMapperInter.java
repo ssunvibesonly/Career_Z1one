@@ -17,5 +17,6 @@ public interface BoardMapperInter {
    public List<Integer> getRemainDate();
    public List<User_BoardDto> getTopOneTitle();
    public List<User_BoardDto> getAllData();
+   public Board_ContentDto getContentCount(String board_num);
 
 }

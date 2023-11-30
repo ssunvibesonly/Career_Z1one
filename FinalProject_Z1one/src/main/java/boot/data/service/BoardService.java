@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import boot.data.dto.Board_ContentDto;
 import boot.data.dto.User_BoardDto;
 import boot.data.inter.BoardInter;
 import boot.data.mapper.BoardMapperInter;
@@ -40,6 +41,11 @@ public class BoardService implements BoardInter {
    @Override
    public List<User_BoardDto> getAllData() {
       return boardMapperInter.getAllData();
+   }
+
+   @Override
+   public Board_ContentDto getContentCount(String board_num) {
+      return boardMapperInter.getContentCount(board_num);
    }
 
 }

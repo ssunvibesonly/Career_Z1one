@@ -8,7 +8,6 @@
     <select id="getNameByEmailId">
         select user_name from usergaip where user_email=#{user_email}
 
-
     </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
     <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int">
@@ -20,17 +19,19 @@
     </select>
 
     <!--user_email에 해당하는 데이터랑 전체 회사 공고 중에서 맞는 조건을 비교하는 쿼리-->
-    <select id="getMatchUserwithNotice" resultType="CnoticeDto">
+    <select id="compareCnoticeWithLoggedInUser" resultType="CnoticeDto" parameterType="int">
         SELECT *
         FROM cnotice cn
         WHERE EXISTS (
         SELECT *
         FROM user_apply ua
-        WHERE ua.apply_secondary = cn.cnotice_job
+        WHERE ua.user_num = #{user_num}
+        AND ua.apply_secondary = cn.cnotice_job1
         AND ua.apply_newcomer = cn.cnotice_career
         AND ua.apply_region = cn.cnotice_area
-        AND ua.apply_salary &lt;= cn.cnotice_pay
+        AND ua.apply_salary $lt;= cn.cnotice_pay
         )
     </select>
+
 
 </mapper>

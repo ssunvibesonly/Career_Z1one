@@ -109,8 +109,7 @@ public class CommunityController {
 	    	model.addObject("displayedEmail", displayedEmail);
 	    	model.setViewName("/2/community/cmList");
 	    }
-		
-		
+
 		
 		//select
 		List<User_BoardDto> list = service.getBoards(startNum, perPage);
