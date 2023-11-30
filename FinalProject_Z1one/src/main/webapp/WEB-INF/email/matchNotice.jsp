@@ -14,10 +14,6 @@
 <body>
 <h3 style="margin-left:25%; margin-top: 3%;">${name} 님 맞춤 공고 입니다</h3>
 <c:forEach items="${list1}" var="dto">
-    1) ${dto.cnotice_Image}
-    2) ${dto.cnotice_Name}
-    3) ${dto.cnotice_Team}
-    4) ${dto.cnotice_Job}
 </c:forEach>
 
 </body>

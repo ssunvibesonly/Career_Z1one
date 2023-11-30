@@ -89,7 +89,6 @@ margin-top: 1.7%;
 </div>
 <div class="container">
    <h4 style="font-weight: 900;">이력서</h4>
-   
    <c:if test="${apply_name!=null }">
    <input type="hidden" name="user_num" value="${user_num}"> 
    <div class="apply" onclick="#">

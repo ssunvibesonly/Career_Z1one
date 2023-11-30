@@ -9,7 +9,7 @@ import boot.data.dto.CnoticeDto;
 
 public interface EmailInter {
    public List<CnoticeDto> getCompanyNotice();
-   public List<CnoticeDto> getMatchUserwithNotice();
+   public List<CnoticeDto> getMatchUserwithNotice(int user_num);
    public void sendEmail(String toEmail, String subject, String content);
    public void sendEmailLeaf(String toEmail, String subject, String content);
    public String getNameByEmailId(String user_email);

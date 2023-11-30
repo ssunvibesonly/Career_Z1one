@@ -50,8 +50,8 @@ public class EmailService implements EmailInter {
    }
 
    @Override
-   public List<CnoticeDto> getMatchUserwithNotice() {
-      return emailMapperInter.getMatchUserwithNotice();
+   public List<CnoticeDto> getMatchUserwithNotice(int user_num) {
+      return emailMapperInter.getMatchUserwithNotice(user_num);
    }
 
    @Override

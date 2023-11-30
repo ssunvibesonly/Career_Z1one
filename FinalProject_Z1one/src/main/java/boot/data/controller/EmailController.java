@@ -53,7 +53,7 @@ public class EmailController {
 
       String email = (String)httpSession.getAttribute("myid");
       String name =  emailService.getNameByEmailId(email);
-      String num = userApplyDto.getUser_num();
+      int num = Integer.parseInt(userApplyDto.getUser_num());
       System.out.println(num);
 
       //이메일 리스트 로직 보내기.
@@ -62,7 +62,7 @@ public class EmailController {
 
       // 조건에 맞는 것만 뽑기
       // 조건을 뽑을 때 -> user_apply테이블에서 user_num에 해당하는 컬럼의 값들만 뽑아서 비교를 해야한다.
-      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice();
+      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice(num);
 
       //이메일 비교결과 추출
 
