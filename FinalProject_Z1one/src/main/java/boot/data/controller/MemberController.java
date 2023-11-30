@@ -47,6 +47,7 @@ public class MemberController {
 	@Autowired
 	UserMyPageService umypageservice;
 
+
 	// 회원가입창
 	@GetMapping("/addform")
 	public String addform() {
@@ -321,5 +322,20 @@ public class MemberController {
 		umypageservice.DeleteUserCareer(user_num);
 		umypageservice.DeleteUserSchool(user_num);
 		umypageservice.DeleteUserActive(user_num);
-	}
+}
+   //기업마이페이지 연결 테스트
+   @GetMapping("/companymypage")
+   public String companyMyPage() {
+	   
+	   return "/2/member/companyinsert";
+
+   }
+   @PostMapping("/plusinsert")
+   public ModelAndView companyPlusInsert() {
+	   
+	   ModelAndView model=new ModelAndView();
+	   
+	   return model;
+   }
+
 }
