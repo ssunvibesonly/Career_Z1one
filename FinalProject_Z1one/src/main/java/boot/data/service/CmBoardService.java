@@ -65,9 +65,15 @@ public class CmBoardService implements CmBoardServiceInter {
 	}
 
 	@Override
-	public void updateLikes(String board_num) {
+	public void updateLikes(String board_num) {  //content에서 좋아요 버튼 클릭시 board_like 숫자 증가
 		// TODO Auto-generated method stub
 		 mapper.updateLikes(board_num);
+	}
+
+	@Override
+	public void updateunLikes(String board_num) {	//content에서 좋아요 버튼 클릭시 board_like 숫자 감소
+		// TODO Auto-generated method stub
+		mapper.updateunLikes(board_num);
 	}
 
 }

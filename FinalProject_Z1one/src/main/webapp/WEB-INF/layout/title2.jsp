@@ -18,11 +18,11 @@
 <style type="text/css">
 	a.nav-link{
 	color: gray;
-	font-size:
+	font-size: 10pt;
 	
 	}
-</style>
 
+</style>
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <body>
@@ -36,7 +36,7 @@
        <a class="nav-link" href="/company/ban">채용공고</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">기업리뷰</a>
+      <a class="nav-link" href="/company/review">기업정보</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/board/community">커뮤니티</a> <!-- 게시판 -->
@@ -49,9 +49,12 @@
       }
       </script>
     </li>
-        <button type="button" class="btn btn-outline-dark" onclick="location.href='/login/form'">로그인</button>
   </ul>
+  
   </div>
+
   </div>
+        <button type="button" class="btn btn-outline-dark" onclick="location.href='/login/form'">로그인</button>
+
 </body>
 </html>

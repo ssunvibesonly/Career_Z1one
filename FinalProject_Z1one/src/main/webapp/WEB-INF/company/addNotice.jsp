@@ -104,7 +104,7 @@
 				</tr>
 				<tr>
 				  <td>
-				    <input type="text" name="cnotice_Job" class="form-control" placeholder="직종" required="required" style="width: 175px;">
+						<input type="text" name="cnotice_Job" class="form-control" placeholder="직종" required="required" style="width: 150px;">
 				  </td>
 				</tr>
 				<tr>

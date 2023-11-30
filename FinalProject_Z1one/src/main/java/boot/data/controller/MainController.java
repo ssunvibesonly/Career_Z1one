@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import boot.data.dto.CnoticeDto;
 import boot.data.dto.User_BoardDto;
 import boot.data.service.BoardService;
+import boot.data.service.CnoticeSerivce;
 
 @Controller
 public class MainController {
@@ -21,8 +23,14 @@ public class MainController {
 	@Autowired
 	BoardService board_service;
 	
+	@Autowired
+	CnoticeSerivce cnotice_service;
+	
 	@GetMapping("/")
 	public String mainStart(Model model) {
+		
+		//지금 뜨는 공채(조회수순)
+		/* List<CnoticeDto> popularList=cnotice_service.getReadCountNotices(); */
 		
 		//CompletableFuture 클래스는 비동기 작업의 결과를 다루는 데 사용
 		CompletableFuture<List<User_BoardDto>> mlist=board_service.getTopOneTitle();
@@ -44,6 +52,7 @@ public class MainController {
 			}
 		
 		model.addAttribute("resultlist", resultlist);
+		/* model.addAttribute("popularList", popularList); */
 		
 		
 		return "/layout/main";

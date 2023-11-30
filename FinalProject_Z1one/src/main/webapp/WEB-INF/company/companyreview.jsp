@@ -77,7 +77,7 @@ border:1px solid black;
 		<div>
 			<div id="c_logo_box">기업로고 들어올 곳</div>
 			<div style="border: 1px solid black;position: absolute; left: 24%; top: 30%; width: 15%; display: flex;">
-			<span style="border-radius: 10px; border: 1px solid black">채용중</span><span style="border-radius: 10px; border: 1px solid black;">강소기업</span>
+			<span style="border-radius: 10px; border: 1px solid black;">강소기업</span>
 			</div>
 			
 			<div style="position: absolute; border:5px solid black; left: 24%; top: 35%; width: 15%; height: 10%; margin-top: 1%;">기업명</div>
