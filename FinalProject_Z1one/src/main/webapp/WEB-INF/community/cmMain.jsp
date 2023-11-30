@@ -97,7 +97,7 @@ a {
 
 .cate_subject {
 	margin-left: 3%;
-	margin-top: 5%;
+	margin-top: 8%;
 }
 
 .box {
@@ -183,6 +183,15 @@ form {
 	bottom:-10px;
 	background-color: black;
 }
+.topic{
+	font-size: 12px;
+	width:70px;
+	border: 1px solid #6f42c1;
+	border-radius:10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-color: #6f42c1;
+}
 </style>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <body>
@@ -226,16 +235,16 @@ form {
 	
         <%--카테고리별 인기글 띄우기--%>
         <div class="mid1-1"><br>
-            <c:forEach items="${oneTitle}" var="dto" varStatus="loop">
+            <c:forEach items="${oneTitle}" var="dto" varStatus="i">
             <div class="d-inline-flex list">
-                    <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 75%;">&nbsp;
-                        <div style="width: 25%;">
-                            <b>
-                        <a href="제목클릭시 그 글로 넘어가게" style="text-decoration-line: none; color: black;">
-                                ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 65%;">&nbsp;
+                        <div class="topic" style="width: 19%;">
+							<b>
+                       			 <a href="/community/content?board_num='+${dto.board_num}" style="text-decoration-line: none; color: white; margin-left: 20%;">
+                               		 ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <%--나중에 c:if 조건 줘서 내용에 이미지가 있으면 사진뜨고 없으면 안뜨게 만들기.--%>
-                        </a>
-                            </b>
+                        		</a>
+							</b>
                         </div>
 						<%--아직 컨트롤러에 no 안넘김.--%>
                         <c:if test="${no!=null}">
@@ -251,10 +260,23 @@ form {
                         </div>
 
                     </div>
-                <div style="margin-top:1%; margin-left: 40%; width: 28%; cursor: pointer;" onclick="location.href='#'">
-                    <p style="color: black; font-size: 14px;"><fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-suit-heart"></i>&nbsp;${dto.board_like}
-                    </p>
+                <div class="d-inline-flex" style="margin-top:1%; margin-left: 33%; width: 27%; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
+                    <div style="color: black; font-size: 14px;">
+						<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
+					</div>
+
+					<div style="margin-left: 10%; width:18%;">
+                        <i class="bi bi-suit-heart"></i>&nbsp;${dto.board_like}
+					</div>
+						<div style="margin-left: 10%;">
+						<i class="bi bi-chat-square"></i>&nbsp;
+						<c:forEach items="${contentList}" var="cdto" varStatus="j">
+							<c:if test="${i.count==j.count}">
+							${cdto.count}
+							</c:if>
+						</c:forEach>
+						</div>
+
                 </div>
             </div>
             </c:forEach>
@@ -295,24 +317,25 @@ form {
 	<div class="mid2">
 		<c:forEach items="${oneTitle}" var="dto">
 			<div class="category1" style="margin-left: 5%;">
-				<div class="d-inline-flex subject"
-					style="width: 100%; height: 30px; margin-left: -1%; margin-top: 5%;">
+				<div class="d-inline-flex subject" style="width: 100%; height: 30px; margin-left: -1%; margin-top: 5%;">
 					<div style="flex: 1;">
 						<img src="${root}/community/${dto.board_num}.png" class="categoryimage">&nbsp;&nbsp; <b class="boardcategory">${dto.board_category}</b>
 						<a href="/community/list" style="float: right; font-size: 13px;">더보기&nbsp;></a>
 					</div>
 				</div>
+
 				<hr style="border: 2px solid darkgray;">
+
 				<c:forEach items="${title}" var="dto0">
 					<c:if test="${dto.board_category eq dto0.board_category}">
 						<div class="cate_subject">
-							<div style="margin-top: 4%">
+							<div style="margin-top: -2%;">
 								<c:set var="limitedTitle1" value="${dto0.board_title}" />
 								<c:if test="${fn:length(limitedTitle1) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle1, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle1}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto0.board_readcnt}</b>
+								<a href="/community/content?board_num='+${dto.board_num}">${limitedTitle1}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto0.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -328,8 +351,8 @@ form {
 								<c:if test="${fn:length(limitedTitle2) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle2, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle2}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto1.board_readcnt}</b>
+								<a href="#">${limitedTitle2}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto1.board_readcnt}</b>
 							</div>
 
 						</div>
@@ -372,7 +395,7 @@ form {
 					<c:if test="${dto.board_category eq dto4.board_category}">
 						<div class="cate_subject"
 							style="width: 90%; height: 30px; margin-left: 5%; margin-top: 5%">
-							<div style="margin-top: 4%">
+							<div>
 								<c:set var="limitedTitle5" value="${dto4.board_title}" />
 								<c:if test="${fn:length(limitedTitle5) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle5, 0, 10)}..." />

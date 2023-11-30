@@ -125,6 +125,15 @@
     .highlight {
         color: red; /* 또는 다른 강조하고 싶은 스타일로 변경 */
     }
+    .topic{
+        font-size: 12px;
+        width:12%;
+        border: 1px solid #6f42c1;
+        border-radius:10px;
+        margin-left: 0px;
+        margin-top: 10px;
+        background-color: #6f42c1;
+    }
 </style>
 <script>
     $(function(){
@@ -168,7 +177,8 @@
 
                     // Top
                     html += "<div class='story-top' style='height: 70px;'>";
-                    html += "&nbsp;<span style='color: dimgray; font-size: 14px;'><b>" + dto.board_category + "</b></span><br>";
+                    html += "<div class='topic'>"
+                    html += "&nbsp;<span style='color: dimgray; font-size: 14px;'><b>" + dto.board_category + "</b></span></div>";
                     html += "<b><h5 style='margin-top: 0.7%'><a href='#'>" + dto.board_title + "</a></h5></b>";
                     html += "</div>";
 
@@ -259,17 +269,21 @@
     <%--검색 결과 띄우기.--%>
     <c:if test="${searchword!=null}">
         <div class="story" style="width:100%;">
-            <c:forEach items="${searchResults}" var="dto">
-                <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none;">
+            <c:forEach items="${searchResults}" var="dto" varStatus="i">
+                <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
                         <%--상단--%>
                     <div class="story-top" style="height: 70px;">
-                        &nbsp;<span style="color:dimgray; font-size:14px;"><b>${dto.board_category}</b></span><br>
+                        <div class="topic">
+                        &nbsp;<span style="color:white; font-size:14px;">
+                        <b>${dto.board_category}</b>
+                        </span>
+                        </div>
                         <b><h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5></b>
                     </div>
                         <%--중간--%>
                     <div class="story-bottom" style="height: 100px;">
                         <a href="#">${dto.board_story}</a>
-                        <img src="../${dto.board_photo}" style="width:40px; height:40px; margin-left: 75%">
+                        <img src="../savefile/${dto.board_photo}" style="width:80px; height:80px; margin-left: 65%">
                     </div>
                         <%--하단--%>
                         <div class="story-footer" style="height: 70px;">
@@ -280,7 +294,15 @@
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
                             <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
-                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>
+                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>&nbsp;&nbsp;
+                            <i class="bi bi-chat-square" style="color:gray; font-size: 16px;"></i>
+                            <a href="#" style="color:gray; font-size: 16px;">
+                                <c:forEach items="${contentList}" var="cDto" varStatus="j">
+                                    <c:if test="${i.count==j.count }">
+                                        ${cDto.count}
+                                    </c:if>
+                                </c:forEach>
+                             </a>
                             <div style="margin-left: 77%">
                             <i class="bi bi-calendar" style="color:gray; font-size: 16px;"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
                         </div>

@@ -13,7 +13,7 @@
         select * from user_board order by board_writeday desc
     </select>
     <select id="getSort" resultType="User_BoardDto" parameterType="Map">
-        select * from user_board WHERE board_title LIKE CONCAT('%', #{searchword}, '%') and board_story LIKE CONCAT('%', #{searchword}, '%')
+        select * from user_board WHERE board_title LIKE CONCAT('%', #{searchword}, '%') or board_story LIKE CONCAT('%', #{searchword}, '%')
         <if test="orderby != null">
             order by
             <choose>

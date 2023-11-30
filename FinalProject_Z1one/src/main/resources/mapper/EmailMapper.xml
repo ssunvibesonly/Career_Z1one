@@ -29,7 +29,7 @@
         AND ua.apply_secondary = cn.cnotice_job1
         AND ua.apply_newcomer = cn.cnotice_career
         AND ua.apply_region = cn.cnotice_area
-        AND ua.apply_salary <= cn.cnotice_pay
+        AND ua.apply_salary $lt;= cn.cnotice_pay
         )
     </select>
 
