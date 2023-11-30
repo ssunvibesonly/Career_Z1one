@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -164,30 +165,40 @@ public class CommunityController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute User_BoardDto dto,HttpSession session)
+	public String insert(@ModelAttribute User_BoardDto dto,List<MultipartFile> upload,HttpSession session)
 	{
 		String path=session.getServletContext().getRealPath("/savefile");
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 		
+		
+		String photo="";
+		
 		//사진 업로드 할 때 이름만 바꿔주기
 		//업로드 안 한경우 no
-		if(dto.getSave().getOriginalFilename().equals(""))
-			dto.setBoard_photo("no");//no라고 저장하겠다
+		if(upload.get(0).getOriginalFilename().equals(""))
+			photo="no";//no라고 저장하겠다
 		else { //업로드 한 경우
-			String board_Photo=sdf.format(new Date())+dto.getSave().getOriginalFilename();
-			dto.setBoard_photo(board_Photo);
 			
-			//실제 업로드 하기
-			try {
-				dto.getSave().transferTo(new File(path+"\\"+board_Photo));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			for(MultipartFile f:upload) {
+				String fileName=sdf.format(new Date())+"_"+f.getOriginalFilename();
+				photo+=fileName+",";
+				
+				try {
+					f.transferTo(new File(path+"\\"+fileName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
+			photo=photo.substring(0,photo.length()-1);
+
 		}
+		dto.setBoard_photo(photo);
 		
 		//세션에서 user_Num 얻기 위해 dto에 저장 (CmBoardMapper.xml에서 insert부분에 user_num값을 가져오기 위해 하는 작업)
 		//1.session을 통해서 myid, 즉 사용자 이메일을 받아옴
@@ -223,7 +234,7 @@ public class CommunityController {
 		displayedEmail += "*".repeat(Math.max(0, email.length() - 3));
 				
 				
-		model.addObject("dto", dto);	
+		model.addObject("dto", dto);
 		model.addObject("email", email);
 		model.addObject("displayedEmail", displayedEmail);
 		
