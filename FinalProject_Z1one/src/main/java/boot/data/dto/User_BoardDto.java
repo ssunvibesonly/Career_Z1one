@@ -25,4 +25,7 @@ public class User_BoardDto {
    
    //사용자 이메일 띄어주기용
    private String user_email;
+   
+   //다중이미지 count용
+   private String photocount;
 }

@@ -130,7 +130,7 @@ public class CommunityController {
 			//3.User_BoarDto에 user_email에 값으로 설정해준다.
 			user.setUser_email(displayedEmail);
 		}
-		
+		//다중 이미지 대표 이미지 1개만 주기하려고 했으나 list에 이미 담아놔서 controller에 처리하지 않음
 		
 		//성신 게시판 list 댓글 수
 		List<Board_ContentDto> contentList = new ArrayList<>();
@@ -140,6 +140,8 @@ public class CommunityController {
 		}
 		//System.out.println(contentList.size());
 		//System.out.println(list.size());
+		
+		
 		
 
 		model.addObject("contentList",contentList);
