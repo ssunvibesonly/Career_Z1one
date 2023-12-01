@@ -6,6 +6,7 @@ import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import boot.data.dto.ApplyDto;
 import boot.data.dto.CompanyGaipDto;
+import boot.data.dto.CompanyInfoDto;
 import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_ActiveDto;
 import boot.data.dto.User_ApplyDto;
@@ -33,6 +35,7 @@ import boot.data.dto.User_CareerDto;
 import boot.data.dto.User_EducationDto;
 import boot.data.inter.UserGaipServiceInter;
 import boot.data.service.CompanyGaipService;
+import boot.data.service.CompanyInfoService;
 import boot.data.service.UserGaipService;
 import boot.data.service.UserMyPageService;
 
@@ -46,6 +49,10 @@ public class MemberController {
 	CompanyGaipService cservice;
 	@Autowired
 	UserMyPageService umypageservice;
+	@Autowired
+	CompanyInfoService cinfoservice;
+	
+	int company_num;
 
 
 	// 회원가입창
@@ -85,10 +92,12 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		}
+		
+		this.company_num=company_num;
 		dto.setCompany_logo(photoName);
 		cservice.insertCompanyMember(dto);
-
-		return "redirect:/login/form";
+		
+		return "redirect:companypluspage";
 	}
 
 	// 개인회원 아이디 중복체크
@@ -253,7 +262,7 @@ public class MemberController {
 		return model;
 	}
 	
-	@PostMapping("applyupdate")
+	@PostMapping("/applyupdate")
 	public String ApplyUpdate(@RequestParam String user_num,
 			@ModelAttribute User_ApplyDto applydto,
 			@ModelAttribute User_CareerDto careerdto, 
@@ -323,17 +332,92 @@ public class MemberController {
 		umypageservice.DeleteUserSchool(user_num);
 		umypageservice.DeleteUserActive(user_num);
 }
-   //기업마이페이지 연결 테스트
-   @GetMapping("/companymypage")
-   public String companyMyPage() {
+   //기업마이페이지 추가 정보 입력하기
+   @GetMapping("/companypluspage")
+   public String companyMyPage(CompanyGaipDto dto) {
 	   
 	   return "/2/member/companyinsert";
 
    }
    @PostMapping("/plusinsert")
-   public ModelAndView companyPlusInsert() {
+   public ModelAndView companyPlusInsert(@ModelAttribute CompanyInfoDto dto, @RequestParam String cinfo_realpath2) {
 	   
 	   ModelAndView model=new ModelAndView();
+	   
+		
+		  //1차 회원가입에서 등록된 최대 company_num을 companyInfoDto에 세팅해주기 int
+		  int maxnum=cinfoservice.CompanyInfoMaxNum();
+		  
+		  System.out.println(maxnum);
+		  
+		  dto.setCompany_num(maxnum);
+		 
+	   
+	   //본사주소+상세주소 db에 같이 넣기
+	   String realpath=dto.getCinfo_realpath()+"_"+cinfo_realpath2;
+	   
+	   dto.setCinfo_realpath(realpath);
+	   
+	   
+	   cinfoservice.CompanyPlusInfoInsert(dto);
+	   
+	   model.addObject("dto", dto);
+	   model.setViewName("/member/gaipsuccess");
+	   
+	   return model;
+   }
+   @GetMapping("/companymypage")
+   public ModelAndView companyMyPage(HttpSession session) {
+	   
+	   ModelAndView model=new ModelAndView();
+	   
+	   int company_num=(int)session.getAttribute("company_num");
+	   
+	   List<CompanyInfoDto> cinfoList=cinfoservice.CompanyJoinSelect1(company_num);
+	   List<CompanyGaipDto> cgaipList=cservice.CompanyJoinSelect2(company_num);
+	   
+	   
+	   //companygaip에 있는 dto
+	   for(CompanyGaipDto cgaipdto:cgaipList) {
+		   String logo=cgaipdto.getCompany_logo();
+		   String name=cgaipdto.getCompany_name();
+		   String reginum=cgaipdto.getCompany_reginum();
+		   String primary=cgaipdto.getCompany_primary();
+		   String secondary=cgaipdto.getCompany_secondary();
+		   String email=cgaipdto.getCompany_email();
+		   String hp=cgaipdto.getCompany_hp();
+		   String type=cgaipdto.getCompany_type();
+		   
+		   
+		   model.addObject("email", email);
+		   model.addObject("name", name);
+		   model.addObject("reginum", reginum);
+		   model.addObject("logo", logo);
+		   model.addObject("primary", primary);
+		   model.addObject("secondary", secondary);
+		   model.addObject("hp", hp);
+		   model.addObject("type", type);
+	   }
+	   
+	   for(CompanyInfoDto cinfodto:cinfoList) {
+		   String ceo=cinfodto.getCinfo_ceo();
+		   String employcnt=cinfodto.getCinfo_employcnt();
+		   String homepage=cinfodto.getCinfo_homepage();
+		   String mainbiz=cinfodto.getCinfo_mainbusiness();
+		   String realpath=cinfodto.getCinfo_realpath();
+		   
+		   
+		   model.addObject("ceo", ceo);
+		   model.addObject("employcnt", employcnt);
+		   model.addObject("homepage", homepage);
+		   model.addObject("mainbiz", mainbiz);
+		   model.addObject("realpath", realpath);
+		   
+		   
+	   }
+	 
+	   
+	   model.setViewName("/2/member/companypage");
 	   
 	   return model;
    }

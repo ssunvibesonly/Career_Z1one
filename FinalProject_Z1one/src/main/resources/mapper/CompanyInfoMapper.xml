@@ -2,8 +2,27 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="boot.data.mapper.CompanyInfoMapperInter">
-  <!-- 기업 추가 정보 insert -->
-  <insert id="CompanyPlusInfoInsert"></insert>
-  
-  </mapper>
+<mapper namespace="boot.data.mapper.CompanyInfoMapperInter">
+	<!-- 기업 추가 정보 insert -->
+	<insert id="CompanyPlusInfoInsert" parameterType="companyInfo">
+		INSERT INTO
+		companyinfo (company_num,cinfo_ceo, cinfo_realpath,
+		cinfo_employcnt,
+		cinfo_mainbusiness, cinfo_homepage)
+		VALUES
+		(#{company_num},#{cinfo_ceo}, #{cinfo_realpath}, #{cinfo_employcnt},
+		#{cinfo_mainbusiness}, #{cinfo_homepage});
+	</insert>
+	<!-- 1차 정보에서 등록된 최대 company_num 불러오기 -->
+	<select id="CompanyInfoMaxNum" resultType="int">
+		select max(company_num) from companygaip
+	</select>
+	<!-- 기업 정보 불러오기 -->
+	<!-- Join문을 썼을 땐 조인된 결과가 여러 개이므로 List타입을 사용 -->
+	<select id="CompanyJoinSelect1"  resultType="companyInfo">
+		SELECT *
+		FROM companygaip
+		JOIN companyinfo ON companygaip.company_num = companyinfo.company_num
+
+	</select>
+</mapper>

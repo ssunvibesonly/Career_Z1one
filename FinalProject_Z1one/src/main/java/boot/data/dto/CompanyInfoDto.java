@@ -7,11 +7,11 @@ import lombok.Data;
 @Data
 @Alias("companyInfo")
 public class CompanyInfoDto {
-	private int cinfo_Num;
-	private int company_Num;
-	private String cinfo_Ceo;
-	private String cinfo_Realpath;
-	private String cinfo_Employcnt;
-	private String cinfo_Mainbusiness;
-	private String cinfo_Homepage;
+	private int cinfo_num;
+	private int company_num;
+	private String cinfo_ceo;
+	private String cinfo_realpath;
+	private String cinfo_employcnt;
+	private String cinfo_mainbusiness;
+	private String cinfo_homepage;
 }

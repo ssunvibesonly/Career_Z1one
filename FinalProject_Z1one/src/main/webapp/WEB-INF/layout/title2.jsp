@@ -36,7 +36,7 @@
        <a class="nav-link" href="/company/ban">채용공고</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/company/review">기업정보</a>
+      <a class="nav-link" href="/company/info">기업정보</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/board/community">커뮤니티</a> <!-- 게시판 -->
