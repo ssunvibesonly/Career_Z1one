@@ -55,13 +55,18 @@ public class RecruitController {
 		} else {
 			int maxstep=service.getMaxStepOfCourse(c_code, r_title);
 			Timestamp deadlineday=service.getAllRecruitCourse(c_code, r_title).size()==0?null:service.getAllRecruitCourse(c_code, r_title).get(0).getDeadlineday();
-			String deaddate=deadlineday.toString().split(" ")[0];
-			String deadtime=deadlineday.toString().split(" ")[1];
+			
+			String deaddate="";
+			String deadtime="";
+			if(deadlineday!=null) {
+				deaddate=deadlineday.toString().split(" ")[0];
+				deadtime=deadlineday.toString().split(" ")[1];
+			}
 			
 			model.addAttribute("maxstep", maxstep);
 			model.addAttribute("list", service.getAllRecruitCourse(c_code, r_title).size()==0?null:service.getAllRecruitCourse(c_code, r_title));
 			model.addAttribute("deaddate", deaddate);
-			model.addAttribute("deadtime", deadtime);
+			model.addAttribute("deadtime", deadtime.length()==0?deadtime:deadtime.substring(0, deadtime.length()-2));
 		}
 		model.addAttribute("c_code", c_code);
 		model.addAttribute("r_title", r_title);
@@ -81,7 +86,7 @@ public class RecruitController {
 		
 		levels=levels.substring(0, levels.length()-1);
 		steps=steps.substring(0, steps.length()-1);
-		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday+":00");
+		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday);
 		RecruitDto rdto=new RecruitDto();
 		rdto.setC_code(c_code);
 		rdto.setR_title(r_title);
@@ -95,7 +100,7 @@ public class RecruitController {
 		int j=0;
 		for(String step:stepsarr) {
 			int stepint=Integer.parseInt(step);
-			stepsintarr[j]=stepint+1;
+			stepsintarr[j]=stepint;
 			j++;
 		}
 		for(int i=0;i<Math.max(maxStep, levelsarr.length);i++) {
