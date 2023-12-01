@@ -83,6 +83,8 @@
 		
 		$("#btn").on("click",function(){
 			var lastidx=$("input.cl:last-of-type").attr("idx");
+			var deaddate=$("#deaddate").val();
+			var deadtime=$("#deadtime").val();
 			var s="";
 			var idx="";
 			
@@ -92,6 +94,7 @@
 			}
 			$("#hi").val(s);
 			$("#hello").val(idx);
+			$("#dead").val(deaddate+" "+deadtime);
 			
 			$("#sub").click();
 		});
@@ -112,17 +115,20 @@
 			</c:forEach>
 		</c:if>
 	</div>
+	<input type="date" name="deaddate" value="${deaddate }" id="deaddate" required="required">
+	<input type="time" name="deadtime" value="${deadtime }" id="deadtime" required="required">
 
 	<i class="bi bi-plus-circle" style="margin-left: 50px;cursor: pointer; font-size: 50px;" id="lf"></i><br>
 	<button type="button" class="btn btn-info" id="btn">저장</button>
 	
 	<form action="levelupdate" method="post">
-		<input type="hidden" name="c_code" value="1">
+		<input type="hidden" name="c_code" value="${c_code }">
 		<input type="hidden" name="levels" id="hi">
 		<input type="hidden" name="steps" id="hello">
 		
 		<input type="<c:if test="${maxstep==0 }">text</c:if><c:if test="${maxstep!=0 }">hidden</c:if>"
 		 name="r_title" id="title" value="${r_title=='none'?null:r_title }">
+		<input type="hidden" name="deadlineday" id="dead">
 		
 		<button type="submit" style="visibility: hidden" id="sub"></button>
 	</form>
