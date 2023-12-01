@@ -11,7 +11,7 @@ import lombok.Data;
 public class CnoticeDto {
 	private int cnotice_num;
 	private int company_num;
-	private String cnotice_image;
+	private String cnotice_Image;
 	private String cnotice_noticeame;
 	private String cnotice_career;
 	private String cnotice_companyname;

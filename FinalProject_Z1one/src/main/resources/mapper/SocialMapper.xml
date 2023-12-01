@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.data.mapper.SocialMapperInter">
+    <select id="findKaKao" parameterType="Map" resultType="ugaipdto">
+        select * from usergaip where user_email=#{user_email} and user_name = #{user_name}
+    </select>
+    <insert id="kakaoInsert" parameterType="ugaipdto">
+        insert into usergaip(user_email,user_gaipday,user_name) values (#{user_email},now(),#{user_name})
+    </insert>
+    <select id="getSearchKakaoId" parameterType="String" resultType="int">
+        select count(*) from usergaip where user_email = #{user_email}
+    </select>
+</mapper>

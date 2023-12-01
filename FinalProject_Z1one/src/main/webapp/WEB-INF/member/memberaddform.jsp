@@ -410,7 +410,7 @@ $(function(){
 <img alt="" src="${root }/image/final_logo.gif" style="width: 150px;margin-bottom: 1%;">
 <br><br>
 <b style="color: gray; font-size: 10pt; line-height: 1%;">Z1one은 회원님의 익명성을 보장하기 위해 <br> 어떠한 개인정보도 노출하지 않습니다.</b><br><br>
-
+<h5>아이디 ${sessionScope.myid} 로그인중</h5>
 <div class="d-inline-flex" style="border-radius: 10px;width: 350px;height: 50px; background-color: #E6E6E6; cursor: pointer" >
        <div class="login_type_user" style="width: 175.5px; border: 1px solid black; border-radius: 10px; padding-top: 3%;"><b>개인회원</b></div>
        <div class="login_type_company" style="border-radius: 10px; width: 175.5px; padding-top: 3%;"><b>기업회원</b></div>

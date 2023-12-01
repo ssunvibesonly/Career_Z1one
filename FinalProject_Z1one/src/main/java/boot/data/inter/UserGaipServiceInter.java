@@ -1,5 +1,7 @@
 package boot.data.inter;
 
+import java.util.Map;
+
 import boot.data.dto.UserGaipDto;
 
 public interface UserGaipServiceInter {

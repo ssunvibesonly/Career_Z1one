@@ -79,7 +79,7 @@ public class CompanyController {
 			//사진명 구해서 넣기
 			String fileName=sdf.format(new Date())+myImg.getOriginalFilename();
 
-			dto.setCnotice_image(fileName);
+			dto.setCnotice_Image(fileName);
 					
 			//업로드
 			try {

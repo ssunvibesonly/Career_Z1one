@@ -149,8 +149,10 @@ font-size: 10pt;
       </button></div><br><br>
       <input type="checkbox" name="cbsave" ${sessionScope.saveok==null?"":"checked"}>이메일 주소 저장하기 
       <hr style="margin-left: 5%;margin-right: 5%;">
-      <img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;"><br>
-     <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px;">
+      <img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;cursor: pointer;"><br>
+     <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px; cursor: pointer;"
+          onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=fbdd6a0bba0f30bc039d0abc598fc52b&redirect_uri=http://localhost:9000/login/kakao&response_type=code'">
+
       <hr style="margin-bottom: 12%">
       <div style="font-size: 10pt;">아직 회원이 아니세요?&nbsp;
       <a href="/member/addform" style="text-decoration: none;font-size: 10pt;">회원가입</a></div>
