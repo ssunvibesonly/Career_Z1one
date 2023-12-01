@@ -133,6 +133,10 @@
 		var c_pass="${c_pass}";
 		setInterval(() => countdown(),1000);
 		
+		if("${titlecount}"==0){
+			$("#seemore").hide();
+		}
+		
 		$(document).on("click","div.outline",function(){
 			$("div.modal-dialog").attr("class","modal-dialog modal-lg");
 			$("div.modal-body").empty();
@@ -434,25 +438,32 @@
 			<th width="170" style="text-align:center" class="rdead">마감일</th>
 			<th width="152" style="text-align:center">편집</th>
 		</tr>
-		<c:forEach var="tdto" items="${titlelist }" varStatus="i">
-			<tr class="tr">
-				<td align="center" class="rno">${titlecount-i.count+1 }</td>
-				<td>
-					<a href="/recruit/eachlist?c_code=${c_code}&r_title=${tdto.r_title}" class="tit">${tdto.r_title } </a>[<a href="#">${tdto.count }</a>]
-					<div class="outline" code="${c_code }" ttl="${tdto.r_title }">개요</div>
-				</td>
-				<td align="center">
-					<c:set var="dd" value="${tdto.dday }"/>
-					<div class="d-inline-flex rtime">
-						<span class="time" dead="${tdto.deadlineday }"><fmt:formatDate value="${tdto.deadlineday }" pattern="yyyy-MM-dd"/></span>&nbsp;&nbsp;
-						<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd!=1?dd:'Day'}</div>
-					</div>
-				</td>
-				<td align="center">
-					<a href="#" code="${c_code}" tit="${tdto.r_title}" class="button btnPush btnLightBlue btnmod">수정/삭제</a>
-				</td>
+		<c:if test="${titlecount!=0 }">
+			<c:forEach var="tdto" items="${titlelist }" varStatus="i">
+				<tr class="tr">
+					<td align="center" class="rno">${titlecount-i.count+1 }</td>
+					<td>
+						<a href="/recruit/eachlist?c_code=${c_code}&r_title=${tdto.r_title}" class="tit">${tdto.r_title } </a>[<a href="#">${tdto.count }</a>]
+						<div class="outline" code="${c_code }" ttl="${tdto.r_title }">개요</div>
+					</td>
+					<td align="center">
+						<c:set var="dd" value="${tdto.dday }"/>
+						<div class="d-inline-flex rtime">
+							<span class="time" dead="${tdto.deadlineday }"><fmt:formatDate value="${tdto.deadlineday }" pattern="yyyy-MM-dd"/></span>&nbsp;&nbsp;
+							<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd!=1?dd:'Day'}</div>
+						</div>
+					</td>
+					<td align="center">
+						<a href="#" code="${c_code}" tit="${tdto.r_title}" class="button btnPush btnLightBlue btnmod">수정/삭제</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:if>
+		<c:if test="${titlecount==0 }">
+			<tr>
+				<td colspan="4" align="center"><b>등록된 채용과정이 없습니다.</b></td>
 			</tr>
-		</c:forEach>
+		</c:if>
 		<tr>
 			<td colspan="4" align="center">
 				<div id="seemore">

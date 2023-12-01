@@ -225,9 +225,9 @@ $(function(){
 });
 });
    $("#company_Email").focusout(function(e){
-	   
-		var company_email=$(this).val();
-		
+      
+      var company_email=$(this).val();
+      
         $.ajax({
          type:"get",
          dataType:"json",
@@ -282,11 +282,25 @@ $(function(){
          }         
       } 
    function companycheck() {
+	   
+	   var y=confirm("추가 정보를 입력하셔야 가입이 완료됩니다.\n정보 입력을 하러 가시겠습니까?")
+	   
+	   if(y){
+		   
+		   return true;
+	   }else{
+		   
+		   location.reload();
+		   return false;
+	   }
+	   
       if($("span.companyidsuccess").text()!='사용 가능한 이메일입니다.'){
+    	 alert("이메일 주소를 확인해주세요!");
          return false;
       }
       
       if($("span.companypasscheck").text()!=''){   
+    	 alert("이메일 주소를 확인해주세요!");
          return false;
       }
    }
@@ -557,7 +571,7 @@ $(function(){
       <!-- 로그인버튼-->       
       <div class="two" id="btnbox">
          <button type="submit" id="mbtn" class="madebtn">
-              <a style="font-size: 10pt;">기업회원 가입하기</a>
+              기업회원 가입하기
         <div class="fill-two"></div></button></div><br>
 
     
