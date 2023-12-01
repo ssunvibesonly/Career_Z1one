@@ -10,7 +10,7 @@
 
     </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
-    <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int">
+    <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int" >
         select * from user_apply where user_num = #{user_num}
     </select>
     <!--전체 회사 공고 뽑기.-->

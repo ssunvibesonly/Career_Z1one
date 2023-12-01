@@ -31,10 +31,13 @@ public class CompanyReviewController {
 	}
 	
 	@GetMapping("/review")
-	public String companyReview(@RequestParam int cn_idx) {
+	public String companyReview(@RequestParam int cn_idx,Model model) {
 		
+		CompanyNoticeDto cndto=cn_service.CompanyInfoGetData(cn_idx);
 		
+		model.addAttribute("cndto", cndto);
 		
-		return "/2/company/companyreview?cn_idx="+cn_idx;
+		return "/2/company/companyreview";
 	}
+	
 }

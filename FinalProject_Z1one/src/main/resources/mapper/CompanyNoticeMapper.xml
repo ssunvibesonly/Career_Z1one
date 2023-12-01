@@ -15,4 +15,8 @@
 	<select id="CompanyNoticegetAllData" resultType="companynotice">
 		select * from companynotice order by cn_idx desc
 	</select>
+	<!-- 기업리뷰 cn_idx로 넘어온 데이터 Getdata -->
+	<select id="CompanyInfoGetData" parameterType="int" resultType="companynotice">
+		select * from companynotice where cn_idx=#{cn_idx}
+	</select>
 </mapper>
