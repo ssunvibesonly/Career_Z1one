@@ -37,6 +37,7 @@ border: 1px solid black;
 height: 200px;
 margin-top: 1%;
 border-radius: 10px;
+position: relative;
 }
 #c_logo_box{
 width: 15%;

@@ -10,4 +10,5 @@ import boot.data.dto.CompanyNoticeDto;
 public interface CompanyNoticeMapperInter {
 	public void CompanyNoticeInsert(CompanyNoticeDto dto);
 	public List<CompanyNoticeDto> CompanyNoticegetAllData();
+	public CompanyNoticeDto CompanyInfoGetData(int cn_idx);
 }

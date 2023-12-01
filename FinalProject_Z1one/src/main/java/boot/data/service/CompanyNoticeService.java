@@ -27,4 +27,10 @@ public class CompanyNoticeService implements CompanyNoticeServiceInter {
 		return cnmapper.CompanyNoticegetAllData();
 	}
 
+	@Override
+	public CompanyNoticeDto CompanyInfoGetData(int cn_idx) {
+		// TODO Auto-generated method stub
+		return cnmapper.CompanyInfoGetData(cn_idx);
+	}
+
 }
