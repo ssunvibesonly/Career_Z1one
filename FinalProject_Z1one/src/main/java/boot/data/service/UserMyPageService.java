@@ -3,6 +3,7 @@ package boot.data.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_ActiveDto;
 import boot.data.dto.User_ApplyDto;
 import boot.data.dto.User_CareerDto;
@@ -129,5 +130,13 @@ public class UserMyPageService implements UserMyPageServiceInter {
 		// TODO Auto-generated method stub
 		umypageinter.DeleteUserActive(user_num);
 	}
+
+	@Override
+	public String getPhoto(String user_num) {
+		// TODO Auto-generated method stub
+		return umypageinter.getPhoto(user_num);
+	}
+
+	
 
 }

@@ -39,21 +39,22 @@ border-top: 1px solid lightgray;
 .idEdit{
 width:10%;
 height:70px;
-border: 1px solid yellow;
 margin-left: 20%;
 text-align: center;
 padding : 20px 0;
 font-weight: bold;
+cursor: pointer;
 
 }
 
 .applyEdit{
 width:10%;
 height:70px;
-border: 1px solid yellow;
+border-bottom:5px solid purple;
 text-align: center;
 padding : 20px 0;
 font-weight: bold;
+cursor: pointer;
 
 }
 
@@ -69,6 +70,11 @@ width: 85%;
 height: 25vh;
 margin-top: 1.7%;
 cursor: pointer;
+}
+
+a{
+text-decoration: none;
+color: black;
 }
 
 </style>
@@ -119,8 +125,8 @@ $(function() {
    </form>
 </div>
 <div class="d-inline-flex mypagemenu">
-   <div href="#" class="idEdit">계정</div>
-   <div href="#" class="applyEdit">이력서</div>
+   <div class="idEdit"><a href="/member/usereditpage?user_num=${user_num }">계정</a></div>
+   <div class="applyEdit"><a href="/member/userapplypage?user_num=${user_num }">이력서</a></div>
 </div>
 <div class="container">
    <h4 style="font-weight: 900;">이력서</h4>

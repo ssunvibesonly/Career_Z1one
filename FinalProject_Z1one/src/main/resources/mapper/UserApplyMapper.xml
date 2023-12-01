@@ -74,6 +74,8 @@
     <delete id="DeleteUserActive" parameterType="String">
     	delete from user_active where user_num=#{user_num}
     </delete>
-     
+    <select id="getPhoto" parameterType="String" resultType="String">
+    	select apply_photo from user_apply where user_num=#{user_num}
+    </select>     
     
 </mapper>

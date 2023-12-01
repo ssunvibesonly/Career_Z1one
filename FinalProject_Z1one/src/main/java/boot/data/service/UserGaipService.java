@@ -1,6 +1,7 @@
 package boot.data.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -56,6 +57,24 @@ public class UserGaipService implements UserGaipServiceInter {
       // TODO Auto-generated method stub
       return ugaipinter.getEmail(user_email);
    }
+
+	@Override
+	public UserGaipDto getDataByNum(String user_num) {
+		// TODO Auto-generated method stub
+		return ugaipinter.getDataByNum(user_num);
+	}
+
+	@Override
+	public List<UserGaipDto> getAllUser() {
+		// TODO Auto-generated method stub
+		return ugaipinter.getAllUser();
+	}
+
+	@Override
+	public void UpdateUserEdit(UserGaipDto dto) {
+		// TODO Auto-generated method stub
+		ugaipinter.UpdateUserEdit(dto);
+	}
 
 
 }
