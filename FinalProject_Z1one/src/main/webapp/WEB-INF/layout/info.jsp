@@ -135,7 +135,7 @@ font-size: 10pt;
     </div>
     <br>
     <div style="margin-left: 18%;">
-    <a href="#" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
+    <a href="/member/addform" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">아이디 찾기&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">비밀번호 찾기&nbsp;&nbsp;</a>
     </div>
@@ -179,6 +179,7 @@ font-size: 10pt;
 </c:if>
 
 <c:if test="${sessionScope.companyloginok!=null && sessionScope.loginok==null}">
+
 <div class="loginbox">
    <div style="margin-top: 10%;">
    <img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
@@ -189,7 +190,7 @@ font-size: 10pt;
    <!-- 이력서 작성하기 버튼 -->
     <div class="two" id="btnbox1">
       <button type="button" id="btn1" class="madebtn" onclick="location.href='/member/companymypage'">
-        추가 정보 입력
+        기업정보
         <div class="fill-two"></div>
         <script type="text/javascript">
         $("#btnbox1").click(function(e){

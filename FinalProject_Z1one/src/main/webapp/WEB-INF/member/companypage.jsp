@@ -30,7 +30,7 @@
 	margin-right: 9%;
 }
 #logobox{
-	border: 1px solid black;
+
 	border-radius:10px;
 	width: 17%;
 	float: right;
@@ -126,7 +126,10 @@
 		var insert=confirm("기업 정보를 게시하시겠습니까?")
 		
 		if(insert){
-			
+			return true;
+		}else{
+			alert("취소되었습니다!")
+			return false;
 		}
 		
 	}
@@ -137,35 +140,52 @@
 <div class="container">
 <h3>| 기업 정보 페이지</h3><br>
 
+<form action="/company/companyUpload" method="post" onsubmit="return companyuload()">
+<input type="hidden" name="c_ceo" value="${ceo }">
+<input type="hidden" name="c_name" value="${name}">
+<input type="hidden" name="c_saupnum" value="${reginum }">
+<input type="hidden" name="c_mail" value="${email }">
+<input type="hidden" name="c_hp" value="${hp }">
+<input type="hidden" name="c_primary" value="${primary }">
+<input type="hidden" name="c_secondary" value="${secondary }">
+<input type="hidden" name="c_main" value="${mainbiz }">
+<input type="hidden" name="c_type" value="${type }">
+<input type="hidden" name="c_realpath" value="${realpath }">
+<input type="hidden" name="c_employcnt" value="${employcnt }">
+<input type="hidden" name="c_homepage" value="${homepage }">
+<input type="hidden" name="c_img" value="${logo }">
+
 <!-- 회원가입 할 때 기업 기본 정보 뜨는 공간 -->
 <div id="basicInfo">
 	<div style="margin-left: 3%;margin-top: 3%;">
-		<h4><b>기업명</b></h4><br>
+		<h4><b>${name }</b></h4><br>
 
-		<span><img alt="" src="../image/ceo.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 대표자명 : </b></span><br><br>
-		<span><img alt="" src="../image/handshake.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 사업자 번호</b></span><br><br>
-		<span><img alt="" src="../image/email.png" style="width: 1.3%;height: 18px;"><b style="font-size: 15pt;"> 기업 이메일</b></span>
+		<img alt="" src="../image/ceo.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 대표자명 : ${ceo }</b><br><br>
+		<span><img alt="" src="../image/handshake.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;" > 사업자 번호 : ${reginum }</b></span><br><br>
+		<span><img alt="" src="../image/email.png" style="width: 1.3%;height: 18px;"><b style="font-size: 15pt;" > ${email }</b></span>
 		<span style="height: 10px;border: 1px solid lightgray; margin-left: 2%;margin-right: 2%;"></span> <!-- 선 -->
-		<span><img alt="" src="../image/telephone.png"style="width: 1.5%;height: 20px;"><b style="font-size: 15pt;"> 기업 연락처</b></span><br><br>
-		<span><img alt="" src="../image/kindness.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 1차 산업군</b></span>
+		<span><img alt="" src="../image/telephone.png"style="width: 1.5%;height: 20px;"><b style="font-size: 15pt;" > ${hp }</b></span><br><br>
+		<span><img alt="" src="../image/kindness.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> ${primary }</b></span>
 		<span style="height: 10px;border: 1px solid lightgray; margin-left: 2%;margin-right: 2%;"></span> <!-- 선 -->
-		<span><b style="font-size: 15pt;"> 2차 산업군</b></span><br><br>
-		<span><img alt="" src="../image/core-value.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 주요사업 : </b></span><br><br>
-		<span><img alt="" src="../image/company.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 기업 유형 : </b></span>
-
+		<span><b style="font-size: 15pt;" > ${secondary }</b></span><br><br>
+		<span><img alt="" src="../image/core-value.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 주요사업 : ${mainbiz }</b></span><br><br>
+		<span><img alt="" src="../image/company.png"style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> ${type }</b></span>
+	
 	</div>
 	<div id="plusInfo">
-		<span><img alt="" src="../image/pin.png" style="width: 3%;height: 20px;"><b style="font-size: 15pt;"> 본사 주소 : </b></span><br><br>
-		<span><img alt="" src="../image/employee.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 직원수 : </b></span><br><br>
-		<span><img alt="" src="../image/homepage.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 홈페이지 : </b></span><br><br>
+		<span><img alt="" src="../image/pin.png" style="width: 3%;height: 20px;"><b style="font-size: 15pt;" > ${realpath }</b></span><br><br>
+		<span><img alt="" src="../image/employee.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 직원수 : ${employcnt }명</b></span><br><br>
+		<span><img alt="" src="../image/homepage.png" style="width: 4%;height: 22px;"><b style="font-size: 15pt;"> 홈페이지 : ${homepage }</b></span><br><br>
 	</div>
-	<div id="logobox">
-		
-	</div>
+	
+		<img alt="" src="../membersave/${logo }" id="logobox">
+
+	
 	<div align="right">
-	<span><a href="javascript:void(0)" onclick=companyuload() style="text-decoration: none;margin-right: 5%;">>기업 정보 게시하기<</a></span>
+	<span><button type="submit" class="btn btn-primary" style="text-decoration: none;margin-right: 4%;">>기업 정보 게시하기<</button></span>
 	</div>
 </div><br>
+</form>	
 	<div align="center">
 		<button class="custom-btn btn-15">정보수정</button>
 		<button class="custom-btn btn-14">회원탈퇴</button>

@@ -1,6 +1,7 @@
 package boot.data.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,12 @@ public class CompanyGaipService implements CompanyGaipServiceInter {
       // TODO Auto-generated method stub
       return cgaipinter.getDataById(company_email);
    }
+
+@Override
+public List<CompanyGaipDto> CompanyJoinSelect2(int company_num) {
+	// TODO Auto-generated method stub
+	return cgaipinter.CompanyJoinSelect2(company_num);
+}
+
 
 }

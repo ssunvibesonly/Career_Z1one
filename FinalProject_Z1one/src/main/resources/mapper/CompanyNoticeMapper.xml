@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.data.mapper.CompanyNoticeMapperInter">
+<!-- 기업정보게시 눌렀을 때 insert -->
+	<insert id="CompanyNoticeInsert" parameterType="companynotice">
+		insert into companynotice(c_ceo,c_saupnum,c_name,c_mail,c_hp,c_primary,c_secondary,c_main
+		,c_type,c_realpath,c_employcnt,c_homepage,c_img)values(#{c_ceo},#{c_saupnum},#{c_name},#{c_mail},
+		#{c_hp},#{c_primary},#{c_secondary},
+		#{c_main},#{c_type},#{c_realpath},#{c_employcnt},#{c_homepage},#{c_img})
+	</insert>
+<!-- 기업정보 리스트 -->
+	<select id="CompanyNoticegetAllData" resultType="companynotice">
+		select * from companynotice order by cn_idx desc
+	</select>
+</mapper>

@@ -6,7 +6,7 @@
      <select id="getTotalCount" resultType="CompanyGaipDto">
         select count(*) from companygaip
      </select>
-     <insert id="insertCompanyMember" parameterType="CompanyGaipDto">
+     <insert id="insertCompanyMember" parameterType="CompanyGaipDto" useGeneratedKeys="true" keyProperty="company_num">
         insert into companygaip (company_Email,company_Pass,company_Name,company_Primary,company_Secondary,company_Reginum,company_Manager,company_Hp,company_Logo,company_Type,company_Gaipday) 
         values(#{company_email},#{company_pass},#{company_name},#{company_primary},#{company_secondary},#{company_reginum},#{company_manager},#{company_hp},#{company_logo},#{company_type},now())
      </insert>
@@ -19,4 +19,11 @@
      <select id="loginPassCheck" parameterType="Map" resultType="int">
         select count(*) from companygaip where company_email=#{company_email} and company_pass=#{company_pass}
      </select>
+    <select id="CompanyJoinSelect2" parameterType="int"
+		resultType="CompanyGaipDto">
+		SELECT *
+		FROM companygaip
+		JOIN companyinfo ON companygaip.company_num = companyinfo.company_num
+
+	</select>
   </mapper>
