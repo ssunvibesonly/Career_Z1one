@@ -7,7 +7,7 @@
   		insert into user_board values(null,#{user_num},#{board_bigcategory},#{board_category},#{board_title},#{board_story},#{board_photo},0,0,0,now())
   	</insert>
   	<select id="getBoards" parameterType="map" resultType="User_BoardDto">
-  		select * from user_board order by board_writeday desc limit #{start}, #{perpage}
+  		select *,LENGTH(board_photo) - LENGTH(REPLACE(board_photo, ',', '')) + 1 AS photocount from user_board order by board_writeday desc limit #{start}, #{perpage}
   	</select>
   	<select id="getBoardsByCategory" parameterType="map" resultType="User_BoardDto">
   		select * from user_board where board_category=#{board_category} order by board_writeday desc limit #{start}, #{perpage}
@@ -37,4 +37,7 @@
   	<update id="updateunLikes" parameterType="String">
   		update user_board set board_like=board_like-1 where board_num=#{board_num}
   	</update>
+  	<select id="cmlistPhoto" parameterType="String" resultType="User_BoardDto">
+  		select length(board_photo) - length(replace(board_photo, ',', '')) + 1 as photo_count from user_board;
+  	</select>
   </mapper>

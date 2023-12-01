@@ -166,6 +166,31 @@ form {
 	margin-left: 33px;
 }
 
+/* 다중이미지 image의 스타일 적용하기 */
+.listimage-wrap{
+	width: 100%;
+	margin: 10px auto;
+	position: relative;
+}
+
+.listimage{
+	width: 100%;
+	vertical-align: middle;
+}
+
+.listimage-text{
+	position: absolute;
+	top: 40%;
+	left: 61%;
+	width: 80%;
+	background-color: gray;
+	opacity: 0.8;
+	transform: translate(-50%,-50%);
+	color:white;
+	font-size: 20px;
+	text-align: center;
+}
+
 .page-link {
   color: #000; 
   background-color: #fff;
@@ -327,7 +352,20 @@ function goContent(boardnum){
 		<!-- cmbody 중간 -->
 		<div class="cmbody-middle" style="height: 100px;">
 			<span class="content">${userboardDto.board_story}</span>
-			<span><img class="photo" alt="" src="../savefile/${userboardDto.board_photo}"></span>
+			
+			<!-- 다중이미지 -->
+			<span class="listimage-wrap">
+			<c:forTokens items="${userboardDto.board_photo}" delims="," var="listphoto" end="0" begin="0">
+            	<c:choose>
+            		<c:when test="${not empty listphoto}">
+                			<span class="listimage"><img class="photo" alt="" src="../savefile/${listphoto}"></span>
+                			
+            		</c:when>
+      		  </c:choose>
+               	
+			</c:forTokens>
+			<span class="listimage-text">${userboardDto.photocount }</span>
+			</span>
 		</div>
 		<!-- cmbody 하단 -->
 		<div class="cmbody-bottom" style="height: 70px;">

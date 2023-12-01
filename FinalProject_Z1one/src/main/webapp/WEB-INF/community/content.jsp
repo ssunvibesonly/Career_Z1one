@@ -404,8 +404,7 @@
 					</c:forEach> --%>
 						</span>
 					</c:if> <br> <span style="width: 600px;"><div>
-							<pre>
-								<!-- 엔터 먹는 pre 태그 -->${dto.board_story }
+							<pre><!-- 엔터 먹는 pre 태그 -->${dto.board_story }
 					</pre>
 						</div></span> <br> <%-- <b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp; --%>
 					<!-- <b>댓글: <span class="acount"></span></b>  댓글 개수를 표현  -->

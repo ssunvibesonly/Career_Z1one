@@ -21,4 +21,5 @@ public interface CmBoardMapperInter {
 	public void updateLikes(String board_num); //content에서 좋아요 버튼 클릭시 board_like 숫자 +1 증가
 	public void updateunLikes(String board_num); //content에서 좋아요 버튼 2번 클릭하면 board_like 숫자 -1 감소 
 	public List<User_BoardDto> getBoardsByCategory(Map<String, Object> map);//해당 카테고리에 해당하는 전체 게시글 출력
+	
 }
