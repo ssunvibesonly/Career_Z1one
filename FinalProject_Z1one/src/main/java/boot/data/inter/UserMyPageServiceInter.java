@@ -1,5 +1,6 @@
 package boot.data.inter;
 
+import boot.data.dto.UserGaipDto;
 import boot.data.dto.User_ActiveDto;
 import boot.data.dto.User_ApplyDto;
 import boot.data.dto.User_CareerDto;
@@ -25,4 +26,5 @@ public interface UserMyPageServiceInter {
 	public void DeleteUserCareer(String user_num);
 	public void DeleteUserSchool(String user_num);
 	public void DeleteUserActive(String user_num);
+	public String getPhoto(String user_num);
 }

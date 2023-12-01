@@ -12,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import boot.data.dto.CompanyGaipDto;
 import boot.data.dto.UserGaipDto;
 import boot.data.service.CompanyGaipService;
 import boot.data.service.UserGaipService;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/login")
@@ -117,8 +119,13 @@ public class LoginController {
    {
       session.removeAttribute("loginok");
       session.removeAttribute("companyloginok");
-      session.removeAttribute("myid");
       
       return "redirect:/login/form";
    }
+   
+   @RequestMapping("/naver.do")
+	public String naver() {
+		return "naver_login";
+	}
+   
 }

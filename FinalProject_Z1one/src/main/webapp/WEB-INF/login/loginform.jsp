@@ -11,7 +11,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gamja+Flower&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+ <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+ <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>            
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
@@ -149,8 +150,8 @@ font-size: 10pt;
       </button></div><br><br>
       <input type="checkbox" name="cbsave" ${sessionScope.saveok==null?"":"checked"}>이메일 주소 저장하기 
       <hr style="margin-left: 5%;margin-right: 5%;">
-      <img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;"><br>
-     <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px;">
+      <div id="naver_id_login"><img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;" onclick="location.href='/login/naver.do'"><br></div>
+     <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3458c639f46b80065fc34d93a10336ab&redirect_uri=http://localhost:9000/login/form'">
       <hr style="margin-bottom: 12%">
       <div style="font-size: 10pt;">아직 회원이 아니세요?&nbsp;
       <a href="/member/addform" style="text-decoration: none;font-size: 10pt;">회원가입</a></div>
@@ -161,4 +162,14 @@ font-size: 10pt;
 </div>
 <br><br>
 </body>
+ <!-- //네이버 로그인 버튼 노출 영역 -->
+          <script type="text/javascript">
+              var naver_id_login = new naver_id_login("lT5_vMMwhZOvTIyDkiRF", "http://localhost:9000/login/callback");
+              var state = naver_id_login.getUniqState();
+              naver_id_login.setButton("green", 3,50);
+              naver_id_login.setDomain("http://localhost:9000/login/callback");
+              naver_id_login.setState(state);
+              naver_id_login.setPopup();
+              naver_id_login.init_naver_id_login();
+          </script>
 </html>

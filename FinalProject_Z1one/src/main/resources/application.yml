@@ -23,7 +23,7 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  
   #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,3 +36,4 @@ mybatis:
   type-aliases-package: boot.data.* //(DB랑 연결되는 부분)
   mapper-locations:
     - /mapper/**/*.xml
+        

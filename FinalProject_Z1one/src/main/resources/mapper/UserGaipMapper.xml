@@ -18,4 +18,14 @@
      <select id="loginPassCheck" parameterType="Map" resultType="int">
         select count(*) from usergaip where user_email=#{user_email} and user_pass=#{user_pass}
      </select>
+     <select id="getDataByNum" parameterType="String" resultType="ugaipdto">
+          select * from usergaip where user_num=#{user_num}
+    </select>
+    <select id="getAllUser" resultType="ugaipdto">
+        select * from usergaip order by user_num
+     </select>
+      <update id="UpdateUserEdit" parameterType="ugaipdto">
+    	update usergaip set user_name=#{user_name},user_email=#{user_email} where user_num=#{user_num}   
+    </update>
+     
   </mapper>

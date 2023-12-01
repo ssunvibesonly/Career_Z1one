@@ -6,6 +6,7 @@ import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -275,16 +276,22 @@ public class MemberController {
 			@RequestParam String education_degree)
 	{
 		String path = session.getServletContext().getRealPath("/applyphoto");
-
+		
 		String photoName = "";
-		if (userphoto.getOriginalFilename().equals(applydto.getApply_photo())) {
-			photoName = applydto.getApply_photo()+ "_" + user_num + "_" +applydto.getApply_photo();
+		
+		System.out.println(applydto.getApply_photo()); 
+		
+		if (userphoto.getOriginalFilename().equals("")) {
+			photoName = applydto.getApply_photo();
+			//System.out.println(photoName);
+			applydto.setApply_photo(photoName);
 		} else {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmm");
 			photoName = sdf.format(new Date()) + "_" + user_num + "_" + userphoto.getOriginalFilename();
-
+			
 			try {
 				userphoto.transferTo(new File(path + "/" + photoName));
+				applydto.setApply_photo(photoName);
 			} catch (IllegalStateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -294,7 +301,7 @@ public class MemberController {
 			}
 		}
 		
-		applydto.setApply_photo(photoName);
+		
 		careerdto.setCareer_duration(career_duration1+"~"+career_duration2);
 		edudto.setEducation_duration(education_duration1+"~"+education_duration2);
 		edudto.setEducation_score(education_score+"/"+education_scoreMax);
@@ -321,5 +328,48 @@ public class MemberController {
 		umypageservice.DeleteUserCareer(user_num);
 		umypageservice.DeleteUserSchool(user_num);
 		umypageservice.DeleteUserActive(user_num);
+	}
+	
+	@GetMapping("/usereditpage")
+	public ModelAndView usereditpage(@RequestParam String user_num)
+	{
+		ModelAndView model=new ModelAndView();
+		
+		UserGaipDto dto=uservice.getDataByNum(user_num);
+		String photo=umypageservice.getPhoto(user_num);
+		
+		model.addObject("dto", dto);
+		model.addObject("photo", photo);
+		
+		model.setViewName("/2/member/usereditpage");
+		return model;
+	}
+	
+	@GetMapping("/usereditupdateform")
+	public ModelAndView usereditUpdateform(@RequestParam String user_num)
+	{
+		ModelAndView model=new ModelAndView();
+		UserGaipDto dto=uservice.getDataByNum(user_num);
+		String photo=umypageservice.getPhoto(user_num);
+		
+		model.addObject("dto", dto);
+		model.addObject("photo", photo);
+		model.setViewName("/2/member/usereditupdateform");
+		
+		return model;
+	}
+	
+	@PostMapping("/usereditupdate")
+	public String usereditUpdate(@ModelAttribute UserGaipDto dto,
+			@RequestParam String user_num,
+			@RequestParam String user_name,
+			@RequestParam String user_email)
+	{
+		dto.setUser_name(user_name);
+		dto.setUser_email(user_email);
+		
+		uservice.UpdateUserEdit(dto);
+		
+		return "redirect:usereditpage?user_num="+user_num;
 	}
 }
