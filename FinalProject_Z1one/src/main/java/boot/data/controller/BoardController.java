@@ -28,6 +28,7 @@ public class BoardController {
    @Autowired
    EmailService emailService;
 
+
    // 게시판 인기 공고 글 띄우기.
    @GetMapping("/community")
    public ModelAndView boardmain(HttpSession httpSession) {

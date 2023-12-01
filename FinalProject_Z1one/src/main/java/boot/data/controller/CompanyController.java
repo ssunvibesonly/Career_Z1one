@@ -93,15 +93,15 @@ public class CompanyController {
 			}
      
 			String cnotice_Area=cnotice_Area1+" "+cnotice_Area2;
-			dto.setCnotice_Area(cnotice_Area);
+			dto.setCnotice_location(cnotice_Area);
 			
 			String cnotice_Career;
 			
 			if (cnotice_Career1.equals("경력")) {
 		        cnotice_Career = cnotice_Career1+cnotice_Career2;
-		        dto.setCnotice_Career(cnotice_Career);
+		        dto.setCnotice_career(cnotice_Career);
 		    } else {
-		        dto.setCnotice_Career(cnotice_Career1);
+		        dto.setCnotice_career(cnotice_Career1);
 		    }
 					
 	nservice.insertNotice(dto);

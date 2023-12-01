@@ -31,6 +31,7 @@ spring:
     username: Z1one
     password: fhfgkrhtlvek
 
+
 #mybatis
 mybatis:
   type-aliases-package: boot.data.* //(DB랑 연결되는 부분)

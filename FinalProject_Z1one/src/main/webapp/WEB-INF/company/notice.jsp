@@ -576,7 +576,7 @@ function formatDate(date, format) {
                 	  
             		  s +="<a href='detail?cnotice_Num="+dto.cnotice_Num+"' style='text-decoration: none; color:black;'>";
                       s += "<div style='width: 30vh; height: 40vh; border: 1px solid #333333; margin: 1vh; border-radius: 1vh; overflow: hidden; float: left;'>";
-                      s += "<img src='../noticeImg/" + dto.cnotice_Image + "' style='width: 100%; height: 30%;'><br><br>";
+                      s += "<img src='../noticeImg/" + dto.cnotice_image + "' style='width: 100%; height: 30%;'><br><br>";
                       s += "<div style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>";
                       s += "  <b>" + dto.cnotice_Name + "</b><br><br>";
                       s += "  <small>" + dto.cnotice_Team + "</small><br>";
@@ -591,7 +591,6 @@ function formatDate(date, format) {
                           "<i class='bi bi-trophy-fill' style='color: gold;'></i> 합격축하금 " + dto.cnotice_Passmoney + "만원" : 
                           "<i class='bi bi-emoji-frown-fill' style='color: red;'></i> 합격축하금 없음") + 
                       "</b>";
-
 
                       s += "  </div>";
                       

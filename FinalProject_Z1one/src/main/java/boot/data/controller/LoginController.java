@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import boot.data.dto.CompanyGaipDto;
 import boot.data.dto.UserGaipDto;
 import boot.data.service.CompanyGaipService;
+import boot.data.service.SocialService;
 import boot.data.service.UserGaipService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +31,36 @@ public class LoginController {
    UserGaipService uservice;
    @Autowired
    CompanyGaipService cservice;
-   
+   @Autowired
+   SocialService socialService;
+
+
+   @GetMapping("/kakao")
+   public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession httpSession, UserGaipDto userGaipDto) throws Exception {
+      System.out.println("카카오 코드 : " + code);
+      String access_Token = socialService.getAccessToekn(code);
+      System.out.println("카카오 토큰 : " + access_Token);
+
+      return "redirect:/";
+   }
+
+   @GetMapping("/kakaLogout")
+   public String kakaLogout(HttpSession httpSession) {
+      String access_token = (String)httpSession.getAttribute("access_token");
+
+      Map<String, String> map = new HashMap<String, String>();
+      map.put("Authorization", "Bearer "+access_token);
+
+      if(access_token != null && !"".equals(access_token)) {
+         socialService.kakaoLogout(access_token);
+         httpSession.invalidate();
+      }
+      if(access_token==null) {
+         System.out.println("access_token is null");
+      }
+      return "/";
+   }
+   /*현규*/
    @GetMapping("/form")
    public String loginform(HttpSession session,Model model,
          @RequestParam(required = false,defaultValue = "no") String community,

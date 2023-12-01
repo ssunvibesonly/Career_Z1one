@@ -9,19 +9,22 @@ import lombok.Data;
 @Data
 @Alias("CnoticeDto")
 public class CnoticeDto {
-	   private int cnotice_Num;
-	   private int company_Num;
-	   private String cnotice_Image;
-	   private String cnotice_Name;
-	   private String cnotice_Team;
-	   private String cnotice_Job;
-	   private String cnotice_Area;
-	   private String cnotice_Career;
-	   private String cnotice_Academic;
-	   private int cnotice_Pay;
-	   private String cnotice_Info;
-	   private int cnotice_Passmoney;
-	   private Timestamp cnotice_Writeday;
-	   private int cnotice_Readcount;
-	   private String cnotice_Deadline;
+	private int cnotice_num;
+	private int company_num;
+	private String cnotice_Image;
+	private String cnotice_noticeame;
+	private String cnotice_career;
+	private String cnotice_companyname;
+	private int cnotice_grade;
+	private int cnotice_congraduate;
+	private String cnotice_industry1;
+	private String cnotice_industry2;
+	private String cnotice_location;
+	private String cnotice_type;
+	private String cnotice_academy;
+	private String cnotice_deadline;
+	private Timestamp cnotice_writeday;
+	private int cnotice_recommend;
+	private int cnotice_readcount;
+	private int cnotice_pay;
 }
