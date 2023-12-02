@@ -241,8 +241,18 @@
 			}
 
 		});
+		
+		//게시판 수정,삭제 버튼 나오게 하는 작업
+		$(document).on("click", ".dropend", function() {
+			
+			$(".dropdown-menu").toggle();
+			
+		});
 
-	});
+		
+		
+		
+	}); //사용자 함수 정의 전 전체 scipt문 닫기
 
 	// 사용자 함수 정의하기 (댓글 목록)
 	function list() {
@@ -291,7 +301,7 @@
 											//s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
 											//s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
 											s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
-											if (dto.user_email == '${sessionScope.myid}') {
+											if ('${email}' == '${sessionScope.myid}') {
 												s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
 												s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
 											} else {
@@ -365,6 +375,11 @@
 .ataglist:hover {
 	color: green;
 }
+
+/* .boardupdate{
+	cursor: pointer;
+} */
+
 </style>
 </head>
 <body>
@@ -380,16 +395,45 @@
 						</span>
 
 					</h4> <span class="fw-bolder" style="font-size: 12px; color: #6f42c1;">작성자 │ </span><span style="font-size: 12px;">${displayedEmail}</span> 
-						<span style="font-size: 8pt; color: gray;"><i class="bi bi-eye"></i>${dto.board_readcnt }</span> <c:if test="${dto.board_story!='no' }">
-						<span style="float: right;"> 
-						<c:forTokens items="${dto.board_photo}" delims="," var="photo">
-								<a href="download?clip=${photo }"> <i class="bi bi-download"></i>&nbsp;&nbsp;
-									<b>${photo }</b>
-								</a>
-								<br>
-						</c:forTokens> <!-- clip은 downloadcontroller에서 만든 걸로 한 것!!-->
-						</span>
-					</c:if>
+						<span style="font-size: 8pt; color: gray;"><i class="bi bi-eye"></i>${dto.board_readcnt }</span> 
+						
+						<%-- <c:if test="${dto.board_story!='no' }"> --%>
+						<span>
+							<%-- <input type="button" class="btn btn-info btn-sm" value="수정" onclick="location.href='uform?num=${dto.num}'"> --%>	
+<c:if test="${sessionScope.loginok!=null }">
+
+	<c:if test="${sessionScope.myid eq email}">
+		<!-- 게시판 수정/삭제 버튼 -->							
+	<div class="container mt-3">
+	  <div class="dropdown dropend">
+	    <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"> -->
+	    <i class="bi bi-three-dots-vertical boardupdate dropdown" data-bs-toggle="dropdown"></i>
+	    </button>
+	    <ul class="dropdown-menu">
+	      <li><a class="dropdown-item" href="/community/uform?board_num=${dto.board_num}">수정</a></li>
+	      <li><a class="dropdown-item" href="/community/delete?board_num=${dto.board_num}">삭제</a></li>
+	    </ul>
+	  </div>
+	</div>
+	</c:if>
+
+							
+							
+							<%-- <i class="bi bi-three-dots-vertical boardupdate"  value="수정" onclick="location.href='uform?board_num=${dto.board_num}'"></i>	 --%>				
+						
+						<c:if test="${dto.board_photo!='no'}">
+									<span style="float: right;"> 
+									<c:forTokens items="${dto.board_photo}" delims="," var="photo">
+											<a href="download?clip=${photo }"> <i class="bi bi-download"></i>&nbsp;&nbsp;
+												<b>${photo }</b>
+											</a>
+											<br>
+									</c:forTokens> <!-- clip은 downloadcontroller에서 만든 걸로 한 것!!-->
+								</span>
+							</c:if>
+						</c:if>
+					</span>
+						
 				</td>
 			</tr>
 

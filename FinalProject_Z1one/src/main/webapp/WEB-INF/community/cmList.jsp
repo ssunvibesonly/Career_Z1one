@@ -354,6 +354,7 @@ function goContent(boardnum){
 			<span class="content">${userboardDto.board_story}</span>
 			
 			<!-- 다중이미지 -->
+			<c:if test="${userboardDto.board_photo != 'no'}">
 			<span class="listimage-wrap">
 			<c:forTokens items="${userboardDto.board_photo}" delims="," var="listphoto" end="0" begin="0">
             	<c:choose>
@@ -366,6 +367,8 @@ function goContent(boardnum){
 			</c:forTokens>
 			<span class="listimage-text">${userboardDto.photocount }</span>
 			</span>
+			</c:if>
+			
 		</div>
 		<!-- cmbody 하단 -->
 		<div class="cmbody-bottom" style="height: 70px;">

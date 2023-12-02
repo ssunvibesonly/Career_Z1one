@@ -21,6 +21,8 @@ $(function() {
 		var sel=$(this).val();
 		alert(sel);
 		
+		$(".sel").val("");
+		
 		for(var i=0;i<11;i++){
 			var sel_cl=$(".sel option:eq("+i+")").attr("class");
 			if(sel_cl=='form-control '+sel){

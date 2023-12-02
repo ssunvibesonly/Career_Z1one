@@ -22,6 +22,7 @@
  		select ifnull(max(board_num),0) from user_board
 	</select>
 	<!-- content -->
+	<!-- getData는 댓글 업데이트와 게시판 업데이트에 모두 사용 가능 sql 구문 -->
 	<select id="getData" parameterType="String" resultType="User_BoardDto">
  		select * from user_board where board_num=#{board_num}
  	</select>
@@ -40,4 +41,11 @@
   	<select id="cmlistPhoto" parameterType="String" resultType="User_BoardDto">
   		select length(board_photo) - length(replace(board_photo, ',', '')) + 1 as photo_count from user_board;
   	</select>
+  	<!-- 게시판 댓글 수정 및 삭제 -->
+  	<update id="upadateBoard" parameterType="User_BoardDto">
+  		update user_board set board_bigcategory=#{board_bigcategory},board_category=#{board_category},board_title=#{board_title},board_photo=#{board_photo},board_story=#{board_story} where board_num=#{board_num}
+  	</update>
+  	<delete id="deleteBoard" parameterType="String">
+  		delete from user_board where board_num=#{board_num}
+  	</delete>
   </mapper>

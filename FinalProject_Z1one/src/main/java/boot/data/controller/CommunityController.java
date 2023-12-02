@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -287,6 +288,90 @@ public class CommunityController {
 		int unlikes=service.getData(board_num).getBoard_like();
 		
 		return unlikes;
+	}
+	
+	//게시판 업데이트1
+	@GetMapping("/uform")
+	public String updateform(Model model, String board_num)
+	{
+		User_BoardDto dto=service.getData(board_num);
+		
+		model.addAttribute("dto", dto);
+		
+		return "/2/community/updateForm";
+	}
+	
+	//게시판 업데이트2...insert 복붙 후 쿼리문만 바꿔주기
+	@PostMapping("/update")
+	public String updateBoard(@ModelAttribute User_BoardDto dto,List<MultipartFile> upload,HttpSession session)
+	{
+		String path=session.getServletContext().getRealPath("/savefile");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		
+		String photo="";
+		
+		//사진 업로드 할 때 이름만 바꿔주기
+		//업로드 안 한경우 no
+		if(upload.get(0).getOriginalFilename().equals(""))
+			photo="no";//no라고 저장하겠다
+		else { //업로드 한 경우
+			
+			
+			for(MultipartFile f:upload) {
+				String fileName=sdf.format(new Date())+"_"+f.getOriginalFilename();
+				photo+=fileName+",";
+				
+				try {
+					f.transferTo(new File(path+"\\"+fileName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			photo=photo.substring(0,photo.length()-1);
+
+		}
+		dto.setBoard_photo(photo);
+		
+		//세션에서 user_Num 얻기 위해 dto에 저장 (CmBoardMapper.xml에서 update부분에 user_num값을 가져오기 위해 하는 작업)
+		//1.session을 통해서 myid, 즉 사용자 이메일을 받아옴
+		String user_email=(String)session.getAttribute("myid");
+		System.out.println(user_email);
+		//2.이메일(이게 즉 id때문에 겹칠일이 없죠)을 통해서 사용자의 user_num
+		String userNum=uservice.getDataById(user_email).getUser_num();
+		dto.setUser_num(userNum);
+		
+		
+		//update 시키기
+		service.upadateBoard(dto);
+		
+		return "redirect:content?board_num="+dto.getBoard_num();
+	}
+	
+	//게시판 삭제
+	@GetMapping("/delete")
+	public String deleteBoard(String board_num, HttpServletRequest request)  //@requestparam은 생략 가능  // HttpServletRequest나 HttpSession 써도 가능!(대신 쓰는 법 다름)
+	{
+		String photo=service.getData(board_num).getBoard_photo(); //num에 해당하는 photo 가져오기
+		
+		//사진 없으면 파일 삭제할 게 없을 수도 있어서 조건 주기 + 사진 있으면 파일에서 삭제하기
+		if(!photo.equals("no"))  //null로 하게 되면 equals가 못 받는다
+		{
+			String path = request.getServletContext().getRealPath("/save");
+			
+			File file=new File(path+"\\"+photo);
+			file.delete();
+		}
+		
+		service.deleteBoard(board_num);   //기존에는 mapper.deleteMarket(num);인데 day1024 오늘 service 배워서 바꿔 봄!
+		System.out.println("게시글 삭제 보드넘: "+board_num);     //num값 넘어갔는 지 확인해봄(생략 가능)!
+		
+		return "redirect:list";
 	}
 
 }

@@ -86,4 +86,16 @@ public class CmBoardService implements CmBoardServiceInter {
 		return mapper.getBoardsByCategory(map);
 	}
 
+	@Override
+	public void upadateBoard(User_BoardDto dto) {
+		// TODO Auto-generated method stub
+		mapper.upadateBoard(dto);
+	}
+
+	@Override
+	public void deleteBoard(String board_num) {
+		// TODO Auto-generated method stub
+		mapper.deleteBoard(board_num);
+	}
+
 }
