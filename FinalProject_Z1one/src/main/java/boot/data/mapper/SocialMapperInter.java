@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import boot.data.dto.UserGaipDto;
 @Mapper
-@Repository
 public interface SocialMapperInter {
 
 	//KAKAO

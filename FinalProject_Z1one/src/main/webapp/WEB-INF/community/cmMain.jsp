@@ -22,9 +22,9 @@ a {
 }
 
 .mySlides {
-	width: 28%;
+	width: 36%;
 	height: 65px;
-	margin-left: 77.5%;
+	margin-left: 76.5%;
 	margin-top: -7%;
 }
 
@@ -232,7 +232,6 @@ form {
 		<%-- 중간 1--%>
 		<div class="d-inline-flex midone">
 
-	
         <%--카테고리별 인기글 띄우기--%>
         <div class="mid1-1"><br>
             <c:forEach items="${oneTitle}" var="dto" varStatus="i">
@@ -240,7 +239,7 @@ form {
                     <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 65%;">&nbsp;
                         <div class="topic" style="width: 19%;">
 							<b>
-                       			 <a href="/community/content?board_num='+${dto.board_num}" style="text-decoration-line: none; color: white; margin-left: 20%;">
+                       			 <a href="/community/list" style="text-decoration-line: none; color: white; margin-left: 20%;">
                                		 ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <%--나중에 c:if 조건 줘서 내용에 이미지가 있으면 사진뜨고 없으면 안뜨게 만들기.--%>
                         		</a>
@@ -255,20 +254,20 @@ form {
 						<c:if test="${fn:length(limitedTitle) > 15}">
 							<c:set var="limitedTitle" value="${fn:substring(limitedTitle, 0, 15)}..." />
 						</c:if>
-                        <div style="width: 60%; margin-left: 8%" onclick="location.href='#'">
+                        <div style="width: 60%; margin-left: 8%; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
                         &nbsp;${limitedTitle}
                         </div>
 
                     </div>
-                <div class="d-inline-flex" style="margin-top:1%; margin-left: 33%; width: 27%; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
+                <div class="d-inline-flex" style="margin-top:1%; margin-left: 24%; width: 35%; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
                     <div style="color: black; font-size: 14px;">
 						<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
 					</div>
 
-					<div style="margin-left: 10%; width:18%;">
+					<div style="margin-left: 9.5%; width:25%;">
                         <i class="bi bi-suit-heart"></i>&nbsp;${dto.board_like}
 					</div>
-						<div style="margin-left: 10%;">
+						<div style="margin-left:8%;">
 						<i class="bi bi-chat-square"></i>&nbsp;
 						<c:forEach items="${contentList}" var="cdto" varStatus="j">
 							<c:if test="${i.count==j.count}">
@@ -290,9 +289,9 @@ form {
 					<c:forEach items="${list1}" var="item" varStatus="loop">
 						<div style="width: 100%;">
 							<p class="rank">
-								<em>${loop.index + 1}</em>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"
-									class style="text-decoration-line: none; color: black;">${item}&nbsp;&nbsp;&nbsp;D
-									- </a>
+								<em>${loop.index + 1}</em>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/company/detailPage?"
+																					  class style="text-decoration-line: none; color: black;"><b>${item}</b>&nbsp;&nbsp;&nbsp
+									 </a>
 							</p>
 						</div>
 					</c:forEach>
