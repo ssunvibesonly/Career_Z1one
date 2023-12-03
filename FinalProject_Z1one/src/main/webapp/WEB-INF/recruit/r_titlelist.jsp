@@ -130,8 +130,8 @@
 </head>
 <script>
 	$(function(){
-		var c_pass="${c_pass}";
 		setInterval(() => countdown(),1000);
+		var c_pass="${c_pass}";
 		
 		if("${titlecount}"==0){
 			$("#seemore").hide();
@@ -322,13 +322,13 @@
 	});
 	
 	function countdown(){
-		var times=document.querySelectorAll("span.time");
+		//var times=document.querySelectorAll("span.time");
 		var rtimes=document.querySelectorAll("div.rtime");
 		var now=new Date();
 		
-		for(var i=0;i<times.length;i++){
+		/* for(var i=0;i<times.length;i++){
 			rtimes[i].setAttribute("dead",times[i].getAttribute("dead"));
-		}
+		} */
 		rtimes.forEach(div => {
 			var dead=new Date(div.getAttribute("dead"));
 			var nt=now.getTime();
@@ -448,7 +448,7 @@
 					</td>
 					<td align="center">
 						<c:set var="dd" value="${tdto.dday }"/>
-						<div class="d-inline-flex rtime">
+						<div class="d-inline-flex rtime" dead="${tdto.deadlineday }">
 							<span class="time" dead="${tdto.deadlineday }"><fmt:formatDate value="${tdto.deadlineday }" pattern="yyyy-MM-dd"/></span>&nbsp;&nbsp;
 							<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd!=1?dd:'Day'}</div>
 						</div>

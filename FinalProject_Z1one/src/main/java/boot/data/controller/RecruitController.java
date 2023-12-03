@@ -86,7 +86,8 @@ public class RecruitController {
 		
 		levels=levels.substring(0, levels.length()-1);
 		steps=steps.substring(0, steps.length()-1);
-		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday);
+
+		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday+":00");
 		RecruitDto rdto=new RecruitDto();
 		rdto.setC_code(c_code);
 		rdto.setR_title(r_title);

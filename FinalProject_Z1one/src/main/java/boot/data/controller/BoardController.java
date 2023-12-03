@@ -2,6 +2,8 @@ package boot.data.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
@@ -86,6 +88,5 @@ public class BoardController {
       modelAndView.setViewName("/2/community/cmMain");
       return modelAndView;
    }
-
 
    }

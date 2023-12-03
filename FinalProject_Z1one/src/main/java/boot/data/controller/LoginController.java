@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.data.dto.CompanyGaipDto;
 import boot.data.dto.UserGaipDto;
@@ -33,18 +35,50 @@ public class LoginController {
    CompanyGaipService cservice;
    @Autowired
    SocialService socialService;
-
-
    @GetMapping("/kakao")
-   public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession httpSession, UserGaipDto userGaipDto) throws Exception {
-      System.out.println("카카오 코드 : " + code);
+   public String kakaoLogin(@RequestParam(value = "code", required = false) String code,HttpSession httpSession, UserGaipDto userGaipDto,Model model) {
       String access_Token = socialService.getAccessToekn(code);
-      System.out.println("카카오 토큰 : " + access_Token);
 
-      return "redirect:/";
+      HashMap<String, Object> userInfo = socialService.getUserInfo(access_Token);
+      System.out.println("userInfo==== "+userInfo); //userInfo==== {kakao_id=121201221, kakao_nickname="진현규" 떠야함}
+
+      String nickname = (String)userInfo.get("kakao_nickname");
+      String id = (String) userInfo.get("kakao_id");
+
+      Map<String, Integer> map = new HashMap<>();
+
+      int k = socialService.getSearchKakaoId(id);
+      map.put("count", k);
+      System.out.println(k);
+
+      if(k==1) {
+         httpSession.setMaxInactiveInterval(60*60*1);
+         httpSession.setAttribute("kakao_name",nickname);
+         httpSession.setAttribute("kakaoid",id);
+         httpSession.setAttribute("access_Token", access_Token);
+
+         model.addAttribute("nickname",nickname);
+         model.addAttribute("myid",id);
+         //DB에 아이디가 존재하면 바로 로그인 됨
+         //추가 로직을 짜야함.
+         return "redirect:/";
+      }
+      if(k==0) {
+         //DB에 아이다가 존재하지 않으면 회원가입 시킴.
+         //회원가입 축하 폼으로 넘겨야함 원래는
+         userGaipDto.setUser_email(id);
+         userGaipDto.setUser_name(nickname);
+         socialService.kakaoInsert(userGaipDto);
+
+         //폼에서 띄우기 위한 메시지.
+         model.addAttribute("alertmessage","회원 가입 폼으로 이동합니다.");
+
+         //로그인 겸 가입이 된 것.
+      }
+      return "/2/member/addform";
    }
 
-   @GetMapping("/kakaLogout")
+   @GetMapping("/kakaoLogout")
    public String kakaLogout(HttpSession httpSession) {
       String access_token = (String)httpSession.getAttribute("access_token");
 
@@ -69,11 +103,11 @@ public class LoginController {
       String myid=(String)session.getAttribute("myid");
       String loginok=(String)session.getAttribute("loginok");
       String user_num=(String)session.getAttribute("user_num");
-      System.out.println(community+","+boardnum);
+      //System.out.println(community+","+boardnum);
       if(loginok==null && !community.equals("yes"))
          return "/2/login/loginform";
       else if(loginok==null && community.equals("yes")){
-         System.out.println(boardnum);
+         //System.out.println(boardnum);
          model.addAttribute("community", community);
          model.addAttribute("boardnum", boardnum);
          return "/2/login/loginform";
@@ -114,7 +148,7 @@ public class LoginController {
          return "redirect:/";
          
       }else if(usercheck==1 && community.equals("yes")) {
-    	  System.out.println(boardnum+"!!!!");
+    	  //System.out.println(boardnum+"!!!!");
     	  session.setMaxInactiveInterval(60*60*8);
           session.setAttribute("myid", email);
           session.setAttribute("loginok", "yes");
@@ -122,7 +156,7 @@ public class LoginController {
           
           UserGaipDto udto=uservice.getDataById(email);
           String uname=udto.getUser_email();
-          System.out.println(uname);
+          //System.out.println(uname);
           
           session.setAttribute("uname", uname);
           //model.addAttribute("board_num", boardnum);

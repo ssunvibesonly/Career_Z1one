@@ -56,8 +56,9 @@ public class EmailController {
    public String matchNotice(@RequestParam(defaultValue = "0") String user_num, Model model) {
 
       String email = (String)httpSession.getAttribute("myid");
+      String num  = (String)httpSession.getAttribute("user_num");
       String name =  emailService.getNameByEmailId(email);
-      System.out.println(email + "-" + name + "-" + user_num);
+      System.out.println(email + "-" + name + "-" + user_num + "세션 넘버 : " + num.trim());
 
 /*      //notice list
       List<CnoticeDto> list = emailService.getCompanyNotice(); //회사 공고 리스트
