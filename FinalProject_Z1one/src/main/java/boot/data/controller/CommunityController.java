@@ -49,7 +49,7 @@ public class CommunityController {
 	
 	@Autowired
 	BoardAnswerService bservice;
-	
+
 	
 	/*
 	 * @GetMapping("/list")
@@ -58,6 +58,7 @@ public class CommunityController {
 	 *	return "/2/community/cmList";
 	 *}
 	 */
+
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "") String board_category, HttpSession httpSession)
 	{

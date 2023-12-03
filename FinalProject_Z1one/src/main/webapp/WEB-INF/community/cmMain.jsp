@@ -309,6 +309,7 @@ form {
 	<hr style="border: 2px solid black;">
 
 	<%--중간 2 시작--%>
+	<button type="button" class="btn btn-outline-dark" style="margin-left: 90%; margin-top: 1%;" onclick="location.href='cmform'"><b>글 작성</b></button>
 	<div class="mid2">
 		<c:forEach items="${oneTitle}" var="dto">
 			<div class="category1" style="margin-left: 5%;">
