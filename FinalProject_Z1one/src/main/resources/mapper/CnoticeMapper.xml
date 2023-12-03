@@ -3,101 +3,117 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boot.data.mapper.CnoticeMapperInter">
-  	<select id="getTotalCount" resultType="int">
-  		select count(*) from cnotice
-  	</select>
-  	<insert id="insertNotice" parameterType="CnoticeDto">
-  		insert into cnotice (company_Num,cnotice_Image,cnotice_Name,cnotice_Team,cnotice_Job,cnotice_Area,cnotice_Career,cnotice_Academic,cnotice_Pay,cnotice_Info,cnotice_Passmoney,cnotice_Writeday,cnotice_Deadline,cnotice_Readcount) 
-  		values(#{company_Num},#{cnotice_Image},#{cnotice_Name},#{cnotice_Team},#{cnotice_Job},#{cnotice_Area},#{cnotice_Career},#{cnotice_Academic},#{cnotice_Pay},#{cnotice_Info},#{cnotice_Passmoney},now(),#{cnotice_Deadline},0)
-  	</insert>
-  	<delete id="deleteNotice" parameterType="String">
-  		delete from cnotice where cnotice_Num=#{cnotice_Num}
-  	</delete>
-  	<update id="updateNotice" parameterType="CnoticeDto">
-  		update cnotice set cnotice_Image=#{cnotice_Image},cnotice_Name=#{cnotice_Name},cnotice_Team=#{cnotice_Team},cnotice_Job=#{cnotice_Job},cnotice_Area=#{cnotice_Area},cnotice_Career=#{cnotice_Career},cnotice_Academic=#{cnotice_Academic},
-  		cnotice_Pay=#{cnotice_Pay},cnotice_Info=#{cnotice_Info},cnotice_Passmoney=#{cnotice_Passmoney},cnotice_Writeday=now(),cnotice_Readcount=#{cnotice_Readcount},cnotice_Deadline=#{cnotice_Deadline}
-  	</update>
-  	<!-- 디테일페이지,수정 -->
-	<select id="getNoticeData" parameterType="String" resultType="CnoticeDto">
-		select * from cnotice where cnotice_Num=#{cnotice_Num}
-	</select>	
 
-	<!-- 조회수순리스트정렬 -->
-	<select id="readCountList" resultType="CnoticeDto">
-		select * from cnotice order by cnotice_Readcount desc
+	<!-- 디테일페이지 or 수정 -->
+	<select id="getNoticeData" parameterType="int"
+		resultType="CnoticeDto">
+		select * from cnotice where cnotice_num=#{cnotice_num}
 	</select>
-
-  	<!-- 리스트 세부 분류 -->
-	<select id="allList" resultType="CnoticeDto">
+	<!-- 조회수순 리스트정렬 -->
+	<select id="readCountList" resultType="CnoticeDto">
+		select * from cnotice
+		order by cnotice_readcount desc
+	</select>
+	<!-- 리스트 세부분류+정렬 -->
+	<select id="testList" resultType="CnoticeDto">
 		select * from cnotice
 
-			<if test='cnotice_Job_List!=null or cnotice_Area_List!=null or cnotice_Career_List!=null or cnotice_Academic_List!=null'>
+		<!-- 세부분류 -->
+		<if
+			test='industry!=null or career!=null or location!=null or (gradeLeft!=null and gradeRight!=null) or type!=null or academy!=null'>
 			where
-
-			<if test='cnotice_Job_List!=null'>
-				cnotice_Job in
-				<foreach collection="cnotice_Job_List" item="item" open="("
+			<!-- 직종 -->
+			<if test='industry!=null'>
+				cnotice_industry2 in
+				<foreach collection="industry" item="item" open="("
 					close=")" separator=",">
 					#{item}
 				</foreach>
 			</if>
 
-			<if test='(cnotice_Job_List!=null and cnotice_Area_List!=null)'>
+			<if test='industry!=null and career!=null'>
 				and
 			</if>
-
-			<if test='cnotice_Area_List!=null'>
-				<foreach collection="cnotice_Area_List" item="item2"
-					open="(" close=")" separator="or">
-					cnotice_Area like concat ('%',
+			<!-- 경력 -->
+			<if test='career!=null'>
+				<foreach collection="career" item="item2" open="(" close=")"
+					separator="or">
+					cnotice_career like concat ('%',
 					#{item2}, '%')
 				</foreach>
 			</if>
 
-			<if	test='(cnotice_Area_List != null and cnotice_Career_List != null) or (cnotice_Job_List!=null and cnotice_Career_List!=null)'>
+			<if
+				test='(career!=null and location!=null) or (industry!=null and location!=null)'>
 				and
 			</if>
-
-			<if test='cnotice_Career_List!=null'>
-				<foreach collection="cnotice_Career_List" item="item3"
-					open="(" close=")" separator="or">
-					cnotice_Career like concat ('%',
+			<!-- 지역 -->
+			<if test='location!=null'>
+				<foreach collection="location" item="item3" open="("
+					close=")" separator="or">
+					cnotice_location like concat ('%',
 					#{item3}, '%')
 				</foreach>
-				<!-- cnotice_Career in
-				<foreach collection="cnotice_Career_List" item="item3" open="("
-					close=")" separator=",">
-					#{item3}
-				</foreach> -->
 			</if>
 
-			<if	test='(cnotice_Career_List!=null and cnotice_Academic_List!=null) or (cnotice_Job_List!=null and cnotice_Academic_List!=null) or (cnotice_Area_List!=null and cnotice_Academic_List!=null)'>
+			<if
+				test='location!=null and (gradeLeft!=null and gradeRight!=null) or career!=null and (gradeLeft!=null and gradeRight!=null) or industry!=null and (gradeLeft!=null and gradeRight!=null)'>
 				and
 			</if>
 
-			<if test='cnotice_Academic_List!=null'>
-				cnotice_Academic in
-				<foreach collection="cnotice_Academic_List" item="item4"
-					open="(" close=")" separator=",">
+			<!-- 평점 -->
+			<if test='(gradeLeft!=null and gradeRight!=null)'>
+				cnotice_grade between #{gradeLeft} and #{gradeRight}
+			</if>
+
+			<if
+				test="(gradeLeft!=null and gradeRight!=null) and type!=null or location!=null and type!=null or career!=null and type!=null or industry!=null and type!=null">
+				and
+			</if>
+			<!-- 고용형태 -->
+			<if test='type!=null'>
+				cnotice_type in
+				<foreach collection="type" item="item4" open="(" close=")"
+					separator=",">
 					#{item4}
 				</foreach>
 			</if>
 
-		</if>
+			<if
+				test="(type!=null and academy!=null) or (gradeLeft!=null and gradeRight!=null) and academy!=null or (location!=null and academy!=null) or (career!=null and academy!=null) or (industry!=null and academy!=null)">
+				and
+			</if>
+			<!-- 학력 -->
+			<if test='academy!=null'>
+				cnotice_academy in
+				<foreach collection="academy" item="item5" open="("
+					close=")" separator=",">
+					#{item5}
+				</foreach>
+			</if>
 
+		</if>
+		<!-- 정렬 -->
 		<if test='orderBy!=null'>
-			<!-- 여기에 동적인 조건 추가 -->
-			<if test="orderBy == 'passmoney'">
-				order by cnotice_Passmoney desc
-			</if>
-			<if test="orderBy == 'readcount'">
-				order by cnotice_Readcount desc
-			</if>
+			<!-- 작성일순 -->
 			<if test="orderBy == 'writeday'">
-				order by cnotice_Writeday desc
+				order by cnotice_writeday desc
 			</if>
+			<!-- 마감일순 -->
 			<if test="orderBy == 'deadline'">
-				order by cnotice_Deadline asc
+				order by cnotice_deadline desc
+			</if>
+			<!-- 조회수순 -->
+			<if test="orderBy == 'readcount'">
+				order by cnotice_readcount desc
+			</if>
+			<!-- 추천순 -->
+			<if test="orderBy == 'recommend'">
+				order by cnotice_recommend desc
+			</if>
+			<!-- 축하금순 -->
+			<if test="orderBy == 'congraduate'">
+				order by cnotice_congratulate desc
 			</if>
 		</if>
 	</select>

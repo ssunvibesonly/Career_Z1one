@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
@@ -116,18 +116,18 @@ font-size: 10pt;
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
-<c:if test="${sessionScope.loginok==null }">
+<c:if test="${sessionScope.loginok==null && sessionScope.companyloginok==null}">
 <div class="loginbox">
-	<div style="margin-top: 10%;">
+   <div style="margin-top: 10%;">
 <h6 class="logincontext">Z1one에서 더 많은 정보를 받아가세요!</h6>
-	<!-- 로그인 버튼 -->
+   <!-- 로그인 버튼 -->
     <div class="two" id="btnbox" style="margin-top: 30px;">
       <button type="button" id="btn" class="madebtn" onclick="location.href='/login/form'">
         Login
         <div class="fill-two"></div>
         <script type="text/javascript">
         $("#btnbox").click(function(e){
-        	$("#btn").trigger("click");	
+           $("#btn").trigger("click");   
         })
         
         </script>
@@ -135,7 +135,7 @@ font-size: 10pt;
     </div>
     <br>
     <div style="margin-left: 18%;">
-    <a href="#" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
+    <a href="/member/addform" class="loginplus" style="float: left;">회원가입&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">아이디 찾기&nbsp;&nbsp;</a>
     <a href="#" class="loginplus" style="float: left;">비밀번호 찾기&nbsp;&nbsp;</a>
     </div>
@@ -143,32 +143,70 @@ font-size: 10pt;
     </div>
 </c:if>
 
-<c:if test="${sessionScope.loginok!=null }">
+<c:if test="${sessionScope.loginok!=null && sessionScope.companyloginok==null}">
 <div class="loginbox">
-	<div style="margin-top: 10%;">
-	<img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
-	<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
-	<h3 style="margin-left: 120px; margin-top: -70px;"><b>김선범</b></h3>
-	
-	<h6 style="margin-left: 121px; color: #A4A4A4; "><b>웹개발</b></h6>
-	
-	<!-- 이력서 작성하기 버튼 -->
+   <div style="margin-top: 10%;">
+   <img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
+   
+   <h3 style="margin-left: 120px; margin-top: -70px;"><b>${user_name }</b></h3>
+   
+   <c:if test="${apply_secondary!=null }">
+   <h6 style="margin-left: 121px; color: #A4A4A4; "><b>${apply_secondary }</b></h6>
+   </c:if>
+   <c:if test="${apply_secondary==null }">
+   <br>
+   </c:if>
+    </div>
+   <!-- 이력서 작성하기 버튼 -->
     <div class="two" id="btnbox">
-      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform'">
+      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform?user_num=${user_num}'">
         내 이력서 작성하기
         <div class="fill-two"></div>
         <script type="text/javascript">
         $("#btnbox").click(function(e){
-        	$("#btn").trigger("click");	
+           $("#btn").trigger("click");   
         })
         
         </script>
       </button>
+      <br>
+      <br>
     </div>
-    
+    <button type="button" class="btn btn-info" onclick="location.href='/member/userapplypage?user_num=${user_num}'">마이페이지</button>
 
     </div>
-    </div>
+<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px; z-index: 100;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
 </c:if>
+
+<c:if test="${sessionScope.companyloginok!=null && sessionScope.loginok==null}">
+
+<div class="loginbox">
+   <div style="margin-top: 10%;">
+   <img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
+   
+   <h3 style="margin-left: 120px; margin-top: -70px;"><b>${company_name }</b></h3>
+   <br>
+    </div>
+   <!-- 이력서 작성하기 버튼 -->
+    <div class="two" id="btnbox1">
+      <button type="button" id="btn1" class="madebtn" onclick="location.href='/member/companymypage'">
+        기업정보
+        <div class="fill-two"></div>
+        <script type="text/javascript">
+        $("#btnbox1").click(function(e){
+           $("#btn1").trigger("click");   
+        })
+        
+        </script>
+      </button>
+      <br>
+      <br>
+    </div>
+    <button type="button" class="btn btn-info" onclick="#">마이페이지</button>
+
+    </div>
+<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px; z-index: 100;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
+</c:if>
+
 </body>
 </html>

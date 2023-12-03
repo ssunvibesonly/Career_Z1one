@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="boot.data.mapper.CompanyReviewMapper">
+ 	<!-- 리뷰 insert -->
+ 	<insert id="ReviewInsert" parameterType="Company_ReiviewDto">
+ 	insert into company_review (cn_idx,review_title,review_star,review_goodthing,review_badthing,review_wishced,review_writeday)values(#{cn_idx},#{review_title},#{review_star},#{review_goodthing},#{review_badthing},#{review_wishced},now())
+ 	</insert>
+ 	<!-- 전체 리뷰 조회 -->
+ 	<select id="readOneAllReview" parameterType="int" resultType="Company_ReiviewDto">
+ 	select * from company_review where cn_idx=#{cn_idx} order by review_num desc
+ 	</select>
+ </mapper>

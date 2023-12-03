@@ -6,176 +6,249 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&family=Nanum+Pen+Script&family=Sunflower:wght@300&display=swap"
+	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-	#showImg{
-		border: 1px solid gray;
-		width: 250px;
-		height: 400px;
-	}
+#showImg {
+	border: 1px solid gray;
+	width: 250px;
+	height: 400px;
+}
 </style>
 <script type="text/javascript">
-  $(function() {
-	
-	  $("#imgChoice").click(function() {
-		
-		  $("#myImg").trigger("click"); //사진선택버튼을 눌렀을때 id가 myphoto인 input에 트리거발생
-	});
-	  
-	//사진미리보기
-      //사진 미리보기
-      $("#myImg").on("change", function(event) {
+$(function () {
+    $("#imgChoice").click(function () {
+        $("#myImg").trigger("click");
+    });
 
-          var file = event.target.files[0];
+    $("#myImg").on("change", function (event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#showImg").attr("src", e.target.result);
+        }
+        reader.readAsDataURL(file);
+    });
 
-          var reader = new FileReader();
-          reader.onload = function(e) {
+    var careerSelect = document.getElementById('careerSelect');
 
-              $("#showImg").attr("src", e.target.result);
-          }
+    careerSelect.addEventListener('change', function () {
+        var selectedValue = careerSelect.value;
+        var s = "";
 
-          reader.readAsDataURL(file);
-      });
-	
-      // select 요소 가져오기
-      var careerSelect = document.getElementById('careerSelect');
+        if (selectedValue === '경력') {
+            s += "<input type='number' name='career2' class='form-control' placeholder='ex(5년 이상)' required='required' style='width: 60px;' min='1' max='10'>";
+            $(".career2").html(s);
+        } else {
+            $(".career2").empty();
+        }
+    });
 
-      // 이벤트 리스너 추가
-      careerSelect.addEventListener('change', function() {
-          // 선택된 값 가져오기
-          var selectedValue = careerSelect.value;
-		  var s="";
-          
-          // 경력이 선택되었을 때의 처리
-          if (selectedValue === '경력') {
-              // 여기에 원하는 이벤트 처리를 추가하세요
-              //alert('경력이 선택되었습니다.');
-              s+="<input type='text' name='cnotice_Career2' class='form-control' placeholder='경력상세 ex(5년이상)' required='required' style='width: 180px;'>"
-              $(".career").html(s);
-          } else {
-        	  $(".career").empty();
-          }
-      });
-  });
+    var industrySelect1 = document.querySelector('select[name="cnotice_industry1"]');
+
+    industrySelect1.addEventListener('change', function () {
+        var selectedValue1 = industrySelect1.value;
+
+            var h = "";
+
+            if (selectedValue1 === 'IT/웹/통신') {
+                h += "<option value='0' selected>2차 직종</option>";
+                h += "<option value='게임'>게임</option>";
+                h += "<option value='보안/백신'>보안/백신</option>";
+                h += "<option value='쇼핑몰/오픈마켓'>쇼핑몰/오픈마켓</option>";
+                h += "<option value='네트워크/통신/모바일'>네트워크/통신/모바일</option>";
+                h += "<option value='솔루션/SI/ERP/CRM'>솔루션/SI/ERP/CRM</option>";
+            } else if (selectedValue1 === '서비스업') {
+                h += "<option value='0' selected>2차 직종</option>";
+                h += "<option value='호텔/여행/항공'>호텔/여행/항공</option>";
+                h += "<option value='뷰티/미용'>뷰티/미용</option>";
+                h += "<option value='레저/스포츠/여가'>레저/스포츠/여가</option>";
+            } else if (selectedValue1 === '제조/화학') {
+                h += "<option value='0' selected>2차 직종</option>";
+                h += "<option value='전기/전자/제어'>전기/전자/제어</option>";
+                h += "<option value='석유/화학/에너지'>석유/화학/에너지</option>";
+                h += "<option value='식품가공/개발'>식품가공/개발</option>";
+                h += "<option value='화장품/뷰티'>화장품/뷰티</option>";
+            } else if (selectedValue1 === '교육') {
+                h += "<option value='0' selected>2차 직종</option>";
+                h += "<option value='초중고/대학'>초중고/대학</option>";
+                h += "<option value='유아/유치원'>유아/유치원</option>";
+                h += "<option value='학원/어학원'>학원/어학원</option>";
+            } else if (selectedValue1 === '미디어/디자인') {
+                h += "<option value='0' selected>2차 직종</option>";
+                h += "<option value='실내/인테리어/조경'>실내/인테리어/조경</option>";
+                h += "<option value='환경설비'>환경설비</option>";
+                h += "<option value='부동산/임대'>부동산/임대</option>";
+            }
+
+            $("select[name='cnotice_industry2']").html(h);
+    });
+
+});
+
 </script>
 </head>
 <body>
-	<div style="margin: 100px 100px;">
+	<div style="margin: 100px 100px;" align="center">
 		<form action="insert" method="post" enctype="multipart/form-data">
-			<table class="table table-bordered" style="width: 600px;">
-				<caption align="top"><b style="color: black;">공고등록</b></caption>
-				
+			<table class="table table-bordered" style="width: 700px;">
+				<caption align="top">
+					<b style="color: black;">공고등록</b>
+				</caption>
+				<!-- 공고이미지 -->
 				<tr>
-				  <td rowspan="13" align="center">
-				    <input type="file" id="myImg" name="myImg" style="display: none;">
-				    <br>
-					<br>
-					<br>
-				    <img id="showImg">
-				    <br>
-				    <br>
-				    <button type="button" id="imgChoice" class="btn btn-secondary">사진선택</button>
-				  </td>
-				  <td>
-				  <div class="d-inline-flex">
-				    <input type="text" placeholder="회사번호" name="company_Num"
-				    class="form-control" required="required" style="width: 90px;">
-				   <!--  <span class="idsuccess" style="width: 60px; color: green;"></span>-->
-				   </div> 
-				  </td>
+					<td rowspan="14" align="center"><input type="file" id="myImg"
+						name="myImg" style="display: none;"> <br> <br> <br>
+						<img id="showImg"> <br> <br>
+						<button type="button" id="imgChoice" class="btn btn-secondary">사진선택</button>
+					</td>
+					<td style="display: flex; align-items: center;"><b>회사번호</b>&nbsp;
+						<input type="number" min="1" step="1" placeholder="번호"
+						name="company_num" class="form-control" required="required"
+						style="width: 75px;"> <!--  <span class="idsuccess" style="width: 60px; color: green;"></span>-->
+					</td>
 				</tr>
-				
+
+				<!-- 공고명 -->
 				<tr>
-				  <td>
-				  	<div class="d-inline-flex">
-				    <input type="text" class="form-control" name="cnotice_Name"
-				    placeholder="회사명" required="required" style="width: 200px;">
-				    <!-- <span class="passsucess" style="width: 60px; color: green;"></span> -->
-				    </div>
-				  </td>
+					<td style="display: flex; align-items: center;"><b>공고명</b>&nbsp;
+						<input type="text" class="form-control" name="cnotice_noticename"
+						placeholder="공고명" required="required" style="width: 200px;">
+						<!-- <span class="passsucess" style="width: 60px; color: green;"></span> -->
+					</td>
 				</tr>
+
+				<!-- 회사명 -->
 				<tr>
-				  <td>
-				    <input type="text" name="cnotice_Team" class="form-control" placeholder="채용포지션" required="required" style="width: 250px;">
-				  </td>
+					<td style="display: flex; align-items: center;"><b>회사명</b>&nbsp;
+						<input type="text" class="form-control" name="cnotice_companyname"
+						placeholder="회사명" required="required" style="width: 200px;">
+						<!-- <span class="passsucess" style="width: 60px; color: green;"></span> -->
+					</td>
 				</tr>
+
+				<!-- 1차산업군 -->
 				<tr>
-				  <td>
-						<input type="text" name="cnotice_Job" class="form-control" placeholder="직종" required="required" style="width: 150px;">
-				  </td>
+					<td><b>1차 산업군</b> <select name="cnotice_industry1"
+						style="border-radius: 5px;">
+							<option value="0" selected>1차 직종</option>
+							<option value="IT/웹/통신">IT/웹/통신</option>
+							<option value="서비스업">서비스업</option>
+							<option value="제조/화학">제조/화학</option>
+							<option value="교육">교육</option>
+							<option value="미디어/디자인">미디어/디자인</option>
+					</select></td>
 				</tr>
+
+				<!-- 2차산업군 -->
 				<tr>
-				  <td style="display: flex; align-items: center;">
-				  	<select name="cnotice_Area1" style="border-radius: 5px;">
-				  	<option value="서울" selected="selected">서울</option><option value="경기">경기</option><option value="인천">인천</option>
-				  	<option value="대전">대전</option><option value="세종">세종</option><option value="충남">충남</option>
+					<td><b>2차 산업군</b>&nbsp;<select name="cnotice_industry2"
+						id="industry2" style="border-radius: 5px;"></select></td>
+				</tr>
+
+				<!-- 근무 지역 -->
+				<tr>
+					<td style="display: flex; align-items: center;"><b>근무지역</b>&nbsp;
+						<select name="cnotice_location1" style="border-radius: 5px;">
+							<option value="서울" selected="selected">서울</option>
+							<option value="경기">경기</option>
+							<option value="인천">인천</option>
+							<option value="대전">대전</option>
+							<option value="세종">세종</option>
+							<!-- <option value="충남">충남</option>
 				  	<option value="충북">충북</option><option value="광주">광주</option><option value="전남">전남</option><option value="전북">전북</option>
 				  	<option value="대구">대구</option><option value="경북">경북</option><option value="부산">부산</option><option value="울산">울산</option>
-				  	<option value="경남">경남</option><option value="강원">강원</option><option value="제주">제주</option><option value="해외">해외</option>
-				  	</select>&nbsp;
-				  	<input type="text" name="cnotice_Area2" class="form-control" placeholder="상세주소" required="required" style="width:275px;">
-				  </td>
+				  	<option value="경남">경남</option><option value="강원">강원</option><option value="제주">제주</option><option value="해외">해외</option> -->
+					</select>&nbsp; <input type="text" name="cnotice_location2"
+						class="form-control" placeholder="상세주소" required="required"
+						style="width: 275px;"></td>
 				</tr>
+
+				<!-- 직무스킬 -->
 				<tr>
-				  <td style="display: flex; align-items: center;">
-			<select name="cnotice_Career1" id="careerSelect" style="border-radius: 5px;">
-    			<option value="경력무관" selected="selected">경력무관</option>
-    			<option value="신입">신입</option>
-    			<option value="경력">경력</option>
-			</select>&nbsp;
-    		 <div class="career"></div>
-				  </td>
+					<td style="display: flex; align-items: center;"><b>직무스킬</b>&nbsp;<input
+						type="text" name="skill" class="form-control"
+						placeholder="직무스킬" required="required" style="width: 100px;"> &emsp;
+				<!-- 직무스킬 추가 -->
+					<div class="Addedskill"></div>
+					<button type="button" class="btn btn-outline-primary skillAdd" style="width: 140px;">직무스킬추가</button>
+					</td>	
 				</tr>
+				
+				<!-- 고용형태 -->
 				<tr>
-				<tr>
-				  <td>
-				    <select name="cnotice_Academic" style="border-radius: 5px;">
-				  	<option value="학력무관" selected="selected">학력무관</option>
-				  	<option value="고졸이상">고졸이상</option>
-				  	<option value="초대졸이상">초대졸이상</option>
-				  	<option value="대졸이상">대졸이상</option>
-				  	<option value="대학원(석사)이상">대학원(석사)이상</option>
-				  	<option value="대학원(박사)이상">대학원(박사)이상</option>
-				  	</select>
-				  </td>
+				<td style="display: flex; align-items: center;"><b>고용형태</b>&nbsp;
+						<select name="cnotice_type" id="typeSelect"
+						style="border-radius: 5px;">
+							<option value="정규직" selected="selected">정규직</option>
+							<option value="계약직">계약직</option>
+					</select>&nbsp;
 				</tr>
+				
+				<!-- 경력 -->
 				<tr>
-			<td style="display: flex; align-items: center;">
-    			<input type="text" name="cnotice_Pay" class="form-control" placeholder="연봉" required="required" style="width: 100px;">
-    			&nbsp;<a>만원</a>
-			</td>
+					<td style="display: flex; align-items: center;"><b>경력</b>&nbsp;
+						<select name="career1" id="careerSelect"
+						style="border-radius: 5px;">
+							<option value="경력무관" selected="selected">경력무관</option>
+							<option value="신입">신입</option>
+							<option value="경력">경력</option>
+					</select>&nbsp;
+						<div class="career2"></div></td>
 				</tr>
+
+				<!-- 학력 -->
 				<tr>
 				<tr>
-				  <td>
-				    <input type="text" name="cnotice_Info" class="form-control" placeholder="상세정보" required="required" style="width: 350px;">
-				  </td>
+					<td><b>주소</b> <select name="cnotice_academy"
+						style="border-radius: 5px;">
+							<option value="학력무관" selected="selected">학력무관</option>
+							<option value="고등학교 졸업">고등학교 졸업</option>
+							<option value="대학졸업 (2-3년)">대학졸업 (2-3년)</option>
+							<option value="대학교졸업 (4년)">대학교졸업 (4년)</option>
+							<option value="대학원졸업">대학원졸업</option>
+							<option value="석사">석사</option>
+							<option value="박사">박사</option>
+					</select></td>
 				</tr>
+
+				<!-- 연봉 -->
 				<tr>
-				  <td>
-				  <a>합격축하금</a>
-				  <select name="cnotice_Passmoney" style="border-radius: 5px;">
-				  <option value="0" selected="selected">0</option>
-				  <option value="50">50만원</option>
-				  <option value="100">100만원</option>
-				  </select>
-				    <!-- <input type="text" name="cnotice_Passmoney" class="form-control" placeholder="합격축하금" required="required"> -->
-				  </td>
+					<td style="display: flex; align-items: center;"><b>연봉</b>&nbsp;<input
+						type="number" name="cnotice_pay" class="form-control"
+						placeholder="연봉" required="required" style="width: 95px;"
+						min="2000" max="9900" step="100"> &nbsp;<a>만원</a></td>
 				</tr>
+
+				<!-- 축하금 -->
+
 				<tr>
-				  <td style="display: flex; align-items: center;">
-				    <a>마감일</a>&nbsp;<input type="date" name="cnotice_Deadline" class="form-control" required="required" style="width: 122.5px;">
-				  </td>
+					<td style="display: flex; align-items: center;"><b>축하금</b>&nbsp;<input
+						type="number" min="0" max="200" step="50"
+						name="cnotice_congratulate" class="form-control" placeholder="축하금"
+						required="required" style="width: 95px;">&nbsp;<a>만원</a></td>
 				</tr>
+
+				<!-- 마감일 -->
 				<tr>
+					<td style="display: flex; align-items: center;"><b>마감일</b>&nbsp;<input
+						type="date" name="cnotice_deadline" class="form-control"
+						required="required" style="width: 122.5px;"></td>
+				</tr>
+
+				<!-- 등록,취소 -->
 				<tr>
-				  <td colspan="2" align="center">
-				    <button type="submit" class="btn btn-info">등록</button>
-				  <button type="button" onclick="history.back()" class="btn btn-danger">취소</button>
-				  </td>
+					<td colspan="2" align="center">
+						<button type="submit" class="btn btn-info">등록</button>
+						<button type="button" onclick="history.back()"
+							class="btn btn-danger">취소</button>
+					</td>
 				</tr>
 			</table>
 		</form>

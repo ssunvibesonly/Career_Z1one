@@ -10,7 +10,7 @@
 		select * from apply order by a_idx desc
 	</select>
 	<insert id="insertRecruitCourse" parameterType="recruitdto">
-		insert into recruit values(null,#{c_code},#{r_title},#{r_level},#{r_step})
+		insert into recruit values(null,#{c_code},#{r_title},#{r_level},#{r_step},#{deadlineday})
 	</insert>
 	<select id="getCompanyNameByCode" resultType="String" parameterType="int">
 		select company_name from companygaip where company_num=#{c_code}

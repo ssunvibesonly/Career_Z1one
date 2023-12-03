@@ -79,7 +79,7 @@
         <div class="connecting">
             Connecting...
         </div>
-        <ul id="messageArea" style="overflowY: scroll;maxHeight: 100px;">
+        <ul id="messageArea" >
 
         </ul>
         <form id="messageForm" name="messageForm" nameForm="messageForm">

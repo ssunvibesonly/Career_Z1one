@@ -5,9 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-
-
-<!DOCTYPE html>
 <html>
 <head>
     <title>검색 결과</title>
@@ -125,6 +122,18 @@
         border:none;
         cursor: pointer;
     }
+    .highlight {
+        color: red; /* 또는 다른 강조하고 싶은 스타일로 변경 */
+    }
+    .topic{
+        font-size: 12px;
+        width:12%;
+        border: 1px solid #6f42c1;
+        border-radius:10px;
+        margin-left: 0px;
+        margin-top: 10px;
+        background-color: #6f42c1;
+    }
 </style>
 <script>
     $(function(){
@@ -132,34 +141,33 @@
         $('#orderby').change(function() {
             // 선택된 옵션의 클래스를 가져옴
             var selectedClass = $('option:selected', this).attr('class');
-            //alert(selectedClass);
+            var searchword = "${searchword}"
             var orderby;
 
-            //값을 대입할때는 = 값이 같을때는 ==
             if(selectedClass=='recent') {
                 orderby='recent';
-                list(orderby);
+                list(searchword,orderby);
             }
             if (selectedClass=='likes') {
                 orderby='likes';
-                list(orderby);
+                list(searchword,orderby);
             }
             if (selectedClass=='readcnt') {
                 orderby = 'readcnt';
-                list(orderby);
+                list(searchword,orderby);
             }
 
             });
         })
 
-    function list(orderby) {
+    function list(searchword,orderby) {
         //alert(orderby);
         $.ajax({
             type: "get",
             dataType: "json",
             url: "/board/sort",
             traditional: true, // 중간에 &를 ,로 변경하는 옵션
-            data: {"orderby":orderby },
+            data: {"orderby":orderby, "searchword":searchword },
             success: function (res) {
                 var noticeContainer = $(".story");
                 var html = "";
@@ -169,7 +177,8 @@
 
                     // Top
                     html += "<div class='story-top' style='height: 70px;'>";
-                    html += "&nbsp;<span style='color: dimgray; font-size: 14px;'><b>" + dto.board_category + "</b></span><br>";
+                    html += "<div class='topic'>"
+                    html += "&nbsp;<span style='color: dimgray; font-size: 14px;'><b>" + dto.board_category + "</b></span></div>";
                     html += "<b><h5 style='margin-top: 0.7%'><a href='#'>" + dto.board_title + "</a></h5></b>";
                     html += "</div>";
 
@@ -208,10 +217,9 @@
 </div>
 
 <div class="mid1"> <%--가운데 전체 감싸는 div--%>
-
 		<form action="search">
 			<div class="cmlistsearch">
-				<input type="text" class="form-control click" name="searchword"
+				<input type="text" class="form-control click" name="searchword" class="search"
 					placeholder="관심 내용을 검색해보세요!">&nbsp;&nbsp;&nbsp;
 				<button type="submit"></button>
 			</div>
@@ -261,38 +269,47 @@
     <%--검색 결과 띄우기.--%>
     <c:if test="${searchword!=null}">
         <div class="story" style="width:100%;">
-        <c:forEach items="${searchResults}" var="dto">
-            <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none;">
-                <%--상단--%>
-                <div class="story-top" style="height: 70px;">
-                    &nbsp;<span style="color:dimgray; font-size:14px;"><b>${dto.board_category}</b></span><br>
-                    <b><h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5></b>
-                </div>
-                     <%--중간--%>
+            <c:forEach items="${searchResults}" var="dto" varStatus="i">
+                <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
+                        <%--상단--%>
+                    <div class="story-top" style="height: 70px;">
+                        <div class="topic">
+                        &nbsp;<span style="color:white; font-size:14px;">
+                        <b>${dto.board_category}</b>
+                        </span>
+                        </div>
+                        <b><h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5></b>
+                    </div>
+                        <%--중간--%>
                     <div class="story-bottom" style="height: 100px;">
                         <a href="#">${dto.board_story}</a>
-                       <img src="../${dto.board_photo}" style="widht:40px; height:40px; margin-left: 75%">
+                        <img src="../savefile/${dto.board_photo}" style="width:80px; height:80px; margin-left: 65%">
                     </div>
                         <%--하단--%>
                         <div class="story-footer" style="height: 70px;">
                             <b>
-                                <c:set var="email" value="${sessionScope.myid}" />
-                              <%--  <c:set var="maskedEmail" value="${fn:substring(email, 0, 5)}${fn:replace(fn:substring(email, 5), '.', '*')}" />
-                                <a href="#">${maskedEmail}</a>--%>
                                 <a href="#" style="margin-left: 28%"></a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </b>
                             <br>
                             <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
                             <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
-                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>
+                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>&nbsp;&nbsp;
+                            <i class="bi bi-chat-square" style="color:gray; font-size: 16px;"></i>
+                            <a href="#" style="color:gray; font-size: 16px;">
+                                <c:forEach items="${contentList}" var="cDto" varStatus="j">
+                                    <c:if test="${i.count==j.count }">
+                                        ${cDto.count}
+                                    </c:if>
+                                </c:forEach>
+                             </a>
                             <div style="margin-left: 77%">
                             <i class="bi bi-calendar" style="color:gray; font-size: 16px;"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
-                            </div>
                         </div>
+                    </div>
 
-            </div>
-        </c:forEach>
+                </div>
+            </c:forEach>
         </div>
     </c:if>
 

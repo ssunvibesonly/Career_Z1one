@@ -33,7 +33,7 @@
 	<c:forEach var="plist" items="${popularList }" begin="1" end="6">
 		<div style="border: 1px solid black; width: 250px;
 		height: 160px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
-			<img alt="" src="../noticeImg/${plist.cnotice_Image }" style="width: 250px;height: 120px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
+			<img alt="" src="../noticeImg/${plist.cnotice_image }" style="width: 250px;height: 120px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
 		</div>
 	</c:forEach>
 	

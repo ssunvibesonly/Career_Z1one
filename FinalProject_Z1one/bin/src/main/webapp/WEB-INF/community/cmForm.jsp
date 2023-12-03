@@ -21,6 +21,8 @@ $(function() {
 		var sel=$(this).val();
 		alert(sel);
 		
+		$(".sel").val("");
+		
 		for(var i=0;i<11;i++){
 			var sel_cl=$(".sel option:eq("+i+")").attr("class");
 			if(sel_cl=='form-control '+sel){
@@ -63,8 +65,8 @@ $(function() {
 					<option class="form-control start" required="required" value="신입꿀팁">신입꿀팁</option>
 					<option class="form-control change" required="required" value="이직story">이직story</option>
 					<option class="form-control change" required="required" value="퇴사꿀팁">퇴사꿀팁</option>
-					<option class="form-control free" required="required" value="Zl맘대로">Zl맘대로</option>
-					<option class="form-control free" required="required" value="Zl마켓">Zl마켓</option>
+					<option class="form-control free" required="required" value="Z1맘대로">Z1맘대로</option>
+					<option class="form-control free" required="required" value="Z1마켓">Z1마켓</option>
 				</select>
 			</td>
 		</tr>
@@ -77,7 +79,7 @@ $(function() {
 		<tr>
 			<th width="80">파일업로드</th>
 			<td colspan="3">
-				<input type="file" name="save" class="form-control"> <!-- dto에서 올릴 이름 정한 것 대로 넣어줘야 함, 그래서 name이 save가 됨  -->
+				<input type="file" name="upload" class="form-control" multiple="multiple"> <!-- dto에서 올릴 이름 정한 것 대로 넣어줘야 함, 그래서 name이 save가 됨  -->
 			</td>	
 		</tr>
 

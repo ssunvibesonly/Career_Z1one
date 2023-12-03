@@ -8,11 +8,13 @@
     <select id="getNameByEmailId">
         select user_name from usergaip where user_email=#{user_email}
 
-
     </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
-    <select id="getUserByDto" resultType="User_ApplyDto" parameterType="int">
+    <select id="getUserByDto" resultType="User_ApplyDto" parameterType="String">
         select * from user_apply where user_num = #{user_num}
+    </select>
+    <select id="getAllUser" resultType="User_ApplyDto" parameterType="String">
+        select * from user_apply
     </select>
     <!--전체 회사 공고 뽑기.-->
     <select id="getCompanyNotice" resultType="CnoticeDto">
@@ -20,17 +22,20 @@
     </select>
 
     <!--user_email에 해당하는 데이터랑 전체 회사 공고 중에서 맞는 조건을 비교하는 쿼리-->
-    <select id="getMatchUserwithNotice" resultType="CnoticeDto">
+    <select id="getMatchUserwithNotice" resultType="CnoticeDto" parameterType="String">
         SELECT *
         FROM cnotice cn
         WHERE EXISTS (
         SELECT *
         FROM user_apply ua
-        WHERE ua.apply_secondary = cn.cnotice_job
-        AND ua.apply_newcomer = cn.cnotice_career
-        AND ua.apply_region = cn.cnotice_area
+        WHERE ua.user_num = #{user_num}
+        AND ua.apply_secondary = cn.cnotice_industry2
+        AND ua.apply_newcomer like concat('%', cn.cnotice_career, '%')
+        AND ua.apply_region like concat('%',cn.cnotice_location, '%')
         AND ua.apply_salary &lt;= cn.cnotice_pay
         )
     </select>
+
+
 
 </mapper>
