@@ -1,4 +1,4 @@
-<h1><b>채용이 궁금할 땐? Z1one해</b></h1><br>
+<h1><b>채용이 궁금해❓ 그럼 Z1one해</b></h1><br>
 
 ## 1) 🖐 Introduce 
 ![stoplogo](https://github.com/RheeMingyu/SemiSemi/assets/108057548/9ee2fdf9-4d9b-424d-8897-be318f1a1084)
