@@ -19,7 +19,7 @@ $(function() {
 	
 	$(".big").change(function(){
 		var sel=$(this).val();
-		alert(sel);
+		//alert(sel);
 		
 		$(".sel").val("");
 		

@@ -28,4 +28,5 @@
  	<select id="getAnswerCount" resultType="Board_ContentDto" parameterType="String">
  		select count(*) count,board_num from board_content where board_num=#{board_num}
  	</select>
+ 	
   </mapper>
