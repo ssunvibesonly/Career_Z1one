@@ -32,6 +32,7 @@ import boot.data.dto.User_BoardDto;
 import boot.data.mapper.CmBoardMapperInter;
 import boot.data.service.BoardAnswerService;
 import boot.data.service.BoardSearchService;
+import boot.data.service.BoardService;
 import boot.data.service.CmBoardService;
 import boot.data.service.UserGaipService;
 
@@ -49,6 +50,12 @@ public class CommunityController {
 	
 	@Autowired
 	BoardAnswerService bservice;
+	
+	@Autowired
+	BoardSearchService boardSearchService;
+	   
+	@Autowired
+	BoardService boardService;
 
 	
 	/*
@@ -375,4 +382,27 @@ public class CommunityController {
 		return "redirect:list";
 	}
 
+	//현규검색창
+	  @GetMapping("/search")
+	   public String searchBoardByTitle(@RequestParam(required = false) String searchword, Model model) {
+
+	      //댓글 수 뽑기
+	      List<User_BoardDto> getList = boardService.getAllData();
+	      List<Board_ContentDto> contentList = new ArrayList<Board_ContentDto>();
+	      for (int i = 0; i <getList.size() ; i++) {
+	         contentList.add(boardService.getContentCount(getList.get(i).getBoard_num()));
+	      }
+	      model.addAttribute("contentList",contentList);
+
+	      if(searchword==null) {
+	         List<User_BoardDto> getAllResults = boardSearchService.getAllSearch();
+	         model.addAttribute("getAllResults", getAllResults);
+	      }
+	      List<User_BoardDto> searchResults = boardSearchService.searchTitle(searchword);
+	      model.addAttribute("searchResults", searchResults);
+	      model.addAttribute("resultCount", searchResults.size());
+	      model.addAttribute("searchword", searchword);
+	      return "/2/community/searchResult"; // 검색 결과를 보여줄 페이지로 이동
+	   }
+	
 }

@@ -183,12 +183,15 @@ form {
 	top: 40%;
 	left: 61%;
 	width: 80%;
+	height:560%;
+	margin-top:3%;
 	background-color: gray;
 	opacity: 0.8;
 	transform: translate(-50%,-50%);
 	color:white;
-	font-size: 20px;
+	font-size: 30px;
 	text-align: center;
+	line-height: 100px;
 }
 
 .page-link {
@@ -226,6 +229,11 @@ $(function() {
 	//alert(board_category);
 	$("a."+board_category).removeClass("text-secondary");
 	$("a."+board_category).addClass("font-color");
+
+	//
+   
+	//
+	
 });
 
 //사용자함수
@@ -365,7 +373,14 @@ function goContent(boardnum){
       		  </c:choose>
                	
 			</c:forTokens>
-			<span class="listimage-text">${userboardDto.photocount }</span>
+
+			<c:if test="${userboardDto.photocount >=2}">
+				<span class="listimage-text" id="listimageText">
+				
+					+ ${userboardDto.photocount-1}
+				</span>
+			</c:if>
+			
 			</span>
 			</c:if>
 			
