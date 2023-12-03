@@ -45,6 +45,7 @@ public class CompanyReviewController {
 		model.addAttribute("cn_idx", cn_idx);
 		model.addAttribute("cndto", cndto);
 		
+		
 		return "/2/company/companyreview";
 	}
 	@PostMapping("/reviewupload")
@@ -60,12 +61,26 @@ public class CompanyReviewController {
 	@PostMapping("/readReview")
 	@ResponseBody
 	public List<Company_ReiviewDto> readReview(int cn_idx){
-		System.out.println("cn_idx:"+cn_idx);
+		/* System.out.println("cn_idx:"+cn_idx); */
 		
 		List<Company_ReiviewDto> reviewList=cr_service.readOneAllReview(cn_idx);
-		System.out.println("list size = "+reviewList.size());
+		/* System.out.println("list size = "+reviewList.size()); */
+		
 				
 		return reviewList;
+	}
+	
+	@GetMapping("/sumStar")
+	@ResponseBody
+	public double sumStar(int cn_idx) {
+		
+		List<Company_ReiviewDto> reviewList=cr_service.readOneAllReview(cn_idx);
+		int listSize=reviewList.size();
+		
+		double sumStar=cr_service.SumCompanyReview(cn_idx);
+		double avgStar=Math.round(sumStar/listSize*100.0)/100.0;
+		
+		return avgStar;
 	}
 	
 }

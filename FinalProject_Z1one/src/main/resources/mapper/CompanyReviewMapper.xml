@@ -11,4 +11,8 @@
  	<select id="readOneAllReview" parameterType="int" resultType="Company_ReiviewDto">
  	select * from company_review where cn_idx=#{cn_idx} order by review_num desc
  	</select>
+ 	<!-- 별점 합산 -->
+ 	<select id="SumCompanyReview" parameterType="int" resultType="double">
+ 	select sum(review_star) from company_review where cn_idx=#{cn_idx}
+ 	</select>
  </mapper>

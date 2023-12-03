@@ -120,9 +120,11 @@ $(function(){
 	<ul style="list-style: none;">
 		<c:forEach items="${resultlist }" var="dto" varStatus="i">
             	<li style="margin-bottom: 3%;">
-            	<span style="margin-left: 20%;text-align: left;">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
+            	<span style="margin-left: 20%;" id="targetobject" onclick="location.href='/community/content?board_num=${dto.board_num}'">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
             	</li>
+            	
     	</c:forEach>
+    	
     </ul>
 </div>
 </body>

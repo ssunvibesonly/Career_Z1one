@@ -11,4 +11,5 @@ public interface CompanyReviewMapper {
 	//리뷰 insert
 	public void ReviewInsert(Company_ReiviewDto dto);
 	public List<Company_ReiviewDto> readOneAllReview(int cn_idx);
+	public double SumCompanyReview(int cn_idx);
 }

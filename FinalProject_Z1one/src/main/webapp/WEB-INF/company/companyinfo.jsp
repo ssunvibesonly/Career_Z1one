@@ -147,6 +147,30 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
   width: 100%;
 }
 </style>
+<script>
+	$(function(){
+		star();
+	});
+	function star(){
+		var boxes=document.querySelectorAll("div.starinfo");
+		boxes.forEach(box => {
+			var idx=box.getAttribute("idx");
+			//alert(idx)
+			//getsum(idx);
+			//alert(starscore,box)
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url:"/company/sumStar",
+				data:{"cn_idx":idx},
+				success:function(res){
+					box.textContent=res;
+				}
+			});
+		})
+	}
+	
+</script>
 <body>
 
 <div align="center">
@@ -181,7 +205,7 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
 			</div>
 			
 			<div style="position: absolute; right: 8%; top: 31%; width: 22%; height:23%;">
-			<div class="info_div">별점들어올곳</div>
+			<div class="d-inline-flex"><b style="color: yellow">★</b><div class="info_div starinfo" idx="${cInfo.cn_idx }">별점들어올곳</div></div><br>
 			<button type="button" class="custom-btn btn-8" onclick="location.href='review?cn_idx=${cInfo.cn_idx}'"><span>Review</span></button>
 			
 			</div>

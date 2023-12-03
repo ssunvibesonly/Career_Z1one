@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -85,7 +86,7 @@ a.nav-link {
 			<ul class="nav">
 				<li class="nav-item"><a class="nav-link" href="/company/ban">채용공고</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="/company/review">기업정보</a>
+				<li class="nav-item"><a class="nav-link" href="/company/info">기업정보</a>
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					href="/board/community">커뮤니티</a> <!-- 게시판 --></li>
@@ -93,9 +94,7 @@ a.nav-link {
 					onclick="chat()"><img src="../image/chat.png"
 						style="width: 30px;"></a> <script type="text/javascript">
 							function chat() {
-								window
-										.open("/chat", "e",
-												"width=400px,height=800px,left=750px,top=100px");
+								window.open("/chat", "e","width=400px,height=800px,left=750px,top=100px");
 							}
 						</script></li>
 			</ul>
