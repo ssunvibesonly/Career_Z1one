@@ -54,7 +54,6 @@
   </div>
 
   </div>
-        <button type="button" class="btn btn-outline-dark" onclick="location.href='/login/form'">로그인</button>
 
 </body>
 </html>

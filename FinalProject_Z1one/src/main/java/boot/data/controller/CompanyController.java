@@ -53,7 +53,6 @@ public class CompanyController {
 			@RequestParam(required = false) String gradeLeft, @RequestParam(required = false) String gradeRight,
 			@RequestParam(required = false) String[] type, @RequestParam(required = false) String[] academy,
 			@RequestParam(required = false) String orderBy) {
-		// System.out.println(gradeLeft+","+gradeRight);
 
 		return nservice.testList(industry, career, location, gradeLeft, gradeRight, type, academy, orderBy);
 	}

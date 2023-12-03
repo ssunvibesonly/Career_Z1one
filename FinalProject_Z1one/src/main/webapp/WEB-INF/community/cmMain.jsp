@@ -245,10 +245,6 @@ form {
                         		</a>
 							</b>
                         </div>
-						<%--아직 컨트롤러에 no 안넘김.--%>
-                        <c:if test="${no!=null}">
-                            <i class="bi bi-card-image"></i>
-                        </c:if>
 
 						<c:set var="limitedTitle" value="${dto.board_title}" />
 						<c:if test="${fn:length(limitedTitle) > 15}">
@@ -333,7 +329,9 @@ form {
 								<c:if test="${fn:length(limitedTitle1) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle1, 0, 10)}..." />
 								</c:if>
-								<a href="/community/content?board_num='+${dto.board_num}">${limitedTitle1}</a> <b style="float: right">
+								<a href="/community/content?board_num=${dto0.board_num}">
+									${limitedTitle1}</a> <b style="float: right">
+								</a>
 								<i class="bi bi-eye"></i>&nbsp;${dto0.board_readcnt}</b>
 							</div>
 						</div>
@@ -350,7 +348,7 @@ form {
 								<c:if test="${fn:length(limitedTitle2) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle2, 0, 10)}..." />
 								</c:if>
-								<a href="#">${limitedTitle2}</a> <b style="float: right">
+								<a href="/community/content?board_num=${dto1.board_num}">${limitedTitle2}</a> <b style="float: right">
 								<i class="bi bi-eye"></i>&nbsp;${dto1.board_readcnt}</b>
 							</div>
 
@@ -367,8 +365,8 @@ form {
 								<c:if test="${fn:length(limitedTitle3) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle3, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle3}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto2.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto2.board_num}">${limitedTitle3}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto2.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -383,8 +381,8 @@ form {
 								<c:if test="${fn:length(limitedTitle4) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle4, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle4}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto3.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto3.board_num}">${limitedTitle4}</a> <b style="float: right">
+								</a><i class="bi bi-eye"></i>&nbsp;${dto3.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -399,8 +397,8 @@ form {
 								<c:if test="${fn:length(limitedTitle5) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle5, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle5}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto4.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto4.board_num}">${limitedTitle5}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto4.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -415,8 +413,8 @@ form {
 								<c:if test="${fn:length(limitedTitle6) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle6, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle6}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto5.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto5.board_num}">${limitedTitle6}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto5.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -431,8 +429,8 @@ form {
 								<c:if test="${fn:length(limitedTitle7) > 10}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle7, 0, 10)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle7}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto6.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto6.board_num}">${limitedTitle7}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto6.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -447,8 +445,8 @@ form {
 								<c:if test="${fn:length(limitedTitle8) > 5}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle8, 0, 5)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle8}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto7.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto7.board_num}">${limitedTitle8}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto7.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -463,8 +461,8 @@ form {
 								<c:if test="${fn:length(limitedTitle9) > 5}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle9, 0, 5)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle9}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto8.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto8.board_num}">${limitedTitle9}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto8.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -479,8 +477,8 @@ form {
 								<c:if test="${fn:length(limitedTitle10) > 5}">
 									<c:set var="limitedTitle" value="${fn:substring(limitedTitle10, 0, 5)}..." />
 								</c:if>
-								<a href="글로들어가기">${limitedTitle10}</a> <b style="float: right">
-								<a href="글로들어가기"></a><i class="bi bi-eye"></i>&nbsp;${dto9.board_readcnt}</b>
+								<a href="/community/content?board_num=${dto9.board_num}">${limitedTitle10}</a> <b style="float: right">
+								<i class="bi bi-eye"></i>&nbsp;${dto9.board_readcnt}</b>
 							</div>
 						</div>
 					</c:if>
@@ -492,7 +490,6 @@ form {
 	<br>
 	<br>
 	<br>
-
 	<%--하단--%>
 	<div class="adverti" style="margin-top: 6%; cursor: pointer; margin-left: 26%; width: 50%; height: 110px;">
 		<div class="footSlides">
