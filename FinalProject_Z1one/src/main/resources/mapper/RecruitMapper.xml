@@ -19,7 +19,7 @@
 		select ifnull(max(r_step),0) from recruit where c_code=#{c_code} and r_title=#{r_title}
 	</select>
 	<update id="updateRecruitCourse" parameterType="recruitdto">
-		update recruit set r_level=#{r_level} where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
+		update recruit set r_level=#{r_level},deadlineday=#{deadlineday} where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
 	</update>
 	<delete id="deleteRecruitCourse" parameterType="recruitdto">
 		delete from recruit where c_code=#{c_code} and r_title=#{r_title} and r_step=#{r_step}
