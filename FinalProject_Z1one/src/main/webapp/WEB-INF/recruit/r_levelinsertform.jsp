@@ -105,7 +105,7 @@
 					title: "마감일을 입력해주세요."
 				});
 				return false;
-			}else if(deadtime=""){
+			}else if(deadtime==""){
 				Toast.fire({
 					icon: "warning",
 					title: "마감시간을 입력해주세요."
