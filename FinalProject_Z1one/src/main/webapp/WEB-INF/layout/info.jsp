@@ -63,7 +63,7 @@ border: 1px solid lightgray;
 border-radius:20px;
 width: 350px;
 height: 200px;
-margin-left: 5%;
+margin-left: 10%;
 
 
 }

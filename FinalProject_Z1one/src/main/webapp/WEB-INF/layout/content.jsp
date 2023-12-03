@@ -25,12 +25,11 @@
 <body>
 <div class="container" style="width: 1000px;">
 	<div class="d-inline-flex">
-		<h3><b>| 지금 뜨는 공채<img alt="" src="${root }/image/flames.png" style="width: 30px;"></b></h3>
-		<a href="/company/ban" style="display: block; margin-top: 4%;" id="more">&nbsp;&nbsp;>채용공고 더보기</a>
+	<a href="/company/ban" style="display: block; margin-top: 4%;" id="more">&nbsp;&nbsp;>채용공고 더보기</a>
 	</div>
 	<br>
 	
-	<c:forEach var="plist" items="${popularList }" begin="1" end="6">
+	<c:forEach var="plist" items="${popularList }">
 		<div style="border: 1px solid black; width: 250px;
 		height: 160px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
 			<img alt="" src="../noticeImg/${plist.cnotice_Image }" style="width: 250px;height: 120px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
