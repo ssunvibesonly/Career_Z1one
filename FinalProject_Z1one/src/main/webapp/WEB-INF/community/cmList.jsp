@@ -238,13 +238,13 @@ function goContent(boardnum){
 </head>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <body>
-	<form action="search">
-		<div class="cmlistsearch">
-		
-			<input type="text" placeholder="관심 내용을 검색해보세요!">
-			<button type="submit"></button>
-		</div>
-	</form>
+<form action="search">
+    <div class="cmlistsearch">
+        <input type="text" class="form-control click" name="searchword"
+               placeholder="관심 내용을 검색해보세요!">&nbsp;&nbsp;&nbsp;
+        <button type="submit"></button>
+    </div>
+</form>
 	<br>
 	
 	<!-- 상단 배너 슬라이드_bootstrap  -->
