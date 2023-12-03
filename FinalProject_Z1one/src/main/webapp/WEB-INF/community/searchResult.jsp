@@ -127,13 +127,22 @@
     }
     .topic{
         font-size: 12px;
-        width:12%;
+        width:70px;
         border: 1px solid #6f42c1;
         border-radius:10px;
-        margin-left: 0px;
+        margin-left: 10px;
         margin-top: 10px;
         background-color: #6f42c1;
+        text-align: center;
+        cursor: pointer;
     }
+.story-bottom {
+    display: inline-block;
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 </style>
 <script>
     $(function(){
@@ -178,13 +187,13 @@
                     // Top
                     html += "<div class='story-top' style='height: 70px;'>";
                     html += "<div class='topic'>"
-                    html += "&nbsp;<span style='color: dimgray; font-size: 14px;'><b>" + dto.board_category + "</b></span></div>";
+                    html += "&nbsp;<span style='color: white;'><b>" + dto.board_category + "</b></span></div>";
                     html += "<b><h5 style='margin-top: 0.7%'><a href='#'>" + dto.board_title + "</a></h5></b>";
                     html += "</div>";
 
                     // Middle
                     html += "<div class='story-bottom' style='height: 100px;'>";
-                    html += "<a href='#'>" + dto.board_story + "</a>";
+                    html += "<a href=''>" + dto.board_story + "</a>";
                     html += "<img src='../" + dto.board_photo + "' style='width:40px; height:40px; margin-left: 75%'>";
                     html += "</div>";
 
@@ -193,10 +202,9 @@
                     html += "<b>";
                     html += "<a href='#' style='margin-left: 28%'></a>";
                     html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b><br>";
+                    html += "<i class='bi bi-heart' style='color: gray; font-size: 16px;'></i>&nbsp;<a href='#' style='color: gray; font-size: 16px;'>" + dto.board_like + "</a>&nbsp;&nbsp;";
                     html += "<i class='bi bi-eye' style='color: gray; font-size: 16px;'></i>&nbsp;<a href='#' style='color: gray; font-size:16px;'>" + dto.board_readcnt + "</a>&nbsp;&nbsp;";
-                    html += "<i class='bi bi-chat-heart' style='color: gray; font-size: 16px;'></i>&nbsp;<a href='#' style='color: gray; font-size: 16px;'>" + dto.board_like + "</a>&nbsp;&nbsp;";
-                    html += "<i class='bi bi-heartbreak' style='color: gray; font-size: 16px;'></i>&nbsp;<a href='#' style='color: gray; font-size: 16px;'>" + dto.board_dislike + "</a>";
-                    html += "<div style='margin-left: 80%'>";
+                    html += "<div style='margin-left: 80%;  margin-top: -2.5%;'>";
                     html += "<i class='bi bi-calendar' style='color: gray; font-size: 16px;'></i>&nbsp;" + new Intl.DateTimeFormat('en-US').format(new Date(dto.board_writeday));
                     html += "</div>";
                     html += "</div>";
@@ -242,7 +250,7 @@
                 <option>Z1마켓 ()</option>
              </select>
         </div>
-        <div class="sort-2" style="margin-left: 85%">
+        <div class="sort-2" style="margin-left: 82%">
             <select id="orderby" size="1" class="sorted">
                 <option selected="selected">선택하세요</option>
                 <option class="recent">최신순</option>
@@ -273,11 +281,11 @@
                 <div class="story-1" style="border: 1px solid lightslategray;  border-left: none; border-right: none; cursor: pointer;" onclick="location.href='/community/content?board_num='+${dto.board_num}">
                         <%--상단--%>
                     <div class="story-top" style="height: 70px;">
+
                         <div class="topic">
-                        &nbsp;<span style="color:white; font-size:14px;">
-                        <b>${dto.board_category}</b>
-                        </span>
+                        <b style="color: white;">${dto.board_category}</b>
                         </div>
+
                         <b><h5 style="margin-top: 0.7%"><a href="#">${dto.board_title}</a></h5></b>
                     </div>
                         <%--중간--%>
@@ -292,9 +300,8 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </b>
                             <br>
-                            <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
-                            <i class="bi bi-chat-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
-                            <i class="bi bi-heartbreak" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_dislike}</a>&nbsp;&nbsp;
+
+                            <i class="bi bi-heart" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size: 16px;">${dto.board_like}</a>&nbsp;&nbsp;
                             <i class="bi bi-chat-square" style="color:gray; font-size: 16px;"></i>
                             <a href="#" style="color:gray; font-size: 16px;">
                                 <c:forEach items="${contentList}" var="cDto" varStatus="j">
@@ -302,8 +309,9 @@
                                         ${cDto.count}
                                     </c:if>
                                 </c:forEach>
-                             </a>
-                            <div style="margin-left: 77%">
+                             </a>&nbsp;
+                            <i class="bi bi-eye" style="color:gray; font-size: 16px;"></i>&nbsp;<a href="#" style="color:gray; font-size:16px;">${dto.board_readcnt}</a>&nbsp;&nbsp;
+                            <div style="margin-left: 80%; margin-top:-2.5%;">
                             <i class="bi bi-calendar" style="color:gray; font-size: 16px;"></i>&nbsp;<fmt:formatDate value="${dto.board_writeday}" pattern="yyyy-MM-dd"/>
                         </div>
                     </div>

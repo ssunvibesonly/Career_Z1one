@@ -191,6 +191,7 @@ form {
 	margin-left: 10px;
 	margin-top: 10px;
 	background-color: #6f42c1;
+	cursor: pointer;
 }
 </style>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
@@ -237,12 +238,9 @@ form {
             <c:forEach items="${oneTitle}" var="dto" varStatus="i">
             <div class="d-inline-flex list">
                     <div class="d-inline-flex" style="margin-top:0.5%; margin-left: 1%; width: 65%;">&nbsp;
-                        <div class="topic" style="width: 19%;">
-							<b>
-                       			 <a href="/community/list" style="text-decoration-line: none; color: white; margin-left: 20%;">
-                               		 ${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <%--나중에 c:if 조건 줘서 내용에 이미지가 있으면 사진뜨고 없으면 안뜨게 만들기.--%>
-                        		</a>
+                        <div class="topic" onclick="location.href='/community/list'">
+							<b style="color:white;">
+									${dto.board_category} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							</b>
                         </div>
 
@@ -309,7 +307,7 @@ form {
 	<hr style="border: 2px solid black;">
 
 	<%--중간 2 시작--%>
-	<button type="button" class="btn btn-outline-dark" style="margin-left: 90%; margin-top: 1%;" onclick="location.href='cmform'"><b>글 작성</b></button>
+	<button type="button" class="btn btn-outline-dark" style="margin-left: 90%; margin-top: 1%;" onclick="location.href='/community/cmform'"><b>글 작성</b></button>
 	<div class="mid2">
 		<c:forEach items="${oneTitle}" var="dto">
 			<div class="category1" style="margin-left: 5%;">
