@@ -146,7 +146,12 @@ public class RecruitController {
 		List<ApplyDto> applylist=service.getAllApplier();
 		model.addObject("applylist", applylist);
 		
-		List<ApplyDto> finallist=service.getAllFinalPass(service.getMaxStepOfCourse(c_code, r_title));
+		RecruitDto dto=new RecruitDto();
+		dto.setC_code(c_code);
+		dto.setR_title(r_title);
+		dto.setR_step(service.getMaxStepOfCourse(c_code, r_title));
+		
+		List<ApplyDto> finallist=service.getAllFinalPass(service.getNumOfStep(dto));
 		model.addObject("finallist", finallist);
 		model.addObject("finalcount", finallist.size());
 		
