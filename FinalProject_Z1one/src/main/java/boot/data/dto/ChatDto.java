@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 @Builder
-@Alias("cdto")
 public class ChatDto {
 
 	//메세지 타입 : 입장, 채팅, 퇴장

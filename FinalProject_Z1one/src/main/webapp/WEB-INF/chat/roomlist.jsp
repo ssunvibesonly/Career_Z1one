@@ -75,13 +75,18 @@ function delRoom(){
 <body>
 <div class="container">
 	<div class="container" align="center">
-	<button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#myModal"">채팅방 생성</button>
+	<c:if test="${sessionScope.myid=='admin' && sessionScope.loginok!=null}">
+	<button type="button" class="btn btn-link btn-sm" data-bs-toggle="modal" data-bs-target="#myModal">채팅방 생성</button>
+	</c:if>
 	<c:forEach var="room" items="${list }">
 		<span class="hidden" id="${room.roomName }"></span>
-		<div style="border: 1px solid gray; border-radius: 10px;" align="center">
+		<div style="border: 1px solid gray; border-radius: 10px;margin-bottom: 3%;" align="center">
         <a href="#enterRoomModal" data-bs-toggle="modal" 
         data-target="#enterRoomModal" data-id="${room.roomId}" id="comname">[${room.roomName}]</a>
         </div>
+        <c:if  test="${sessionScope.myid=='admin' && sessionScope.loginok!=null}">
+        <span><a href="/chat/delRoom/${room.roomId}" style="text-decoration: none; margin-left: 70%;">채팅방 삭제</a></span>
+        </c:if>
 	</c:forEach>
 
 	

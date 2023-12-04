@@ -146,9 +146,30 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
 .btn-8 span:hover:after {
   width: 100%;
 }
+.bigcompany{
+	border-radius: 10px;
+	border: 1px solid lightgray;
+	background-color: #8C8CFF;
+}
+.middlecompany{
+	border-radius: 10px;
+	border: 1px solid lightgray;
+	background-color: #57E9E1;
+
+}
+.smallcompany{
+	border-radius: 10px;
+	border: 1px solid lightgray;
+	background-color: #FFB937;
+
+}
+body{
+	font-family: Noto Serif KR;
+}
 </style>
 <script>
 	$(function(){
+		list();
 		star();
 	});
 	function star(){
@@ -169,7 +190,25 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
 			});
 		})
 	}
-	
+	function list(){
+		
+		var boxes=document.querySelectorAll("span.giuptype");
+		boxes.forEach(box=>{
+			var giup=box.getAttribute("giup");
+			
+			//alert(giup);
+			if(giup=="대기업"){
+				box.classList.add("bigcompany");
+			}
+			if(giup=="중견기업"){
+				box.classList.add("middlecompany");
+			}
+			if(giup=="중소기업"){
+				box.classList.add("middlecompany");
+			}
+		})
+		
+	}
 </script>
 <body>
 
@@ -188,24 +227,24 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
 	<div id="c_info_box">
 		<div>
 			<img alt="" src="../membersave/${cInfo.c_img }"id="c_logo_box" >
-			<div style="position: absolute; left: 24%; top: 30%; width: 15%; display: flex;">
-			<span style="border-radius: 10px; border: 1px solid lightgray;">${cInfo.c_type }</span>
+			<div style="position: absolute; left: 22%; top: 30%; width: 15%; display: flex;">
+			<span giup="${cInfo.c_type }" class="giuptype">${cInfo.c_type }</span>
 			</div>
 			
-			<div style="position: absolute; left: 24%; top: 32%; width: 15%; height: 10%; 
-			margin-top: 1%;"><p style="font-size: 23pt;">${cInfo.c_name }</p></div>
-			<div style="position: absolute; left: 24.2%; top: 33%; width: 15%; margin-top: 4%;">${cInfo.c_main }</div>
+			<div style="position: absolute; left: 22%; top: 32%; width: 15%; height: 10%; 
+			margin-top: 1%;margin-bottom: 1%;"><p style="font-size: 23pt;">${cInfo.c_name }</p></div>
+			<div style="position: absolute; left: 22.2%; top: 33%; width: 15%; margin-top: 4%;">${cInfo.c_main }</div>
 			
 			<div style="display: flex;">
-			<div style="position: absolute; right: 38%; top: 31%; width: 25%; height:23%;">
+			<div style="position: absolute; right: 35%; top: 13%; width: 30%; height:23%;">
 			<div class="info_div">1차 산업군 : ${cInfo.c_primary }</div>
 			<div class="info_div">2차 산업군 : ${cInfo.c_secondary }</div>
-			<div class="info_div">본사 : ${cInfo.c_realpath }</div>
+			<div class="info_div">본사 : ${cInfo.c_realpath }</div><br>
 			<div class="info_div">홈페이지 : ${cInfo.c_homepage }</div>
 			</div>
 			
 			<div style="position: absolute; right: 8%; top: 31%; width: 22%; height:23%;">
-			<div class="d-inline-flex"><b style="color: yellow">★</b><div class="info_div starinfo" idx="${cInfo.cn_idx }">별점들어올곳</div></div><br>
+			<div class="d-inline-flex"><b style="color: yellow">★</b><div class="info_div starinfo" idx="${cInfo.cn_idx }">등록된 리뷰가 없습니다.</div></div><br>
 			<button type="button" class="custom-btn btn-8" onclick="location.href='review?cn_idx=${cInfo.cn_idx}'"><span>Review</span></button>
 			
 			</div>

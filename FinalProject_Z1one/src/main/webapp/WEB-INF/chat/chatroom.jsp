@@ -42,6 +42,10 @@
         .input-group{width:80.5%}
         .chat-container{position: relative;}
         .chat-container .btn-group{position:absolute; bottom:-12px; right:-50px; transform: translate(-50%,-50%);}
+        
+        body{
+        font-size: 10pt;
+        }
     </style>
 
 <body>

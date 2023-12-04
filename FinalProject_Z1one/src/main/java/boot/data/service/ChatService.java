@@ -76,6 +76,7 @@ public class ChatService{
 		
 		//만약 userName이 중복이라면 랜덤한 숫자를 붙인다.
 		//이 때 랜덤한 숫자를 붙였을 경우 getUserlist안에 있는 닉네임이라면 다시 랜덤 숫자 붙이기
+		//containsValue 는 Map안에 지정된 값이 존재하면 true, 없으면 false반환
 		while(room.getUserlist().containsValue(tmp)) {
 			int ranNum=(int)(Math.random()*100)+1;
 		

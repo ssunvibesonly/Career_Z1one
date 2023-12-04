@@ -1,3 +1,4 @@
+
 package boot.data.chat;
 
 import org.springframework.context.annotation.Configuration;
