@@ -81,7 +81,7 @@ $(function(){
       $('#detailDescription').css('display', 'none');
     });
 
-
+});
 </script>
 <body>
 </head>

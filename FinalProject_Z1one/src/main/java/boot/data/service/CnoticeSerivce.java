@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import boot.data.dto.CnoticeDto;
+import boot.data.dto.Company_DetailDto;
+import boot.data.dto.RecruitDto;
 import boot.data.inter.CnoticeServiceInter;
 import boot.data.mapper.CnoticeMapperInter;
 
@@ -18,22 +20,22 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 	CnoticeMapperInter cnoticeInter;
 
 	@Override
-	public int getTotalCount() {
+	public List<CnoticeDto> testList(String[] industry, String[] career, String[] location, String gradeLeft,
+			String gradeRight, String[] type, String[] academy, String orderBy) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getTotalCount();
+		return cnoticeInter.testList(industry, career, location, gradeLeft, gradeRight, type, academy, orderBy);
 	}
 
 	@Override
-	public List<CnoticeDto> allList(String[] cnotice_Job_List, String[] cnotice_Area_List, String[] cnotice_Career_List,
-			String[] cnotice_Academic_List, String orderBy) {
+	public CnoticeDto getNoticeData(int cnotice_num) {
 		// TODO Auto-generated method stub
-		return cnoticeInter.allList(cnotice_Job_List, cnotice_Area_List, cnotice_Career_List, cnotice_Academic_List, orderBy);
+		return cnoticeInter.getNoticeData(cnotice_num);
 	}
 
 	@Override
-	public CnoticeDto getNoticeData(String cnotice_Num) {
+	public List<CnoticeDto> readCountList() {
 		// TODO Auto-generated method stub
-		return cnoticeInter.getNoticeData(cnotice_Num);
+		return cnoticeInter.readCountList();
 	}
 
 	@Override
@@ -43,9 +45,9 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 	}
 
 	@Override
-	public void deleteNotice(String cnotice_Num) {
+	public void deleteNotice(int cnotice_num) {
 		// TODO Auto-generated method stub
-		cnoticeInter.deleteNotice(cnotice_Num);
+		cnoticeInter.deleteNotice(cnotice_num);
 	}
 
 	@Override
@@ -53,11 +55,18 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		// TODO Auto-generated method stub
 		cnoticeInter.updateNotice(dto);
 	}
+	
 
-	@Override
-	public List<CnoticeDto> readCountList() {
-		// TODO Auto-generated method stub
-		return cnoticeInter.readCountList();
-	}
+
+
+	
+
+
+
+
+
+
+
+
 
 }
