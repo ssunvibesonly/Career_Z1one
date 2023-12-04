@@ -42,7 +42,7 @@ public class MainController {
 				//작업이 완료될 때까지 스레드가 차단될 수 있어서 CompletableFuture의 get()을 호출하여 결과를 받아온 후, 
 				//이를 List<User_BoardDto> 타입의 변수인 resultList에 담음
 				resultlist=mlist.get();
-				System.out.println(resultlist);
+				//System.out.println(resultlist);
 				
 			} catch (InterruptedException | ExecutionException e) {
 			    // 예외가 발생한 경우, 해당 예외를 처리하고 결과 리스트를 빈 리스트로 초기화

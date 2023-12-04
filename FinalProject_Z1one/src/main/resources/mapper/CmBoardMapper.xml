@@ -10,7 +10,7 @@
   		select *,LENGTH(board_photo) - LENGTH(REPLACE(board_photo, ',', '')) + 1 AS photocount from user_board order by board_writeday desc limit #{start}, #{perpage}
   	</select>
   	<select id="getBoardsByCategory" parameterType="map" resultType="User_BoardDto">
-  		select * from user_board where board_category=#{board_category} order by board_writeday desc limit #{start}, #{perpage}
+  		select *,LENGTH(board_photo) - LENGTH(REPLACE(board_photo, ',', '')) + 1 AS photocount from user_board where board_category=#{board_category} order by board_writeday desc limit #{start}, #{perpage}
   	</select>
   	<select id="getTotalCount" parameterType="String" resultType="int">
  		select count(*) from user_board
