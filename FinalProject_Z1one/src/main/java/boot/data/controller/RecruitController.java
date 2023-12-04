@@ -246,10 +246,15 @@ public class RecruitController {
 		List<RecruitDto> rlist=service.getAllRecruitCourse(c_code, r_title);
 		List<String> levellist=new ArrayList<>();
 		List<Integer> outlinelist=service.getOutline(c_code, r_title);
-		List<ApplyDto> finallist=service.getAllFinalPass(service.getMaxStepOfCourse(c_code, r_title));
 		
-		for(RecruitDto dto:rlist) {
-			levellist.add(dto.getR_level());
+		RecruitDto dto=new RecruitDto();
+		dto.setC_code(c_code);
+		dto.setR_title(r_title);
+		dto.setR_step(service.getMaxStepOfCourse(c_code, r_title));
+		List<ApplyDto> finallist=service.getAllFinalPass(service.getNumOfStep(dto));
+		
+		for(RecruitDto rdto:rlist) {
+			levellist.add(rdto.getR_level());
 		}
 		map.put("levellist", levellist);
 		map.put("outlinelist", outlinelist);
