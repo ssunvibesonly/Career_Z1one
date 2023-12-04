@@ -19,12 +19,7 @@
 	</select>
 	<!-- 조회수순 리스트정렬 -->
 	<select id="readCountList" resultType="CnoticeDto">
-		select * from cnotice
-<<<<<<< HEAD
-		order by cnotice_Readcount desc
-=======
-		order by cnotice_readcount desc
->>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
+		select * from cnotice order by cnotice_Readcount desc
 	</select>
 	<insert id="insertDetail" parameterType="Company_DetailDto">
 		insert into company_detail (cnotice_num,company_num,cdetail_introduce,cdetail_work,cdetail_qualify,
@@ -64,8 +59,7 @@
 			<if test='career!=null'>
 				<foreach collection="career" item="item2" open="(" close=")"
 					separator="or">
-					cnotice_career like concat ('%',
-					#{item2}, '%')
+					cnotice_career like concat ('%',#{item2}, '%')
 				</foreach>
 			</if>
 

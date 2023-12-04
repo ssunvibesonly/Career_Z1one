@@ -55,7 +55,6 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		// TODO Auto-generated method stub
 		cnoticeInter.updateNotice(dto);
 	}
-
 	@Override
 	public void insertDetail(Company_DetailDto dto) {
 		// TODO Auto-generated method stub
@@ -77,21 +76,5 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		return cnoticeInter.getMaxNum();
 	}
 
-	
-<<<<<<< HEAD
-
-
-
-	
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 }
+
