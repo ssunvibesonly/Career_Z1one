@@ -22,9 +22,6 @@
   margin-top: 5%;
  
 }
-
-        }
-
         .madebtn {
             position: relative;
             height: 50px;
@@ -65,7 +62,7 @@
             border: 1px solid lightgray;
             border-radius:20px;
             width: 350px;
-            height: 530px;
+            height: 500px;
 
 
         }
@@ -142,7 +139,7 @@
                                 $("#btn").trigger("click");
                             })
                         </script>
-                    </button></div><br><br>
+                    </button></div><br>
                 <input type="checkbox" name="cbsave" ${sessionScope.saveok==null?"":"checked"}>이메일 주소 저장하기
                 <hr style="margin-left: 5%;margin-right: 5%;">
                 <img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;cursor: pointer;"><br>
@@ -150,7 +147,7 @@
                      onclick="location.href='https://kauth.kakao.com/oauth/authorize?' +
                       'client_id=1f310f9b986fd8ff43e39a14a5f9d6db' +
                        '&redirect_uri=http://localhost:9000/login/kakao&response_type=code'">
-                <hr style="margin-bottom: 12%">
+                <hr style="margin-bottom: 8%">
                 <div style="font-size: 10pt;">아직 회원이 아니세요?&nbsp;
                     <a href="/member/addform" style="text-decoration: none;font-size: 10pt;">회원가입</a></div>
 

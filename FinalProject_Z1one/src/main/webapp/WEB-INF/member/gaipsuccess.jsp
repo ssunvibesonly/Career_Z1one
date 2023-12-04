@@ -12,6 +12,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-가입을 축하드립니다.
+<div class="container" style="margin: 30px 400px;">
+<h5><b>회원가입</b></h5>
+<hr style="margin-top: 2%; width: 600px; margin-bottom: 2%">
+<img src="${root }/image/gaipsuccess2.png" style="width: 500px; height: auto;">
+<br>
+<div style="margin-left: 13%;">
+<button type="button" class="btn btn-outline-info" onclick="location.href='/login/form'">로그인</button>
+<button type="button" class="btn btn-outline-danger" onclick="location.href='/'">메인</button>
+</div>
+</div>
 </body>
 </html>

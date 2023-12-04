@@ -130,8 +130,9 @@ $(function() {
 </div>
 <div class="container">
    <h4 style="font-weight: 900;">이력서</h4>
+   	  <c:if test="${apply_name!=null }">
       <button type="button" style="margin-left: 73%;" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}&user_num=${sessionScope.user_num}'">맞춤 공고 받기</button>
-   
+   	   </c:if>
    <c:if test="${apply_name!=null }">
    <input type="hidden" name="user_num" value="${user_num}"> 
    <div class="apply" onclick="updateapply()">

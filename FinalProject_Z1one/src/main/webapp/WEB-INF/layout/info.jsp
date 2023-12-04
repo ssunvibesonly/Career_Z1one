@@ -90,7 +90,7 @@ top: 430px;
 .logoutbtn{
 position:absolute;
 top: 390px;
-right: 200px;
+right: 165px;
 border: none; 
 background: none; 
 padding: 0; 

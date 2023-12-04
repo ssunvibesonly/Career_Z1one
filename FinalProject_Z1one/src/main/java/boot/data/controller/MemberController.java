@@ -68,7 +68,7 @@ public class MemberController {
 	public String userinsert(@ModelAttribute UserGaipDto dto) {
 		uservice.insertUserMember(dto);
 
-		return "redirect:/login/form";
+		return "/2/member/gaipsuccess";
 	}
 
 	// 기업회원가입
@@ -371,7 +371,7 @@ public class MemberController {
 	   cinfoservice.CompanyPlusInfoInsert(dto);
 	   
 	   model.addObject("dto", dto);
-	   model.setViewName("/member/gaipsuccess");
+	   model.setViewName("/2/member/gaipsuccess");
 	   
 	   return model;
    }
