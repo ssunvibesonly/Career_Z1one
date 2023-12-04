@@ -55,6 +55,28 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		// TODO Auto-generated method stub
 		cnoticeInter.updateNotice(dto);
 	}
+
+	@Override
+	public void insertDetail(Company_DetailDto dto) {
+		// TODO Auto-generated method stub
+		cnoticeInter.insertDetail(dto);
+	}
+
+	@Override
+	public Company_DetailDto getDetailData(int cnotice_num, int company_num) {
+		// TODO Auto-generated method stub
+		Map<String, Integer> map=new HashMap<>();
+		map.put("cnotice_num", cnotice_num);
+		map.put("company_num", company_num);
+		return cnoticeInter.getDetailData(map);
+	}
+
+	@Override
+	public int getMaxNum() {
+		// TODO Auto-generated method stub
+		return cnoticeInter.getMaxNum();
+	}
+
 	
 <<<<<<< HEAD
 
