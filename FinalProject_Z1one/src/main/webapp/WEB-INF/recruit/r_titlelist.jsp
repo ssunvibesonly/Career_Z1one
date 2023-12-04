@@ -359,7 +359,7 @@
 			}else{
 				div.innerHTML="<div class='dday' style='background-color: #aaaaaa;color: white'>종료</div>";
 				div.closest("td").nextElementSibling.querySelector("a.btnmod").style.backgroundColor="#c8c8c8";
-				document.addEventListener("click", btnmodClickHandler);
+				//document.addEventListener("click", btnmodClickHandler);
 				div.closest("td").nextElementSibling.querySelector("a.btnmod").removeEventListener("click",btnmodClickHandler);
 			}
 		});
