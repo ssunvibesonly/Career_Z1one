@@ -6,9 +6,10 @@
 
 	<!-- 인서트 -->
 	<insert id="insertNotice" parameterType="CnoticeDto">
-		insert into cnotice (company_num,cnotice_image,cnotice_career,cnotice_skill,cnotice_noticename,cnotice_companyname,cnotice_grade,cnotice_congratulate,
-		cnotice_industry1,cnotice_industry2,cnotice_location,cnotice_type,cnotice_academy,cnotice_deadline,cnotice_writeday,cnotice_recommend,cnotice_readcount,cnotice_pay) 
-		
+		insert into cnotice
+		(company_num,cnotice_image,cnotice_career,cnotice_skill,cnotice_noticename,cnotice_companyname,cnotice_grade,cnotice_congratulate,
+		cnotice_industry1,cnotice_industry2,cnotice_location,cnotice_type,cnotice_academy,cnotice_deadline,cnotice_writeday,cnotice_recommend,cnotice_readcount,cnotice_pay)
+
 		values(#{company_num},#{cnotice_image},#{cnotice_career},#{cnotice_skill},#{cnotice_noticename},#{cnotice_companyname},#{cnotice_grade},#{cnotice_congratulate},
 		#{cnotice_industry1},#{cnotice_industry2},#{cnotice_location},#{cnotice_type},#{cnotice_academy},#{cnotice_deadline},now(),#{cnotice_recommend},#{cnotice_readcount},#{cnotice_pay})
 	</insert>
@@ -19,22 +20,30 @@
 	</select>
 	<!-- 조회수순 리스트정렬 -->
 	<select id="readCountList" resultType="CnoticeDto">
-		select * from cnotice order by cnotice_Readcount desc
+		select * from cnotice
+		order by
+		cnotice_readcount desc
+
 	</select>
 	<insert id="insertDetail" parameterType="Company_DetailDto">
-		insert into company_detail (cnotice_num,company_num,cdetail_introduce,cdetail_work,cdetail_qualify,
-		cdetail_treat,cdetail_procedure,cdetail_welfare,cdetail_etc) 
+		insert into
+		company_detail
+		(cnotice_num,company_num,cdetail_introduce,cdetail_work,cdetail_qualify,
+		cdetail_treat,cdetail_procedure,cdetail_welfare,cdetail_etc)
 		values(#{cnotice_num},#{company_num},#{cdetail_introduce},#{cdetail_work},#{cdetail_qualify},#{cdetail_treat},#{cdetail_procedure},#{cdetail_welfare},#{cdetail_etc})
 	</insert>
-	<select id="getDetailData" parameterType="Map" resultType="Company_DetailDto">
-		select * from where cnotice_num=#{cnotice_num} and company_num=#{company_num}
+	<select id="getDetailData" parameterType="Map"
+		resultType="Company_DetailDto">
+		select * from company_detail where
+		cnotice_num=#{cnotice_num} and company_num=#{company_num}
 	</select>
 
 	<!-- num의 max값,null일 경우 0 -->
-<select id="getMaxNum" resultType="int">
-	SELECT IFNULL(MAX(cnotice_num), 0) FROM cnotice;
-</select>
-	
+	<select id="getMaxNum" resultType="int">
+		SELECT
+		IFNULL(MAX(cnotice_num), 0) FROM cnotice;
+	</select>
+
 	<!-- 리스트 세부분류+정렬 -->
 	<select id="testList" resultType="CnoticeDto">
 		select * from cnotice
@@ -56,12 +65,17 @@
 				and
 			</if>
 			<!-- 경력 -->
+			<!-- <if test='career!=null'> <foreach collection="career" item="item2" 
+				open="(" close=")" separator="or"> cnotice_career like concat ('%', #{item2}, 
+				'%') </foreach> </if> -->
 			<if test='career!=null'>
+				cnotice_career in
 				<foreach collection="career" item="item2" open="(" close=")"
-					separator="or">
-					cnotice_career like concat ('%',#{item2}, '%')
+					separator=",">
+					#{item2}
 				</foreach>
 			</if>
+
 
 			<if
 				test='(career!=null and location!=null) or (industry!=null and location!=null)'>
@@ -72,7 +86,8 @@
 				<foreach collection="location" item="item3" open="("
 					close=")" separator="or">
 					cnotice_location like concat ('%',
-					#{item3}, '%')
+					#{item3},
+					'%')
 				</foreach>
 			</if>
 

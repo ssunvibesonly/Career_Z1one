@@ -28,6 +28,8 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String mainStart(Model model) {
+		
+		//지금 뜨는 공채(조회수순)
 
 		List<CnoticeDto> popularList=cnotice_service.readCountList();
 		

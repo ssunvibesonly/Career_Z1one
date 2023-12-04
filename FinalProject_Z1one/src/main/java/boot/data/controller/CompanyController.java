@@ -80,7 +80,7 @@ public class CompanyController {
 		model.addObject("company_num", company_num);
 		model.addObject("company_name", company_name);
 
-		model.setViewName("/company/addNotice");
+		model.setViewName("/2/company/addNotice");
 		return model;
 
 	}
@@ -93,11 +93,10 @@ public class CompanyController {
 
 		//업로드 경로구하기
 		String path=session.getServletContext().getRealPath("/noticeImg");
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");//시분초까지 표시하므로 이름이 겹칠일이없음
 		System.out.println(path);
 
 			//사진명 구해서 넣기
-			String fileName=sdf.format(new Date())+myImg.getOriginalFilename();
+			String fileName=myImg.getOriginalFilename();
 
 			dto.setCnotice_image(fileName);
 					
@@ -119,9 +118,7 @@ public class CompanyController {
 		dto.setCnotice_companyname(company_name);
 			
 		String cnotice_location = cnotice_location1 + " " + cnotice_location2;
-		dto.setCnotice_location(cnotice_location);
-
-		String cnotice_career;		
+		dto.setCnotice_location(cnotice_location);	
 
 		nservice.insertNotice(dto);
 
@@ -147,7 +144,7 @@ public class CompanyController {
 			model.addObject("cnotice_num", cnotice_num);
 			//model.addObject("cnotice_noticename", cnotice_noticename);
 			model.addObject("cnotice_num", cnotice_num);
-			model.setViewName("/company/addDetail");
+			model.setViewName("/2/company/addDetail");
 			return model;
 
 		}
@@ -166,19 +163,25 @@ public class CompanyController {
 				
 			nservice.insertDetail(dto);
 
-			return "/company/notice";
+			return "/2/";
 		}
 
 	// 디테일페이지
 	@GetMapping("/detail")
-	public ModelAndView detailPage(@RequestParam int cnotice_num) {
+	public ModelAndView detailPage(@RequestParam int cnotice_num,HttpSession session) {
 		ModelAndView model = new ModelAndView();
 
+		int company_num = (int) session.getAttribute("company_num");
+		
 		CnoticeDto dto = nservice.getNoticeData(cnotice_num);
+		Company_DetailDto cdto=nservice.getDetailData(cnotice_num, company_num);
 
+		
+		
 		model.addObject("dto", dto);
+		model.addObject("cdto", cdto);
 
-		model.setViewName("/company/detailPage");
+		model.setViewName("/2/company/detailPage");
 
 		return model;
 	}
