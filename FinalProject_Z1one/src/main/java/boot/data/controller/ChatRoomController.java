@@ -32,6 +32,7 @@ public class ChatRoomController {
 	
 	//채팅방 생성
 	//채팅방 생성 훟 다시 /chat으로 return
+	//JSP에서 넘어온 roomName
 	//redirectAttributes = 컨트롤러에서 리다이렉트를 수행할 때 데이터를 전달하는 데 사용되는 클래스
 	@PostMapping("/chat/createroom")
 	public String createRoom(@RequestParam String roomName,RedirectAttributes rttr) {
@@ -56,7 +57,7 @@ public class ChatRoomController {
 	@GetMapping("/chat/delRoom/{roomId}")
 	public String delChatRoom(@PathVariable String roomId) {
 		
-		//roomId기준으로 chatRoomMap에서 삭제, 해당 채팅룸 안에 있는 사진 삭제
+		
 		service.delChatRoom(roomId);
 		
 		return "redirect:/chat";

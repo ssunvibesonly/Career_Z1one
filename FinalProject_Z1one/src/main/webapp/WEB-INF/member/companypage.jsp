@@ -158,6 +158,8 @@
 <!-- 회원가입 할 때 기업 기본 정보 뜨는 공간 -->
 <div id="basicInfo">
 	<div style="margin-left: 3%;margin-top: 3%;">
+	
+	
 		<h4><b>${name }</b></h4><br>
 
 		<img alt="" src="../image/ceo.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 대표자명 : ${ceo }</b><br><br>
@@ -181,8 +183,9 @@
 		<img alt="" src="../membersave/${logo }" id="logobox">
 
 	
-	<div align="right">
-	<span><button type="submit" class="btn btn-primary" style="text-decoration: none;margin-right: 4%;">>기업 정보 게시하기<</button></span>
+	<div align="right" style="margin-top: -3%;">
+	<button type="submit" class="btn btn-primary" style="text-decoration: none;margin-right: 4%;">>기업 정보 게시하기<</button><br>
+		<a href="/recruit/titlelist?c_code=${sessionScope.company_num }" style="text-decoration: none;margin-right: 5.8%; float: right;">채용 진행사항 확인</a>
 	</div>
 </div><br>
 </form>	
@@ -191,5 +194,6 @@
 		<button class="custom-btn btn-14">회원탈퇴</button>
 	</div>
 </div>
+<br><br>
 </body>
 </html>

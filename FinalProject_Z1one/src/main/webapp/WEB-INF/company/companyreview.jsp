@@ -17,6 +17,10 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style>
+body{
+
+font-family: Noto Serif KR;
+}
 .input_search{
 border: 1px solid purple;
 width: 700px;
@@ -288,8 +292,8 @@ function list(){
 		url:"readReview",
 		data:{"cn_idx":cn_idx},
 		success:function(res){
-		
 			
+			var listSize=res.length;
 			
 			//반복문, 까먹지 말자!!
 			 $.each(res,function(index,ele){
@@ -307,7 +311,7 @@ function list(){
 				s+="<span style='margin-left: 1%;margin-top: 1%;font-size: 8pt;'>"+review_writeday+"</span></div>"
 				s+="<div style='margin-left: 3.8%;'>"
 				s+="<span><i class='bi bi-person-circle' style='font-size: 20pt;'></i></span>"
-				s+="<span style='margin-left: 2%;font-size: 10pt;'><b class='rtitle'>"+'"'+review_title+'"'+"</b></span><br>"
+				s+="<span style='margin-left: 2%;font-size: 10pt;'><b>"+review_title+"</b></span><br>"
 				s+="<span style='margin-left: 4%;color: blue;font-size: 10pt;'>장점&nbsp;&nbsp;"+review_goodthing+"</span><br>"
 				s+="<span style='margin-left: 4%;color: red;font-size: 10pt;'>단점&nbsp;&nbsp;"+review_badthing+"</span>"
 				s+="<hr style='width: 1150px;margin-left: 4%;'>"
@@ -319,7 +323,7 @@ function list(){
 				
 			}) 
 			
-			
+			$("#reviewSize").text(listSize);
 			
 		}
 	})
@@ -340,7 +344,7 @@ function list(){
 			<div style="position: absolute; left: 22%; top: 25%; width: 15%; height: 10%; 
 			margin-top: 1%;"><p style="font-size: 23pt;">${cndto.c_name }</p></div>
 			<div style="position: absolute; left: 22%; top: 35%; width: 15%; margin-top: 4%;">${cndto.c_main }</div>
-			<div class="info_div"style="position: absolute; left: 22%; top: 52%; width: 15%; margin-top: 4%;" ><b style="">★</b><b id="starplace"></b></div>
+			<div class="info_div"style="position: absolute; left: 22%; top: 52%; width: 15%; margin-top: 4%;" ><b style="color: yellow;font-size: 15pt;">★</b><b id="starplace"></b></div>
 			<div style="display: flex;">
 			<div style="position: absolute; right: 23%; top: 17%; width: 40%; height:23%;">
 			<div class="info_div">1차 산업군 : ${cndto.c_primary }</div>
@@ -354,13 +358,14 @@ function list(){
 		</div>
 	</div>
 	<hr>
-	<div id="reviewbox">
+	<div id="reviewbox"><br>
 	<div class="d-inline-flex" style="margin-bottom: 1%;">
 	<h3><b>| 기업 리뷰&nbsp;&nbsp;</b></h3>
 	<div align="right">
 	<button type="button" class="btn-8 custom-btn" data-bs-toggle="modal" data-bs-target="#myModal">
     <span>리뷰 작성하기</span>
   </button></div></div>
+  	<div align="right"><b>총 </b><b><span id="reviewSize"></span>개의 리뷰가 등록되어 있어요!</b></div>
   	<div id="reviewContent"></div>
 	
 </div>

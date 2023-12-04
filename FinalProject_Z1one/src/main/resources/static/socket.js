@@ -173,6 +173,7 @@ function onMessageReceived(payload) {
     	
     	var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(chat.sender[0]);
+        
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(chat.sender);
 
@@ -189,27 +190,11 @@ function onMessageReceived(payload) {
 
     var contentElement = document.createElement('p');
 
-    // 만약 s3DataUrl 의 값이 null 이 아니라면 => chat 내용이 파일 업로드와 관련된 내용이라면
-    // img 를 채팅에 보여주는 작업
-    if(chat.s3DataUrl != null){
-        var imgElement = document.createElement('img');
-        imgElement.setAttribute("src", chat.s3DataUrl);
-        imgElement.setAttribute("width", "300");
-        imgElement.setAttribute("height", "300");
-
-        var downBtnElement = document.createElement('button');
-        downBtnElement.setAttribute("id", "downBtn");
-        downBtnElement.setAttribute("name", chat.fileName);
-
-        contentElement.appendChild(imgElement);
-        contentElement.appendChild(downBtnElement);
-
-    }else{
-        // 만약 s3DataUrl 의 값이 null 이라면
-        // 이전에 넘어온 채팅 내용 보여주기기
-       var messageText = document.createTextNode(chat.message);
-        contentElement.appendChild(messageText);
-    }
+      // 만약 s3DataUrl 의 값이 null 이라면
+      // 이전에 넘어온 채팅 내용 보여주기기
+    var messageText = document.createTextNode(chat.message);
+    contentElement.appendChild(messageText);
+   
 
     messageElement.appendChild(contentElement);
 

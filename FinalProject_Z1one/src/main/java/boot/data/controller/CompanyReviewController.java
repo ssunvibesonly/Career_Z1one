@@ -60,13 +60,13 @@ public class CompanyReviewController {
 	
 	@PostMapping("/readReview")
 	@ResponseBody
-	public List<Company_ReiviewDto> readReview(int cn_idx){
+	public List<Company_ReiviewDto> readReview(int cn_idx,Model model){
 		/* System.out.println("cn_idx:"+cn_idx); */
 		
 		List<Company_ReiviewDto> reviewList=cr_service.readOneAllReview(cn_idx);
 		/* System.out.println("list size = "+reviewList.size()); */
 		
-				
+		
 		return reviewList;
 	}
 	

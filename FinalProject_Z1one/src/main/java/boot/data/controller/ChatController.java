@@ -61,13 +61,11 @@ public class ChatController {
 		//반환 결과를 socket session에 userUUID로 저장
 		headerAccessor.getSessionAttributes().put("userUUID", userUUID);
 		headerAccessor.getSessionAttributes().put("roomId",chat.getRoomId());
-	
-		log.info(userUUID);
 		
 		chat.setMessage(chat.getSender()+"님이 입장하셨습니다.");
 		template.convertAndSend("/sub/chat/room/"+chat.getRoomId(),chat);
 		
-		
+		log.info(userUUID);
 	}
 	
 	//해당 유저
