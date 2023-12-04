@@ -72,7 +72,7 @@ color: black;
    border: 1px solid black;
    border-radius:10px;
    width: 40%;
-   height: 450px;
+   height: 400px;
    margin-left: 30%;
    
 }
@@ -177,39 +177,78 @@ color: black;
 </style>
 <script type="text/javascript">
 $(function() {
-    $(".delete-member-btn").click(function() {
-        var user_num = $(this).attr("user_num");
-        var ans = confirm("정말 탈퇴하시겠습니까?");
-        
-        if (ans) {
-            $.ajax({
-                type: "get",
-                dataType: "html",
-                url: "deletemember",
-                data: {"user_num":user_num},
-                success: function() {
-                	alert("탈퇴되었습니다");
-                    location.reload();
-                    location.href="/login/logoutaction";
+    $("#updatebtn").click(function() {
+        var user_pass = $("#user_pass").val();  // 기존 비밀번호
+		alert(user_pass);
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "passcheck",
+            data: { "user_pass": user_pass },
+            success: function(res) {
+                if (res.count == 1) {
+                	updatepass();
+                } else {
+                    alert("기존 비밀번호가 틀립니다.");
                 }
-            });
-        } else {
-            alert("취소되었습니다.");
-            location.reload();
-        }
+            }
     });
 });
+    $("#newuser_passcheck").keyup(function() {
+        var p1=$("#newuser_pass").val();
+        var p2=$(this).val();
+        $("#newuser_passcheck").css('border','1px solid lightgray');
+        $("span.userpasscheck").text("").css('color','none');
+        if(p1!=p2){
+           $("#newuser_passcheck").css('border','2px solid red');
+           $("span.userpasscheck").text("비밀번호가 다릅니다. 동일한 비밀번호를 입력해 주세요.").css('color','red');
+        }
+     });
+});
+
+/* function usercheck() {
+    if($("span.userpasscheck").text()!=''){
+    	alert("비밀번호가 일치하지 않습니다.");
+       return false;
+    }         
+ } */
+ 
+function updatepass(){
+	var newuser_pass = $("#newuser_pass").val(); 
+	
+	if($("span.userpasscheck").text()=='')
+	{
+	$.ajax({
+	    type: "post",
+	    dataType: "json",
+	    url: "updatepass",
+	    data: { "newuser_pass": newuser_pass },
+	    success: function(res) {
+	    	if (res.status === "success") {
+	    		/* usercheck(); */
+	    		alert("비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+	    		location.href = "/login/logoutaction";
+	    	}else {
+	            alert("비밀번호 변경에 실패했습니다.");
+	        }
+	    }
+})
+	}else{
+		alert("비밀번호 변경에 실패했습니다.");
+	}
+}
 </script>
 </head>
 <body>
 <div>
-   <form>
+
+   
       <div class="d-inline-flex searchbox">
       <input type="text" class="form-control click" name="search">&nbsp;&nbsp;&nbsp;
       <div style="height: 100%;border: 0.5px solid lightgray;margin-right: 3%;"></div>
       <input type="image" src="${root}/image/search.png" alt="Search" style="width: 3%; margin-right: 3%;">
       </div>
-   </form>
+   
 </div>
 <div class="d-inline-flex mypagemenu">
    <div class="idEdit"><a href="/member/usereditpage?user_num=${user_num }">계정</a></div>
@@ -217,28 +256,22 @@ $(function() {
 </div>
 <br><br><br>
 <div class="container">
-<h3 style="margin-left: 30%;">| 회원 정보</h3><br>
-
-<!-- 회원가입 할 때 기업 기본 정보 뜨는 공간 -->
+<h3 style="margin-left: 30%;">| 비밀번호변경</h3><br>
 <div id="basicInfo">
-   <div id="logobox">
-      <img alt="" src="../applyphoto/${photo}" style="width: 100%; height: 100%;">
-   </div>
-   <div style="margin-left: 3%;margin-top: 30%;">
-	  
-      <%-- <h4><b>${name }</b></h4><br> --%>
-      <br><br>
-      <span><img alt="" src="../image/ceo.png" style="width: 1.8%;height: 22px;"><b style="font-size: 15pt;"> 이름 : ${dto.user_name}</b></span><br><br>
-      <span><img alt="" src="../image/email.png" style="width: 1.8%;height: 15px;"><b style="font-size: 15pt;"> 이메일 : ${dto.user_email }</b></span>
-   <br><br>	
-   <div style="margin-top: 15%; margin-left: 9%;">
-   	  <button class="btn btn-info" onclick="location.href='/member/updatepassform?user_num=${user_num }'" >비밀번호변경</button>
-      <button class="custom-btn btn-15" onclick="location.href='/member/usereditupdateform?user_num=${user_num }'">정보수정</button>
-      <button class="custom-btn btn-14 delete-member-btn" user_num="${user_num}">회원탈퇴</button>
-      
-   </div>
-   </div>
-</div><br>
-  
+	 <div style="margin: 50px 50px;">
+		<b>기존비밀번호</b><input type="password" name="user_pass" id="user_pass" class="form-control" style="width:350px;">
+		<b>비밀번호</b><input type="password" name="newuser_pass" id="newuser_pass" class="form-control" style="width:350px;"> 
+		<b>비밀번호확인</b><input type="password" name="newuser_passcheck" id="newuser_passcheck" class="form-control" style="width:350px;">
+		<span class="userpasscheck" style="color: red; font-size: 7pt; font-weight: bold; position: relative; top: 0px; left: 0px;"></span>
+	</div>
+	<div style="margin: 100px 60px;">	
+      <button type="button" class="custom-btn btn-15" id="updatebtn">변경</button>
+      <button class="custom-btn btn-14" onclick="location.href='/member/usereditpage?user_num=${user_num }'">취소</button>
+      </div>
+
+</div>
+</div>
+
+<br>
 </body>
 </html>

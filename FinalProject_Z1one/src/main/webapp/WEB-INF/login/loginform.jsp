@@ -16,12 +16,6 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 <style type="text/css">
-#loginbox{
-border: 1px solid lightgray;
-border-radius:20px;
-width: 350px;
-height: 500px;
-}
 .two {
   text-align: center;
   cursor: pointer;
@@ -69,7 +63,7 @@ height: 500px;
 border: 1px solid lightgray; 
 border-radius:20px;
 width: 350px;
-height: 530px;
+height: 480px;
 
 
 }
@@ -147,12 +141,12 @@ font-size: 10pt;
            $("#btn").trigger("click");   
         })    
         </script>
-      </button></div><br><br>
+      </button></div><br>
       <input type="checkbox" name="cbsave" ${sessionScope.saveok==null?"":"checked"}>이메일 주소 저장하기 
       <hr style="margin-left: 5%;margin-right: 5%;">
       <div id="naver_id_login"><img alt="" src="${root }/image/naverloginbtn.png" style="width: 200px;height: 47px;margin-bottom: 1%;" onclick="location.href='/login/naver.do'"><br></div>
      <img alt="" src="${root }/image/kakaologinbtn.png" style="width: 200px;height: 47px;" onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=3458c639f46b80065fc34d93a10336ab&redirect_uri=http://localhost:9000/login/form'">
-      <hr style="margin-bottom: 12%">
+      <hr style="margin-bottom: 6%">
       <div style="font-size: 10pt;">아직 회원이 아니세요?&nbsp;
       <a href="/member/addform" style="text-decoration: none;font-size: 10pt;">회원가입</a></div>
    
@@ -162,14 +156,4 @@ font-size: 10pt;
 </div>
 <br><br>
 </body>
- <!-- //네이버 로그인 버튼 노출 영역 -->
-          <script type="text/javascript">
-              var naver_id_login = new naver_id_login("lT5_vMMwhZOvTIyDkiRF", "http://localhost:9000/login/callback");
-              var state = naver_id_login.getUniqState();
-              naver_id_login.setButton("green", 3,50);
-              naver_id_login.setDomain("http://localhost:9000/login/callback");
-              naver_id_login.setState(state);
-              naver_id_login.setPopup();
-              naver_id_login.init_naver_id_login();
-          </script>
 </html>

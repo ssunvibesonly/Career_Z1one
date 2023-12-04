@@ -27,5 +27,10 @@
       <update id="UpdateUserEdit" parameterType="ugaipdto">
     	update usergaip set user_name=#{user_name},user_email=#{user_email} where user_num=#{user_num}   
     </update>
-     
+    <delete id="DeleteMember" parameterType="String">
+    	delete from usergaip where user_num=#{user_num}
+    </delete>
+    <update id="UpdatePass" parameterType="ugaipdto">
+    	update usergaip set user_pass=#{user_pass} where user_num=#{user_num}   
+    </update> 
   </mapper>

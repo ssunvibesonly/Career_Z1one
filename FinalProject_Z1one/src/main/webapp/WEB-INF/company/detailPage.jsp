@@ -39,7 +39,7 @@
     </div>
     <div style="width: 15vw; border: 1px solid gray; font-size: 2vh; margin-left: 10vw;" class="d-inline-flex">
         <a>근무조건<br>고용형태<br>급여<br>지역<br>시간</a>
-    </div> 
+    </div>
    
 </div>
 

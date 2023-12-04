@@ -62,7 +62,7 @@
 border: 1px solid lightgray; 
 border-radius:20px;
 width: 350px;
-height: 520px;
+height: 580px;
 
 
 }
@@ -215,10 +215,11 @@ $(function(){
                if(res.count==0){
                   $("#user_email").css('border','2px solid green');
                   $("span.useridsuccess").text("사용 가능한 이메일입니다.").css('color','green');
-                  $("#loginbox").css('height', '550px');
+                  $("#loginbox").css('height','600px');
                }else{
                   $("#user_email").css('border','2px solid red');
                   $("span.useridsuccess").text("이미 가입된 이메일입니다.").css('color','red');
+                  $("#loginbox").css('height','600px');
                   
                }   
     }
@@ -242,6 +243,7 @@ $(function(){
             }else{
                $("#company_Email").css('border','2px solid red');
                $("span.companyidsuccess").text("이미 가입된 이메일입니다.").css('color','red');
+               $("#loginbox2").css('height', '930px');
                
             }   
 }
@@ -325,7 +327,7 @@ $(function(){
         if (password.length < 10) {
             $("#user_pass").css('border', '2px solid red');
             $("span.userpasscheck").text("비밀번호는 10자리 이상이어야 합니다.").css('color', 'red');
-            $("#loginbox").css('height', '585px');
+            $("#loginbox").css('height', '620px');
             return;
         }
 
@@ -334,7 +336,7 @@ $(function(){
         if (!regex.test(password)) {
             $("#user_pass").css('border', '2px solid red');
             $("span.userpasscheck").text("비밀번호는 문자와 숫자의 조합이어야 합니다.").css('color', 'red');
-            $("#loginbox").css('height', '585px');
+            $("#loginbox").css('height', '620px');
             
             return;
         }
@@ -343,7 +345,7 @@ $(function(){
         if (password !== confirmPassword) {
             $("#user_pass2").css('border', '2px solid red');
             $("span.userpasscheck").text("비밀번호가 일치하지 않습니다.").css('color', 'red').css('left', '-60px');
-            $("#loginbox").css('height', '585px');
+            $("#loginbox").css('height', '620px');
             return;
         }
 
