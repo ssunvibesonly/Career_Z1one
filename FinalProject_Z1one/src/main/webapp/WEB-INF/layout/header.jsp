@@ -80,12 +80,17 @@ $(function(){
       // 상세 설명을 숨깁니다.
       $('#detailDescription').css('display', 'none');
     });
+<<<<<<< HEAD
+
+});
+=======
     
     $("#glass").on("click",function(){
     	$(this).next().trigger("click");
     });
 });
 
+>>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 </script>
 <body>
 </head>
