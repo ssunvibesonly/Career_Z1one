@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gamja+Flower&family=Nanum+Pen+Script&family=Noto+Serif+KR:wght@200&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -78,6 +78,27 @@ color: gray;
 font-size: 10pt;
 }
 
+.mypagebtn{
+position:absolute;
+border: none; 
+background: none; 
+padding: 0; 
+margin-left: 280px;
+top: 430px;
+}
+
+.logoutbtn{
+position:absolute;
+top: 390px;
+right: 200px;
+border: none; 
+background: none; 
+padding: 0; 
+float: right; 
+margin: 0px 10px;  
+z-index: 100;"
+}
+
 @-webkit-keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -146,21 +167,34 @@ font-size: 10pt;
 <c:if test="${sessionScope.loginok!=null && sessionScope.companyloginok==null}">
 <div class="loginbox">
    <div style="margin-top: 10%;">
+   <c:if test="${sessionScope.user_photo=='no' }">
    <img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
-   
-   <h3 style="margin-left: 120px; margin-top: -70px;"><b>${user_name }</b></h3>
-   
-   <c:if test="${apply_secondary!=null }">
-   <h6 style="margin-left: 121px; color: #A4A4A4; "><b>${apply_secondary }</b></h6>
    </c:if>
-   <c:if test="${apply_secondary==null }">
+   <c:if test="${sessionScope.user_photo!='no' }">
+   <img src="${root}/applyphoto/${user_photo}" style="width: 70px; height:70px; margin: 2px 20px; border-radius: 100px;">
+   </c:if>
+   <h3 style="margin-left: 120px; margin-top: -70px;"><b>${user_name }</b></h3>
+   <button class="logoutbtn"  onclick="location.href='/login/logoutaction'" >
+<img src="${root }/image/logoutbutton.png" style="width: 80px; height: auto; border: 1px solid lightgray; border-radius: 10px;"></button>
+   <button type="button" class="mypagebtn" onclick="location.href='/member/userapplypage?user_num=${user_num}'"><img src="${root }/image/mypagebutton.png" style="width: 40px; height: auto;"></button>
+   
+   <c:if test="${sessionScope.myid!=null }">
+   <h6 style="margin-left: 121px; color: #A4A4A4; "><b>${sessionScope.myid }</b></h6>
+   </c:if>
+   <c:if test="${sessionScope.myid==null }">
    <br>
    </c:if>
     </div>
    <!-- 이력서 작성하기 버튼 -->
     <div class="two" id="btnbox">
+      <c:if test="${sessionScope.loginok!=null && sessionScope.myid!='admin'}">
       <button type="button" id="btn" class="madebtn" onclick="location.href='/member/applyaddform?user_num=${user_num}'">
         내 이력서 작성하기
+      </c:if>
+      <c:if test="${sessionScope.loginok!=null && sessionScope.myid=='admin'}">
+      <button type="button" id="btn" class="madebtn" onclick="location.href='/member/adminpage?user_num=${user_num}'">
+        관리자페이지
+      </c:if>
         <div class="fill-two"></div>
         <script type="text/javascript">
         $("#btnbox").click(function(e){
@@ -169,23 +203,35 @@ font-size: 10pt;
         
         </script>
       </button>
+      
       <br>
       <br>
     </div>
-    <button type="button" class="btn btn-info" onclick="location.href='/member/userapplypage?user_num=${user_num}'">마이페이지</button>
-
     </div>
-<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px; z-index: 100;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
 </c:if>
 
 <c:if test="${sessionScope.companyloginok!=null && sessionScope.loginok==null}">
 
 <div class="loginbox">
    <div style="margin-top: 10%;">
+   
+   <c:if test="${sessionScope.company_logo!=null }">
+   <img src="${root}/membersave/${company_logo}" style="width: 70px; height:70px; border-radius:100px; margin: 2px 20px;">
+   </c:if>
+   <c:if test="${sessionScope.company_logo==null }">
    <img src="${root}/image/userphotonull.png" style="width: 70px; margin: 2px 20px;">
+   </c:if>
    
    <h3 style="margin-left: 120px; margin-top: -70px;"><b>${company_name }</b></h3>
+   <button class="logoutbtn"  onclick="location.href='/login/logoutaction'" >
+<img src="${root }/image/logoutbutton.png" style="width: 80px; height: auto; border: 1px solid lightgray; border-radius: 10px;"></button>
+   
+   <c:if test="${sessionScope.myid!=null }">
+   <h6 style="margin-left: 121px; color: #A4A4A4; "><b>${sessionScope.myid }</b></h6>
+   </c:if>
+   <c:if test="${sessionScope.myid==null }">
    <br>
+    </c:if>
     </div>
    <!-- 이력서 작성하기 버튼 -->
     <div class="two" id="btnbox1">
@@ -202,10 +248,7 @@ font-size: 10pt;
       <br>
       <br>
     </div>
-    <button type="button" class="btn btn-info" onclick="#">마이페이지</button>
-
     </div>
-<button class="btn btn-danger btn-sm" style="float: right; margin: 0px 10px; top-bottom: 100px; z-index: 100;" onclick="location.href='/login/logoutaction'" >로그아웃</button>
 </c:if>
 
 </body>

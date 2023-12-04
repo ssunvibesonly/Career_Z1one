@@ -54,6 +54,11 @@
   </div>
 
   </div>
-
+        <c:if test="${sessionScope.loginok==null && sessionScope.companyloginok==null }">
+        <button type="button" class="btn btn-outline-dark" onclick="location.href='/login/form'">로그인</button>
+        </c:if>
+        <c:if test="${sessionScope.loginok!=null || sessionScope.companyloginok!=null }">
+		<button type="button" class="btn btn-outline-dark" onclick="location.href='/login/logoutaction'">로그아웃</button>
+		</c:if>
 </body>
 </html>

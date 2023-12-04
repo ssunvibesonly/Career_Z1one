@@ -88,5 +88,17 @@ public class UserGaipService implements UserGaipServiceInter {
 		ugaipinter.UpdateUserEdit(dto);
 	}
 
+	@Override
+	public void DeleteMember(String user_email) {
+		// TODO Auto-generated method stub
+		ugaipinter.DeleteMember(user_email);
+	}
+
+	@Override
+	public void UpdatePass(UserGaipDto dto) {
+		// TODO Auto-generated method stub
+		ugaipinter.UpdatePass(dto);
+	}
+
 
 }

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> tiger
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -103,17 +106,17 @@ a.nav-link {
 		<div class="dropdown"
 			style="position: absolute; top: 30px; right: 300px;">
 			<div class="dropbtn">
-				<c:if test="${apply_photo!=null}">
-				<img src="../applyphoto/${apply_photo }"
+				<c:if test="${sessionScope.user_photo!='no'}">
+				<img src="${root}/applyphoto/${user_photo}"
 					style="width: 30px;">
 				</c:if>
-				<c:if test="${apply_photo==null}">
+				<c:if test="${sessionScope.user_photo=='no'}">
 				<img src="../image/userphotonull.png"
 					style="width: 30px;">
 				</c:if>
 			</div>
 			<div class="dropdown-content">
-				<a href="#">계정</a> 
+				<a href="/member/usereditpage?user_num=${user_num }">계정</a> 
 				<a href="/member/userapplypage?user_num=${user_num }">이력서</a>
 			</div>
 		</div>

@@ -58,12 +58,12 @@
             animation: gradient 3s ease infinite;
         }
 
-        #loginbox{
-            border: 1px solid lightgray;
-            border-radius:20px;
-            width: 350px;
-            height: 520px;
 
+		#loginbox{
+		border: 1px solid lightgray; 
+		border-radius:20px;
+		width: 350px;
+		height: 580px;
 
         }
 
@@ -203,25 +203,26 @@
                 $(".login_type_company").css('border','1px solid black');
             })
 
-            //이메일 입력시 중복된지 체크
-            $("#user_email").focusout(function(e){
-
-                $.ajax({
-                    type:"get",
-                    dataType:"json",
-                    url:"useridcheck",
-                    data:{"user_email":$("#user_email").val()},
-                    success:function(res){
-                        if(res.count==0){
-                            $("#user_email").css('border','2px solid green');
-                            $("span.useridsuccess").text("사용 가능한 이메일입니다.").css('color','green');
-                            $("#loginbox").css('height', '550px');
-                        }else{
-                            $("#user_email").css('border','2px solid red');
-                            $("span.useridsuccess").text("이미 가입된 이메일입니다.").css('color','red');
-
-                        }
-                    }
+  	          //이메일 입력시 중복된지 체크
+   		 $("#user_email").focusout(function(e){
+      
+            $.ajax({
+            type:"get",
+            dataType:"json",
+            url:"useridcheck",
+            data:{"user_email":$("#user_email").val()},
+            success:function(res){
+               if(res.count==0){
+                  $("#user_email").css('border','2px solid green');
+                  $("span.useridsuccess").text("사용 가능한 이메일입니다.").css('color','green');
+                  $("#loginbox").css('height','600px');
+               }else{
+                  $("#user_email").css('border','2px solid red');
+                  $("span.useridsuccess").text("이미 가입된 이메일입니다.").css('color','red');
+                  $("#loginbox").css('height','600px');
+                  
+               }   
+    }
                 });
             });
             $("#company_Email").focusout(function(e){
@@ -242,7 +243,7 @@
                         }else{
                             $("#company_Email").css('border','2px solid red');
                             $("span.companyidsuccess").text("이미 가입된 이메일입니다.").css('color','red');
-
+                            $("#loginbox2").css('height', '930px');
                         }
                     }
                 });
@@ -289,64 +290,63 @@
 
                 return true;
             }else{
-
-                location.reload();
+            	location.reload();
                 return false;
             }
+            
+   
+	   
+      if($("span.companyidsuccess").text()!='사용 가능한 이메일입니다.'){
+    	 alert("이메일 주소를 확인해주세요!");
+         return false;
+      }
+      
+      if($("span.companypasscheck").text()!=''){   
+    	 alert("이메일 주소를 확인해주세요!");
+         return false;
+      }
+   }
+</script>
+<script type="text/javascript">
+$(function(){
+    
+    // 비밀번호 유효성 검사
+    $("#user_pass").keyup(function() {
+        validatePassword();
+    });
+    $("#user_pass2").keyup(function() {
+        validatePassword();
+    });
+    function validatePassword() {
+        var password = $("#user_pass").val();
+        var confirmPassword = $("#user_pass2").val();
+    
+        // 비밀번호가 10자리 이상이어야 함
+        
+    if (password.length < 10) {
+            $("#user_pass").css('border', '2px solid red');
+            $("span.userpasscheck").text("비밀번호는 10자리 이상이어야 합니다.").css('color', 'red');
+            $("#loginbox").css('height', '620px');
+            return;
 
-            if($("span.companyidsuccess").text()!='사용 가능한 이메일입니다.'){
-                alert("이메일 주소를 확인해주세요!");
-                return false;
-            }
-
-            if($("span.companypasscheck").text()!=''){
-                alert("이메일 주소를 확인해주세요!");
-                return false;
-            }
+        // 문자와 숫자의 조합 확인
+        var regex = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
+        if (!regex.test(password)) {
+            $("#user_pass").css('border', '2px solid red');
+            $("span.userpasscheck").text("비밀번호는 문자와 숫자의 조합이어야 합니다.").css('color', 'red');
+            $("#loginbox").css('height', '620px');
+            
+            return;
         }
-    </script>
-    <script type="text/javascript">
-        $(function(){
 
-            // 비밀번호 유효성 검사
-            $("#user_pass").keyup(function() {
-                validatePassword();
-            });
-
-            $("#user_pass2").keyup(function() {
-                validatePassword();
-            });
-
-            function validatePassword() {
-                var password = $("#user_pass").val();
-                var confirmPassword = $("#user_pass2").val();
-
-                // 비밀번호가 10자리 이상이어야 함
-                if (password.length < 10) {
-                    $("#user_pass").css('border', '2px solid red');
-                    $("span.userpasscheck").text("비밀번호는 10자리 이상이어야 합니다.").css('color', 'red');
-                    $("#loginbox").css('height', '585px');
-                    return;
-                }
-
-                // 문자와 숫자의 조합 확인
-                var regex = /^(?=.*[a-zA-Z])(?=.*\d).+$/;
-                if (!regex.test(password)) {
-                    $("#user_pass").css('border', '2px solid red');
-                    $("span.userpasscheck").text("비밀번호는 문자와 숫자의 조합이어야 합니다.").css('color', 'red');
-                    $("#loginbox").css('height', '585px');
-
-                    return;
-                }
-
-                // 비밀번호 확인과 일치하는지 확인
-                if (password !== confirmPassword) {
-                    $("#user_pass2").css('border', '2px solid red');
-                    $("span.userpasscheck").text("비밀번호가 일치하지 않습니다.").css('color', 'red').css('left', '-60px');
-                    $("#loginbox").css('height', '585px');
-                    return;
-                }
-
+        // 비밀번호 확인과 일치하는지 확인
+        if (password !== confirmPassword) {
+            $("#user_pass2").css('border', '2px solid red');
+            $("span.userpasscheck").text("비밀번호가 일치하지 않습니다.").css('color', 'red').css('left', '-60px');
+            $("#loginbox").css('height', '620px');
+            return;
+        }
+        
                 // 모든 조건이 충족되면 유효한 비밀번호로 간주
                 $("#user_pass").css('border', '1px solid lightgray');
                 $("#user_pass2").css('border', '1px solid lightgray');

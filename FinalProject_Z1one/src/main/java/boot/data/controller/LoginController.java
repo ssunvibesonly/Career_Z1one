@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.data.dto.CompanyGaipDto;
 import boot.data.dto.UserGaipDto;
+import boot.data.dto.User_ApplyDto;
 import boot.data.service.CompanyGaipService;
 import boot.data.service.SocialService;
 import boot.data.service.UserGaipService;
+import boot.data.service.UserMyPageService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -35,6 +37,9 @@ public class LoginController {
    CompanyGaipService cservice;
    @Autowired
    SocialService socialService;
+   @Autowired
+   UserMyPageService umypageservice;
+
    @GetMapping("/kakao")
    public String kakaoLogin(@RequestParam(value = "code", required = false) String code,HttpSession httpSession, UserGaipDto userGaipDto,Model model) {
       String access_Token = socialService.getAccessToekn(code);
@@ -138,6 +143,8 @@ public class LoginController {
          session.setAttribute("saveok", cbsave);
          
          UserGaipDto udto=uservice.getDataById(email);
+         
+         
          String uname=udto.getUser_email();
          session.setAttribute("uname", uname);
          String user_num=udto.getUser_num();
@@ -145,6 +152,14 @@ public class LoginController {
          String user_name=udto.getUser_name();
          session.setAttribute("user_name", user_name);
          
+         User_ApplyDto uapplydto=umypageservice.getDataByNum(user_num);
+         
+         if(uapplydto != null && uapplydto.getApply_photo()!=null)
+         {
+         session.setAttribute("user_photo", uapplydto.getApply_photo());
+         }else {
+         session.setAttribute("user_photo", "no");	 
+         }
          return "redirect:/";
          
       }else if(usercheck==1 && community.equals("yes")) {
@@ -173,8 +188,10 @@ public class LoginController {
          session.setAttribute("company_num", company_num);
          String company_name=cdto.getCompany_name();
          session.setAttribute("company_name", company_name);
+         String company_logo=cdto.getCompany_logo();
+         session.setAttribute("company_logo", company_logo);
          
-         return "/login/loginsuccess";
+         return "redirect:/";
       }else      
       return "/login/passfail";
    }
@@ -184,6 +201,8 @@ public class LoginController {
    {
       session.removeAttribute("loginok");
       session.removeAttribute("companyloginok");
+      session.removeAttribute("user_photo");
+      session.removeAttribute("myid");
       
       return "redirect:/login/form";
    }

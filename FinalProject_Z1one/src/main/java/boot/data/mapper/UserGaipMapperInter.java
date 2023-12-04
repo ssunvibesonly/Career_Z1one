@@ -18,6 +18,6 @@ public interface UserGaipMapperInter {
     public UserGaipDto getDataByNum(String user_num);
     public List<UserGaipDto> getAllUser();
     public void UpdateUserEdit(UserGaipDto dto);
-    
-	/* public String getName(String user_email); */
+    public void DeleteMember(String user_email);
+    public void UpdatePass(UserGaipDto dto);
 }

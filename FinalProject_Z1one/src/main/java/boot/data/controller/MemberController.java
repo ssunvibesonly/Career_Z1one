@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import boot.data.dto.ApplyDto;
 import boot.data.dto.CompanyGaipDto;
 import boot.data.dto.CompanyInfoDto;
@@ -474,5 +476,74 @@ public class MemberController {
 		
 		return "redirect:usereditpage?user_num="+user_num;
 	}
+	
+	@GetMapping("/adminpage")
+	public ModelAndView adminpage()
+	{
+		ModelAndView model=new ModelAndView();
+		List<UserGaipDto> list=uservice.getAllUser();
+		
+		model.addObject("list", list);
+		model.setViewName("/2/member/adminpage");
+		
+		return model;
+	}
+	
+	@GetMapping("/deletemember")
+	@ResponseBody
+	public void deletemember(@RequestParam String user_num)
+	{
+		uservice.DeleteMember(user_num);
+	}
+	
+	@GetMapping("/updatepassform")
+	public String updatepassform()
+	{
+		return "/2/member/updatepass";
+	}
+	
+	@GetMapping("/passcheck")
+	@ResponseBody 
+	public Map<String, Integer> passcheck(@RequestParam String user_pass,
+			HttpSession session) {
+	    
+		Map<String, Integer> map=new HashMap<>();
+		String user_num=(String)session.getAttribute("user_num");
+	
+		UserGaipDto dto=uservice.getDataByNum(user_num);
+		
+		if(user_pass.equals(dto.getUser_pass()))
+		{
+		map.put("count", 1);
+		}else {
+		map.put("count", 0);
+		}
+		return map;
+	   }
+	
+		
+	@PostMapping("/updatepass")
+	@ResponseBody 
+	public Map<String, String> updatepass(HttpSession session,
+			@RequestParam String newuser_pass) 
+	{ 
+	System.out.println("newuser_pass: " + newuser_pass);
+	String user_num=(String)session.getAttribute("user_num");
+	UserGaipDto dto=uservice.getDataByNum(user_num);
+	dto.setUser_pass(newuser_pass);
+	uservice.UpdatePass(dto);
+	Map<String, String> map = new HashMap<>();
+    map.put("status", "success");
+    return map;
+    
+	}
+		
+	
+	/*
+	 * @GetMapping("/adminnoticecheckpage") public ModelAndView
+	 * adminnoticecheckpage() {
+	 * 
+	 * return model; }
+	 */
 
 }
