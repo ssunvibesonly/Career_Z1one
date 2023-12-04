@@ -77,21 +77,4 @@ public class CnoticeSerivce implements CnoticeServiceInter {
 		return cnoticeInter.getMaxNum();
 	}
 
-	
-<<<<<<< HEAD
-
-
-
-	
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 }

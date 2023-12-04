@@ -30,7 +30,6 @@ body {
 	margin: 15vw -27.9vw;
 }
 
-
 #locationModal {
 	position: absolute;
 	margin: 15vw -19.3vw;
@@ -416,17 +415,12 @@ $(".locationApply").click(function () {
     if ($(".locationDiv:contains('전체').clicked").length > 0) {
     	locationTokens=[];
         testList();
+    } else {
+    	
+    	testList();
+        $(".location").html("<b style='color: black; font-size: 0.8em'>" + locationTokens + "<i class='bi bi-caret-down-fill'></i></b>");  
     }
 
-    // locationTokens가 비어 있는지 확인
-    if (locationTokens.length > 0) {
-        $(".location").html("<b style='color: black; font-size: 0.8em'>" + locationTokens + "<i class='bi bi-caret-down-fill'></i></b>");
-    } else {
-        // 리스트 호출
-        testList();
-        // text를 tokens로 변경
-        $(".location").html("<b style='color: black; font-size: 0.8em'>근무 지역&nbsp;<i class='bi bi-caret-down-fill'></i></b>");
-    }
 });
 
 
@@ -726,26 +720,25 @@ function formatDate(date, format) {
            $.each(res, function (index, dto) {
                	  
         	   s +="<a href='detail?cnotice_num="+dto.cnotice_num+"' style='text-decoration: none; color:black;'>";
-        	   s += "<div style='width: 30%; height: 67vh; border: 1px solid #dcdcdc; margin: 1vh; border-radius: 1vh; overflow: hidden; float: left;'>";
-        	   s += "<img src='../noticeImg/" + dto.cnotice_image + "' style='width: 100%; height: 50%;'><br>";
-        	   s +="<hr>";
+        	   s += "<div style='width: 22.5%; height: 57.5vh; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin: 2vw; border-radius: 1vw; overflow: hidden; float: left;'>";
+        	   s += "<img src='../noticeImg/" + dto.cnotice_image + "' style='width: 100%; height: 50%;'><br><br>";
         	   s += "<div style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>";
-        	   s += "<b style='font-size: 1.5em; margin-left: 1vw;'>" + dto.cnotice_noticename + "</b><br>"; //공고명
+        	   s += "<b style='font-size: 1.25em; margin-left: 2vw;'>" + dto.cnotice_noticename + "</b><br>"; //공고명
 
-        	   s += "<a style='margin-left: 1vw; font-weight: bold; color: gray;'>" + dto.cnotice_career + "," + dto.cnotice_skill + "</a><br><br>";
+        	   s += "<a style='margin-left: 2vw; font-weight: bold; color: gray;'>" + dto.cnotice_career + "," + dto.cnotice_skill + "</a><br><br>";
 
-        	   s += "<small style='margin-left: 1vw; font-weight: bold; font-size: 1em;'><img src='../noticeImg/" + dto.cnotice_image + "' style='width: 5%; height: 1%; border-radius: 20%;'>&nbsp;";
-        	   s += dto.cnotice_companyname+"</small>";
-
+        	   s += "<small style='margin-left: 2vw; font-weight: bold; font-size: 1em;'><img src='../noticeImg/" + dto.cnotice_image + "' style='width: 5%; height: 1%; border-radius: 20%;'>&nbsp;";
+        	   s += dto.cnotice_companyname + "</small>&emsp;";
         	   if (dto.cnotice_grade === 0) {
         	       s += "<i class='bi bi-star-fill' style='color: gray;'></i>&nbsp;";
         	   } else {
         	       s += "<i class='bi bi-star-fill' style='color: green;'></i>&nbsp;";
         	   }
         	   s += dto.cnotice_grade.toFixed(1) + "</small><br><br>";
-        	   s += "<b style='font-size: 1em; margin-left: 1vw; font-weight: bold;'>"+ 
+        	   s += "<hr style='width: 80%; margin: auto; border-color: #dcdcdc;'><br>";
+        	   s += "<b style='font-size: 1em; margin-left: 2vw; font-weight: bold;'>"+ 
         	       (dto.cnotice_congratulate !== 0 ? 
-        	           "<i class='bi bi-trophy-fill' style='color: gold;'></i> 취업 축하금: " + dto.cnotice_congratulate + "만원" : 
+        	           "<i class='bi bi-coin' style='color: gold;'></i> 취업 축하금: " + dto.cnotice_congratulate + "만원" : 
         	           "<i class='bi bi-emoji-frown-fill' style='color: red;'></i> 취업 축하금: 없음") + "</b>";
         	   
         	   // 날짜 포맷 변경
@@ -776,7 +769,6 @@ function formatDate(date, format) {
 	<!-- 왜 if문 밖에서는 margin-left와 border-radius만 적용되고 if문 안에서는 margin-top만 적용되는지:
 if문 밖에서는 각각의 <div>가 가로로 나열되는데, 그때는 margin-top이 필요하지 않습니다. 그래서 if문 밖에서는 margin-left와 border-radius만 설정하였습니다.
 if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 위해 margin-top을 사용하였습니다. margin-left와 border-radius는 이미 첫 번째 <div>에서 설정되었기 때문에 if문 안에서는 따로 설정할 필요가 없습니다 -->
-<<<<<<< HEAD
 	<div style="width: 130vw;" class="container">
 		<div align="left">
 			<button type="button" onclick="location.href='addNoticeForm'"
@@ -786,7 +778,7 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 		</div>
 		<br> <br>
 		<div class="d-flex align-items-center">
-			<button type="button" class="btn btn-outline-light industry"s
+			<button type="button" class="btn btn-outline-light industry"
 				style="width: 10vw; border: 1px solid gray;">
 				<b style="color: black; font-size: 0.8em;"> 직종&nbsp;<i
 					class="bi bi-caret-down-fill"></i></b>
@@ -821,8 +813,11 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 				<b style="color: black; font-size: 0.8em"> 학력&nbsp;<i
 					class="bi bi-caret-down-fill"></i></b>
 			</button>
-			&emsp; <div class="allReset" style="cursor: pointer; width: 10vw;"><i class="bi bi-arrow-clockwise"></i>&nbsp;<b
-				style="color: gray; margin-left: 0.5em;">초기화</b></div>
+			&emsp;
+			<div class="allReset" style="cursor: pointer; width: 10vw;">
+				<i class="bi bi-arrow-clockwise"></i>&nbsp;<b
+					style="color: gray; margin-left: 0.5em;">초기화</b>
+			</div>
 			&emsp;&emsp;&emsp;&emsp;&emsp; <select class="form-select"
 				style="width: 20%; text-align: center;" name="sort" id="orderBy">
 				<option class="writeday">최신순</option>
@@ -832,13 +827,238 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 				<option class="congratulate">취업 축하금순</option>
 			</select>
 		</div>
-		<!-- ------------------------------------------------------------------------------------------------------------------ -->
 		<br> <br>
 		<!-- list 출력 div -->
 		<div class="container notices" style="width: 100%;"></div>
 	</div>
-=======
->>>>>>> fc76ad9f210fcdb49eb62a602329bcfec0bf05d3
+	<!-- 산업군 Modal -->
+	<div class="modal" id="industryModal">
+		<div class="modal-dialog" style="max-width: 15.5vw; height: 50vh;"
+			align="center">
+			<!-- 원하는 max-width 및 width 값을 설정하세요 -->
+			<div class="modal-content">
+				<!-- 직종 Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- 1차직종 Modal body -->
+				<div class="modal-body1"
+					style="text-align: left; overflow-y: auto; overflow-x: hidden; max-height: 300px;">
+					<%
+					String industryString = "전체,IT/웹/통신,서비스업,제조/화학,교육,미디어/디자인";
+					String[] industryArray = industryString.split(",");
+					pageContext.setAttribute("industryArray", industryArray);
+					%>
+					<c:forEach var="token" items="${industryArray}" varStatus="i">
+						<c:set var="index" value="${i.index + 1}" />
+						<!-- HTML 부분 -->
+						<div class="industryDiv1" data-token="${token}"
+							style="cursor: pointer; width: 6.5vw; margin-left: 25%; margin-top: 7%;">
+							<b style="font-size: 1em;">${token}</b>
+						</div>
+					</c:forEach>
+					<br>
+					<div class="industryDiv2">
+						<!-- industrydiv2의 내용 -->
+					</div>
+				</div>
 
+				<!-- 직종 Modal footer -->
+				<div class="modal-footer d-flex justify-content-center">
+					<br> <br>
+					<button type="button" class="btn btn-light industryReset"
+						data-dismiss="modal" style="width: 6vw; font-size: 1em;">초기화</button>
+					<button type="button" class="btn btn-success industryApply"
+						data-bs-dismiss="modal" style="width: 6vw; font-size: 1em;">적용하기</button>
+					<br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------------------------------------------------------------------------------------- -->
+	<!-- 경력 Modal -->
+	<div class="modal" id="careerModal">
+		<div class="modal-dialog" style="max-width: 15.5vw;" align="center">
+			<!-- 원하는 max-width 및 width 값을 설정하세요 -->
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<%
+					String careerString = "경력무관,신입,경력";
+					String[] careerArray = careerString.split(",");
+					pageContext.setAttribute("careerArray", careerArray);
+					%>
+					<c:forEach var="token" items="${careerArray}" varStatus="loop">
+						<c:set var="index" value="${loop.index + 1}" />
+						<div class="careerDiv" data-token="${token}"
+							style="cursor: pointer; width: 6.5vw; margin-left: 3%; margin-top: 7%;">
+							<b style="font-size: 1em;">${token}</b>
+						</div>
+						<c:if test="${index % 3 == 0}">
+							<br>
+						</c:if>
+					</c:forEach>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer d-flex justify-content-center">
+					<br> <br>
+					<button type="button" class="btn btn-light careerReset"
+						data-dismiss="modal" style="width: 6vw; font-size: 1em;">초기화</button>
+					<button type="button" class="btn btn-success careerApply"
+						data-bs-dismiss="modal" style="width: 6vw; font-size: 1em;">적용하기</button>
+					<br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- -------------------------------------------------------------------------------------------------- -->
+	<!-- 평점 Modal -->
+
+	<div class="middleBox">
+		<div class="middle">
+			<span id="score-range" style="margin-left: 44%"><b>전체</b></span><span
+				id="range-value" style="margin-left: 40%"></span> <br> <br>
+			<span class="minscore" style="float: left; margin-left: 4.7%;"><b>0</b></span>
+			<span class="maxscore" style="float: right; margin-right: 4.7%"><b>5</b></span>
+			<br> <br>
+			<div class="multi-range-slider">
+				<b><i class="bi bi-x-lg close"
+					style="position: absolute; top: -1vw; right: -5%; cursor: pointer; font-size: 1.4em;"></i></b>
+				<!-- 여기에 아이콘 추가 -->
+				<input type="range" id="input-left" min="0" max="10" value="0">
+				<input type="range" id="input-right" min="0" max="10" value="10">
+
+				<div class="slider">
+					<div class="track"></div>
+					<div class="range"></div>
+					<div class="thumb left"></div>
+					<div class="thumb right"></div>
+				</div>
+				<br> <br>
+				<button type="button" class="btn btn-white gradeReset"
+					style="margin-left: 18%; border: 0.5px solid #F2F2F2;">초기화</button>
+				&nbsp;
+				<button type="button" class="btn btn-success gradeApply">적용하기</button>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- ---------------------------------------------------------------------------------------------------------- -->
+	<!-- 지역 Modal -->
+	<div class="modal" id="locationModal">
+		<div class="modal-dialog" style="max-width: 15.5vw;" align="center">
+			<!-- 원하는 max-width 및 width 값을 설정하세요 -->
+			<div class="modal-content">
+				<!-- 지역 Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- 지역 Modal body -->
+				<div class="modal-body">
+					<%
+					String locationString = "전체,서울,경기,인천,대전,세종";
+					String[] locationArray = locationString.split(",");
+					pageContext.setAttribute("locationArray", locationArray);
+					%>
+					<c:forEach var="token" items="${locationArray}" varStatus="i">
+						<c:set var="index" value="${i.index + 1}" />
+						<div class="locationDiv" data-token="${token}"
+							style="cursor: pointer; width: 6.5vw; margin-left: 3%; margin-top: 7%;">
+							<b style="font-size: 1em;">${token}</b>
+						</div>
+					</c:forEach>
+				</div>
+				<!-- 지역 Modal footer -->
+				<div class="modal-footer d-flex justify-content-center">
+					<br> <br>
+					<button type="button" class="btn btn-light locationReset"
+						data-dismiss="modal" style="width: 6vw; font-size: 1em;">초기화</button>
+					<button type="button" class="btn btn-success locationApply"
+						data-bs-dismiss="modal" style="width: 6vw; font-size: 1em;">적용하기</button>
+					<br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ---------------------------------------------------------------------------------------------------------- -->
+	<!-- 고용형태 Modal -->
+	<div class="modal" id="typeModal">
+		<div class="modal-dialog" style="max-width: 15.5vw;" align="center">
+			<!-- 원하는 max-width 및 width 값을 설정하세요 -->
+			<div class="modal-content">
+				<!-- 지역 Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- 지역 Modal body -->
+				<div class="modal-body">
+					<%
+					String typeString = "정규직,계약직";
+					String[] typeArray = typeString.split(",");
+					pageContext.setAttribute("typeArray", typeArray);
+					%>
+					<c:forEach var="token" items="${typeArray}" varStatus="loop">
+						<c:set var="index" value="${loop.index + 1}" />
+						<div class="typeDiv" data-token="${token}"
+							style="cursor: pointer; width: 6.5vw; margin-left: 3%; margin-top: 7%;">
+							<b style="font-size: 1em;">${token}</b>
+						</div>
+					</c:forEach>
+				</div>
+
+				<!-- 지역 Modal footer -->
+				<div class="modal-footer d-flex justify-content-center">
+					<br> <br>
+					<button type="button" class="btn btn-light typeReset"
+						data-dismiss="modal" style="width: 6vw; font-size: 1em;">초기화</button>
+					<button type="button" class="btn btn-success typeApply"
+						data-bs-dismiss="modal" style="width: 6vw; font-size: 1em;">적용하기</button>
+					<br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ------------------------------------------------------------------------------------------------------------ -->
+	<!-- 학력modal -->
+	<div class="modal" id="academyModal">
+		<div class="modal-dialog" style="max-width: 15.5vw;" align="center">
+			<!-- 원하는 max-width 및 width 값을 설정하세요 -->
+			<div class="modal-content">
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<!-- Modal body -->
+				<div class="modal-body">
+					<%
+					String academicString = "고등학교 졸업,대학졸업 (2-3년),대학교졸업 (4년),대학원졸업,석사,박사,학력무관";
+					String[] academicArray = academicString.split(",");
+					pageContext.setAttribute("academicArray", academicArray);
+					%>
+					<c:forEach var="token" items="${academicArray}" varStatus="loop">
+						<div class="academyDiv" data-token="${token}"
+							style="cursor: pointer; width: 10vw; margin-left: 3%; margin-top: 3%;">
+							<b style="font-size: 1em;">${token}</b>
+						</div>
+					</c:forEach>
+				</div>
+				<!-- Modal footer -->
+				<div class="modal-footer d-flex justify-content-center">
+					<br> <br>
+					<button type="button" class="btn btn-light academyReset"
+						data-dismiss="modal" style="width: 6vw; font-size: 1em;">초기화</button>
+					<button type="button" class="btn btn-success academyApply"
+						data-bs-dismiss="modal" style="width: 6vw; font-size: 1em;">적용하기</button>
+					<br> <br>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
