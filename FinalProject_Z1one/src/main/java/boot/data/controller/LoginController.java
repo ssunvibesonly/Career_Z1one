@@ -204,6 +204,8 @@ public class LoginController {
       session.removeAttribute("user_photo");
       session.removeAttribute("myid");
       session.removeAttribute("uname");
+      session.removeAttribute("company_logo");
+      
       return "redirect:/login/form";
    }
    
