@@ -203,6 +203,7 @@ public class LoginController {
       session.removeAttribute("companyloginok");
       session.removeAttribute("user_photo");
       session.removeAttribute("myid");
+      session.removeAttribute("company_logo");
       
       return "redirect:/login/form";
    }
