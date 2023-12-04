@@ -184,7 +184,8 @@ public class LoginController {
    {
       session.removeAttribute("loginok");
       session.removeAttribute("companyloginok");
-      
+      session.removeAttribute("myid");
+      session.removeAttribute("uname");
       return "redirect:/login/form";
    }
    

@@ -119,9 +119,7 @@
 								type : "get",
 								url : "/community/unlikes",
 								dataType : "json",
-								data : {
-									"board_num" : boardnum
-								},
+								data : {"board_num" : boardnum},
 								success : function(res) {
 
 									$("div.likes").find("b").text(res);
@@ -143,22 +141,13 @@
 
 							idx = $(this).attr("idx");
 							content = $(this).parent().prev().text();
-							alert("hoihoho" + content)
+							//alert("hoihoho" + content)
 							$(this).parent().prev().remove();
 
 							//alert(idx+","+content);
-							$(this)
-									.parent()
-									.before(
-											"<input type='text' name='content' class='form-control' value='"+content+"'>");
-							$(this)
-									.parent()
-									.before(
-											"<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>");
-							$(this)
-									.parent()
-									.before(
-											"<span class='close' style='font-size:10px; color:gray; cursor:pointer;' content='"+content+"'>닫기</span>");
+							$(this).parent().before("<input type='text' name='content' class='form-control' value='"+content+"'>");
+							$(this).parent().before("<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>");
+							$(this).parent().before("<span class='close' style='font-size:10px; color:gray; cursor:pointer;' content='"+content+"'>닫기</span>");
 							$(this).parent().next().next().hide();
 							$(this).parent().hide();
 
@@ -178,13 +167,14 @@
 
 		$(document).on("click", ".close", function() {
 			var content = $(this).attr("content");
-			alert(content)
+			//alert(content)
 			$(this).prev().prev().remove();
-			$(this).prev().before("<span>" + content + "</span>");
+			$(this).prev().remove();
+			$(this).prev().after("&nbsp;&nbsp;<span class='fw-light contentfont'>" + content + "</span>");
 			$(this).next().next().next().show();
 			$(this).next().show();
-			$(this).prev().hide();
-			$(this).hide();
+			$(this).prev().show();
+			$(this).remove();
 
 		});
 
@@ -193,7 +183,7 @@
 
 			var content = $(this).prev().val();
 			var idx = $(this).next().next().find(".commentupdate").attr("idx");
-			$(this).prev
+			//$(this).prev
 
 			$.ajax({
 
@@ -217,7 +207,7 @@
 		$(document).on("click", ".commentdelete", function() {
 
 			var idx = $(this).attr("idx");
-			alert(idx);
+			//alert(idx);
 
 			var a = confirm("해당 댓글을 삭제하시겠습니까?");
 
@@ -244,9 +234,7 @@
 			$(".dropdown-menu").toggle();
 			
 		});
-
-		
-		
+			
 		
 	}); //사용자 함수 정의 전 전체 scipt문 닫기
 
@@ -257,15 +245,12 @@
 		//alert(boardnum);
 
 		// 댓글 작성 숫자 표현 방법
-		$
-				.ajax({
+		$.ajax({
 
 					type : "get",
 					dataType : "json",
 					url : "/boardanswer/blist",
-					data : {
-						"board_num" : boardnum
-					},
+					data : {"board_num" : boardnum},
 					success : function(res) {
 
 						$("span.acount").text(res.length);
@@ -297,6 +282,29 @@
 					}
 				});
 	}
+	
+	 function showImage(photo) {
+         var modal = document.getElementById("myModal");
+         var modalImage = document.getElementById("modalImage");
+         
+         // 모달 창에 이미지 설정
+         modalImage.src = "../savefile/" + photo;
+
+         // 모달 창 열기
+         modal.style.display = "block";
+     }
+
+     function closeModal() {
+         var modal = document.getElementById("myModal");
+
+         // 모달 창 닫기
+         modal.style.display = "none";
+     }
+     
+  	// 모달 내부 클릭 시 닫기 방지
+	document.getElementById("myModal").addEventListener("click", function(event) {
+	   event.stopPropagation();
+	});
 </script>
 <style type="text/css">
 #userimg {
@@ -354,10 +362,6 @@
 	color: green;
 }
 
-/* .boardupdate{
-	cursor: pointer;
-} */
-
 </style>
 </head>
 <body>
@@ -401,7 +405,7 @@
 								<c:if test="${dto.board_photo!='no'}">
 									<span style="float: right;"> 
 									<c:forTokens items="${dto.board_photo}" delims="," var="photo">
-											<a href="download?clip=${photo }"> <i class="bi bi-download"></i>&nbsp;&nbsp;
+											<a href="download?clip=${photo }" style="font-size: 10px;"> <i class="bi bi-download"></i>&nbsp;&nbsp;
 												<b>${photo }</b>
 											</a>
 											<br>
@@ -420,25 +424,35 @@
 
 
 			<tr>
-				<td><c:if test="${bupload!=null }">
+				<td>
+					<c:if test="${bupload!=null }">
 						<!-- 컨트롤러 content부분에 bupload생성한 이후 -->
-						<span> <c:forTokens items="${dto.board_photo}" delims="," var="photo">
-								<img alt="" src="../savefile/${photo}" style="width: 200px;">
-							</c:forTokens> <%-- <c:forEach var="photo" items="${dto.board_photo }">
-						<img alt="" src="../savefile/${photo }" style="width:200px;">
-					</c:forEach> --%>
+						<span> 
+							<c:forTokens items="${dto.board_photo}" delims="," var="photo">
+								<img alt="" src="../savefile/${photo}" style="width: 200px; cursor: pointer;" onclick="showImage('${photo}')">
+							</c:forTokens>
 						</span>
-					</c:if> <br> <span style="width: 600px;"><div>
-							<pre><!-- 엔터 먹는 pre 태그 -->${dto.board_story }
-					</pre>
-						</div></span> <br> <%-- <b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp; --%>
+					</c:if> 
+					<br> 
+						<span style="width: 600px;">
+								<div>
+									<pre><!-- 엔터 먹는 pre 태그 -->${dto.board_story }
+									</pre>
+								</div>
+						</span>
+						<br> <%-- <b>조회: ${dto.board_readcnt }</b> &nbsp;&nbsp;&nbsp; --%>
+						 <!-- 모달 창 -->
+				        <div id="myModal" class="modal" onclick="closeModal()">
+				            <span class="close" onclick="closeModal()">&times;</span>
+				            <img class="modal-content" id="modalImage">
+				        </div>
+				        
 					<!-- <b>댓글: <span class="acount"></span></b>  댓글 개수를 표현  -->
 					<div>
 						<!-- 좋아요 -->
 						<div class="d-inline-flex">
 							<div class="likes">
-								<span><i class="bi bi-heart" style="cursor: pointer;"></i><b
-									style="font-size: 12px;"> ${dto.board_like }</b></span>
+								<span><i class="bi bi-heart" style="cursor: pointer;"></i><b style="font-size: 12px;"> ${dto.board_like }</b></span>
 							</div>
 							<div>
 								&nbsp;<span><b><i class="bi bi-chat-left">&nbsp;</i><span

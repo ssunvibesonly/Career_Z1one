@@ -373,11 +373,13 @@ function goContent(boardnum){
       		  </c:choose>
                	
 			</c:forTokens>
-
+			<!--  cmList에서 전체일 때는 사진 count가 됐는데, 개별 category로 넘어가면 사진 count가 안 되는 문제점이 발생...alert해보니 값을 못 가져옴
+					_ 이유는 CmBoardMapper.xml에서 "getBoardsByCategory"의 LENGTH(board_photo) - LENGTH(REPLACE(board_photo, ',', '')) + 1 필요했음! 넣으니깐 해결~
+				<script type="text/javascript">alert("${userboardDto.photocount}")</script> -->
 			<c:if test="${userboardDto.photocount >=2}">
 				<span class="listimage-text" id="listimageText">
 				
-					+ ${userboardDto.photocount-1}
+					<b style="font-size: 30px;">+ ${userboardDto.photocount-1}</b>
 				</span>
 			</c:if>
 			
