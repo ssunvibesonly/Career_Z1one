@@ -30,13 +30,38 @@
 	<br>
 	
 	<c:forEach var="plist" items="${popularList }">
-		<div style="border: 1px solid black; width: 250px;
-		height: 160px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
-			<img alt="" src="../noticeImg/${plist.cnotice_image }" style="width: 250px;height: 120px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
-		</div>
+		<a href="/company/detail?cnotice_num=${plist.cnotice_num }" style="text-decoration: none;color: gray;">
+		<div style="border: 1px solid lightgray; width: 251px;
+		height: 350px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
+			<img alt="" src="../noticeImg/${plist.cnotice_image }" style="width: 250px;height: 170px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 3%;"><br>
+			<input type="hidden" ntname="${plist.cnotice_noticename }" class="gtext">
+			&nbsp;&nbsp;<span style="font-size: 12pt;font-weight: bold;" class="noticetext"></span><br>
+			<span>&nbsp;&nbsp;${plist.cnotice_industry1 } | ${plist.cnotice_industry2 }</span><br>
+			<span>&nbsp;&nbsp;${plist.cnotice_career } | ${plist.cnotice_type }</span><br>
+			<span>&nbsp;&nbsp;마감일 : ${plist.cnotice_deadline}</span>
+			<hr style="width: 220px;margin-left: 6%;">
+			<span>&nbsp;&nbsp;<img alt="" src="../image/won.png" style="width: 30px;">&nbsp;합격축하금 : <b>${plist.cnotice_congratulate }만원</b></span>
+		</div></a>
 	</c:forEach>
 	
 </div>
+<script type="text/javascript">
 
+var noticeTexts = document.querySelectorAll("span.noticetext");
+
+noticeTexts.forEach(nt => {
+    var ntname = $(nt).prev(".gtext").attr("ntname"); // jQuery를 사용하여 해당 요소의 ntname 속성 값을 가져옵니다.
+
+    var originalText = ntname; // 가져온 텍스트를 originalText에 할당합니다.
+    var maxLength = 15;
+
+    if (originalText.length > maxLength) {
+        var truncatedText = originalText.substring(0, maxLength) + "(...)"; // 텍스트를 일정 길이로 자릅니다.
+        nt.textContent = truncatedText; // 자른 텍스트를 출력합니다.
+    } else {
+        nt.textContent = originalText; // 최대 길이보다 짧은 경우 그대로 출력합니다.
+    }
+});
+</script>
 </body>
 </html>

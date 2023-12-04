@@ -776,7 +776,7 @@ function formatDate(date, format) {
 	<!-- 왜 if문 밖에서는 margin-left와 border-radius만 적용되고 if문 안에서는 margin-top만 적용되는지:
 if문 밖에서는 각각의 <div>가 가로로 나열되는데, 그때는 margin-top이 필요하지 않습니다. 그래서 if문 밖에서는 margin-left와 border-radius만 설정하였습니다.
 if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 위해 margin-top을 사용하였습니다. margin-left와 border-radius는 이미 첫 번째 <div>에서 설정되었기 때문에 if문 안에서는 따로 설정할 필요가 없습니다 -->
-<<<<<<< HEAD
+
 	<div style="width: 130vw;" class="container">
 		<div align="left">
 			<button type="button" onclick="location.href='addNoticeForm'"
@@ -837,8 +837,6 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 		<!-- list 출력 div -->
 		<div class="container notices" style="width: 100%;"></div>
 	</div>
-=======
->>>>>>> fc76ad9f210fcdb49eb62a602329bcfec0bf05d3
 
 </body>
 </html>
