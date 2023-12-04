@@ -206,7 +206,7 @@
 							icon: "success",
 							title: name+" 님이 "+lev+"(을)를 통과했습니다!"
 						});
-						//list();
+						list();
 					}
 				});
 			}
@@ -220,7 +220,7 @@
 			}else{
 				passAjax();
 			}
-			list();
+			//list();
 		});
 		//탈락
 		$(document).on("click","i.fail",function(){
