@@ -215,6 +215,13 @@ public class RecruitController {
 		model.addObject("c_pass", service.getCompanyPass(c_code));
 		
 		List<TitleDto> titlelist=service.getAllTitles(c_code);
+		
+		for(TitleDto t:titlelist) {
+			String title=t.getR_title();
+			if(title.length()>17) {
+				t.setR_title(title.substring(0, 17)+"...");
+			}
+		}
 		model.addObject("titlelist", titlelist);
 		model.addObject("titlecount", titlelist.size());
 		
