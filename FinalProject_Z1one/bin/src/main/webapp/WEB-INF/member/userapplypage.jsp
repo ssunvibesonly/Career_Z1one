@@ -39,21 +39,22 @@ border-top: 1px solid lightgray;
 .idEdit{
 width:10%;
 height:70px;
-border: 1px solid yellow;
 margin-left: 20%;
 text-align: center;
 padding : 20px 0;
 font-weight: bold;
+cursor: pointer;
 
 }
 
 .applyEdit{
 width:10%;
 height:70px;
-border: 1px solid yellow;
+border-bottom:5px solid purple;
 text-align: center;
 padding : 20px 0;
 font-weight: bold;
+cursor: pointer;
 
 }
 
@@ -71,9 +72,48 @@ margin-top: 1.7%;
 cursor: pointer;
 }
 
+a{
+text-decoration: none;
+color: black;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+function updateapply() {
+	location.href="/member/applyupdateform?user_num="+${user_num};
+}
+
+$(function() {
+
+	$(".applydelete").click(function(){
+		
+		var user_num=$(this).attr("user_num");
+		//alert(user_num);
+		
+		var ans=confirm("정말로 이력서 삭제하시겠습니까?");
+		
+		if(ans){
+			
+			$.ajax({
+				
+				type:"get",
+				dataType:"html",
+				url:"deleteapply",
+				data:{"user_num":user_num},
+				success:function(){
+					location.reload();
+				}
+			})
+		}else {
+			alert("취소되었습니다.");
+			location.reload();
+		}
+	})
+})
+
+</script>
 <body>
 <div>
    <form>
@@ -85,27 +125,33 @@ cursor: pointer;
    </form>
 </div>
 <div class="d-inline-flex mypagemenu">
-   <div href="#" class="idEdit">계정</div>
-   <div href="#" class="applyEdit">이력서</div>
+   <div class="idEdit"><a href="/member/usereditpage?user_num=${user_num }">계정</a></div>
+   <div class="applyEdit"><a href="/member/userapplypage?user_num=${user_num }">이력서</a></div>
 </div>
 <div class="container">
    <h4 style="font-weight: 900;">이력서</h4>
+      <button type="button" style="margin-left: 73%;" class="btn btn-info" onclick="location.href='/email/sendEmail?user_email=${sessionScope.myid}&user_num=${sessionScope.user_num}'">맞춤 공고 받기</button>
    
    <c:if test="${apply_name!=null }">
-   <div class="apply" onclick="#">
+   <input type="hidden" name="user_num" value="${user_num}"> 
+   <div class="apply" onclick="updateapply()">
       <div style="background-color:#9F81F7; width: 4.5%; height: 2.5vh; border: 1px solid #9F81F7; 
       border-radius: 3px;  text-align: center; position: absolute; margin: 20px 20px;">
-      <b style="position:absolute; font-size: 8pt; top: 1px; left: 8px; color: WHITE;" >대표 이력서</b>
+      <b style="position:absolute; font-size: 8pt; top: 0.5px; left: 6px; color: WHITE;" >대표 이력서</b>
       </div>
       <h5 style="margin: 60px 20px; font-weight: 900;">${apply_name }님의 이력서</h5>
       <h6 style="margin: 60px 20px;">최종업데이트일 : ${apply_writeday }</h6>
    </div>
+   <img src="${root }/image/applydelete.png" class="applydelete" style="width: 2%; z-index: 100; position: absolute; top: 387px; right: 119px; cursor: pointer;" user_num="${user_num }">
    </c:if>
    
    <c:if test="${apply_name==null }">      
-   <div class="apply" onclick="location.href='applyaddform'">   
-      <img src="${root }/image/applyinserticon.png" style="width: 5%; margin: 65px 500px;">
+   <form action="applyaddform" method="get">
+   <input type="hidden" name="user_num" value="${user_num}">
+   <div class="apply">   
+      <input type="image" src="${root }/image/applyinserticon.png" style="width: 5%; margin: 65px 500px; cursor: pointer;">
    </div>   
+   </form>
    </c:if>
    
 </div>

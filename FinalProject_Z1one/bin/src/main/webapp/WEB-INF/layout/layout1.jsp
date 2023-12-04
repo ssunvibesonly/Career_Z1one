@@ -77,19 +77,17 @@ margin-right: 20%;
 	<div class="header" align="center">
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div class="main" align="center">
+	<div class="main" >
 		<tiles:insertAttribute name="main"/>
 	</div>
-	<div class="notice" align="center">
-		<tiles:insertAttribute name="notice"/>
-	</div>
-	<div class="d-inline-flex" style="margin-left: 4%;">
-	<div class="content">
+<div class="d-inline-flex" >
+	<div class="content" style="width: 840px; margin-left: 12%;">
 		<tiles:insertAttribute name="content"/>
 	</div>
 	<div class="info">
 		<tiles:insertAttribute name="info"/>
-	</div></div>
+	</div>
+</div>
 </div>
 </body>
 </html>

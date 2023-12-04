@@ -4,18 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="boot.data.mapper.CmBoardMapperInter">
   	<insert id="insertCmBoard" parameterType="User_BoardDto">
-  		insert into user_board values(null,1,#{board_bigcategory},#{board_category},#{board_title},#{board_story},#{board_photo},0,0,0,now())
+  		insert into user_board values(null,#{user_num},#{board_bigcategory},#{board_category},#{board_title},#{board_story},#{board_photo},0,0,0,now())
   	</insert>
-  	<select id="getBoards" resultType="User_BoardDto">
-  		select * from user_board order by board_writeday desc
+  	<select id="getBoards" parameterType="map" resultType="User_BoardDto">
+  		select *,LENGTH(board_photo) - LENGTH(REPLACE(board_photo, ',', '')) + 1 AS photocount from user_board order by board_writeday desc limit #{start}, #{perpage}
   	</select>
-  	<select id="getTotalCount" resultType="int">
+  	<select id="getBoardsByCategory" parameterType="map" resultType="User_BoardDto">
+  		select * from user_board where board_category=#{board_category} order by board_writeday desc limit #{start}, #{perpage}
+  	</select>
+  	<select id="getTotalCount" parameterType="String" resultType="int">
  		select count(*) from user_board
+ 		<if test="board_category!=''">
+ 			where board_category=#{board_category}
+ 		</if>
  	</select>
  	<select id="getMaxNum" resultType="int">
  		select ifnull(max(board_num),0) from user_board
 	</select>
 	<!-- content -->
+	<!-- getData는 댓글 업데이트와 게시판 업데이트에 모두 사용 가능 sql 구문 -->
 	<select id="getData" parameterType="String" resultType="User_BoardDto">
  		select * from user_board where board_num=#{board_num}
  	</select>
@@ -28,4 +35,17 @@
  	<update id="updateLikes" parameterType="String">
   		update user_board set board_like=board_like+1 where board_num=#{board_num}
   	</update>
+  	<update id="updateunLikes" parameterType="String">
+  		update user_board set board_like=board_like-1 where board_num=#{board_num}
+  	</update>
+  	<select id="cmlistPhoto" parameterType="String" resultType="User_BoardDto">
+  		select length(board_photo) - length(replace(board_photo, ',', '')) + 1 as photo_count from user_board;
+  	</select>
+  	<!-- 게시판 댓글 수정 및 삭제 -->
+  	<update id="upadateBoard" parameterType="User_BoardDto">
+  		update user_board set board_bigcategory=#{board_bigcategory},board_category=#{board_category},board_title=#{board_title},board_photo=#{board_photo},board_story=#{board_story} where board_num=#{board_num}
+  	</update>
+  	<delete id="deleteBoard" parameterType="String">
+  		delete from user_board where board_num=#{board_num}
+  	</delete>
   </mapper>

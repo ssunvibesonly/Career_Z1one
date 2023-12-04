@@ -7,7 +7,6 @@
 	<definition name="layout1" template="/WEB-INF/layout/layout1.jsp"> <!-- 레이아웃 구성 -->
 		<put-attribute name="title" value="/WEB-INF/layout/title.jsp"></put-attribute>
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp"></put-attribute>
-		<put-attribute name="notice" value="/WEB-INF/layout/notice.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/layout/content.jsp"></put-attribute>
 		<put-attribute name="info" value="/WEB-INF/layout/info.jsp"></put-attribute>
 		<put-attribute name="main" value="/WEB-INF/layout/main.jsp"></put-attribute>

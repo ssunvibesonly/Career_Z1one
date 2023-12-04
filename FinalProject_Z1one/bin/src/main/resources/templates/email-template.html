@@ -11,6 +11,7 @@
   <title>Email Template</title>
 </head>
 <style type="text/css">
+
   @media only screen and (min-width: 620px) {
     .u-row {
       width: 600px !important;
@@ -208,7 +209,7 @@
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:35px 55px 10px;font-family:arial,helvetica,sans-serif;" align="left">
 
                       <div class="v-text-align v-font-size" style="font-size: 14px; color: #333333; line-height: 180%; text-align: left; word-wrap: break-word;">
-                        <p style="font-size: 14px; line-height: 180%; margin-left: 20%"><span style="font-size: 18px; line-height: 32.4px; font-family: Lato, sans-serif;"><strong><span style="line-height: 32.4px; font-size: 18px;">✔ 아래 버튼을 눌러서 확인해보세요 </span></strong></span></p>
+                        <p style="font-size: 14px; line-height: 180%; margin-left: 20%"><span style="font-size: 18px; line-height: 32.4px; font-family: Lato, sans-serif;"><strong><span style="line-height: 32.4px; font-size: 18px;">✔ 아래 버튼을 클릭해서 확인해보세요 </span></strong></span></p>
                       </div>
 
                     </td>
@@ -223,32 +224,34 @@
 
                       <style>.v-button {background: transparent !important;}</style>
                       <div class="v-text-align" align="center">
-
                         <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://unlayer.com" style="height:57px; v-text-anchor:middle; width:260px;" arcsize="77%"  stroke="f" fillcolor="#33428d"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
-                        <button type="button" style="width: 40%; height: 75px; border: none;" id="btn">
-                          Click to here
+
+                        <button type="button" style="width: 40%; height: 75px; border: none; background-color: whitesmoke" id="btn">
+                          <!--<a th:href="'http://localhost:9000/email/matchNotice'" style="font-size:20px;"><b>Click to here</b></a>-->
+                          <a th:href="'http://localhost:9000/email/matchNotice?myid=' + ${myid} + '&user_num=' + ${user_num}" style="font-size:20px;"><b>Click  to here</b></a>
                         </button>
 
                         </center></v:roundrect>
                       </div>
                       <br>
-                      <div class="notice" style="border: 1px solid gray; width: 50%; height: 200px; margin-left: 25%">
+
+            <!--          <div class="notice" style="border: 1px solid gray; width: 50%; height: 200px; margin-left: 25%">
                         <div class="top" style="border: 1px solid blue; width: 50%; height: 40px; margin-left: 25%;">
-                          <p th:text="${a}">안녕</p>
                         </div>
-                      </div>
+                      </div>-->
 
                     </td>
                   </tr>
                   </tbody>
                 </table>
-                <script>
+   <!--             <script>
                   $(document).ready(function(){
+                    $(".notice").hide();
                     $("#btn").click(function(){
                       $(".notice").toggle(); // toggle() 메서드를 사용하여 숨기기/보이기 토글
                     });
                   });
-                </script>
+                </script>-->
 
                 <table id="u_content_text_3" style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
                   <tbody>
@@ -288,7 +291,17 @@
                   <tr>
                     <td class="v-container-padding-padding" style="overflow-wrap:break-word;word-break:break-word;padding:5px 10px 40px;font-family:arial,helvetica,sans-serif;" align="left">
                       <!--[if mso]><table width="100%"><tr><td><![endif]-->
-                      <h1 class="v-text-align v-font-size" style="margin: 0px; color: #000000; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Lato',sans-serif; font-size: 26px; font-weight: 400;"><span><span>Call: <strong>02-1234-5678</strong></span></span></h1>
+                      <button type="button" style="border: none; margin-left: 40%; background-color: antiquewhite;"><a th:href="'http://localhost:9000/'"><b>🏠 홈페이지 </b></a></button>
+                 <!--  타임리프 활용 2번째 방법
+                  <a th:href="@{http://localhost:9000/}" style="border: none; margin-left: 40%; background-color: antiquewhite; display: block;">
+                        <b>🏠 22 </b>
+                      </a>-->
+
+                      <button type="button" style="border: none; margin-left: 40%; margin-top: 2%; background-color: papayawhip;"><a href="http://localhost:9000/company/ban"><b>🔔 전체 공고 </b></a></button>
+                      <button type="button" style="border: none; margin-left: 40%; margin-top: 2%; background-color: floralwhite;"><a href="http://localhost:9000/board/community"><b>📢 커뮤니티 게시판</b></a></button>
+                      <button type="button" style="border: none; margin-left: 40%; margin-top: 2%; background-color: white;"><a href="https://github.com/ssunvibesonly/Career_Z1one/tree/master"><b>❓ 문의하기</b></a></button>
+                      <br>
+
                       <!--[if mso]></td></tr></table><![endif]-->
                     </td>
                   </tr>
@@ -330,7 +343,7 @@
                           <!--[if (mso)|(IE)]></tr></table></td></tr></table><![endif]-->
                         </div>
                       </div>
-
+                      <h4 class="v-text-align v-font-size" style="margin: 0px; color: white; line-height: 140%; text-align: center; word-wrap: break-word; font-family: 'Lato',sans-serif; font-size: 26px; font-weight: 400;"><span><span><strong>📞 02-1234-5678</strong></span></span></h4>
                     </td>
                   </tr>
                   </tbody>

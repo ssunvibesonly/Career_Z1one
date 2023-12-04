@@ -5,7 +5,7 @@
 
 <mapper namespace="boot.data.mapper.BoardMapperInter">
     <select id="getNameNotice" resultType="String">
-        SELECT cnotice_name
+        SELECT cnotice_noticename
         FROM cnotice
         ORDER BY cnotice_readcount DESC
         LIMIT 10;
@@ -31,10 +31,13 @@
         SELECT * FROM user_board
         WHERE board_category = #{board_category}
         ORDER BY board_writeday DESC
-        LIMIT 5
+        LIMIT 4
     </select>
     <select id="getAllData" resultType="User_BoardDto">
         select * from user_board
     </select>
 
+    <select id="getContentCount" resultType="Board_ContentDto" parameterType="String">
+        select count(*) count,board_num from board_content where board_num=#{board_num}
+    </select>
 </mapper>

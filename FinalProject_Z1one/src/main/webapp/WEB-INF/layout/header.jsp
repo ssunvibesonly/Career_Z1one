@@ -80,8 +80,17 @@ $(function(){
       // 상세 설명을 숨깁니다.
       $('#detailDescription').css('display', 'none');
     });
+<<<<<<< HEAD
 
 });
+=======
+    
+    $("#glass").on("click",function(){
+    	$(this).next().trigger("click");
+    });
+});
+
+>>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 </script>
 <body>
 </head>
@@ -89,11 +98,12 @@ $(function(){
 <body>
 <hr>
 <div>
-	<form>
+	<form action="" method="post">
 	<span class="d-inline-flex" style="margin-bottom: 1%;">
 		<input class="input_search form-control" id="search_bar_search_query" maxlength="201" name="query" 
 		onclick="onSearchBar()" placeholder="기업, 채용 공고를 검색해보세요." 
 		type="text"><img alt="" src="../image/search.png" id="glass">
+		<button type="submit" style="visibility: hidden"></button>
 	</span>
 	</form>
 

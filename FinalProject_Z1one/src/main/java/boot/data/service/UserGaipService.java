@@ -1,11 +1,24 @@
 package boot.data.service;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import boot.data.dto.UserGaipDto;
 import boot.data.inter.UserGaipServiceInter;
@@ -16,7 +29,7 @@ public class UserGaipService implements UserGaipServiceInter {
 
    @Autowired
    UserGaipMapperInter ugaipinter;
-   
+
    @Override
    public int getTotalCount() {
       // TODO Auto-generated method stub
@@ -56,6 +69,24 @@ public class UserGaipService implements UserGaipServiceInter {
       // TODO Auto-generated method stub
       return ugaipinter.getEmail(user_email);
    }
+
+	@Override
+	public UserGaipDto getDataByNum(String user_num) {
+		// TODO Auto-generated method stub
+		return ugaipinter.getDataByNum(user_num);
+	}
+
+	@Override
+	public List<UserGaipDto> getAllUser() {
+		// TODO Auto-generated method stub
+		return ugaipinter.getAllUser();
+	}
+
+	@Override
+	public void UpdateUserEdit(UserGaipDto dto) {
+		// TODO Auto-generated method stub
+		ugaipinter.UpdateUserEdit(dto);
+	}
 
 
 }

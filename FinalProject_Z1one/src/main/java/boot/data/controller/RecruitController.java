@@ -1,6 +1,6 @@
 package boot.data.controller;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,27 +54,44 @@ public class RecruitController {
 			model.addAttribute("maxstep", 0);
 		} else {
 			int maxstep=service.getMaxStepOfCourse(c_code, r_title);
+			Timestamp deadlineday=service.getAllRecruitCourse(c_code, r_title).size()==0?null:service.getAllRecruitCourse(c_code, r_title).get(0).getDeadlineday();
+			
+			String deaddate="";
+			String deadtime="";
+			if(deadlineday!=null) {
+				deaddate=deadlineday.toString().split(" ")[0];
+				deadtime=deadlineday.toString().split(" ")[1];
+			}
+			
 			model.addAttribute("maxstep", maxstep);
-			model.addAttribute("list", service.getAllRecruitCourse(c_code, r_title));
+			model.addAttribute("list", service.getAllRecruitCourse(c_code, r_title).size()==0?null:service.getAllRecruitCourse(c_code, r_title));
+			model.addAttribute("deaddate", deaddate);
+			model.addAttribute("deadtime", deadtime.length()==0?deadtime:deadtime.substring(0, deadtime.length()-2));
 		}
+		model.addAttribute("c_code", c_code);
 		model.addAttribute("r_title", r_title);
 		
 		return "/2/recruit/r_levelinsertform";
 	}
 	
 	@PostMapping("/levelupdate")
-	public ModelAndView update(@RequestParam int c_code,String r_title,String levels,String steps) {
+	public ModelAndView update(@RequestParam int c_code,String r_title,String levels,String steps,
+			String deadlineday) {
 		
 		ModelAndView model=new ModelAndView();
-		model.setViewName("redirect:singlelist");
+		model.setViewName("redirect:titlelist");
+		model.addObject("c_code", c_code);
 		
 		int maxStep=service.getMaxStepOfCourse(c_code, r_title);
 		
 		levels=levels.substring(0, levels.length()-1);
 		steps=steps.substring(0, steps.length()-1);
+
+		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday+":00");
 		RecruitDto rdto=new RecruitDto();
 		rdto.setC_code(c_code);
 		rdto.setR_title(r_title);
+		rdto.setDeadlineday(deadlinetime);
 		
 		//model.addObject("company", service.getCompanyNameByCode(c_code));
 		String[] levelsarr=levels.split(",");
@@ -84,7 +101,7 @@ public class RecruitController {
 		int j=0;
 		for(String step:stepsarr) {
 			int stepint=Integer.parseInt(step);
-			stepsintarr[j]=stepint+1;
+			stepsintarr[j]=stepint;
 			j++;
 		}
 		for(int i=0;i<Math.max(maxStep, levelsarr.length);i++) {

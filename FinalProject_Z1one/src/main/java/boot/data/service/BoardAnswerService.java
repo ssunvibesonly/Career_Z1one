@@ -62,5 +62,11 @@ public class BoardAnswerService implements BoardAnswerServiceInter {
 		mapperInter.deleteAnswer(content_num);
 	}
 
+	@Override
+	public Board_ContentDto getAnswerCount(String board_num) {
+		// TODO Auto-generated method stub
+		return mapperInter.getAnswerCount(board_num);
+	}
+
 
 }

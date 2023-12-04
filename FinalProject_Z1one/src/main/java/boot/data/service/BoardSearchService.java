@@ -30,8 +30,6 @@ public class BoardSearchService implements BoardSearchInter {
    @Override
    public List<User_BoardDto> getSort(String searchword, String orderby) {
       Map<String,String> map = new HashMap<String,String>();
-
-
       map.put("searchword", searchword);
       map.put("orderby", orderby);
       return boardSearchMapperInter.getSort(map);

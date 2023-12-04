@@ -18,6 +18,9 @@ public class Board_ContentDto {
    private int restep;
    private Timestamp writeday;
    
+   //list에 content_댓글수
+   private int count;
+   
    //list출력용 writeday
    private String sdf_writeday;
    

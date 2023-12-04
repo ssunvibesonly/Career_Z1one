@@ -8,7 +8,7 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/ # 이메일 템플릿이 위치할 경로. classpath:를 통해 src/main/resources/ 밑으로 설정되었다.
     suffix: .html # 템플릿 파일의 확장자
-    mode: HTML
+    mode: HTML5
     encoding: UTF-8
     check-template-location: true
     cache: false
@@ -23,7 +23,7 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  
   #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -31,8 +31,10 @@ spring:
     username: Z1one
     password: fhfgkrhtlvek
 
+
 #mybatis
 mybatis:
   type-aliases-package: boot.data.* //(DB랑 연결되는 부분)
   mapper-locations:
     - /mapper/**/*.xml
+        

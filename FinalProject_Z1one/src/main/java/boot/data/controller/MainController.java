@@ -29,7 +29,11 @@ public class MainController {
 	@GetMapping("/")
 	public String mainStart(Model model) {
 		
+<<<<<<< HEAD
 	/*	//지금 뜨는 공채(조회수순)
+=======
+		//지금 뜨는 공채(조회수순)
+>>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 		List<CnoticeDto> popularList=cnotice_service.readCountList();
 		
 		//CompletableFuture 클래스는 비동기 작업의 결과를 다루는 데 사용

@@ -2,6 +2,8 @@ package boot.data.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.CompletableFuture;
 
 import javax.servlet.http.HttpSession;
@@ -28,6 +30,7 @@ public class BoardController {
    @Autowired
    EmailService emailService;
 
+
    // 게시판 인기 공고 글 띄우기.
    @GetMapping("/community")
    public ModelAndView boardmain(HttpSession httpSession) {
@@ -40,6 +43,8 @@ public class BoardController {
       CompletableFuture<List<User_BoardDto>> oneTitle = boardService.getTopOneTitle(); //비동기 처리.
       List<User_BoardDto> onetitle1 = oneTitle.join();
 
+
+
       //카테고리 별 게시판 띄우기
       List<User_BoardDto> title = boardService.selectFiveByCategory("자소서");
       List<User_BoardDto> title1 = boardService.selectFiveByCategory("면접");
@@ -51,6 +56,15 @@ public class BoardController {
       List<User_BoardDto> title7 = boardService.selectFiveByCategory("인적성");
       List<User_BoardDto> title8 = boardService.selectFiveByCategory("회사생활");
       List<User_BoardDto> title9 = boardService.selectFiveByCategory("Z1마켓");
+
+      //댓글 수 뽑기
+      List<User_BoardDto> getList = boardService.getAllData();
+      List<Board_ContentDto> contentList = new ArrayList<Board_ContentDto>();
+      for (int i = 0; i <getList.size() ; i++) {
+         contentList.add(boardService.getContentCount(getList.get(i).getBoard_num()));
+      }
+
+      modelAndView.addObject("contentList",contentList);
 
       //인기공고
       modelAndView.addObject("list1",list1);
@@ -74,6 +88,5 @@ public class BoardController {
       modelAndView.setViewName("/2/community/cmMain");
       return modelAndView;
    }
-
 
    }

@@ -12,7 +12,7 @@ public class User_EducationDto {
 	private String education_name;
 	private String education_duration;
 	private String education_check;
-	private String education_grade;
 	private String education_degree;
 	private String education_score;
+	private String education_major;
 }

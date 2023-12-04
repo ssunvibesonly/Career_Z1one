@@ -16,6 +16,7 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import boot.data.dto.CnoticeDto;
+import boot.data.dto.User_ApplyDto;
 import boot.data.inter.EmailInter;
 import boot.data.mapper.EmailMapperInter;
 
@@ -45,13 +46,23 @@ public class EmailService implements EmailInter {
    }
 
    @Override
+   public User_ApplyDto getUserByNum(String user_num) {
+      return emailMapperInter.getUserByNum(user_num);
+   }
+
+   @Override
+   public List<User_ApplyDto> getAllUser() {
+      return emailMapperInter.getAllUser();
+   }
+
+   @Override
    public List<CnoticeDto> getCompanyNotice() {
       return emailMapperInter.getCompanyNotice();
    }
 
    @Override
-   public void getMatchUserwithNotice() {
-      emailMapperInter.getMatchUserwithNotice();
+   public List<CnoticeDto> getMatchUserwithNotice(String user_num) {
+      return emailMapperInter.getMatchUserwithNotice(user_num);
    }
 
    @Override
@@ -63,13 +74,17 @@ public class EmailService implements EmailInter {
          mimeMessageHelper.setTo(toEmail);
          mimeMessageHelper.setSubject(subject);
 
-         String a = "바보";
+         String id = (String)httpSession.getAttribute("myid");
+         String num = (String)httpSession.getAttribute("user_num");
 
+         //여기서
 
          // Create a Thymeleaf context
          Context thymeleafContext = new Context();
-         thymeleafContext.setVariable("title", subject);
-         thymeleafContext.setVariable("content", content);
+         thymeleafContext.setVariable("myid",id);
+         thymeleafContext.setVariable("user_num",num);
+         //thymeleafContext.setVariable("title", subject);
+         //thymeleafContext.setVariable("content", content);
 
          // Process the Thymeleaf template
          String emailBody = templateEngine.process("email-template", thymeleafContext);

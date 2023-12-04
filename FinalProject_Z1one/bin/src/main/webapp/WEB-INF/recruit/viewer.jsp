@@ -263,12 +263,12 @@
 				success:function(res){
 					var app=res.applyinfo;
 					$("td.mailtable").text(res.email);
-					$("td.gendertable").text(app.apply_Gender);
-					$("td.birthtable").text(app.apply_Birth);
+					$("td.gendertable").text(app.apply_gender);
+					$("td.birthtable").text(app.apply_birth);
 					$("td.occuptable").text(app.apply_primary);
-					$("td.hptable").text(app.apply_Hp);
-					$("td.paytable").text(app.apply_Salary+"만 원");
-					$("td.addrtable").text(app.apply_Addr);
+					$("td.hptable").text(app.apply_hp);
+					$("td.paytable").text(app.apply_salary+"만 원");
+					$("td.addrtable").text(app.apply_addr);
 					$("div.applyphoto").html("<img src='"+/*경로입력*/+"'"); //경로 입력하시오
 					
 					$("tr.info").remove();
@@ -276,18 +276,18 @@
 					var cs="<tr class='info'><th>회사</th><th>부서</th><th>직위</th><th>기간</th></tr>";
 					$.each(res.educations,function(i,ele){
 						es+="<tr class='info'>";
-						es+="<td>"+ele.education_Name+"</td>";
-						es+="<td>"+ele.education_Degree+"</td>";
-						es+="<td>"+ele.education_Score+"</td>";
-						es+="<td>"+ele.education_Duration+"</td>";
+						es+="<td>"+ele.education_name+"</td>";
+						es+="<td>"+ele.education_degree+"</td>";
+						es+="<td>"+ele.education_score+"</td>";
+						es+="<td>"+ele.education_duration+"</td>";
 						es+="</tr>";
 					});
 					$.each(res.careers,function(i,ele){
 						cs+="<tr class='info'>";
-						cs+="<td>"+ele.career_Companyname+"</td>";
-						cs+="<td>"+ele.career_Team+"</td>";
-						cs+="<td>"+ele.career_Position+"</td>";
-						cs+="<td>"+ele.career_Duration+"</td>";
+						cs+="<td>"+ele.career_companyname+"</td>";
+						cs+="<td>"+ele.career_team+"</td>";
+						cs+="<td>"+ele.career_position+"</td>";
+						cs+="<td>"+ele.career_duration+"</td>";
 						cs+="</tr>";
 					});
 					
