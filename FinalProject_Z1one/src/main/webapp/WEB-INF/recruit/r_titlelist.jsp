@@ -16,6 +16,7 @@
 <style>
 	table.table{
 		width: 690px;
+		margin-left: 26%;
 	}
 	#add{
 		float: right;
@@ -355,8 +356,8 @@
 			    }
 			}else{
 				div.innerHTML="<div class='dday' style='background-color: #aaaaaa;color: white'>종료</div>";
-				div.closest("td").nextSibling.querySelector("a.btnmod").style.backgroundColor="#c8c8c8";
-				div.closest("td").nextSibling.querySelector("a.btnmod").classList.remove("btnmod");
+				div.closest("td").nextElementSibling.querySelector("a.btnmod").style.backgroundColor="#c8c8c8";
+				div.closest("td").nextElementSibling.querySelector("a.btnmod").classList.remove("btnmod");
 			}
 		});
 	}
@@ -450,7 +451,7 @@
 						<c:set var="dd" value="${tdto.dday }"/>
 						<div class="d-inline-flex rtime" dead="${tdto.deadlineday }">
 							<span class="time" dead="${tdto.deadlineday }"><fmt:formatDate value="${tdto.deadlineday }" pattern="yyyy-MM-dd"/></span>&nbsp;&nbsp;
-							<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd!=1?dd:'Day'}</div>
+							<div class="dday" style="background-color: ${dd>=10?'#F06E6E':dd<10&&dd>5?'#EB6464':dd==5?'#EB5A5A':dd==4?'#EB5050':dd==3?'#EB4646':dd==2?'#EB3232':dd==1?'#EB0000':'#aaaaaa'}">D-${dd}</div>
 						</div>
 					</td>
 					<td align="center">

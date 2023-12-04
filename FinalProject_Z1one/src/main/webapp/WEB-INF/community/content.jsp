@@ -36,10 +36,10 @@
 		$("#btncommentadd").click(
 				function() {
 					var boardnum = "${boardnum}";
-					alert(boardnum)
+					//alert(boardnum)
 					var loginok = "${sessionScope.loginok}";
 					var myid = "${sessionScope.myid}";
-					alert(loginok + "," + myid)
+					//alert(loginok + "," + myid)
 					if (loginok == "") {
 						location.href = '/login/form?community=yes&boardnum='
 								+ boardnum;
@@ -139,11 +139,7 @@
 				});
 
 		//댓글 수정 ajax1_getnum
-		$(document)
-				.on(
-						"click",
-						".commentupdate",
-						function() {
+		$(document).on("click",".commentupdate",function() {
 
 							idx = $(this).attr("idx");
 							content = $(this).parent().prev().text();
@@ -277,42 +273,24 @@
 						// 댓글 실제로 나타내기 작업
 						var s = "";
 
-						$
-								.each(
-										res,
-										function(i, dto) {
-											//alert('${sessionScope.myid}');
-											s += "<b class='emailfont'>"
-													+ dto.user_email
-															.substring(
-																	0,
-																	Math
-																			.min(
-																					dto.user_email.length,
-																					3))
-													+ "*"
-															.repeat(Math
-																	.max(
-																			0,
-																			dto.user_email.length - 3))
-													+ "</b><br>"
-											s += "&nbsp;&nbsp;<span class='fw-light contentfont'>"
-													+ dto.content + "</span>"
-											//s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
-											//s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
-											s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
-											if ('${email}' == '${sessionScope.myid}') {
-												s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
-												s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
-											} else {
-												s += "</span><br>";
+						$.each(res,function(i, dto) {
+						//alert('${sessionScope.myid}');
+							s += "<b class='emailfont'>"+ dto.user_email.substring(0,Math.min(dto.user_email.length,3))+ "*".repeat(Math.max(0,dto.user_email.length - 3))+ "</b><br>"
+							s += "&nbsp;&nbsp;<span class='fw-light contentfont'>"+ dto.content + "</span>"
+							//s += "<span class='btnupdate' style='font-size:10px; color:gray; cursor:pointer;'>수정 | </span>";
+							//s += "<span id='close' style='font-size:10px; color:gray; cursor:pointer;'>닫기</span>"
+							s += "<span class='fw-light' style='font-size: 8pt; color: gray; float: right;'>";
+							//alert("${email}"+"/"+"${sessionScope.myid}")
+								if (dto.user_email == '${sessionScope.myid}') {
+										s += " <i class='bi bi-eraser commentupdate' idx='"+dto.content_num+"'></i>"
+										s += "<i class='bi bi-x-lg commentdelete' idx='"+dto.content_num+"'></i></span><br>"
+									} else {
+										s += "</span><br>";
 											}
 
-											s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"
-													+ dto.sdf_writeday
-													+ "</div><hr>";
+							s += "<div class='fw-light' style='font-size: 8pt; color: gray; float: right;'>"+ dto.sdf_writeday+ "</div><hr>";
 
-										});
+						});
 
 						$("div.commentresult").html(s);
 
@@ -388,40 +366,39 @@
 			<tr>
 				<td>
 					<h4>
-						<b style="font-size: 25px;">${dto.board_title }</b> <span
-							style="font-size: 8pt; color: gray; float: right;"> <i
-							class="bi bi-calendar"></i>&nbsp;<fmt:formatDate
-								value="${dto.board_writeday }" pattern="yyyy-MM-dd HH:mm" /> <%-- <span style="font-size: 8pt; color: gray; float: right;"><i class="bi bi-eye"></i> ${dto.board_readcnt }</span> --%>
+						<b style="font-size: 25px;">${dto.board_title }</b>
+						<span style="color: gray; width:20px;">							
+						<c:if test="${sessionScope.loginok!=null }">
+						
+							<c:if test="${sessionScope.myid eq email}">
+								<!-- 게시판 수정/삭제 버튼 -->							
+								<span class="container mt-3">
+								  <span class="dropdown dropend">
+								    <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"> -->
+								    <i class="bi bi-three-dots-vertical boardupdate dropdown" data-bs-toggle="dropdown"></i>
+								    
+								    <ul class="dropdown-menu">
+								      <li><a class="dropdown-item" href="/community/uform?board_num=${dto.board_num}">수정  <i class="bi bi-pencil-square" style="color: green;"></i></a></li>
+								      <li><a class="dropdown-item" href="/community/delete?board_num=${dto.board_num}">삭제  <i class="bi bi-trash3-fill" style="color: #B90000;"></i></a></li>
+								    </ul>
+								  </span>
+								</span>
+							</c:if>
+						</c:if>
+						</span> 
+						<span style="font-size: 8pt; color: gray; float: right;"> 
+							<i class="bi bi-calendar"></i>&nbsp;
+							<fmt:formatDate value="${dto.board_writeday }" pattern="yyyy-MM-dd HH:mm" />
 						</span>
 
-					</h4> <span class="fw-bolder" style="font-size: 12px; color: #6f42c1;">작성자 │ </span><span style="font-size: 12px;">${displayedEmail}</span> 
-						<span style="font-size: 8pt; color: gray;"><i class="bi bi-eye"></i>${dto.board_readcnt }</span> 
-						
-						<%-- <c:if test="${dto.board_story!='no' }"> --%>
-						<span>
-							<%-- <input type="button" class="btn btn-info btn-sm" value="수정" onclick="location.href='uform?num=${dto.num}'"> --%>	
-<c:if test="${sessionScope.loginok!=null }">
-
-	<c:if test="${sessionScope.myid eq email}">
-		<!-- 게시판 수정/삭제 버튼 -->							
-	<div class="container mt-3">
-	  <div class="dropdown dropend">
-	    <!-- <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"> -->
-	    <i class="bi bi-three-dots-vertical boardupdate dropdown" data-bs-toggle="dropdown"></i>
-	    </button>
-	    <ul class="dropdown-menu">
-	      <li><a class="dropdown-item" href="/community/uform?board_num=${dto.board_num}">수정</a></li>
-	      <li><a class="dropdown-item" href="/community/delete?board_num=${dto.board_num}">삭제</a></li>
-	    </ul>
-	  </div>
-	</div>
-	</c:if>
-
-							
-							
-							<%-- <i class="bi bi-three-dots-vertical boardupdate"  value="수정" onclick="location.href='uform?board_num=${dto.board_num}'"></i>	 --%>				
-						
-						<c:if test="${dto.board_photo!='no'}">
+					</h4> 
+					<span class="fw-bolder" style="font-size: 12px; color: #6f42c1;">작성자 │ </span><span style="font-size: 12px;">${displayedEmail}</span> 
+					<span style="font-size: 8pt; color: gray;"><i class="bi bi-eye"></i>${dto.board_readcnt }</span>
+					 	
+					<div>
+						<c:if test="${sessionScope.loginok!=null }">
+							<c:if test="${sessionScope.myid eq email}">
+								<c:if test="${dto.board_photo!='no'}">
 									<span style="float: right;"> 
 									<c:forTokens items="${dto.board_photo}" delims="," var="photo">
 											<a href="download?clip=${photo }"> <i class="bi bi-download"></i>&nbsp;&nbsp;
@@ -429,19 +406,23 @@
 											</a>
 											<br>
 									</c:forTokens> <!-- clip은 downloadcontroller에서 만든 걸로 한 것!!-->
-								</span>
+									</span>
+								</c:if>
 							</c:if>
 						</c:if>
-					</span>
+					</div>
+					
+					
 						
 				</td>
 			</tr>
 
+
+
 			<tr>
 				<td><c:if test="${bupload!=null }">
 						<!-- 컨트롤러 content부분에 bupload생성한 이후 -->
-						<span> <c:forTokens items="${dto.board_photo}" delims=","
-								var="photo">
+						<span> <c:forTokens items="${dto.board_photo}" delims="," var="photo">
 								<img alt="" src="../savefile/${photo}" style="width: 200px;">
 							</c:forTokens> <%-- <c:forEach var="photo" items="${dto.board_photo }">
 						<img alt="" src="../savefile/${photo }" style="width:200px;">

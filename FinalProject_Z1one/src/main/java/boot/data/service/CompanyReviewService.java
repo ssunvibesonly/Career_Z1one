@@ -27,4 +27,10 @@ public class CompanyReviewService implements CompanyReivewServiceInter {
 		return crmapper.readOneAllReview(cn_idx);
 	}
 
+	@Override
+	public double SumCompanyReview(int cn_idx) {
+		// TODO Auto-generated method stub
+		return crmapper.SumCompanyReview(cn_idx);
+	}
+
 }

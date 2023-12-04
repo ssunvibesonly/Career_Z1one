@@ -204,6 +204,7 @@ background-image: linear-gradient(315deg, #f0ecfc 0%, #c797eb 74%);
 $(function(){
 	
 	list();
+	sumStar();
 	
 	$("#insertReview").click(function(){
 		
@@ -224,7 +225,11 @@ $(function(){
 			data:{"cn_idx":cn_idx,"review_title":review_title,"review_goodthing":review_goodthing,"review_badthing":review_badthing,"review_wishced":review_wishced
 				,"review_star":starscore},
 			success:function(){
+				
+				
+				sumStar();
 				location.reload();
+				
 			}
 			
 		})
@@ -254,7 +259,26 @@ $(function(){
 	      }
 	   });
 })
+function sumStar(){
+
+	var cn_idx='${cndto.cn_idx}'
+	
+	$.ajax({
+		type:"get",
+		dataType:"json",
+		url:"sumStar",
+		data:{"cn_idx":cn_idx},
+		success:function(res){
+			//alert(res);
+			//alert(star);
+			$("#starplace").text(res);
+		}
+	})
+	
+}
+
 function list(){
+
 	var cn_idx='${cndto.cn_idx}'
 	var s="";
 	
@@ -264,6 +288,9 @@ function list(){
 		url:"readReview",
 		data:{"cn_idx":cn_idx},
 		success:function(res){
+		
+			
+			
 			//반복문, 까먹지 말자!!
 			 $.each(res,function(index,ele){
 				
@@ -289,7 +316,10 @@ function list(){
 				$("#reviewContent").html(s);
 				
 				
+				
 			}) 
+			
+			
 			
 		}
 	})
@@ -310,8 +340,7 @@ function list(){
 			<div style="position: absolute; left: 22%; top: 25%; width: 15%; height: 10%; 
 			margin-top: 1%;"><p style="font-size: 23pt;">${cndto.c_name }</p></div>
 			<div style="position: absolute; left: 22%; top: 35%; width: 15%; margin-top: 4%;">${cndto.c_main }</div>
-			<div class="info_div"style="position: absolute; left: 22%; top: 52%; width: 15%; margin-top: 4%;">별점들어올곳</div>
-			
+			<div class="info_div"style="position: absolute; left: 22%; top: 52%; width: 15%; margin-top: 4%;" ><b style="">★</b><b id="starplace"></b></div>
 			<div style="display: flex;">
 			<div style="position: absolute; right: 23%; top: 17%; width: 40%; height:23%;">
 			<div class="info_div">1차 산업군 : ${cndto.c_primary }</div>

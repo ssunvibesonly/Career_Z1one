@@ -36,6 +36,22 @@ ${dto.cnotice_grade}&emsp;I&emsp;<c:forTokens items="${dto.cnotice_location }" d
 <b>기업 소개</b><br>
 
 
+    </div>
+    <div style="display: inline-block; font-size: 1vh; margin-top: 2vw; margin-left: 0.5vw; border: 1px solid gray; width: 20vw;">회사명
+        <i class="bi bi-shield-fill-check" style="color: blue;"></i>
+        <i class="bi bi-coin"></i>
+        <div style="border: 1px solid gray; display: inline-block;">합격축하금 100만원</div>
+        <div style="border: 1px solid gray; display: inline-block;"><i class="bi bi-heart"></i>관심기업</div>
+        <h2 style="font-size: 2.5vh">공고명</h2>
+    </div>
+<br><br><br><br>
+    <div style="width: 15vw; border: 1px solid gray; font-size: 2vh; margin-left: 1vw;" class="d-inline-flex">
+        <a>지원자격<br>경력<br>학력</a>
+    </div>
+    <div style="width: 15vw; border: 1px solid gray; font-size: 2vh; margin-left: 10vw;" class="d-inline-flex">
+        <a>근무조건<br>고용형태<br>급여<br>지역<br>시간</a>
+    </div>
+   
 </div>
 
 </body>

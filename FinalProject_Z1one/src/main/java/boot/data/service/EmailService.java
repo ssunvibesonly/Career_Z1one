@@ -64,7 +64,6 @@ public class EmailService implements EmailInter {
    public List<CnoticeDto> getMatchUserwithNotice(String user_num) {
       return emailMapperInter.getMatchUserwithNotice(user_num);
    }
-
    @Override
    public void sendEmailLeaf(String toEmail, String subject, String content) {
       MimeMessage mimeMessage = javaMailSender.createMimeMessage();

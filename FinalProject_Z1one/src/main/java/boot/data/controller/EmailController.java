@@ -58,8 +58,17 @@ public class EmailController {
       String email = (String)httpSession.getAttribute("myid");
       String num  = (String)httpSession.getAttribute("user_num");
       String name =  emailService.getNameByEmailId(email);
-      System.out.println(email + "-" + name + "-" + user_num + "세션 넘버 : " + num.trim());
+      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice(user_num);
+      System.out.println(list1.toString());
 
+      model.addAttribute("Total",list1.size());
+      model.addAttribute("list",list1);
+      model.addAttribute("name",name);
+
+      return "/2/email/matchNotice";
+   }
+
+}
 /*      //notice list
       List<CnoticeDto> list = emailService.getCompanyNotice(); //회사 공고 리스트
       //user list
@@ -72,18 +81,3 @@ public class EmailController {
       System.out.println("ToString : " + UserNumList.toString());
       System.out.println("기본" + UserNumList);
       model.addAttribute("contentList",UserNumList);*/
-
-      List<CnoticeDto> list1 = emailService.getMatchUserwithNotice(user_num);
-      System.out.println("맞춤 공고 개수 : " + list1.size());
-      System.out.println("뭐 있냐? " + list1.toString());
-
-      //이메일 비교결과 추출
-      //model.addAttribute("UserNumList",UserNumList);
-      model.addAttribute("Total",list1.size());
-      model.addAttribute("list",list1);
-      model.addAttribute("name",name);
-
-      return "/2/email/matchNotice";
-   }
-
-}

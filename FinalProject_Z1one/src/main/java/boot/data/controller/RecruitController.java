@@ -87,7 +87,10 @@ public class RecruitController {
 		levels=levels.substring(0, levels.length()-1);
 		steps=steps.substring(0, steps.length()-1);
 
-		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday+":00");
+		if(deadlineday.length()==16) {
+			deadlineday+=":00";
+		}
+		Timestamp deadlinetime=java.sql.Timestamp.valueOf(deadlineday);
 		RecruitDto rdto=new RecruitDto();
 		rdto.setC_code(c_code);
 		rdto.setR_title(r_title);
@@ -212,6 +215,13 @@ public class RecruitController {
 		model.addObject("c_pass", service.getCompanyPass(c_code));
 		
 		List<TitleDto> titlelist=service.getAllTitles(c_code);
+		
+		for(TitleDto t:titlelist) {
+			String title=t.getR_title();
+			if(title.length()>14) {
+				t.setR_title(title.substring(0, 14)+"...");
+			}
+		}
 		model.addObject("titlelist", titlelist);
 		model.addObject("titlecount", titlelist.size());
 		

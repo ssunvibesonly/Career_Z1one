@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+
+=======
+>>>>>>> tiger
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -85,7 +89,7 @@ a.nav-link {
 			<ul class="nav">
 				<li class="nav-item"><a class="nav-link" href="/company/ban">채용공고</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="/company/review">기업정보</a>
+				<li class="nav-item"><a class="nav-link" href="/company/info">기업정보</a>
 				</li>
 				<li class="nav-item"><a class="nav-link"
 					href="/board/community">커뮤니티</a> <!-- 게시판 --></li>
@@ -93,9 +97,7 @@ a.nav-link {
 					onclick="chat()"><img src="../image/chat.png"
 						style="width: 30px;"></a> <script type="text/javascript">
 							function chat() {
-								window
-										.open("/chat", "e",
-												"width=400px,height=800px,left=750px,top=100px");
+								window.open("/chat", "e","width=400px,height=800px,left=750px,top=100px");
 							}
 						</script></li>
 			</ul>
@@ -104,17 +106,17 @@ a.nav-link {
 		<div class="dropdown"
 			style="position: absolute; top: 30px; right: 300px;">
 			<div class="dropbtn">
-				<c:if test="${apply_photo!=null}">
-				<img src="../applyphoto/${apply_photo }"
+				<c:if test="${sessionScope.user_photo!='no'}">
+				<img src="${root}/applyphoto/${user_photo}"
 					style="width: 30px;">
 				</c:if>
-				<c:if test="${apply_photo==null}">
+				<c:if test="${sessionScope.user_photo=='no'}">
 				<img src="../image/userphotonull.png"
 					style="width: 30px;">
 				</c:if>
 			</div>
 			<div class="dropdown-content">
-				<a href="#">계정</a> 
+				<a href="/member/usereditpage?user_num=${user_num }">계정</a> 
 				<a href="/member/userapplypage?user_num=${user_num }">이력서</a>
 			</div>
 		</div>

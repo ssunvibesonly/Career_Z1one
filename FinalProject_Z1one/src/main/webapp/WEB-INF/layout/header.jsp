@@ -80,12 +80,17 @@ $(function(){
       // 상세 설명을 숨깁니다.
       $('#detailDescription').css('display', 'none');
     });
+<<<<<<< HEAD
+
+});
+=======
     
     $("#glass").on("click",function(){
     	$(this).next().trigger("click");
     });
 });
 
+>>>>>>> eff156aba857b27028a5cf75228e81ee6ed57b5f
 </script>
 <body>
 </head>
@@ -109,7 +114,7 @@ $(function(){
         	<ul>
             <c:forEach items="${resultlist }" var="dto" varStatus="i">
             	<li style="margin-bottom: 3%;">
-            	<span style="margin-left: 20%;" id="targetobject">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
+            	<span style="margin-left: 20%;" id="targetobject" onclick="location.href='/community/content?board_num=${dto.board_num}'">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
             	</li>
             </c:forEach>
         	</ul>
@@ -120,9 +125,11 @@ $(function(){
 	<ul style="list-style: none;">
 		<c:forEach items="${resultlist }" var="dto" varStatus="i">
             	<li style="margin-bottom: 3%;">
-            	<span style="margin-left: 20%;text-align: left;">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
+            	<span style="margin-left: 20%;" id="targetobject" onclick="location.href='/community/content?board_num=${dto.board_num}'">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
             	</li>
+            	
     	</c:forEach>
+    	
     </ul>
 </div>
 </body>

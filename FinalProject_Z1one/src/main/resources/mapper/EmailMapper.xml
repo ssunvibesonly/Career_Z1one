@@ -7,7 +7,6 @@
     <!--현재 로그인된 사람의 이름 가져오기-->
     <select id="getNameByEmailId">
         select user_name from usergaip where user_email=#{user_email}
-
     </select>
     <!--user_num에 해당하는 사람의 데이터 뽑는 쿼리-->
     <select id="getUserByDto" resultType="User_ApplyDto" parameterType="String">
@@ -31,11 +30,9 @@
         WHERE ua.user_num = #{user_num}
         AND ua.apply_secondary = cn.cnotice_industry2
         AND ua.apply_newcomer like concat('%', cn.cnotice_career, '%')
-        AND ua.apply_region like concat('%',cn.cnotice_location, '%')
+        AND cn.cnotice_location like concat('%',ua.apply_region, '%')
         AND ua.apply_salary &lt;= cn.cnotice_pay
         )
     </select>
-
-
 
 </mapper>
