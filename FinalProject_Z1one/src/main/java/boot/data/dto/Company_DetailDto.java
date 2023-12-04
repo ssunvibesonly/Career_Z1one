@@ -9,7 +9,7 @@ import lombok.Data;
 public class Company_DetailDto {
 	private int cdetail_num;
 	private int company_num;
-	private String cdetail_skill;
+	private int cnotice_num;
 	private String cdetail_introduce;
 	private String cdetail_work;
 	private String cdetail_qualify;

@@ -36,19 +36,19 @@ $(function () {
         reader.readAsDataURL(file);
     });
 
-    var careerSelect = document.getElementById('careerSelect');
+    /* var careerSelect = document.getElementById('careerSelect');
 
     careerSelect.addEventListener('change', function () {
         var selectedValue = careerSelect.value;
         var s = "";
 
         if (selectedValue === '경력') {
-            s += "<input type='number' name='career2' class='form-control' placeholder='ex(5년 이상)' required='required' style='width: 60px;' min='1' max='10'>";
+            s += "<input type='text' name='cnotice_career2' class='form-control' placeholder='ex(5년 이상)' required='required' style='width: 60px;' min='1' max='10'>";
             $(".career2").html(s);
         } else {
             $(".career2").empty();
         }
-    });
+    }); */
 
     var industrySelect1 = document.querySelector('select[name="cnotice_industry1"]');
 
@@ -89,54 +89,49 @@ $(function () {
 
             $("select[name='cnotice_industry2']").html(h);
     });
-
+    
 });
 
 </script>
 </head>
 <body>
 	<div style="margin: 100px 100px;" align="center">
-		<form action="insert" method="post" enctype="multipart/form-data">
-			<table class="table table-bordered" style="width: 700px;">
+	<input type="hidden" name="company_num" value="${company_num }">
+		<form action="noticeInsert" method="post" enctype="multipart/form-data">
+			<table class="table table-bordered" style="width: 1000px;">
 				<caption align="top">
 					<b style="color: black;">공고등록</b>
 				</caption>
 				<!-- 공고이미지 -->
 				<tr>
-					<td rowspan="14" align="center"><input type="file" id="myImg"
-						name="myImg" style="display: none;"> <br> <br> <br>
+					<td rowspan="18" align="center"><input type="file" id="myImg"
+						name="myImg" style="display: none;" required="required"> <br> <br> <br>
 						<img id="showImg"> <br> <br>
 						<button type="button" id="imgChoice" class="btn btn-secondary">사진선택</button>
 					</td>
-					<td style="display: flex; align-items: center;"><b>회사번호</b>&nbsp;
-						<input type="number" min="1" step="1" placeholder="번호"
-						name="company_num" class="form-control" required="required"
-						style="width: 75px;"> <!--  <span class="idsuccess" style="width: 60px; color: green;"></span>-->
-					</td>
 				</tr>
 
-				<!-- 공고명 -->
-				<tr>
-					<td style="display: flex; align-items: center;"><b>공고명</b>&nbsp;
-						<input type="text" class="form-control" name="cnotice_noticename"
-						placeholder="공고명" required="required" style="width: 200px;">
-						<!-- <span class="passsucess" style="width: 60px; color: green;"></span> -->
-					</td>
-				</tr>
+				<tr><td><b>회사번호</b> ${company_num }</td></tr>
 
 				<!-- 회사명 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>회사명</b>&nbsp;
-						<input type="text" class="form-control" name="cnotice_companyname"
-						placeholder="회사명" required="required" style="width: 200px;">
-						<!-- <span class="passsucess" style="width: 60px; color: green;"></span> -->
+						${company_name }
 					</td>
 				</tr>
-
+				
+				<!-- 공고명 -->
+				<tr>
+					<td  style="align-items: center; display: flex;"><b>공고명</b>&nbsp;<input
+						type="text" name="cnotice_noticename" class="form-control"
+						placeholder="공고명" required="required" style="width: 250px;">
+					</td>	
+				</tr>
+				
 				<!-- 1차산업군 -->
 				<tr>
 					<td><b>1차 산업군</b> <select name="cnotice_industry1"
-						style="border-radius: 5px;">
+						style="border-radius: 5px;" required="required">
 							<option value="0" selected>1차 직종</option>
 							<option value="IT/웹/통신">IT/웹/통신</option>
 							<option value="서비스업">서비스업</option>
@@ -149,13 +144,13 @@ $(function () {
 				<!-- 2차산업군 -->
 				<tr>
 					<td><b>2차 산업군</b>&nbsp;<select name="cnotice_industry2"
-						id="industry2" style="border-radius: 5px;"></select></td>
+						id="industry2" style="border-radius: 5px;" required="required"></select></td>
 				</tr>
 
 				<!-- 근무 지역 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>근무지역</b>&nbsp;
-						<select name="cnotice_location1" style="border-radius: 5px;">
+						<select name="cnotice_location1" style="border-radius: 5px;" required="required">
 							<option value="서울" selected="selected">서울</option>
 							<option value="경기">경기</option>
 							<option value="인천">인천</option>
@@ -172,12 +167,9 @@ $(function () {
 
 				<!-- 직무스킬 -->
 				<tr>
-					<td style="display: flex; align-items: center;"><b>직무스킬</b>&nbsp;<input
-						type="text" name="skill" class="form-control"
-						placeholder="직무스킬" required="required" style="width: 100px;"> &emsp;
-				<!-- 직무스킬 추가 -->
-					<div class="Addedskill"></div>
-					<button type="button" class="btn btn-outline-primary skillAdd" style="width: 140px;">직무스킬추가</button>
+					<td  style="align-items: center; display: flex;"><b>직무스킬</b>&nbsp;<input
+						type="text" name="cnotice_skill" class="form-control"
+						placeholder="직무스킬" required="required" style="width: 250px;">
 					</td>	
 				</tr>
 				
@@ -185,7 +177,7 @@ $(function () {
 				<tr>
 				<td style="display: flex; align-items: center;"><b>고용형태</b>&nbsp;
 						<select name="cnotice_type" id="typeSelect"
-						style="border-radius: 5px;">
+						style="border-radius: 5px;" required="required">
 							<option value="정규직" selected="selected">정규직</option>
 							<option value="계약직">계약직</option>
 					</select>&nbsp;
@@ -194,20 +186,19 @@ $(function () {
 				<!-- 경력 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>경력</b>&nbsp;
-						<select name="career1" id="careerSelect"
-						style="border-radius: 5px;">
+						<select name="cnotice_career" id="careerSelect"
+						style="border-radius: 5px;" required="required">
 							<option value="경력무관" selected="selected">경력무관</option>
 							<option value="신입">신입</option>
 							<option value="경력">경력</option>
 					</select>&nbsp;
-						<div class="career2"></div></td>
 				</tr>
 
 				<!-- 학력 -->
 				<tr>
 				<tr>
 					<td><b>주소</b> <select name="cnotice_academy"
-						style="border-radius: 5px;">
+						style="border-radius: 5px;" required="required">
 							<option value="학력무관" selected="selected">학력무관</option>
 							<option value="고등학교 졸업">고등학교 졸업</option>
 							<option value="대학졸업 (2-3년)">대학졸업 (2-3년)</option>
@@ -221,8 +212,8 @@ $(function () {
 				<!-- 연봉 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>연봉</b>&nbsp;<input
-						type="number" name="cnotice_pay" class="form-control"
-						placeholder="연봉" required="required" style="width: 95px;"
+						type="number" name="cnotice_pay" class="form-control" required="required"
+						placeholder="연봉" style="width: 95px;"
 						min="2000" max="9900" step="100"> &nbsp;<a>만원</a></td>
 				</tr>
 
@@ -234,20 +225,37 @@ $(function () {
 						name="cnotice_congratulate" class="form-control" placeholder="축하금"
 						required="required" style="width: 95px;">&nbsp;<a>만원</a></td>
 				</tr>
-
+				
 				<!-- 마감일 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>마감일</b>&nbsp;<input
-						type="date" name="cnotice_deadline" class="form-control"
-						required="required" style="width: 122.5px;"></td>
+						type="date" name="cnotice_deadline" class="form-control" placeholder="축하금" required="required"
+						 style="width: 125px;"></td>
 				</tr>
-
+				<!-- 평점 -->
+				<tr>
+					<td style="display: flex; align-items: center;"><b>평점</b>&nbsp;<input
+						type="text" name="cnotice_grade" class="form-control" placeholder="평점"
+						style="width: 125px;" required="required"></td>
+				</tr>
+				<!-- 추천수 -->
+				<tr>
+					<td style="display: flex; align-items: center;"><b>추천수</b>&nbsp;<input
+						type="text" name="cnotice_recommend" class="form-control" placeholder="추천수"
+						style="width: 125px;" required="required"></td>
+				</tr>
+				<!-- 조회수 -->
+				<tr>
+					<td style="display: flex; align-items: center;"><b>조회수</b>&nbsp;<input
+						type="text" name="cnotice_readcount" class="form-control" placeholder="조회수"
+						style="width: 125px;" required="required"></td>
+				</tr>
+				
 				<!-- 등록,취소 -->
 				<tr>
 					<td colspan="2" align="center">
-						<button type="submit" class="btn btn-info">등록</button>
-						<button type="button" onclick="history.back()"
-							class="btn btn-danger">취소</button>
+						<button type="submit">등록</button>
+						<button type="button" onclick="history.back()">취소</button>
 					</td>
 				</tr>
 			</table>

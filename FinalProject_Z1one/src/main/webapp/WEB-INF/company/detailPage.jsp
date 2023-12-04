@@ -20,19 +20,19 @@
 </head>
 <body>
 <div style="width: 100%; height: 100%; border: 1px solid gray; position: relative; overflow: hidden;" class="container">
-<img alt="" src="../noticeImg/${dto.cnotice_image }" style="width: 50%; height: 30%;"><br><br><br>
+<img alt="" src="../noticeImg/${dto.cnotice_image }" style="width: 50%; height: 30vh; margin-top: 3vw;"><br><br><br>
 <h4 style="font-weight: bold;">${dto.cnotice_noticename }</h4>
 <small>${dto.cnotice_companyname }&emsp;<i class="bi bi-star-fill" style="color: green;"></i>&nbsp;
-<fmt:formatNumber value="${dto.cnotice_grade}" pattern="#,##0.0"/>&emsp;I&emsp;<c:forTokens items="${dto.cnotice_location }" delims=" " begin="0" end="0" var="location">
+${dto.cnotice_grade}&emsp;I&emsp;<c:forTokens items="${dto.cnotice_location }" delims=" " begin="0" end="0" var="location">
  ${location }
 </c:forTokens></small><br><br>
 <b>요약</b><br>
-<span>마감일&emsp;${dto.cnotice_deadline }</span><br>
-<span>직무&emsp;${dto.cnotice_industry2 }</span><br>
-<span>경력&emsp;${dto.cnotice_career }</span><br>
-<span>고용형태&emsp;${dto.cnotice_type }</span><br>
-<span>근무지역&emsp;${dto.cnotice_location }</span><br>
-<span>스킬&emsp;${dto.cnotice_skill }</span><br><br>
+<span><i class="bi bi-calendar4"></i>마감일&emsp;${dto.cnotice_deadline }</span><br>
+<span><i class="bi bi-suitcase-lg"></i>직무&emsp;${dto.cnotice_industry2 }</span><br>
+<span><i class="bi bi-bar-chart-fill"></i>경력&emsp;${dto.cnotice_career }</span><br>
+<span><i class="bi bi-check2-circle"></i>고용형태&emsp;${dto.cnotice_type }</span><br>
+<span><i class="bi bi-geo-alt"></i>근무지역&emsp;${dto.cnotice_location }</span><br>
+<span><i class="bi bi-hammer"></i>스킬&emsp;${dto.cnotice_skill }</span><br><br>
 <b>기업 소개</b><br>
 
 

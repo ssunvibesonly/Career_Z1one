@@ -727,15 +727,15 @@ function formatDate(date, format) {
            $.each(res, function (index, dto) {
                	  
         	   s +="<a href='detail?cnotice_num="+dto.cnotice_num+"' style='text-decoration: none; color:black;'>";
-        	   s += "<div style='width: 40vh; height: 63.5vh; border: 1px solid #dcdcdc; margin: 1vh; border-radius: 1vh; overflow: hidden; float: left;'>";
-        	   s += "<img src='../noticeImg/" + dto.cnotice_image + "' style='width: 100%; height: 50%;'><br><br>";
-        	   s += "<hr style='margin: 0;'><br>";
+        	   s += "<div style='width: 30%; height: 67vh; border: 1px solid #dcdcdc; margin: 1vh; border-radius: 1vh; overflow: hidden; float: left;'>";
+        	   s += "<img src='../noticeImg/" + dto.cnotice_image + "' style='width: 100%; height: 50%;'><br>";
+        	   s +="<hr>";
         	   s += "<div style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis;'>";
         	   s += "<b style='font-size: 1.5em; margin-left: 1vw;'>" + dto.cnotice_noticename + "</b><br>"; //공고명
 
         	   s += "<a style='margin-left: 1vw; font-weight: bold; color: gray;'>" + dto.cnotice_career + "," + dto.cnotice_skill + "</a><br><br>";
 
-        	   s += "<small style='margin-left: 1vw; font-weight: bold; font-size: 1em;'><img src='../noticeImg/" + dto.cnotice_image + "' style='width: 15%; height: 20%; border-radius: 20%;'>&nbsp;";
+        	   s += "<small style='margin-left: 1vw; font-weight: bold; font-size: 1em;'><img src='../noticeImg/" + dto.cnotice_image + "' style='width: 5%; height: 1%; border-radius: 20%;'>&nbsp;";
         	   s += dto.cnotice_companyname+"</small>";
 
         	   if (dto.cnotice_grade === 0) {
@@ -744,7 +744,6 @@ function formatDate(date, format) {
         	       s += "<i class='bi bi-star-fill' style='color: green;'></i>&nbsp;";
         	   }
         	   s += dto.cnotice_grade.toFixed(1) + "</small><br><br>";
-        	   s += "<hr style='margin: 0;'><br>";
         	   s += "<b style='font-size: 1em; margin-left: 1vw; font-weight: bold;'>"+ 
         	       (dto.cnotice_congratulate !== 0 ? 
         	           "<i class='bi bi-trophy-fill' style='color: gold;'></i> 취업 축하금: " + dto.cnotice_congratulate + "만원" : 
@@ -780,12 +779,14 @@ if문 밖에서는 각각의 <div>가 가로로 나열되는데, 그때는 margi
 if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 위해 margin-top을 사용하였습니다. margin-left와 border-radius는 이미 첫 번째 <div>에서 설정되었기 때문에 if문 안에서는 따로 설정할 필요가 없습니다 -->
 	<div style="width: 130vw;" class="container">
 		<div align="left">
-			<button type="button" onclick="location.href='addForm'"
-				class="btn btn-primary">채용공고등록</button>
+			<button type="button" onclick="location.href='addNoticeForm'"
+				class="btn btn-outline-dark">채용공고등록</button>
+			<button type="button" onclick="location.href='addDetailForm'"
+				class="btn btn-outline-dark">상세정보등록</button>
 		</div>
 		<br> <br>
 		<div class="d-flex align-items-center">
-			<button type="button" class="btn btn-outline-light industry"
+			<button type="button" class="btn btn-outline-light industry"s
 				style="width: 10vw; border: 1px solid gray;">
 				<b style="color: black; font-size: 0.8em;"> 직종&nbsp;<i
 					class="bi bi-caret-down-fill"></i></b>
@@ -834,7 +835,7 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 		<!-- ------------------------------------------------------------------------------------------------------------------ -->
 		<br> <br>
 		<!-- list 출력 div -->
-		<div class="notices" style="width: 100%;"></div>
+		<div class="container notices" style="width: 100%;"></div>
 	</div>
 
 	<!-- 산업군 Modal -->
