@@ -300,27 +300,29 @@
 			}
 		});
 		
-		$(document).on("click","a.btnmod",function(){
-			var c_code=$(this).attr("code");
-			var r_title=$(this).attr("tit");
-			
-			Swal.fire({
-				title: "진행 중인 채용과정",
-				text: "각 채용단계는 그 명칭과 무관하게 순서에 따라 결정됩니다. 또한 채용단계가 삭제될 시 해당 단계에 속한 모든 지원자 정보는 삭제됩니다.",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonColor: "#3085d6",
-				cancelButtonColor: "#d33",
-				confirmButtonText: "진행",
-				cancelButtonText: "취소",
-			 
-			}).then((result) => {
-				if (result.isConfirmed) {
-					deliberate("채용단계 변경",c_pass,c_code,r_title);
-				}
-			})
-		});
+		$(document).on("click","a.btnmod",btnmodClickHandler);
 	});
+	
+	var btnmodClickHandler=function(){
+		var c_code=$(this).attr("code");
+		var r_title=$(this).attr("tit");
+		
+		Swal.fire({
+			title: "진행 중인 채용과정",
+			text: "각 채용단계는 그 명칭과 무관하게 순서에 따라 결정됩니다. 또한 채용단계가 삭제될 시 해당 단계에 속한 모든 지원자 정보는 삭제됩니다.",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "진행",
+			cancelButtonText: "취소",
+		 
+		}).then((result) => {
+			if (result.isConfirmed) {
+				deliberate("채용단계 변경",c_pass,c_code,r_title);
+			}
+		})
+	}
 	
 	function countdown(){
 		//var times=document.querySelectorAll("span.time");
@@ -357,7 +359,8 @@
 			}else{
 				div.innerHTML="<div class='dday' style='background-color: #aaaaaa;color: white'>종료</div>";
 				div.closest("td").nextElementSibling.querySelector("a.btnmod").style.backgroundColor="#c8c8c8";
-				div.closest("td").nextElementSibling.querySelector("a.btnmod").classList.remove("btnmod");
+				//document.addEventListener("click", btnmodClickHandler);
+				div.closest("td").nextElementSibling.querySelector("a.btnmod").removeEventListener("click",btnmodClickHandler);
 			}
 		});
 	}
