@@ -23,7 +23,7 @@
 		resultType="CompanyGaipDto">
 		SELECT *
 		FROM companygaip
-		JOIN companyinfo ON companygaip.company_num = companyinfo.company_num
+		JOIN companyinfo ON companygaip.company_num = companyinfo.company_num where companygaip.company_num=#{company_num}
 
 	</select>
   </mapper>

@@ -19,10 +19,10 @@
 	</select>
 	<!-- 기업 정보 불러오기 -->
 	<!-- Join문을 썼을 땐 조인된 결과가 여러 개이므로 List타입을 사용 -->
-	<select id="CompanyJoinSelect1"  resultType="companyInfo">
+	<select id="CompanyJoinSelect1"  resultType="companyInfo" parameterType="int">
 		SELECT *
-		FROM companygaip
-		JOIN companyinfo ON companygaip.company_num = companyinfo.company_num
+		FROM companyinfo
+		JOIN companygaip ON companygaip.company_num = companyinfo.company_num where companyinfo.company_num=#{company_num}
 
 	</select>
 </mapper>
