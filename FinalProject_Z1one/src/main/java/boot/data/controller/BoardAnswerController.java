@@ -35,7 +35,7 @@ public class BoardAnswerController {
 			//System.out.println(dto.getContent());
 			//System.out.println(dto.getBoard_num());
 			String id = (String)session.getAttribute("myid");
-			System.out.println(id);
+			//System.out.println(id);
 			
 			dto.setUser_email(id);
 			
@@ -45,7 +45,7 @@ public class BoardAnswerController {
 	@GetMapping("/blist")
 	public List<Board_ContentDto> list(@RequestParam String board_num)
 	{
-		System.out.println(board_num);
+		//System.out.println(board_num);
 		List<Board_ContentDto> list=new ArrayList<>();
 		
 		list=mapper.getAllBAnswer(board_num);

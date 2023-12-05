@@ -109,7 +109,7 @@ public class CommunityController {
 
 	    //이메일
 	    String id =(String)httpSession.getAttribute("myid"); //session 설정하면 get으로 
-	    System.out.println(id);
+	    //System.out.println(id);
 	    
 	    //id가 null이어도 그대로 페이지 이동하도록 설정
 	    if(id != null) {  //로그인 했을 경우
@@ -135,7 +135,7 @@ public class CommunityController {
 			String userEmail = service.getEmail(user.getUser_num());
 			//2.userEmail에 마스킹처리
 			String displayedEmail = userEmail.substring(0, Math.min(userEmail.length(), 3)) + "*".repeat(Math.max(0, userEmail.length() - 3));
-			System.out.println(displayedEmail);
+			//System.out.println(displayedEmail);
 			//3.User_BoarDto에 user_email에 값으로 설정해준다.
 			user.setUser_email(displayedEmail);
 		}
@@ -145,7 +145,7 @@ public class CommunityController {
 		List<Board_ContentDto> contentList = new ArrayList<>();
 		for(int i =0 ;i<list.size();i++) {
 			contentList.add(bservice.getAnswerCount(list.get(i).getBoard_num()));
-			System.out.println("보드넘 : "+list.get(i).getBoard_num()+",댓글수 : "+contentList.get(i).getCount());
+			//System.out.println("보드넘 : "+list.get(i).getBoard_num()+",댓글수 : "+contentList.get(i).getCount());
 		}
 		//System.out.println(contentList.size());
 		//System.out.println(list.size());
@@ -349,7 +349,7 @@ public class CommunityController {
 		//세션에서 user_Num 얻기 위해 dto에 저장 (CmBoardMapper.xml에서 update부분에 user_num값을 가져오기 위해 하는 작업)
 		//1.session을 통해서 myid, 즉 사용자 이메일을 받아옴
 		String user_email=(String)session.getAttribute("myid");
-		System.out.println(user_email);
+		//System.out.println(user_email);
 		//2.이메일(이게 즉 id때문에 겹칠일이 없죠)을 통해서 사용자의 user_num
 		String userNum=uservice.getDataById(user_email).getUser_num();
 		dto.setUser_num(userNum);
@@ -377,7 +377,7 @@ public class CommunityController {
 		}
 		
 		service.deleteBoard(board_num);   //기존에는 mapper.deleteMarket(num);인데 day1024 오늘 service 배워서 바꿔 봄!
-		System.out.println("게시글 삭제 보드넘: "+board_num);     //num값 넘어갔는 지 확인해봄(생략 가능)!
+		//System.out.println("게시글 삭제 보드넘: "+board_num);     //num값 넘어갔는 지 확인해봄(생략 가능)!
 		
 		return "redirect:list";
 	}

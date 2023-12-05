@@ -70,11 +70,13 @@ function loadRandomImage(){
 	
 	
 	//중복되지 않는 이미지 선택
+	//.includes() 메서드는 배열에 특정 요소가 포함되어 있는지 여부를 확인합니다.
 	do{
 		randomIndex=Math.floor(Math.random()*imgArray.length); //Math.floor소수점 이하를 버림
 		randomImg=imgArray[randomIndex];
-	}while(selectImg.includes(randomImg)); //selectedImg 배열에 이미 randomImg가 있는지 확인합니다. .includes() 메서드는 배열에 특정 요소가 포함되어 있는지 여부를 확인합니다.
+	}while(selectImg.includes(randomImg)); //selectedImg 배열에 이미 randomImg가 있는지 확인합니다. 
 	
+	//중복을 방지하기 위해 출력되고 남은 사진들 selectImg[]에 담기
 	selectImg.push(randomImg);
 	
 	//이미지 삽입

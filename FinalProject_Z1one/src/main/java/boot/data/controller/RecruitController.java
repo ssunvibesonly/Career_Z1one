@@ -146,7 +146,12 @@ public class RecruitController {
 		List<ApplyDto> applylist=service.getAllApplier();
 		model.addObject("applylist", applylist);
 		
-		List<ApplyDto> finallist=service.getAllFinalPass(service.getMaxStepOfCourse(c_code, r_title));
+		RecruitDto dto=new RecruitDto();
+		dto.setC_code(c_code);
+		dto.setR_title(r_title);
+		dto.setR_step(service.getMaxStepOfCourse(c_code, r_title));
+		
+		List<ApplyDto> finallist=service.getAllFinalPass(service.getNumOfStep(dto));
 		model.addObject("finallist", finallist);
 		model.addObject("finalcount", finallist.size());
 		
@@ -160,7 +165,12 @@ public class RecruitController {
 		Map<String, Object> map=new HashMap<>();
 		map.put("levellist", service.getAllRecruitCourse(c_code,r_title));
 		map.put("applylist", service.getAllApplier());
-		map.put("finallist", service.getAllFinalPass(service.getMaxStepOfCourse(c_code, r_title)));
+		
+		RecruitDto dto=new RecruitDto();
+		dto.setC_code(c_code);
+		dto.setR_title(r_title);
+		dto.setR_step(service.getMaxStepOfCourse(c_code, r_title));
+		map.put("finallist", service.getAllFinalPass(service.getNumOfStep(dto)));
 		
 		return map;
 	}
@@ -174,9 +184,9 @@ public class RecruitController {
 		
 		if(old_step!=service.getMaxStepOfCourse(rdto.getC_code(), rdto.getR_title())) {
 			rdto.setR_step(old_step+1);
-			//service.passThisStep(service.getNumOfStep(rdto), a_idx);
+			service.passThisStep(service.getNumOfStep(rdto), a_idx);
 		} else {
-			//service.passThisStep(-1, a_idx);
+			service.passThisStep(-1, a_idx);
 		}
 	}
 	
@@ -236,10 +246,15 @@ public class RecruitController {
 		List<RecruitDto> rlist=service.getAllRecruitCourse(c_code, r_title);
 		List<String> levellist=new ArrayList<>();
 		List<Integer> outlinelist=service.getOutline(c_code, r_title);
-		List<ApplyDto> finallist=service.getAllFinalPass(service.getMaxStepOfCourse(c_code, r_title));
 		
-		for(RecruitDto dto:rlist) {
-			levellist.add(dto.getR_level());
+		RecruitDto dto=new RecruitDto();
+		dto.setC_code(c_code);
+		dto.setR_title(r_title);
+		dto.setR_step(service.getMaxStepOfCourse(c_code, r_title));
+		List<ApplyDto> finallist=service.getAllFinalPass(service.getNumOfStep(dto));
+		
+		for(RecruitDto rdto:rlist) {
+			levellist.add(rdto.getR_level());
 		}
 		map.put("levellist", levellist);
 		map.put("outlinelist", outlinelist);

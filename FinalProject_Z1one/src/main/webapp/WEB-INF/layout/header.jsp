@@ -96,7 +96,7 @@ $(function(){
 <div>
 	<form action="" method="post">
 	<span class="d-inline-flex" style="margin-bottom: 1%;">
-		<input class="input_search form-control" id="search_bar_search_query" maxlength="201" name="query" 
+		<input class="input_search form-control" id="search_bar_search_query" maxlength="300px;" name="query" 
 		onclick="onSearchBar()" placeholder="기업, 채용 공고를 검색해보세요." 
 		type="text"><img alt="" src="../image/search.png" id="glass">
 		<button type="submit" style="visibility: hidden"></button>
@@ -117,10 +117,10 @@ $(function(){
     </div>
 </div>
 </div>
-<div style="border: 1px solid gray;border-radius: 10px;width: 200px;height: 300px; display:none; " id="detaildescription">
-	<ul style="list-style: none;">
+<div style="border: 1px solid gray;border-radius: 10px;width: 600px;height: 300px; display:none; " id="detaildescription">
+	<ul style="list-style: none;width: 400px;">
 		<c:forEach items="${resultlist }" var="dto" varStatus="i">
-            	<li style="margin-bottom: 3%;">
+            	<li style="margin-bottom: 3%;width: 600px;">
             	<span style="margin-left: 20%;" id="targetobject" onclick="location.href='/community/content?board_num=${dto.board_num}'">${i.count }. <b>[${dto.board_category }]</b> ${dto.board_title }</span>
             	</li>
             	

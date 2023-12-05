@@ -385,7 +385,7 @@ public class MemberController {
 	   List<CompanyInfoDto> cinfoList=cinfoservice.CompanyJoinSelect1(company_num);
 	   List<CompanyGaipDto> cgaipList=cservice.CompanyJoinSelect2(company_num);
 	   
-	   
+	   System.out.println(company_num);
 	   //companygaip에 있는 dto
 	   for(CompanyGaipDto cgaipdto:cgaipList) {
 		   String logo=cgaipdto.getCompany_logo();
@@ -396,6 +396,7 @@ public class MemberController {
 		   String email=cgaipdto.getCompany_email();
 		   String hp=cgaipdto.getCompany_hp();
 		   String type=cgaipdto.getCompany_type();
+		   
 		   
 		   
 		   model.addObject("email", email);

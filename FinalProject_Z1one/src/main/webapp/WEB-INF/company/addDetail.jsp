@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <title>Insert title here</title>
 </head>
+
 <body>
 	<div style="margin: 100px 100px;" align="center">
 	

@@ -16,6 +16,7 @@
    div * {
         margin-left: 5%;
     }
+    
 </style>
 </head>
 <body>
@@ -27,31 +28,29 @@ ${dto.cnotice_grade}&emsp;I&emsp;<c:forTokens items="${dto.cnotice_location }" d
  ${location }
 </c:forTokens></small><br><br>
 <b>요약</b><br>
-<span><i class="bi bi-calendar4"></i>마감일&emsp;${dto.cnotice_deadline }</span><br>
-<span><i class="bi bi-suitcase-lg"></i>직무&emsp;${dto.cnotice_industry2 }</span><br>
-<span><i class="bi bi-bar-chart-fill"></i>경력&emsp;${dto.cnotice_career }</span><br>
-<span><i class="bi bi-check2-circle"></i>고용형태&emsp;${dto.cnotice_type }</span><br>
-<span><i class="bi bi-geo-alt"></i>근무지역&emsp;${dto.cnotice_location }</span><br>
-<span><i class="bi bi-hammer"></i>스킬&emsp;${dto.cnotice_skill }</span><br><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-calendar4"></i>&nbsp;마감일&emsp;${dto.cnotice_deadline }</span><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-briefcase"></i>&nbsp;직무&emsp;${dto.cnotice_industry2 }</span><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-bar-chart-fill"></i>&nbsp;경력&emsp;${dto.cnotice_career }</span><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-check2-circle"></i>&nbsp;고용형태&emsp;${dto.cnotice_type }</span><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-geo-alt"></i>&nbsp;근무지역&emsp;${dto.cnotice_location }</span><br>
+<span style="margin-left: 0.1vw;"><i class="bi bi-hammer"></i>&nbsp;스킬&emsp;${dto.cnotice_skill }</span><br><br>
 <b>기업 소개</b><br>
+<p>${cdto.cdetail_introduce }</p>
+<b>주요 업무</b><br>
+<p>${cdto.cdetail_work }</p>
+<b>자격 요건</b><br>
+<p>${cdto.cdetail_qualify }</p>
+<b>우대사항</b><br>
+<p>${cdto.cdetail_treat }</p>
+<b>채용 절차</b><br>
+<p>${cdto.cdetail_procedure }</p>
+<b>복리후생</b><br>
+<p>${cdto.cdetail_welfare }</p>
+<b>기타</b><br>
+<p>${cdto.cdetail_etc }</p>
+<b>회사위치</b><br>
+<p>${dto.cnotice_location}</p>
 
-
-    </div>
-    <div style="display: inline-block; font-size: 1vh; margin-top: 2vw; margin-left: 0.5vw; border: 1px solid gray; width: 20vw;">회사명
-        <i class="bi bi-shield-fill-check" style="color: blue;"></i>
-        <i class="bi bi-coin"></i>
-        <div style="border: 1px solid gray; display: inline-block;">합격축하금 100만원</div>
-        <div style="border: 1px solid gray; display: inline-block;"><i class="bi bi-heart"></i>관심기업</div>
-        <h2 style="font-size: 2.5vh">공고명</h2>
-    </div>
-<br><br><br><br>
-    <div style="width: 15vw; border: 1px solid gray; font-size: 2vh; margin-left: 1vw;" class="d-inline-flex">
-        <a>지원자격<br>경력<br>학력</a>
-    </div>
-    <div style="width: 15vw; border: 1px solid gray; font-size: 2vh; margin-left: 10vw;" class="d-inline-flex">
-        <a>근무조건<br>고용형태<br>급여<br>지역<br>시간</a>
-    </div>
-   
 </div>
 
 </body>

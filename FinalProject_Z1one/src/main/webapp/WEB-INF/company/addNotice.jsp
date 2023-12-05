@@ -36,19 +36,19 @@ $(function () {
         reader.readAsDataURL(file);
     });
 
-    /* var careerSelect = document.getElementById('careerSelect');
+     var careerSelect = document.getElementById('careerSelect');
 
     careerSelect.addEventListener('change', function () {
         var selectedValue = careerSelect.value;
         var s = "";
 
         if (selectedValue === '경력') {
-            s += "<input type='text' name='cnotice_career2' class='form-control' placeholder='ex(5년 이상)' required='required' style='width: 60px;' min='1' max='10'>";
+            s += "<input type='text' name='cnotice_career2' class='form-control' placeholder='ex(5년 이상)' required='required' style='width: 160px;'>";
             $(".career2").html(s);
         } else {
             $(".career2").empty();
         }
-    }); */
+    }); 
 
     var industrySelect1 = document.querySelector('select[name="cnotice_industry1"]');
 
@@ -186,12 +186,13 @@ $(function () {
 				<!-- 경력 -->
 				<tr>
 					<td style="display: flex; align-items: center;"><b>경력</b>&nbsp;
-						<select name="cnotice_career" id="careerSelect"
+						<select name="cnotice_career1" id="careerSelect"
 						style="border-radius: 5px;" required="required">
 							<option value="경력무관" selected="selected">경력무관</option>
 							<option value="신입">신입</option>
 							<option value="경력">경력</option>
 					</select>&nbsp;
+					<div class="career2"></div>
 				</tr>
 
 				<!-- 학력 -->

@@ -46,7 +46,7 @@ public class CompanyController {
 		return model;
 	}
 
-// 직종세부분류
+	// 직종세부분류
 	@ResponseBody
 	@GetMapping("/testList")
 	public List<CnoticeDto> testList(@RequestParam(required = false) String[] industry,
@@ -80,7 +80,7 @@ public class CompanyController {
 		model.addObject("company_num", company_num);
 		model.addObject("company_name", company_name);
 
-		model.setViewName("/company/addNotice");
+		model.setViewName("/2/company/addNotice");
 		return model;
 
 	}
@@ -88,16 +88,16 @@ public class CompanyController {
 
 	@PostMapping("/noticeInsert")
 	public String insertNotice(@ModelAttribute CnoticeDto dto, 
-			@RequestParam String cnotice_location1,@RequestParam String cnotice_location2,  
+			@RequestParam String cnotice_location1,@RequestParam String cnotice_location2, 
+			@RequestParam String cnotice_career1,@RequestParam(required = false)String cnotice_career2,
 			MultipartFile myImg,HttpSession session,Model model) {
 
 		//업로드 경로구하기
 		String path=session.getServletContext().getRealPath("/noticeImg");
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");//시분초까지 표시하므로 이름이 겹칠일이없음
 		System.out.println(path);
 
 			//사진명 구해서 넣기
-			String fileName=sdf.format(new Date())+myImg.getOriginalFilename();
+			String fileName=myImg.getOriginalFilename();
 
 			dto.setCnotice_image(fileName);
 					
@@ -118,15 +118,23 @@ public class CompanyController {
 		String company_name = (String) session.getAttribute("company_name");
 		dto.setCnotice_companyname(company_name);
 			
-		String cnotice_location = cnotice_location1 + " " + cnotice_location2;
-		dto.setCnotice_location(cnotice_location);
-
-		String cnotice_career;		
+		String cnotice_location = cnotice_location1 + "" + cnotice_location2;
+		dto.setCnotice_location(cnotice_location);	
+		
+		if(cnotice_career1.equals("경력")) {
+			
+			String cnotice_career=cnotice_career1+cnotice_career2;
+			
+			dto.setCnotice_career(cnotice_career);
+		} else {
+			
+			dto.setCnotice_career(cnotice_career1);
+		}
 
 		nservice.insertNotice(dto);
 
 		model.addAttribute("cnotice_num", nservice.getMaxNum());
-		System.out.println(nservice.getMaxNum()+"!!!!!!!!!!!!!!!!!!");
+		//System.out.println(nservice.getMaxNum()+"!!!!!!!!!!!!!!!!!!");
 		
 		
 		return "redirect:addDetailForm?cnotice_num="+nservice.getMaxNum()+"&company_num="+company_num;
@@ -147,7 +155,7 @@ public class CompanyController {
 			model.addObject("cnotice_num", cnotice_num);
 			//model.addObject("cnotice_noticename", cnotice_noticename);
 			model.addObject("cnotice_num", cnotice_num);
-			model.setViewName("/company/addDetail");
+			model.setViewName("/2/company/addDetail");
 			return model;
 
 		}
@@ -166,19 +174,25 @@ public class CompanyController {
 				
 			nservice.insertDetail(dto);
 
-			return "/company/notice";
+			return "/2/";
 		}
 
 	// 디테일페이지
 	@GetMapping("/detail")
-	public ModelAndView detailPage(@RequestParam int cnotice_num) {
+	public ModelAndView detailPage(@RequestParam int cnotice_num,HttpSession session) {
 		ModelAndView model = new ModelAndView();
 
+		int company_num = (int) session.getAttribute("company_num");
+		
 		CnoticeDto dto = nservice.getNoticeData(cnotice_num);
+		Company_DetailDto cdto=nservice.getDetailData(cnotice_num, company_num);
 
+		
+		
 		model.addObject("dto", dto);
+		model.addObject("cdto", cdto);
 
-		model.setViewName("/company/detailPage");
+		model.setViewName("/2/company/detailPage");
 
 		return model;
 	}
