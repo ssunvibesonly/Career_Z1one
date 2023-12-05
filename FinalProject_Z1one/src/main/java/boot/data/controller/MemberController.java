@@ -199,7 +199,7 @@ public class MemberController {
 				e.printStackTrace();
 			}
 		}
-
+		
 		applydto.setApply_photo(photoName);
 		applydto.setApply_addr(apply_addr1 + "/" + apply_addr2);
 		careerdto.setCareer_duration(career_duration1 + "~" + career_duration2);
@@ -222,17 +222,17 @@ public class MemberController {
 		User_CareerDto careerdto = umypageservice.getCareerDataByNum(user_num);
 		User_EducationDto edudto = umypageservice.getEducationDataByNum(user_num);
 		User_ActiveDto actdto = umypageservice.getActiveDataByNum(user_num);
-
+		
 		String career_duration = careerdto.getCareer_duration();
 		StringTokenizer st1 = new StringTokenizer(career_duration, "~");
 		String career_duration1 = st1.nextToken();
 		String career_duration2 = st1.nextToken("~");
 
 		
-		String education_duration=edudto.getEducation_duration(); StringTokenizer
-		st2=new StringTokenizer(education_duration,"~"); String
-		education_duration1=st2.nextToken(); String
-		education_duration2=st2.nextToken("~");
+		String education_duration=edudto.getEducation_duration(); 
+		StringTokenizer st2=new StringTokenizer(education_duration,"~"); 
+		String education_duration1=st2.nextToken(); 
+		String education_duration2=st2.nextToken("~");
 		 
 
 		String education_score = edudto.getEducation_score();
