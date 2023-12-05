@@ -39,7 +39,7 @@ public class MainController {
 		
 			
 			try {
-				//multi.get()은 CompletableFuture가 작업을 완료할 때까지 기다리고 그 결과를 반환하는 메서드
+				//mlist.get()은 CompletableFuture가 작업을 완료할 때까지 기다리고 그 결과를 반환하는 메서드
 				//이 코드는 비동기 작업의 결과를 얻기 위해 사용
 				//작업이 완료될 때까지 스레드가 차단될 수 있어서 CompletableFuture의 get()을 호출하여 결과를 받아온 후, 
 				//이를 List<User_BoardDto> 타입의 변수인 resultList에 담음

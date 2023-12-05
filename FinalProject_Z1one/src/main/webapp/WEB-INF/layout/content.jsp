@@ -23,16 +23,16 @@
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 </head>
 <body>
-<div class="container" style="width: 1000px;">
-	<div class="d-inline-flex">
+<div class="container" style="width: 880px;">
+	<div align="right" style="margin-right: 7%;">
 	<a href="/company/ban" style="display: block; margin-top: 4%;" id="more">&nbsp;&nbsp;>채용공고 더보기</a>
 	</div>
 	<br>
 	
 	<c:forEach var="plist" items="${popularList }">
 		<a href="/company/detail?cnotice_num=${plist.cnotice_num }" style="text-decoration: none;color: gray;">
-		<div style="border: 1px solid lightgray; width: 251px;
-		height: 350px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
+		<div style="border: 1px solid lightgray; width: 252px;
+		height: 370px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 1%;">
 			<img alt="" src="../noticeImg/${plist.cnotice_image }" style="width: 250px;height: 170px; border-radius: 10px;float: left;margin-right: 3%; margin-bottom: 3%;"><br>
 			<input type="hidden" ntname="${plist.cnotice_noticename }" class="gtext">
 			&nbsp;&nbsp;<span style="font-size: 12pt;font-weight: bold;" class="noticetext"></span><br>
@@ -40,7 +40,7 @@
 			<span>&nbsp;&nbsp;${plist.cnotice_career } | ${plist.cnotice_type }</span><br>
 			<span>&nbsp;&nbsp;마감일 : ${plist.cnotice_deadline}</span>
 			<hr style="width: 220px;margin-left: 6%;">
-			<span>&nbsp;&nbsp;<img alt="" src="../image/won.png" style="width: 30px;">&nbsp;합격축하금 : <b>${plist.cnotice_congratulate }만원</b></span>
+			<span>&nbsp;&nbsp;<img alt="" src="../image/won.png" style="width: 25px;">&nbsp;합격축하금 : <b>${plist.cnotice_congratulate }만원</b></span>
 		</div></a>
 	</c:forEach>
 	
