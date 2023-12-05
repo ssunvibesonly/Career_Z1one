@@ -278,14 +278,15 @@ form {
 			<div class="mid1-2">
 				<br> <b style="font-size: 18px; margin-left: 10%;">실시간 인기 공고</b>
 				<div class="ingi"
-					style="color: darkslategray; width: 85%; height: 300px; margin-left: 12%; margin-top: 2%;">
+					style="color: darkslategray; width: 95%; height: 300px; margin-left: 12%; margin-top: 2%;">
 					<br>
 					<c:forEach items="${list1}" var="item" varStatus="loop">
-						<div style="width: 100%;">
+						<div class="ingi-1"style="width: 100%;">
 							<p class="rank">
-								<em>${loop.index + 1}</em>&nbsp;&nbsp;&nbsp;&nbsp; <a href="/company/detailPage?"
-																					  class style="text-decoration-line: none; color: black;"><b>${item}</b>&nbsp;&nbsp;&nbsp
-									 </a>
+								<em>${loop.index + 1}</em>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="/company/detail?cnotice_num=" + ${dto.cnotice_num} style="text-decoration-line: none; color: black;">
+									<b>${item}</b>&nbsp;&nbsp;&nbsp;
+								</a>
 							</p>
 						</div>
 					</c:forEach>

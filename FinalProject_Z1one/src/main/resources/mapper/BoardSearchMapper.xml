@@ -5,12 +5,12 @@
 
 <mapper namespace="boot.data.mapper.BoardSearchMapperInter">
     <!-- 검색 기능을 추가한 쿼리 -->
+    <select id="getAllSearch" resultType="User_BoardDto">
+        select * from user_board order by board_writeday desc
+    </select>
     <select id="searchTitle" parameterType="string" resultType="User_BoardDto">
         SELECT * FROM user_board
         WHERE board_title LIKE CONCAT('%', #{searchword}, '%') or board_story LIKE CONCAT('%', #{searchword}, '%')
-    </select>
-    <select id="getAllSearch" resultType="User_BoardDto">
-        select * from user_board order by board_writeday desc
     </select>
     <select id="getSort" resultType="User_BoardDto" parameterType="Map">
         select * from user_board WHERE board_title LIKE CONCAT('%', #{searchword}, '%') or board_story LIKE CONCAT('%', #{searchword}, '%')

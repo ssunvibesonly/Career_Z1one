@@ -306,7 +306,7 @@ $('.industryDiv1').on('click', function () {
         } else if(clickedToken === '교육') {
         	s += "<hr><div style='cursor:pointer; width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>초중고/대학&nbsp;</div>&nbsp;";
             s += "<div style='cursor:pointer; width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>유아/유치원&nbsp;</div>&nbsp;";
-            s += "<div style='cursor:pointe;r width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>학원/어학원&nbsp;</div>&nbsp;";
+            s += "<div style='cursor:pointer; width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>학원/어학원&nbsp;</div>&nbsp;";
         } else if(clickedToken === '미디어/디자인') {
         	s += "<hr><div style='cursor:pointer; width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>실내/인테리어/조경&nbsp;</div>&nbsp;";
             s += "<div style='cursor:pointer; width:14vw; font-weight:bold; margin-left: 25%;' class='industry2'>환경설비&nbsp;</div>&nbsp;";

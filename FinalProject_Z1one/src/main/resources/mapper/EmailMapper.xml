@@ -29,7 +29,7 @@
         FROM user_apply ua
         WHERE ua.user_num = #{user_num}
         AND ua.apply_secondary = cn.cnotice_industry2
-        AND ua.apply_newcomer like concat('%', cn.cnotice_career, '%')
+        AND cn.cnotice_career like concat('%',ua.apply_newcomer , '%')
         AND cn.cnotice_location like concat('%',ua.apply_region, '%')
         AND ua.apply_salary &lt;= cn.cnotice_pay
         )

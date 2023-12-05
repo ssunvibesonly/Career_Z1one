@@ -84,7 +84,6 @@ public class BoardController {
       modelAndView.addObject("title8",title8);
       modelAndView.addObject("title9",title9);
 
-
       modelAndView.setViewName("/2/community/cmMain");
       return modelAndView;
    }

@@ -11,12 +11,12 @@
         LIMIT 10;
     </select>
 
-    <select id="getTopOneTitle" resultType="User_BoardDto">
+    <select id="getTopOneTitle" resultType="User_BoardDto" parameterType="String">
         SELECT distinct *
         FROM user_board
         WHERE (board_category, board_readcnt) IN (
         SELECT distinct board_category, MAX(board_readcnt)
-        FROM user_board
+        FROM user_board1
         GROUP BY board_category
         )
     </select>
