@@ -46,7 +46,7 @@ public class CompanyController {
 		return model;
 	}
 
-// 직종세부분류
+	// 직종세부분류
 	@ResponseBody
 	@GetMapping("/testList")
 	public List<CnoticeDto> testList(@RequestParam(required = false) String[] industry,
@@ -88,7 +88,8 @@ public class CompanyController {
 
 	@PostMapping("/noticeInsert")
 	public String insertNotice(@ModelAttribute CnoticeDto dto, 
-			@RequestParam String cnotice_location1,@RequestParam String cnotice_location2,  
+			@RequestParam String cnotice_location1,@RequestParam String cnotice_location2, 
+			@RequestParam String cnotice_career1,@RequestParam(required = false)String cnotice_career2,
 			MultipartFile myImg,HttpSession session,Model model) {
 
 		//업로드 경로구하기
@@ -117,13 +118,23 @@ public class CompanyController {
 		String company_name = (String) session.getAttribute("company_name");
 		dto.setCnotice_companyname(company_name);
 			
-		String cnotice_location = cnotice_location1 + " " + cnotice_location2;
+		String cnotice_location = cnotice_location1 + "" + cnotice_location2;
 		dto.setCnotice_location(cnotice_location);	
+		
+		if(cnotice_career1.equals("경력")) {
+			
+			String cnotice_career=cnotice_career1+cnotice_career2;
+			
+			dto.setCnotice_career(cnotice_career);
+		} else {
+			
+			dto.setCnotice_career(cnotice_career1);
+		}
 
 		nservice.insertNotice(dto);
 
 		model.addAttribute("cnotice_num", nservice.getMaxNum());
-		System.out.println(nservice.getMaxNum()+"!!!!!!!!!!!!!!!!!!");
+		//System.out.println(nservice.getMaxNum()+"!!!!!!!!!!!!!!!!!!");
 		
 		
 		return "redirect:addDetailForm?cnotice_num="+nservice.getMaxNum()+"&company_num="+company_num;

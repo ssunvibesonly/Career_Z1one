@@ -49,8 +49,7 @@
 		select * from cnotice
 
 		<!-- 세부분류 -->
-		<if
-			test='industry!=null or career!=null or location!=null or (gradeLeft!=null and gradeRight!=null) or type!=null or academy!=null'>
+		<if test='industry!=null or career!=null or location!=null or (gradeLeft!=null and gradeRight!=null) or type!=null or academy!=null'>
 			where
 			<!-- 직종 -->
 			<if test='industry!=null'>
@@ -65,9 +64,6 @@
 				and
 			</if>
 			<!-- 경력 -->
-			<!-- <if test='career!=null'> <foreach collection="career" item="item2" 
-				open="(" close=")" separator="or"> cnotice_career like concat ('%', #{item2}, 
-				'%') </foreach> </if> -->
 			<if test='career!=null'>
 				cnotice_career in
 				<foreach collection="career" item="item2" open="(" close=")"
@@ -76,9 +72,7 @@
 				</foreach>
 			</if>
 
-
-			<if
-				test='(career!=null and location!=null) or (industry!=null and location!=null)'>
+			<if test='(career!=null and location!=null) or (industry!=null and location!=null)'>
 				and
 			</if>
 			<!-- 지역 -->
@@ -91,8 +85,7 @@
 				</foreach>
 			</if>
 
-			<if
-				test='location!=null and (gradeLeft!=null and gradeRight!=null) or career!=null and (gradeLeft!=null and gradeRight!=null) or industry!=null and (gradeLeft!=null and gradeRight!=null)'>
+			<if test='location!=null and (gradeLeft!=null and gradeRight!=null) or career!=null and (gradeLeft!=null and gradeRight!=null) or industry!=null and (gradeLeft!=null and gradeRight!=null)'>
 				and
 			</if>
 
@@ -114,8 +107,7 @@
 				</foreach>
 			</if>
 
-			<if
-				test="(type!=null and academy!=null) or (gradeLeft!=null and gradeRight!=null) and academy!=null or (location!=null and academy!=null) or (career!=null and academy!=null) or (industry!=null and academy!=null)">
+			<if test="(type!=null and academy!=null) or (gradeLeft!=null and gradeRight!=null) and academy!=null or (location!=null and academy!=null) or (career!=null and academy!=null) or (industry!=null and academy!=null)">
 				and
 			</if>
 			<!-- 학력 -->

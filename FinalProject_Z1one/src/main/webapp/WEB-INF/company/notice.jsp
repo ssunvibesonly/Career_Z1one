@@ -161,6 +161,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 </style>
 <script type="text/javascript">
+
 //전역변수(list에 data로 넘기기위함)
 industryTokens=[]; //산업군
 careerTokens =[]; //경력
@@ -334,6 +335,7 @@ $('.industryDiv2').on('click', '.industry2', function () {
    
   // 직종-적용하기버튼이벤트
 $(".industryApply").click(function () {
+	
     // 클릭된 버튼 변수에 할당
     var clickedIndustryButtons = $(".industry2.clicked");
 
@@ -1063,5 +1065,6 @@ if문 안에서는 세 번째 <div>가 나타날 때까지의 간격을 주기 �
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>
