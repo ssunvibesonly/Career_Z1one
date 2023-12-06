@@ -27,9 +27,9 @@ spring:
   #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://z1one.cxitgdhw1snc.us-east-1.rds.amazonaws.com:3306/Z1one?serverTimezone=Asia/Seoul
-    username: Z1one
-    password: fhfgkrhtlvek
+    url: jdbc:mysql://localhost:3306/finalpjt?serverTimezone=Asia/Seoul
+    username: rheemingyu
+    password: a1234
 
 
 #mybatis
