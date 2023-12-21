@@ -10,7 +10,7 @@
 - 팀장 : 장순영 (@ssunvibesonly)
 - 팀원 : 이민규 (@RheeMingyu)
 - 팀원 : 진현규 (@Hyeonqz)
-- 팀원 : 송주영 (@)
+- 팀원 : 송주영 (@jooyoungsong)
 - 팀원 : 김영한 (@)
 - 팀원 : 김선범 (@)
 
